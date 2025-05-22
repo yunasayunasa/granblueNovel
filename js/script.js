@@ -1,15 +1,15 @@
 monogatari.script({
     // --------------------------------------------------
-    // タイトル画面 (仮)
+    // Start
     // --------------------------------------------------
-    'Title_Screen': [
+    'Start': [
         'show background bg_title_placeholder with fadeIn', // タイトル用の背景画像を仮置き
         // 'show image title_logo at center with fadeIn', // タイトルロゴ画像など
         {
             'Choice': {
                 'Text': '【演算世界とチヨコレイト】',
                 'Class': 'title-main', // CSSで見た目を調整するためのクラス (任意)
-                'Start': {
+                'Start_Button': {
                     'Text': 'ここをタップしてスタート！',
                     'Do': 'jump Prologue_Start',
                     'Class': 'title-start-button' // CSSでボタン風にするためのクラス (任意)
