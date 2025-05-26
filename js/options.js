@@ -86,7 +86,7 @@ monogatari.settings({
 	// to portrait or landscape, a warning message will be displayed so the
 	// player rotates its device.
 	// Possible values: any, portrait or landscape.
-	'Orientation': 'landscape',
+	'Orientation': 'any',
 
 	// Allow players to skip through the game. Similar to the auto play feature,
 	// skipping will allow players to go through the game really fast.
@@ -148,7 +148,9 @@ monogatari.settings({
 monogatari.preferences ({
 
 	// Initial Language for Multilanguage Games or for the Default GUI Language.
-	'Language': 'English',
+	'Language': 'ja',
+
+	
 
 	// Initial Volumes from 0.0 to 1.
 	'Volume': {
@@ -160,7 +162,7 @@ monogatari.preferences ({
 
 	// Initial resolution used for Electron, it must match the settings inside
 	// the electron.js file. This has no effect on web deployed novels.
-	'Resolution': '800x600',
+	'Resolution': '450x800',
 
 	// Speed at which dialog text will appear
 	'TextSpeed': 20,
