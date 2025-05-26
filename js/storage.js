@@ -34,9 +34,9 @@ monogatari.assets ('sounds', {
 // デフォルトで img/scenes/ を基準に見に行きます。
 // img/backgrounds/ に置いた場合は、パスを相対的に指定する必要があります。
 monogatari.assets('scenes', {
-    'title_screen_bg': '../backgrounds/dummy_background.jpg',      // タイトル画面用
-    'calc_space_bg': '../backgrounds/dummy_background.jpg',     // プロローグの演算空間用
-    'cafe_interior_bg': '../backgrounds/dummy_background.jpg',    // カフェ用
+    'title_screen_bg': 'dummy_background.jpg',      // タイトル画面用
+    'calc_space_bg': 'dummy_background.jpg',     // プロローグの演算空間用
+    'cafe_interior_bg': 'dummy_background.jpg',    // カフェ用
     // もし他のシーン用の背景も用意していたら、同様に追加
     // 'deck_bg': '../backgrounds/deck_bg.jpg',
     // 'auguste_town_bg': '../backgrounds/auguste_town_bg.jpg',
