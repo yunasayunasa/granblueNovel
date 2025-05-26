@@ -3,7 +3,8 @@ monogatari.script({
     // Start
     // --------------------------------------------------
     'Start': [
-        'show background bg_title_placeholder with fadeIn', // タイトル用の背景画像を仮置き
+              'show scene title_screen_bg with fadeIn', // 変更: storage.jsで定義したキー名
+
         // 'show image title_logo at center with fadeIn', // タイトルロゴ画像など
         {
             'Choice': {
@@ -24,7 +25,8 @@ monogatari.script({
     // プロローグ
     // --------------------------------------------------
     'Prologue_Start': [
-        'show background bg_calc_space with fadeIn', // プロローグの背景: 演算空間
+               'show scene title_screen_bg with fadeIn', // 変更: storage.jsで定義したキー名
+
         '君は、見たこともない空間にいる。ノイズのような歪みが空間に走り、とても現実とは思えない。', // 地の文 (中央揃えの例)
         'unknown_oracle おはよう！お呼びとあらば即参上できない！今日も今日とて限界勤務上等のオロロジャイアちゃんでっす！',
         'roger ｵﾎﾝｴﾍﾝ...!ここは演算世界。僕の力で作り出された世界。あらゆる可能性を探るための場所さ。',
