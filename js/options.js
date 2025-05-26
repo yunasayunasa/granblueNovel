@@ -148,7 +148,7 @@ monogatari.settings({
 monogatari.preferences ({
 
 	// Initial Language for Multilanguage Games or for the Default GUI Language.
-	'Language': 'ja',
+	'Language': '日本語',
 
 	
 
