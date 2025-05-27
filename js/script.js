@@ -86,8 +86,7 @@ monogatari.script({
         // 'stop music with fadeOut', // BGM変更
         // 'play music cafe_ambience loop', // カフェBGM
         'show scene cafe with fadeIn',
-        'show character narumia normal at center with fadeIn', // ナルメア登場
-        // ナルメアは既に表示されているはず
+        'show character narumia normal at left with fadeIn', // ナルメアを左側に表示
         '君はナルメアと共にグランサイファー船内にあるカフェへと辿り着いた。',
         'show character sandalphon normal at right with fadeIn', // サンダルフォン登場 (位置は調整可能 'left', 'right', 'center', 'center skewedleft' など)
         'sandalphon 注文は？',
