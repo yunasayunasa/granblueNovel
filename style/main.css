@@ -245,12 +245,7 @@ figure[data-character] img {
     object-fit: contain; /* アスペクト比を保ちつつ、要素内に収まるように調整 */
 }
 
-/* 特定のキャラクターにだけ適用する場合 (例: ナルメア) */
-figure[data-character="narumia"] img {
-    max-height: 75vh; /* ナルメアは少し小さめに表示したい場合など */
-    width: auto;
-    object-fit: contain;
-}
+
 
 /* 左側に配置されるキャラクター */
 figure[data-character][data-position="left"] {
@@ -273,14 +268,4 @@ figure[data-character][data-position="farright"] {
     left: auto !important;
     right: 0% !important;
     transform: translateX(0%) !important;
-}
-
-/* 中央やや左/右の調整 (必要であれば) */
-figure[data-character][data-position="skewedleft"] {
-    left: 25% !important;
-    transform: translateX(-50%) !important; /* 中央基準から少し左へ */
-}
-figure[data-character][data-position="skewedright"] {
-    left: 75% !important;
-    transform: translateX(-50%) !important; /* 中央基準から少し右へ */
 }
