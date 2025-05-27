@@ -26,7 +26,7 @@ monogatari.script({
     // --------------------------------------------------
     'Prologue_Start': [
              'show scene calc_space with fadeIn',
-        '君は、見たこともない空間にいる。ノイズのような歪みが空間に走り、とても現実とは思えない。', // 地の文 (中央揃えの例)
+        '君は、見たこともない空間にいる。美しくもどこか儚げな花畑。とても現実とは思えない。', // 地の文 (中央揃えの例)
           'show character roger normal at center with fadeIn', // ロジャー登場
         'unknown_oracle おはよう！お呼びとあらば即参上できない！今日も今日とて限界勤務上等のオロロジャイアちゃんでっす！',
         'roger ｵﾎﾝｴﾍﾝ...!ここは演算世界。僕の力で作り出された世界。あらゆる可能性を探るための場所さ。',
@@ -92,7 +92,7 @@ monogatari.script({
         'show character sandalphon normal at right with fadeIn', // サンダルフォン登場 (位置は調整可能 'left', 'right', 'center', 'center skewedleft' など)
         'sandalphon 注文は？',
         'narumia 団長ちゃん！この【熱々！ホットチョコレート】なんていいんじゃないかな？',
-        'centered 注文するのは...',
+        '注文するのは...',
         {
             'Choice': {
                 'OriginalBlend_Choice': {
@@ -108,14 +108,14 @@ monogatari.script({
     ],
 
      'Narumia_Route_HotChocolate': [ // ナルメアEND
-        'centered 君はホットチョコレートを注文した。',
+        '君はホットチョコレートを注文した。',
         // 'show character narumia smile at center with fadeIn', // ナルメア笑顔 (もしあれば)
         'narumia 熱いからお姉さんがふーふーして冷ましてあげるね、ふー、ふー...はい、あーん',
         'narumia 美味しい？よかった！ふふっ♪すぐに見つかったね、チョコがもらえる世界。',
         'narumia ハッピーバレンタイン♪',
-        'centered 君は無事チョコを貰うことができた。団欒していると、いつの間にか君の周りには仲間達が現れ、チョコを渡しに来た。',
-        'centered ━皆と大切に絆を紡いでいた君は、態々演算するまでもなく、チョコを貰える世界にいたのだ。',
-        'centered 〜ナルメアEND〜',
+        '君は無事チョコを貰うことができた。団欒していると、いつの間にか君の周りには仲間達が現れ、チョコを渡しに来た。',
+        '━皆と大切に絆を紡いでいた君は、態々演算するまでもなく、チョコを貰える世界にいたのだ。',
+        '〜ナルメアEND〜',
         'hide character narumia with fadeOut',
         'hide character sandalphon with fadeOut',
         // 'play music ending_theme', // エンディングBGM
@@ -162,12 +162,12 @@ monogatari.script({
     ],
 
      'Narumia_Route_OriginalBlend_Delicious': [ // サンダルフォンEND
-        'centered 君は美味しいと答えた。',
+        '君は美味しいと答えた。',
         // 'show character sandalphon smile at right with fadeIn', // サンダルフォン笑顔 (もしあれば)
         'sandalphon 口にあったのならよかった。ペアリングは要るか？...ちょうどバレンタインだしな。こんなものでよければ、食べてくれ。',
-        'centered サンダルフォンは、その華奢な指で丁寧に、ラッピングが施された包みを差し出した。',
+        'サンダルフォンは、その華奢な指で丁寧に、ラッピングが施された包みを差し出した。',
         'sandalphon ハッピーバレンタイン、団長。',
-        'centered 〜サンダルフォンEND〜',
+        '〜サンダルフォンEND〜',
         'hide character narumia with fadeOut',
         'hide character sandalphon with fadeOut',
         // 'play music ending_theme',
