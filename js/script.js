@@ -25,7 +25,7 @@ monogatari.script({
     // プロローグ
     // --------------------------------------------------
     'Prologue_Start': [
-             'show scene calc_space_bg with fadeIn', // 変更: storage.jsで定義したキー名
+             'show scene calc_space with fadeIn',
         '君は、見たこともない空間にいる。ノイズのような歪みが空間に走り、とても現実とは思えない。', // 地の文 (中央揃えの例)
           'show character roger normal at center with fadeIn', // ロジャー登場
         'unknown_oracle おはよう！お呼びとあらば即参上できない！今日も今日とて限界勤務上等のオロロジャイアちゃんでっす！',
