@@ -237,3 +237,50 @@ input[type=range]::-ms-fill-upper {
 @media screen and (min-width: 500em) {
 
 }
+
+/* 全てのキャラクター画像に適用する場合 */
+figure[data-character] img {
+    max-height: 80vh; /* ビューポートの高さの80%を最大高さとする (例) */
+    width: auto;      /* 幅は高さに合わせて自動調整 */
+    object-fit: contain; /* アスペクト比を保ちつつ、要素内に収まるように調整 */
+}
+
+/* 特定のキャラクターにだけ適用する場合 (例: ナルメア) */
+figure[data-character="narumia"] img {
+    max-height: 75vh; /* ナルメアは少し小さめに表示したい場合など */
+    width: auto;
+    object-fit: contain;
+}
+
+/* 左側に配置されるキャラクター */
+figure[data-character][data-position="left"] {
+    left: 5% !important;  /* より左に (デフォルト値を上書きするため !important を使う場合あり) */
+    transform: translateX(0%) !important; /* デフォルトの transform をリセットまたは調整 */
+}
+figure[data-character][data-position="farleft"] {
+    left: 0% !important;
+    transform: translateX(0%) !important;
+}
+
+
+/* 右側に配置されるキャラクター */
+figure[data-character][data-position="right"] {
+    left: auto !important; /* left の指定を解除 */
+    right: 5% !important; /* より右に */
+    transform: translateX(0%) !important; /* デフォルトの transform をリセットまたは調整 */
+}
+figure[data-character][data-position="farright"] {
+    left: auto !important;
+    right: 0% !important;
+    transform: translateX(0%) !important;
+}
+
+/* 中央やや左/右の調整 (必要であれば) */
+figure[data-character][data-position="skewedleft"] {
+    left: 25% !important;
+    transform: translateX(-50%) !important; /* 中央基準から少し左へ */
+}
+figure[data-character][data-position="skewedright"] {
+    left: 75% !important;
+    transform: translateX(-50%) !important; /* 中央基準から少し右へ */
+}
