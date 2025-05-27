@@ -46,7 +46,7 @@ monogatari.script({
                 'Dialog': 'どの仲間と行く？', // 選択肢の前のテキスト (任意)
                 'Narumia_Choice': {
                     'Text': 'ナルメア',
-                    'Do': 'jump Narumia_Route_Start',
+                    'Do': 'jump Narumia_Route_Choice_Selected',
                     'Condition': function(){ // イージーモード説明 (ツールチップ等で表示する方が良いかも)
                         // monogatari.component('tooltip').show('イージーモード。３つのエンディングが存在します。まずはここから始めることをお勧めします');
                         return true;
@@ -70,6 +70,13 @@ monogatari.script({
                 }
             }
         }
+    ],
+
+       'Narumia_Route_Choice_Selected': [ // ナルメアが仲間になった直後
+        'hide character silhouette_companion with fadeOut', // シルエット退場
+        'show character narumia normal at center with fadeIn', // ナルメア登場
+        // 'play sound select_sound', // 選択効果音 (もしあれば)
+        'jump Narumia_Route_Start' // 本編へ
     ],
 
     // --------------------------------------------------
