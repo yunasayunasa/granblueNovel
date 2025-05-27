@@ -269,3 +269,8 @@ figure[data-character][data-position="farright"] {
     right: 0% !important;
     transform: translateX(0%) !important;
 }
+
+#monogatari [data-screen="game"] [data-visual="scene"] { /* 背景画像要素のセレクタ (要確認) */
+    background-size: cover; /* 画面全体を覆うように表示 (アスペクト比は保たれ、はみ出しはトリミング) */
+    background-position: center center; /* 中央を表示 */
+}
