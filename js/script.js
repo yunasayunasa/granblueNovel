@@ -74,7 +74,7 @@ monogatari.script({
 
        'Narumia_Route_Choice_Selected': [ // ナルメアが仲間になった直後
         'hide character silhouette_companion with fadeOut', // シルエット退場
-        'show character narumia normal at center with fadeIn', // ナルメア登場
+        
         // 'play sound select_sound', // 選択効果音 (もしあれば)
         'jump Narumia_Route_Start' // 本編へ
     ],
