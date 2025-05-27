@@ -6,62 +6,73 @@ monogatari.storage ({
 		name: ''
 	}
 });
-
 // js/storage.js
 
-// 画像アセット全般の置き場 (キャラクター立ち絵なども将来的にここに追加)
-monogatari.assets ('images', {
-    // 例: 'icon_item': 'item_icon.png', // img/images/item_icon.png を参照
+// 画像アセット全般 (キャラクター立ち絵ファイルへのパスは monogatari.characters で指定)
+monogatari.assets('images', {
+    // ここは現時点では空でOK (汎用画像などがあれば追加)
 });
 
-// BGM用
-monogatari.assets ('music', {
-    // 例: 'theme_song': 'main_theme.ogg', // audio/music/main_theme.ogg を参照
+// BGM用 (ナルメアルートで使うBGMがあればここに追加)
+monogatari.assets('music', {
+    // 例: 'prologue_theme': 'prologue.ogg',
+    // 例: 'cafe_ambience': 'cafe.mp3',
 });
 
-// ボイス用
-monogatari.assets ('voices', {
-    // 例: 'narumia_hello': 'narumia/hello.mp3', // audio/voices/narumia/hello.mp3 を参照
-});
+// ボイス用 (今回は省略)
+monogatari.assets('voices', {});
 
-// 効果音用
-monogatari.assets ('sounds', {
-    // 例: 'click_sound': 'click.wav', // audio/sounds/click.wav を参照
+// 効果音用 (選択肢決定音などあれば追加)
+monogatari.assets('sounds', {
+    // 例: 'select_sound': 'select.wav',
 });
 
 // 背景画像 (シーン) の定義
-// monogatari.assets('scenes', ...) で定義したものは、
-// デフォルトで img/scenes/ を基準に見に行きます。
-// img/backgrounds/ に置いた場合は、パスを相対的に指定する必要があります。
 monogatari.assets('scenes', {
-    'title_screen_bg': 'dummy_background.jpg',      // タイトル画面用
-    'calc_space_bg': 'dummy_background.jpg',     // プロローグの演算空間用
-    'cafe_interior_bg': 'dummy_background.jpg',    // カフェ用
-    // もし他のシーン用の背景も用意していたら、同様に追加
-    // 'deck_bg': '../backgrounds/deck_bg.jpg',
-    // 'auguste_town_bg': '../backgrounds/auguste_town_bg.jpg',
+    'title_background': 'title_bg.jpg',      // assets/scenes/title_bg.jpg
+    'calc_space': 'calc_space_bg.jpg',         // assets/scenes/calc_space_bg.jpg
+    'cafe': 'cafe_bg.jpg',                 // assets/scenes/cafe_bg.jpg
+    // 必要に応じて他のシーン用の背景も追加
 });
 
-// キャラクターの定義 (これは後で本格的に設定します)
+// キャラクターの定義
 monogatari.characters({
-    'player': { // 主人公 (名前表示なし、地の文扱いの場合など)
-        name: '' // 表示名なし
+    'player': { // 主人公 (地の文などで使う場合、名前表示なし)
+        name: ''
     },
     'roger': {
         name: 'ロジャー',
-        // color: '#ff0000' // 名前の色など (任意)
+        // color: '#FF7F50', // 名前の色 (任意)
+        sprites: { // 表情差分
+            normal: 'roger_normal.png' // assets/characters/roger_normal.png
+        }
     },
-    'unknown_oracle': {
-        name: '？？？' // オロロジャイアちゃん
+    'unknown_oracle': { // プロローグのオロロジャイアちゃん
+        name: '？？？',
+        // sprites: { normal: 'ororojahia_normal.png' } // もし立ち絵を用意するなら
     },
-    'silhouette_companion': {
-        name: '？？？' // ナルメア/シエテのシルエット
+    'silhouette_companion': { // 仲間選択時のシルエット
+        name: '？？？',
+        sprites: {
+            default: 'companion_silhouette.png' // assets/characters/companion_silhouette.png
+        }
     },
     'narumia': {
-        name: 'ナルメア'
+        name: 'ナルメア',
+        // color: '#FF69B4',
+        sprites: {
+            normal: 'narumia_normal.png', // assets/characters/narumia_normal.png
+            smile: 'narumia_smile.png'    // assets/characters/narumia_smile.png (もしあれば)
+            // 他の表情もあれば追加 (例: angry: 'narumia_angry.png')
+        }
     },
     'sandalphon': {
-        name: 'サンダルフォン'
+        name: 'サンダルフォン',
+        // color: '#87CEEB',
+        sprites: {
+            normal: 'sandalphon_normal.png' // assets/characters/sandalphon_normal.png
+            // 他の表情もあれば追加
+        }
     }
-    // 他のキャラクターも順次追加
+    // 他の登場キャラクター (ディアンサ、アンスリア、ニーアなど) も順次追加
 });

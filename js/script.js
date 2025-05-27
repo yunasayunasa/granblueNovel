@@ -27,6 +27,7 @@ monogatari.script({
     'Prologue_Start': [
              'show scene calc_space_bg with fadeIn', // 変更: storage.jsで定義したキー名
         '君は、見たこともない空間にいる。ノイズのような歪みが空間に走り、とても現実とは思えない。', // 地の文 (中央揃えの例)
+          'show character roger normal at center with fadeIn', // ロジャー登場
         'unknown_oracle おはよう！お呼びとあらば即参上できない！今日も今日とて限界勤務上等のオロロジャイアちゃんでっす！',
         'roger ｵﾎﾝｴﾍﾝ...!ここは演算世界。僕の力で作り出された世界。あらゆる可能性を探るための場所さ。',
         'roger これから君には僕と一緒に旅をしてもらいたいんだ。',
@@ -34,7 +35,9 @@ monogatari.script({
         'roger そんな訳で早速行ってみよう〜！と言っても...僕は一緒に行ける訳ではないんだけどね！社畜の悲しみ！',
         'roger 代わりにガチャ回させてあげるから許して！',
         'roger はい！10連ガチャガチャっとね！',
-        // TODO: ガチャ演出を入れるならここに (例: 画面効果、SEなど)
+          'hide character roger with fadeOut', // ロジャー退場
+        // TODO: ガチャ演出
+        'show character silhouette_companion default at center with fadeIn', // シルエット登場
         ' 1人の仲間が目の前に現れる。',
         'unknown_companion_intro それじゃあ、団長ちゃん、一緒に行こっか♪',
          '仲間になったのは...',
@@ -73,13 +76,15 @@ monogatari.script({
     // ナルメアルート
     // --------------------------------------------------
     'Narumia_Route_Start': [
-        // TODO: ナルメアの立ち絵を表示するコマンド
-        // 例: 'show character narumia normal at center with fadeIn'
-        'show background bg_cafe with fadeIn', // 背景: グランサイファー船内カフェ
-        ' 君はナルメアと共にグランサイファー船内にあるカフェへと辿り着いた。',
+        // 'stop music with fadeOut', // BGM変更
+        // 'play music cafe_ambience loop', // カフェBGM
+        'show scene cafe with fadeIn',
+        // ナルメアは既に表示されているはず
+        'centered 君はナルメアと共にグランサイファー船内にあるカフェへと辿り着いた。',
+        'show character sandalphon normal at right with fadeIn', // サンダルフォン登場 (位置は調整可能 'left', 'right', 'center', 'center skewedleft' など)
         'sandalphon 注文は？',
         'narumia 団長ちゃん！この【熱々！ホットチョコレート】なんていいんじゃないかな？',
-        ' 注文するのは...',
+        'centered 注文するのは...',
         {
             'Choice': {
                 'OriginalBlend_Choice': {
@@ -94,18 +99,20 @@ monogatari.script({
         }
     ],
 
-    'Narumia_Route_HotChocolate': [
-        ' 君はホットチョコレートを注文した。',
+     'Narumia_Route_HotChocolate': [ // ナルメアEND
+        'centered 君はホットチョコレートを注文した。',
+        // 'show character narumia smile at center with fadeIn', // ナルメア笑顔 (もしあれば)
         'narumia 熱いからお姉さんがふーふーして冷ましてあげるね、ふー、ふー...はい、あーん',
         'narumia 美味しい？よかった！ふふっ♪すぐに見つかったね、チョコがもらえる世界。',
         'narumia ハッピーバレンタイン♪',
-        '君は無事チョコを貰うことができた。団欒していると、いつの間にか君の周りには仲間達が現れ、チョコを渡しに来た。',
-        '━皆と大切に絆を紡いでいた君は、態々演算するまでもなく、チョコを貰える世界にいたのだ。',
-        '〜ナルメアEND〜',
-        // TODO: エンディング用の演出 (BGM変更、専用背景など)
-        'jump Title_Screen' // タイトルへ戻る
+        'centered 君は無事チョコを貰うことができた。団欒していると、いつの間にか君の周りには仲間達が現れ、チョコを渡しに来た。',
+        'centered ━皆と大切に絆を紡いでいた君は、態々演算するまでもなく、チョコを貰える世界にいたのだ。',
+        'centered 〜ナルメアEND〜',
+        'hide character narumia with fadeOut',
+        'hide character sandalphon with fadeOut',
+        // 'play music ending_theme', // エンディングBGM
+        'jump Title_Screen'
     ],
-
     'Narumia_Route_OriginalBlend': [
         '君はオリジナルブレンドを注文した。',
         'sandalphon オリジナルブレンドだ。良ければ感想を聞かせて欲しい。',
@@ -146,14 +153,16 @@ monogatari.script({
         }
     ],
 
-    'Narumia_Route_OriginalBlend_Delicious': [
-        '君は美味しいと答えた。',
+     'Narumia_Route_OriginalBlend_Delicious': [ // サンダルフォンEND
+        'centered 君は美味しいと答えた。',
+        // 'show character sandalphon smile at right with fadeIn', // サンダルフォン笑顔 (もしあれば)
         'sandalphon 口にあったのならよかった。ペアリングは要るか？...ちょうどバレンタインだしな。こんなものでよければ、食べてくれ。',
-        // TODO: サンダルフォンの立ち絵 (チョコを渡すポーズなど)
-        'サンダルフォンは、その華奢な指で丁寧に、ラッピングが施された包みを差し出した。',
+        'centered サンダルフォンは、その華奢な指で丁寧に、ラッピングが施された包みを差し出した。',
         'sandalphon ハッピーバレンタイン、団長。',
-        '〜サンダルフォンEND〜',
-        // TODO: エンディング用の演出
+        'centered 〜サンダルフォンEND〜',
+        'hide character narumia with fadeOut',
+        'hide character sandalphon with fadeOut',
+        // 'play music ending_theme',
         'jump Title_Screen'
     ],
 
