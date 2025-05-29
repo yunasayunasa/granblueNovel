@@ -507,3 +507,64 @@
 // 黒帯（ゲーム画面の縦横比とプレイヤーのディスプレイの縦横比が合っていないときなど画面の周囲に表示される余白）を
 // クリックしたときにもテキストを進められるようにするなら true を、しないなら false を指定します。
 ;offscreenClickable = true;
+
+
+// data/system/Config.tjs
+
+;このセミコロンから始まる行はコメントです。
+;ファイルはUTF-8で保存してください。
+
+[config]
+
+;プロジェクト固有のID（半角英数） 他のティラノスクリプト製ゲームと区別するためにユニークな値を推奨
+projectID = "MyNovelGameV6"
+
+;ゲームタイトル（titleタグやウィンドウタイトルに使われます）
+game_title = "演算世界とチヨコレイト"
+
+;最初に読み込むシナリオファイル名（data/scenario/ フォルダ内のファイル名を指定）
+firstScenario = "first.ks" // ← この行を確認・追記！
+
+;画面サイズ（デフォルトは1280x720）
+scWidth = 1280
+scHeight = 720
+
+;文字のデフォルト設定
+;defaultFontSize = 28
+;defaultFontFace = "rounded-mplus-1c-regular" // 使用するフォント名を指定 (CSSで読み込んでいる必要あり)
+
+;その他の設定項目...
+;(以下はデフォルトで存在するかもしれない設定の例です。あなたのファイルに合わせてください)
+;debugMenu = true
+;defaultAntialiased = true
+;defaultLeading = 8
+;defaultPitch = 0
+;defaultEdge = "0x000000"
+;defaultShadow = "0x000000"
+;defaultAutoReturn = "false"
+;defaultLineFeed = true
+;cursorDefault = "auto"
+;leftClickSkip = true
+;defaultFontColor = "0x000000"
+;defaultBold = false
+;defaultItalic = false
+;defaultLetterSpacing = 0
+;defaultRubyOffset = -8
+;defaultRubySize = 14
+;vertical = false ;縦書きにする場合は true
+
+;システムボタンなどの表示設定 (0で非表示、1で表示)
+;showToolbar = 1
+;showQuickSave = 1
+;showQuickLoad = 1
+;showAutoSave = 1
+;showSkip = 1
+;showMenu = 1
+;showConfig = 1
+;showLog = 1
+;showTitle = 1
+;showFullscreen = 1
+;showWindow = 1
+;showExit = 1
+
+; ...他にも多くの設定項目があります ...
