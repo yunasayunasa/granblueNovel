@@ -37,6 +37,9 @@ monogatari.settings({
 	// players will have to change the language from the settings screen.
 	'LanguageSelectionScreen': false,
 
+	// Initial Language for Multilanguage Games or for the Default GUI Language.
+	'Language': 'Español', // ← '日本語' から 'English' に変更
+
 	// Music for the Main Menu.
 	'MainScreenMusic': '',
 
@@ -148,7 +151,7 @@ monogatari.settings({
 monogatari.preferences ({
 
 	// Initial Language for Multilanguage Games or for the Default GUI Language.
-	'Language': 'English', // ← '日本語' から 'English' に変更
+	'Language': 'Español', // ← '日本語' から 'English' に変更
 	
 
 	// Initial Volumes from 0.0 to 1.
