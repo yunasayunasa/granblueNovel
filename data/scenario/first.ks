@@ -56,8 +56,7 @@
 [button name="narumia_select_button" ; ボタンの識別名 (他と被らなければOK)
         role="select"                  ; 役割 (選択肢など)
         graphic="button/my_button_normal.png"  ; 通常時の画像 (data/image/ からの相対パス)
-        enterimg="button/my_button_hover.png" ; マウスオーバー時 (任意)
-        clickimg="button/my_button_clicked.png" ; クリック時 (任意)
+       
         x="150"                        ; ボタンの左端のX座標 (仮)
         y="450"                        ; ボタンの上端のY座標 (仮)
         width="420"                    ; ボタンの幅 (仮、画像の幅に合わせるか、指定したい幅)
