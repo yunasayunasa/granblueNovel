@@ -1,5 +1,9 @@
 *start
 
+; キャラクター定義 (ファイル冒頭や別のシステムファイルで行うことも可能)
+
+；[chara_new name="roger" storage="roger_normal.png" jname="ロジャー"] ; data/fgimage/roger_normal.png
+
 [title name="演算世界とチヨコレイト"]
 
 ; ----- 免責事項など -----
@@ -14,8 +18,6 @@
 [bg storage="calc_space.jpg" time="1000"]
 
 君は、見たこともない空間にいる。ノイズのような歪みが空間に走り、とても現実とは思えない。[l]
-
-
 
 
 ; ロジャー登場
