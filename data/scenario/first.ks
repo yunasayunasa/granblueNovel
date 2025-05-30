@@ -15,17 +15,16 @@
 
 君は、見たこともない空間にいる。ノイズのような歪みが空間に走り、とても現実とは思えない。[l]
 
-; キャラクター定義 (ファイル冒頭や別のシステムファイルで行うことも可能)
-; [chara_new name="unknown_oracle" jname="？？？"] ; 立ち絵なしの場合、jnameで名前表示のみ
-[chara_new name="roger" storage="roger_normal.png" jname="ロジャー"] ; data/fgimage/roger_normal.png
 
+
+
+; ロジャー登場
+[chara_show name="roger" time="500" wait="true"]
 
 ; オロロジャイアちゃんのセリフ (立ち絵なし、名前表示のみの例)
 #？？？
 おはよう！お呼びとあらば即参上できない！今日も今日とて限界勤務上等のオロロジャイアちゃんでっす！[l]
 
-; ロジャー登場
-[chara_show name="roger" time="500" wait="true"]
 
 #ロジャー
 ｵﾎﾝｴﾍﾝ...!ここは演算世界。僕の力で作り出された世界。あらゆる可能性を探るための場所さ。[l]
