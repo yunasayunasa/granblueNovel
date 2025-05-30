@@ -51,51 +51,18 @@
 #？？？
 それじゃあ、団長ちゃん、一緒に行こっか♪[l]
 
+; first.ks の選択肢部分 (glinkバージョン)
+
+; ... (前の行まで) ...
 仲間になったのは...[l]
 
-[button name="narumia_select_button"
-        role="select"
-        graphic="my_button_normal.png" ; ← fgimageフォルダ内のbuttonフォルダを指定
-        
-       
-        x="150"                        ; ボタンの左端のX座標 (仮)
-        y="450"                        ; ボタンの上端のY座標 (仮)
-        width="420"                    ; ボタンの幅 (仮、画像の幅に合わせるか、指定したい幅)
-        height="80"                    ; ボタンの高さ (仮、画像の高さに合わせるか、指定したい高さ)
-        text="ナルメア"                 ; ボタンの上に表示するテキスト
-        size="28"                      ; テキストのフォントサイズ (仮)
-        font_color="0xffffff"          ; テキストの色 (例: 白, 0xRRGGBB形式)
-        target="*narumia_route_start"]   ; クリック時のジャンプ先ラベル
+; 選択肢 (glinkを使用)
+; x, y, width, size は縦画面のレイアウトに合わせて調整してください
+[glink color="blue" x="150" y="450" width="420" size="28" text="ナルメア" target="*narumia_route_start"]
+[glink color="blue" x="150" y="550" width="420" size="28" text="シエテ" target="*siete_route_start"]
+[glink color="blue" x="150" y="650" width="420" size="28" text="誰も仲間にしない" target="*hard_mode_start"]
+[s]
 
-[button name="siete_select_button"
-        role="select"
-        graphic="button/my_button_normal.png"
-        enterimg="button/my_button_hover.png"
-        clickimg="button/my_button_clicked.png"
-        x="150"
-        y="550" ; 前のボタンより下に配置
-        width="420"
-        height="80"
-        text="シエテ"
-        size="28"
-        font_color="0xffffff"
-        target="*siete_route_start"]
-
-[button name="no_one_select_button"
-        role="select"
-        graphic="button/my_button_normal.png"
-        enterimg="button/my_button_hover.png"
-        clickimg="button/my_button_clicked.png"
-        x="150"
-        y="650" ; さらに下に配置
-        width="420"
-        height="80"
-        text="誰も仲間にしない"
-        size="28"
-        font_color="0xffffff"
-        target="*hard_mode_start"]
-
-[s] ; 選択肢の入力待ち
 
 ; ----- 各ルートへの分岐先ラベル (これらは別の .ks ファイルに分けても良い) -----
 *narumia_route_start
