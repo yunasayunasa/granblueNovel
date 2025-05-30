@@ -919,7 +919,7 @@ img#remodal-cancel {
     background-image: none;
     background-color: transparent;
     background-repeat: no-repeat;
-    background-size: auto;
+    background-size: cover;
     background-position: center;
     opacity: 1;
     pointer-events: none;
