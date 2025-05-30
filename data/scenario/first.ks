@@ -1,20 +1,15 @@
 *start
-
-
 [title name="演算世界とチヨコレイト"]
-
-; ----- 免責事項など -----
-; (もし免責事項を最初に表示したい場合は、ここに記述)
-; (例: [text text="本作はスマホでのプレイを想定しています。改行もそのまま表示されます。\nPCやタブレット等では～" x=100 y=200 size=20])
-; [l]
-; [cm] // 画面クリア
-
-; ----- プロローグ開始 -----
-
-; 背景表示 (data/bgimage/calc_space.jpg を使用する例)
 [bg storage="calc_space.jpg" time="1000"]
-; 背景表示 (data/bgimage/calc_space.jpg を使用する例)
-[bg storage="calc_space.jpg" time="1000"]
+
+; メッセージウィンドウの位置とサイズを指定 (縦画面 720x1280 を想定した例)
+[position layer="message0" left="30" top="980" width="660" height="250" page=fore visible=true]
+; 文字が表示される実際の領域を内側に設定 (パディングのようなもの)
+[position layer="message0" page=fore margint="30" marginl="30" marginr="30" marginb="30"]
+
+; キャラクター名表示エリアの設定 (メッセージウィンドウ内の上部に配置する例)
+[ptext name="chara_name_area" layer="message0" color="white" size="28" bold="true" x="50" y="1000"] ; y座標は上記 top + margint より少し下
+[chara_config ptext="chara_name_area"]
 
 ; ★★★ キャラクター定義はここで行うか、専用の system.ks などで最初に読み込む ★★★
 [chara_new name="roger" storage="roger_normal.png" jname="ロジャー"]
