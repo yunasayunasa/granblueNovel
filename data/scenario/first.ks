@@ -18,7 +18,7 @@
 ; キャラクター定義 (ファイル冒頭や別のシステムファイルで行うことも可能)
 ; [chara_new name="unknown_oracle" jname="？？？"] ; 立ち絵なしの場合、jnameで名前表示のみ
 [chara_new name="roger" storage="roger_normal.png" jname="ロジャー"] ; data/fgimage/roger_normal.png
-[chara_new name="silhouette"  jname="？？？"] ; 
+
 
 ; オロロジャイアちゃんのセリフ (立ち絵なし、名前表示のみの例)
 #？？？
