@@ -19,7 +19,8 @@
 
 
 ; ロジャー登場
-[chara_show name="roger" time="500" wait="true"]
+[chara_show name="roger" x="200" y="400" time="500" wait="true"]
+; (width, height 属性も指定している場合は、それも考慮)
 
 ; オロロジャイアちゃんのセリフ (立ち絵なし、名前表示のみの例)
 #ロジャー
