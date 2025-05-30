@@ -1128,3 +1128,37 @@ img#remodal-cancel {
     pointer-events: none;/*クリックできなくなるのを防ぐため。noneで対応*/
     opacity: 1;
 }
+
+/* my_style.css (例) */
+
+/* [link] タグで生成される選択肢ボタンの基本スタイル */
+a.link_button { /* ← ここのセレクタは開発者ツールで確認した実際のクラス名に合わせる */
+    display: inline-block; /* または block にして幅を100%にするなど */
+    padding: 10px 20px;    /* 内側の余白 */
+    margin-bottom: 10px;   /* ボタン間の下の余白 */
+    background-color: #4CAF50; /* 背景色 (例: 緑) */
+    color: white;             /* 文字色 (例: 白) */
+    text-align: center;       /* 文字を中央揃え */
+    text-decoration: none;    /* 下線を消す */
+    border: none;             /* 枠線を消す (または border: 1px solid #333; などで枠線をつける) */
+    border-radius: 5px;       /* 角を丸める */
+    cursor: pointer;          /* マウスカーソルを指マークに */
+    font-size: 18px;          /* フォントサイズ (シナリオ内の size 指定とどちらを優先するかはCSSの優先順位による) */
+    min-width: 200px;         /* 最低幅 (任意) */
+}
+
+/* マウスオーバー時のスタイル (任意) */
+a.link_button:hover { /* ← 同様にセレクタを合わせる */
+    background-color: #45a049; /* 少し暗い緑 */
+}
+
+/* (もしあれば) 選択肢全体を囲むコンテナのスタイル調整 */
+.button_menu { /* ← 選択肢が配置される領域のクラス名 (開発者ツールで確認) */
+    position: fixed; /* 画面に固定 */
+    bottom: 20%;     /* 下からの位置 (メッセージウィンドウの上など) */
+    left: 50%;       /* 左から50%の位置 */
+    transform: translateX(-50%); /* 中央揃えにするためのテクニック */
+    width: 80%;      /* 幅を画面の80%に */
+    text-align: center; /* 中のボタンを中央に並べる */
+    z-index: 10001;  /* メッセージウィンドウより手前に表示 */
+}

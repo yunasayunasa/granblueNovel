@@ -51,17 +51,12 @@
 仲間になったのは...[l]
 
 ; 選択肢
-[link target="*narumia_route_start" size="24" x="400" y="300"]ナルメア[endlink][r]
-[button name="narumia_description" graphic="button/description_button.png" x="600" y="300" target="*show_narumia_desc"] ; 説明ボタン (任意)
-; (イージーモード。３つのエンディングが存在します。まずはここから始めることをお勧めします) <- 説明は別ウィンドウやツールチップで出すのが一般的
-
-[link target="*siete_route_start" size="24" x="400" y="350"]シエテ[endlink][r]
-; (ノーマルモード。6つのエンディングが存在します。標準的な難易度です)
-
-[link target="*hard_mode_start" size="24" x="400" y="400"]誰も仲間にしない[endlink]
-; (ハードモード。エンディングは１つです。選択肢が増加し、BADENDはタイトルからやり直しです)
+; x, y座標とsizeは、縦画面にした際の画面サイズに合わせて調整が必要です。
+; まずは表示されることを確認し、その後CSSで見た目を整えます。
+[link target="*narumia_route_start" size="24"]ナルメア[endlink][r]
+[link target="*siete_route_start" size="24"]シエテ[endlink][r]
+[link target="*hard_mode_start" size="24"]誰も仲間にしない[endlink]
 [s]
-
 
 ; ----- 各ルートへの分岐先ラベル (これらは別の .ks ファイルに分けても良い) -----
 *narumia_route_start
