@@ -55,7 +55,7 @@
 
 [button name="narumia_select_button" ; ボタンの識別名 (他と被らなければOK)
         role="select"                  ; 役割 (選択肢など)
-        graphic="button/my_button_normal.png"  ; 通常時の画像 (data/image/ からの相対パス)
+        graphic="data/image/button/my_button_normal.png"  ; 通常時の画像 (data/image/ からの相対パス)
        
         x="150"                        ; ボタンの左端のX座標 (仮)
         y="450"                        ; ボタンの上端のY座標 (仮)
