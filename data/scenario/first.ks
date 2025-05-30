@@ -55,7 +55,7 @@
 
 [button name="narumia_select_button"
         role="select"
-        graphic="button/my_button_normal.png" ; ← fgimageフォルダ内のbuttonフォルダを指定
+        graphic="my_button_normal.png" ; ← fgimageフォルダ内のbuttonフォルダを指定
         
        
         x="150"                        ; ボタンの左端のX座標 (仮)
