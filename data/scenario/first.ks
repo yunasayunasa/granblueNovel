@@ -1,8 +1,5 @@
 *start
 
-; キャラクター定義 (ファイル冒頭や別のシステムファイルで行うことも可能)
-
-[chara_new name="roger" storage="roger_normal.png" jname="ロジャー"] ; data/fgimage/roger_normal.png
 
 [title name="演算世界とチヨコレイト"]
 
@@ -16,6 +13,12 @@
 
 ; 背景表示 (data/bgimage/calc_space.jpg を使用する例)
 [bg storage="calc_space.jpg" time="1000"]
+; 背景表示 (data/bgimage/calc_space.jpg を使用する例)
+[bg storage="calc_space.jpg" time="1000"]
+
+; ★★★ キャラクター定義はここで行うか、専用の system.ks などで最初に読み込む ★★★
+[chara_new name="roger" storage="roger_normal.png" jname="ロジャー"]
+; [chara_new name="unknown_oracle" jname="？？？"] ; 立ち絵なしの場合
 
 君は、見たこともない空間にいる。ノイズのような歪みが空間に走り、とても現実とは思えない。[l]
 
@@ -50,13 +53,49 @@
 
 仲間になったのは...[l]
 
-; 選択肢
-; x, y座標とsizeは、縦画面にした際の画面サイズに合わせて調整が必要です。
-; まずは表示されることを確認し、その後CSSで見た目を整えます。
-[link target="*narumia_route_start" size="24"]ナルメア[endlink][r]
-[link target="*siete_route_start" size="24"]シエテ[endlink][r]
-[link target="*hard_mode_start" size="24"]誰も仲間にしない[endlink]
-[s]
+[button name="narumia_select_button" ; ボタンの識別名 (他と被らなければOK)
+        role="select"                  ; 役割 (選択肢など)
+        graphic="button/my_button_normal.png"  ; 通常時の画像 (data/image/ からの相対パス)
+        enterimg="button/my_button_hover.png" ; マウスオーバー時 (任意)
+        clickimg="button/my_button_clicked.png" ; クリック時 (任意)
+        x="150"                        ; ボタンの左端のX座標 (仮)
+        y="450"                        ; ボタンの上端のY座標 (仮)
+        width="420"                    ; ボタンの幅 (仮、画像の幅に合わせるか、指定したい幅)
+        height="80"                    ; ボタンの高さ (仮、画像の高さに合わせるか、指定したい高さ)
+        text="ナルメア"                 ; ボタンの上に表示するテキスト
+        size="28"                      ; テキストのフォントサイズ (仮)
+        font_color="0xffffff"          ; テキストの色 (例: 白, 0xRRGGBB形式)
+        target="*narumia_route_start"]   ; クリック時のジャンプ先ラベル
+
+[button name="siete_select_button"
+        role="select"
+        graphic="button/my_button_normal.png"
+        enterimg="button/my_button_hover.png"
+        clickimg="button/my_button_clicked.png"
+        x="150"
+        y="550" ; 前のボタンより下に配置
+        width="420"
+        height="80"
+        text="シエテ"
+        size="28"
+        font_color="0xffffff"
+        target="*siete_route_start"]
+
+[button name="no_one_select_button"
+        role="select"
+        graphic="button/my_button_normal.png"
+        enterimg="button/my_button_hover.png"
+        clickimg="button/my_button_clicked.png"
+        x="150"
+        y="650" ; さらに下に配置
+        width="420"
+        height="80"
+        text="誰も仲間にしない"
+        size="28"
+        font_color="0xffffff"
+        target="*hard_mode_start"]
+
+[s] ; 選択肢の入力待ち
 
 ; ----- 各ルートへの分岐先ラベル (これらは別の .ks ファイルに分けても良い) -----
 *narumia_route_start
