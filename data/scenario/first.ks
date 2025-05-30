@@ -43,8 +43,7 @@
 
 1人の仲間が目の前に現れる。[l]
 
-; シルエット登場
-[chara_show name="silhouette" time="500" wait="true"]
+
 
 #？？？
 それじゃあ、団長ちゃん、一緒に行こっか♪[l]
