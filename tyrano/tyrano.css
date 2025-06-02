@@ -1189,13 +1189,13 @@ a.link_button:hover { /* ← 同様にセレクタを合わせる */
    一般的な例としては以下のようなものが考えられます。 */
 
 /* 前景レイヤー内のimg要素すべてに適用する場合 (影響範囲が広いので注意) */
-.layer_fore img,
+/*.layer_fore img,
 .fgimage_item img { /* layer_fore や fgimage_item は前景画像のレイヤーやアイテムによく使われるクラス名 */
-    width: auto !important;  /* 幅は高さに合わせて自動 */
-    height: 100% !important; /* 親要素の高さに合わせる (または max-height などで調整) */
-    object-fit: contain !important; /* アスペクト比を保ちつつ、要素の境界内に収まるように調整 */
+   /* width: auto !important;  /* 幅は高さに合わせて自動 */
+ /*   height: 100% !important; /* 親要素の高さに合わせる (または max-height などで調整) */
+   /*/* object-fit: contain !important; /* アスペクト比を保ちつつ、要素の境界内に収まるように調整 */
     /* object-position: bottom center !important; */ /* 画像のどの部分を基準に配置するか (例: 足元を中央下部に) */
-}
+/*}*/
 
 /* 特定のキャラクターIDを持つ要素内のimgに適用する場合 (より限定的) */
 /* [tagev data-event-name="chara_show"][data-event-pm~="name=akane"] img { ... } のような複雑なセレクタになることも */
