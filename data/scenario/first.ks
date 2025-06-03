@@ -22,83 +22,61 @@
 [chara_show name="roger"　layer="0"  x="200" y="600" time="500" wait="true"]
 ; (width, height 属性も指定している場合は、それも考慮)
 [iscript]
-// TyranoScriptの内部KAGオブジェクトにアクセス (kagという名前であることが多い)
-var kag_obj = TYRANO.kag; // または tyrano.plugin.kag; など、バージョンや環境によって異なる可能性あり
+var kag_obj = TYRANO.kag;
 
 if (kag_obj) {
     console.log("--- TyranoScript Debug Log ---");
 
-    // 1. 表示しようとしているキャラクター'roger'の情報を取得
     var chara_roger = kag_obj.stat.charas["roger"];
     if (chara_roger) {
         console.log("キャラクター'roger'の情報:", chara_roger);
-        console.log("  現在の画像ファイル:", chara_roger.storage); // storage は画像ファイル名のはず
-        console.log("  jname (表示名):", chara_roger.jname);
+        // chara_roger の width と height が空なので、[chara_show] で指定するかCSSで制御する必要がありそう
     } else {
-        console.error("キャラクター'roger'の定義が見つかりません！ [chara_new] を確認してください。");
+        console.error("キャラクター'roger'の定義が見つかりません！");
     }
 
-    // 2. 前景レイヤーの情報を取得 (前景レイヤー0を対象とする例)
-    //    TyranoScriptの前景レイヤーの管理方法はバージョンによって異なる可能性があります。
-    //    layer.getLayer("fore", "0") や layer.getLayer("0","fore") など、いくつかのパターンを試す必要があるかもしれません。
-    //    また、キャラクターがどの前景レイヤー番号に表示されるかは、[chara_show] の layer 属性で指定していなければ、
-    //    TyranoScriptが自動的に割り当てます (通常は空いている前景レイヤー)。
-    try {
-        var fore_layer_0 = kag_obj.layer.getLayer("fore", "0"); // または "0", "fore"
-        if (fore_layer_0 && fore_layer_0.canvas) { // canvasプロパティがあるか確認
-            console.log("前景レイヤー0 (fore, 0):", fore_layer_0);
-            console.log("  前景レイヤー0のjQuery要素:", fore_layer_0.canvas);
-            console.log("  前景レイヤー0の表示状態 (visible):", fore_layer_0.visible);
+    // map_layer_fore から前景レイヤー0の情報を取得
+    if (kag_obj.layer && kag_obj.layer.map_layer_fore && kag_obj.layer.map_layer_fore["0"]) {
+        var fore_layer_0_obj = kag_obj.layer.map_layer_fore["0"];
+        console.log("前景レイヤー0 (map_layer_fore['0']):", fore_layer_0_obj);
 
-            // 前景レイヤー0の中に 'roger' という名前やIDを持つ要素があるか探す (jQueryを使えるなら)
+        if (fore_layer_0_obj.canvas) {
+            console.log("  前景レイヤー0のjQuery要素:", fore_layer_0_obj.canvas);
+            console.log("  前景レイヤー0の表示状態 (visible):", fore_layer_0_obj.visible);
+
+            // 前景レイヤー0の中に 'roger' らしき要素を探す
             if (window.jQuery) {
-                var roger_element = fore_layer_0.canvas.find('[data-name="roger"], .tyrano_chara[data-name="roger"], #roger, .roger');
-                if (roger_element.length > 0) {
-                    console.log("  前景レイヤー0内で'roger'らしき要素を発見:", roger_element);
-                    console.log("    要素のHTML:", roger_element.prop('outerHTML'));
-                    console.log("    要素の幅(width):", roger_element.width());
-                    console.log("    要素の高さ(height):", roger_element.height());
-                    console.log("    要素のCSS(display):", roger_element.css('display'));
-                    console.log("    要素のCSS(opacity):", roger_element.css('opacity'));
+                var roger_element_container = fore_layer_0_obj.canvas.find('.tyrano_chara[data-name="roger"], figure[data-name="roger"]'); // TyranoV5/V6では .tyrano_chara の中に img があることが多い
+                if (roger_element_container.length > 0) {
+                    var roger_img = roger_element_container.find('img'); // img要素を取得
+                    console.log("  前景レイヤー0内で'roger'のコンテナ要素を発見:", roger_element_container);
+                    if(roger_img.length > 0){
+                        console.log("    その中のimg要素:", roger_img);
+                        console.log("      imgの幅(width):", roger_img.width());
+                        console.log("      imgの高さ(height):", roger_img.height());
+                        console.log("      imgのCSS(display):", roger_img.css('display'));
+                        console.log("      imgのCSS(opacity):", roger_img.css('opacity'));
+                        console.log("      imgのCSS(max-height):", roger_img.css('max-height')); // CSSで設定した値を確認
+                        console.log("      imgのsrc:", roger_img.attr('src'));
+                    } else {
+                        console.warn("    'roger'のコンテナ内にimg要素が見つかりません。");
+                    }
                 } else {
-                    console.warn("  前景レイヤー0内に'roger'らしき要素が見つかりません。");
+                    console.warn("  前景レイヤー0内に'roger'のコンテナ要素が見つかりません。");
                 }
             }
-
         } else {
-            console.warn("前景レイヤー0 (fore, 0) が見つからない、またはcanvasがありません。");
-            // 他の前景レイヤーも試してみる (例: "1", "2" など)
-            // var fore_layer_1 = kag_obj.layer.getLayer("fore", "1");
-            // if (fore_layer_1 && fore_layer_1.canvas) console.log("前景レイヤー1:", fore_layer_1.canvas);
-        }
-    } catch (e) {
-        console.error("前景レイヤーの取得中にエラー:", e);
-        console.log("TYRANO.kag.layer オブジェクト:", kag_obj.layer); // layerオブジェクト自体を出力してみる
-    }
-
-    // 3. すべての前景レイヤーの情報をダンプしてみる (より詳細な調査)
-    if (kag_obj.layer && kag_obj.layer.map_layer_fore) {
-        console.log("すべての前景レイヤー情報 (map_layer_fore):", kag_obj.layer.map_layer_fore);
-        for (var key in kag_obj.layer.map_layer_fore) {
-            if (kag_obj.layer.map_layer_fore.hasOwnProperty(key)) {
-                var layer_obj = kag_obj.layer.map_layer_fore[key];
-                if (layer_obj && layer_obj.canvas) {
-                     console.log("  レイヤー名:", key, " jQuery要素:", layer_obj.canvas, " 表示状態:", layer_obj.visible);
-                     // このレイヤー内にキャラクターがいるか探すことも可能
-                }
-            }
+            console.warn("  前景レイヤー0に canvas (jQuery要素) がありません。");
         }
     } else {
-        console.warn("map_layer_fore が見つかりません。");
+        console.warn("map_layer_fore から前景レイヤー0の情報が取得できませんでした。");
     }
-
-
     console.log("--- Debug Log End ---");
 } else {
     console.error("TYRANO.kag オブジェクトが見つかりません！");
 }
 [endscript]
-[l] ; ログ確認のために一時停止
+[l]
 
 ; オロロジャイアちゃんのセリフ (立ち絵なし、名前表示のみの例)
 #ロジャー
