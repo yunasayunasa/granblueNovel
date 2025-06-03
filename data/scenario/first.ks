@@ -126,9 +126,9 @@ if (kag_obj) {
 
 ; 選択肢 (glinkを使用)
 ; x, y, width, size は縦画面のレイアウトに合わせて調整してください
-[glink color="blue" x="150" y="450" width="420" size="28" text="ナルメア" target="*narumia_route_start"]
-[glink color="blue" x="150" y="550" width="420" size="28" text="シエテ" target="*siete_route_start"]
-[glink color="blue" x="150" y="650" width="420" size="28" text="誰も仲間にしない" target="*hard_mode_start"]
+[glink color="blue" x="100" y="350" width="300" size="28" text="ナルメア" target="*narumia_route_start"]
+[glink color="blue" x="100" y="450" width="300" size="28" text="シエテ" target="*siete_route_start"]
+[glink color="blue" x="100" y="550" width="300" size="28" text="誰も仲間にしない" target="*hard_mode_start"]
 [s]
 
 
