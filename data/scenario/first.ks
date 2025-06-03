@@ -5,8 +5,8 @@ if (tyrano_base_element) {
     tyrano_base_element.style.setProperty('transform', 'scale(1)', 'important');
     tyrano_base_element.style.setProperty('transform-origin', '0px 0px', 'important');
     // 必要であれば width, height, left, top もここで設定
-    // tyrano_base_element.style.setProperty('width', '720px', 'important');
-    // tyrano_base_element.style.setProperty('height', '1280px', 'important');
+    // tyrano_base_element.style.setProperty('width', '450px', 'important');
+    // tyrano_base_element.style.setProperty('height', '800px', 'important');
     // tyrano_base_element.style.setProperty('left', '0px', 'important');
     // tyrano_base_element.style.setProperty('top', '0px', 'important');
     console.log("#tyrano_base の transform を script で scale(1) に設定試行");
