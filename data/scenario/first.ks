@@ -21,12 +21,84 @@
 ; ロジャー登場
 [chara_show name="roger" x="200" y="600" time="500" wait="true"]
 ; (width, height 属性も指定している場合は、それも考慮)
-
 [iscript]
-alert("キャラクター表示の直後です。開発者ツールでHTMLを確認してください。");
-console.log(TYRANO.kag.layer.getLayer("fore", "0")); // 前景レイヤ0の情報をコンソールに出力 (前景レイヤの構造による)
+// TyranoScriptの内部KAGオブジェクトにアクセス (kagという名前であることが多い)
+var kag_obj = TYRANO.kag; // または tyrano.plugin.kag; など、バージョンや環境によって異なる可能性あり
+
+if (kag_obj) {
+    console.log("--- TyranoScript Debug Log ---");
+
+    // 1. 表示しようとしているキャラクター'roger'の情報を取得
+    var chara_roger = kag_obj.stat.charas["roger"];
+    if (chara_roger) {
+        console.log("キャラクター'roger'の情報:", chara_roger);
+        console.log("  現在の画像ファイル:", chara_roger.storage); // storage は画像ファイル名のはず
+        console.log("  jname (表示名):", chara_roger.jname);
+    } else {
+        console.error("キャラクター'roger'の定義が見つかりません！ [chara_new] を確認してください。");
+    }
+
+    // 2. 前景レイヤーの情報を取得 (前景レイヤー0を対象とする例)
+    //    TyranoScriptの前景レイヤーの管理方法はバージョンによって異なる可能性があります。
+    //    layer.getLayer("fore", "0") や layer.getLayer("0","fore") など、いくつかのパターンを試す必要があるかもしれません。
+    //    また、キャラクターがどの前景レイヤー番号に表示されるかは、[chara_show] の layer 属性で指定していなければ、
+    //    TyranoScriptが自動的に割り当てます (通常は空いている前景レイヤー)。
+    try {
+        var fore_layer_0 = kag_obj.layer.getLayer("fore", "0"); // または "0", "fore"
+        if (fore_layer_0 && fore_layer_0.canvas) { // canvasプロパティがあるか確認
+            console.log("前景レイヤー0 (fore, 0):", fore_layer_0);
+            console.log("  前景レイヤー0のjQuery要素:", fore_layer_0.canvas);
+            console.log("  前景レイヤー0の表示状態 (visible):", fore_layer_0.visible);
+
+            // 前景レイヤー0の中に 'roger' という名前やIDを持つ要素があるか探す (jQueryを使えるなら)
+            if (window.jQuery) {
+                var roger_element = fore_layer_0.canvas.find('[data-name="roger"], .tyrano_chara[data-name="roger"], #roger, .roger');
+                if (roger_element.length > 0) {
+                    console.log("  前景レイヤー0内で'roger'らしき要素を発見:", roger_element);
+                    console.log("    要素のHTML:", roger_element.prop('outerHTML'));
+                    console.log("    要素の幅(width):", roger_element.width());
+                    console.log("    要素の高さ(height):", roger_element.height());
+                    console.log("    要素のCSS(display):", roger_element.css('display'));
+                    console.log("    要素のCSS(opacity):", roger_element.css('opacity'));
+                } else {
+                    console.warn("  前景レイヤー0内に'roger'らしき要素が見つかりません。");
+                }
+            }
+
+        } else {
+            console.warn("前景レイヤー0 (fore, 0) が見つからない、またはcanvasがありません。");
+            // 他の前景レイヤーも試してみる (例: "1", "2" など)
+            // var fore_layer_1 = kag_obj.layer.getLayer("fore", "1");
+            // if (fore_layer_1 && fore_layer_1.canvas) console.log("前景レイヤー1:", fore_layer_1.canvas);
+        }
+    } catch (e) {
+        console.error("前景レイヤーの取得中にエラー:", e);
+        console.log("TYRANO.kag.layer オブジェクト:", kag_obj.layer); // layerオブジェクト自体を出力してみる
+    }
+
+    // 3. すべての前景レイヤーの情報をダンプしてみる (より詳細な調査)
+    if (kag_obj.layer && kag_obj.layer.map_layer_fore) {
+        console.log("すべての前景レイヤー情報 (map_layer_fore):", kag_obj.layer.map_layer_fore);
+        for (var key in kag_obj.layer.map_layer_fore) {
+            if (kag_obj.layer.map_layer_fore.hasOwnProperty(key)) {
+                var layer_obj = kag_obj.layer.map_layer_fore[key];
+                if (layer_obj && layer_obj.canvas) {
+                     console.log("  レイヤー名:", key, " jQuery要素:", layer_obj.canvas, " 表示状態:", layer_obj.visible);
+                     // このレイヤー内にキャラクターがいるか探すことも可能
+                }
+            }
+        }
+    } else {
+        console.warn("map_layer_fore が見つかりません。");
+    }
+
+
+    console.log("--- Debug Log End ---");
+} else {
+    console.error("TYRANO.kag オブジェクトが見つかりません！");
+}
 [endscript]
-[l] ; 処理を一時停止
+[l] ; ログ確認のために一時停止
 
 ; オロロジャイアちゃんのセリフ (立ち絵なし、名前表示のみの例)
 #ロジャー
