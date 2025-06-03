@@ -837,14 +837,14 @@ div.img_next {
     animation-timing-function: linear;
     animation-fill-mode: forwards;
     transform-origin: center center;
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(1) !important;
     pointer-events: none;
     mix-blend-mode: overlay;
 }
 
 @keyframes tyrano_click_effect {
     from {
-        transform: translate(-50%, -50%) scale(1);
+        transform: translate(-50%, -50%) scale(1) !important;
     }
     100% {
         transform: translate(-50%, -50%) scale(1.2);
@@ -1204,3 +1204,22 @@ a.link_button:hover { /* ← 同様にセレクタを合わせる */
 
 /* もっとシンプルに、キャラクターが表示される div のクラス名が分かれば */
 /* .character_container_class img { ... } */
+/* キャラクターコンテナのスタイル */
+.tyrano_chara.roger { /* クラス名を両方指定して特定性を上げる */
+    width: 50vw !important;   /* 例: ビューポート幅の50% (調整してください) */
+    height: 80vh !important;  /* 例: ビューポート高さの80% (調整してください) */
+    /* bottom: 0px !important; */ /* 位置も調整 (例: 下端に合わせる) */
+    /* left: 10% !important;   */ /* 例: 左から10%の位置に */
+    /* z-index: 1 !important; はそのままで良いでしょう */
+}
+
+/* キャラクター画像のスタイル (これは現状でも良さそうですが、親に合わせる形に) */
+.tyrano_chara.roger .chara_img {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+
+    width: 100% !important;  /* 親要素の幅いっぱいに */
+    height: 100% !important; /* 親要素の高さいっぱいに */
+    object-fit: contain !important; /* アスペクト比を保つ */
+}
