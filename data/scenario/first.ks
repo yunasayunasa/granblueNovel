@@ -19,7 +19,7 @@
 
 
 ; ロジャー登場
-[chara_show name="roger" x="200" y="600" time="500" wait="true"]
+[chara_show name="roger"　layer="0"  x="200" y="600" time="500" wait="true"]
 ; (width, height 属性も指定している場合は、それも考慮)
 [iscript]
 // TyranoScriptの内部KAGオブジェクトにアクセス (kagという名前であることが多い)
