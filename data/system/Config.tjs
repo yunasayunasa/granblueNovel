@@ -526,8 +526,8 @@ game_title = "演算世界とチヨコレイト"
 firstScenario = "first.ks" // ← この行を確認・追記！
 
 ;画面サイズ（デフォルトは1280x720）
-scWidth = 720
-scHeight = 1280
+scWidth = 450
+scHeight = 800
 
 ;文字のデフォルト設定
 ;defaultFontSize = 28

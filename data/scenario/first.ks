@@ -19,7 +19,7 @@ if (tyrano_base_element) {
 [bg storage="calc_space.jpg" time="1000"]
 
 ; メッセージウィンドウの位置とサイズを指定 (縦画面 720x1280 を想定した例)
-[position layer="message0" left="30" top="980" width="660" height="250" page=fore visible=true]
+[position layer="message0" left="30" top="600" width="400" height="250" page=fore visible=true]
 ; 文字が表示される実際の領域を内側に設定 (パディングのようなもの)
 [position layer="message0" page=fore margint="30" marginl="30" marginr="30" marginb="30"]
 

@@ -221,7 +221,7 @@ AppStoreやGooglePlayに向けてアプリ化して販売することもでき�
 [free name="chara_name_area" layer="message0"]
 
 ;メッセージウィンドウの設定
-[position layer="message0" width="1280" height="210" top="510" left="0"]
+[position layer="message0" width="800" height="210" top="510" left="0"]
 [position layer="message0" frame="frame.png" margint="50" marginl="100" marginr="100" opacity="230" page="fore"]
 
 ;名前枠の設定
