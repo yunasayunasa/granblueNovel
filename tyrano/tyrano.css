@@ -1206,34 +1206,27 @@ a.link_button:hover { /* ← 同様にセレクタを合わせる */
 /* .character_container_class img { ... } */
 /* キャラクターコンテナのスタイル */
 
-
 #tyrano_base {
-    /* 位置を画面中央に固定するためのスタイル (前回提案と同様) */
     position: absolute !important;
-    left: 50% !important;
-    top: 50% !important;
+    /* 左上を基準に配置（TyranoScriptのデフォルトに近い形に戻す） */
+    left: 0 !important;
+    top: 0 !important;
 
-    /* ★★★ここが重要★★★ */
-    /* transform プロパティで、中央配置のための translate と、
-       スケーリングを等倍にする scale(1) を指定し、!important で強制します。 */
-    transform: translate(-50%, -50%) scale(1) !important;
+    /* ★★★ スケールのみを 1 に固定し、translate は削除 ★★★ */
+    transform: scale(1) !important;
+    /* ★★★ transform-origin も TyranoScript のデフォルトに合わせて左上に戻す ★★★ */
+    transform-origin: 0px 0px !important;
 
-    /* スケーリングや回転の基点を要素の中央にする (推奨) */
-    transform-origin: center center !important;
+    /* ゲーム画面の幅と高さを Config.tjs の値に固定（ビューポート基準ではなく） */
+    /* これにより、TyranoScriptが内部で想定しているサイズでまず描画させる */
+    width: 720px !important;  /* Config.tjs の scWidth の値 */
+    height: 1280px !important; /* Config.tjs の scHeight の値 */
 
-    /* ゲーム画面の縦横比を固定 (Config.tjs の値に合わせる) */
-    /* 例: scWidth = 720, scHeight = 1280 の場合 */
-    aspect-ratio: 720 / 1280 !important;
-
-    /* ゲーム画面の高さをビューポートの高さに合わせる */
-    height: 100vh !important;
-    /* ゲーム画面の幅はアスペクト比を保って自動調整 */
-    width: auto !important;
-
-    /* TyranoScriptが設定する可能性のある他のスタイルをリセット (必要に応じて) */
+    /* 不要な可能性のある margin をリセット */
     margin: 0 !important;
-    overflow: hidden !important; /* コンテンツのはみ出しを隠すのは良いでしょう */
-    /* background-color: black; はTyranoScriptが設定するので、CSSで上書き不要な場合が多い */
+
+    overflow: hidden !important;
+    background-color: black !important; /* これは TyranoScript が設定するので不要かも */
 }
 .tyrano_chara.roger { /* クラス名を両方指定して特定性を上げる */
     width: 50vw !important;   /* 例: ビューポート幅の50% (調整してください) */
