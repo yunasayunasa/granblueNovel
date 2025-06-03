@@ -82,8 +82,8 @@ body {
     opacity: 1 !important;    /* 強制的に表示 */
     visibility: visible !important; /* 強制的に表示 */
 
-    max-width: 400%;  /* 横幅は親要素の80%を上限 (画面サイズに応じて調整) */
-    max-height: 400vh; /* 高さはビューポートの70%を上限 (画面サイズに応じて調整) */
+    max-width: 300%;  /* 横幅は親要素の80%を上限 (画面サイズに応じて調整) */
+    max-height: 300vh; /* 高さはビューポートの70%を上限 (画面サイズに応じて調整) */
     width: auto !important;
     height: auto !important;
     object-fit: contain !important; /* アスペクト比を保つ */
