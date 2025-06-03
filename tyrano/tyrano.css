@@ -1219,7 +1219,38 @@ a.link_button:hover { /* ← 同様にセレクタを合わせる */
     opacity: 1 !important;
     visibility: visible !important;
 
-    width: 100% !important;  /* 親要素の幅いっぱいに */
-    height: 100% !important; /* 親要素の高さいっぱいに */
+    width: 400% !important;  /* 親要素の幅いっぱいに */
+    height: 400% !important; /* 親要素の高さいっぱいに */
     object-fit: contain !important; /* アスペクト比を保つ */
+}
+
+/* style.css または tyrano.css の末尾に追加 */
+
+#tyrano_base {
+    /* 位置を画面中央に固定するためのスタイル (前回提案と同様) */
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+
+    /* ★★★ここが重要★★★ */
+    /* transform プロパティで、中央配置のための translate と、
+       スケーリングを等倍にする scale(1) を指定し、!important で強制します。 */
+    transform: translate(-50%, -50%) scale(1) !important;
+
+    /* スケーリングや回転の基点を要素の中央にする (推奨) */
+    transform-origin: center center !important;
+
+    /* ゲーム画面の縦横比を固定 (Config.tjs の値に合わせる) */
+    /* 例: scWidth = 720, scHeight = 1280 の場合 */
+    aspect-ratio: 720 / 1280 !important;
+
+    /* ゲーム画面の高さをビューポートの高さに合わせる */
+    height: 100vh !important;
+    /* ゲーム画面の幅はアスペクト比を保って自動調整 */
+    width: auto !important;
+
+    /* TyranoScriptが設定する可能性のある他のスタイルをリセット (必要に応じて) */
+    margin: 0 !important;
+    overflow: hidden !important; /* コンテンツのはみ出しを隠すのは良いでしょう */
+    /* background-color: black; はTyranoScriptが設定するので、CSSで上書き不要な場合が多い */
 }
