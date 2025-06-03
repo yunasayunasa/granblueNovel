@@ -1205,26 +1205,7 @@ a.link_button:hover { /* ← 同様にセレクタを合わせる */
 /* もっとシンプルに、キャラクターが表示される div のクラス名が分かれば */
 /* .character_container_class img { ... } */
 /* キャラクターコンテナのスタイル */
-.tyrano_chara.roger { /* クラス名を両方指定して特定性を上げる */
-    width: 50vw !important;   /* 例: ビューポート幅の50% (調整してください) */
-    height: 80vh !important;  /* 例: ビューポート高さの80% (調整してください) */
-    /* bottom: 0px !important; */ /* 位置も調整 (例: 下端に合わせる) */
-    /* left: 10% !important;   */ /* 例: 左から10%の位置に */
-    /* z-index: 1 !important; はそのままで良いでしょう */
-}
 
-/* キャラクター画像のスタイル (これは現状でも良さそうですが、親に合わせる形に) */
-.tyrano_chara.roger .chara_img {
-    display: block !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-
-    width: 400% !important;  /* 親要素の幅いっぱいに */
-    height: 400% !important; /* 親要素の高さいっぱいに */
-    object-fit: contain !important; /* アスペクト比を保つ */
-}
-
-/* style.css または tyrano.css の末尾に追加 */
 
 #tyrano_base {
     /* 位置を画面中央に固定するためのスタイル (前回提案と同様) */
@@ -1254,3 +1235,23 @@ a.link_button:hover { /* ← 同様にセレクタを合わせる */
     overflow: hidden !important; /* コンテンツのはみ出しを隠すのは良いでしょう */
     /* background-color: black; はTyranoScriptが設定するので、CSSで上書き不要な場合が多い */
 }
+.tyrano_chara.roger { /* クラス名を両方指定して特定性を上げる */
+    width: 50vw !important;   /* 例: ビューポート幅の50% (調整してください) */
+    height: 80vh !important;  /* 例: ビューポート高さの80% (調整してください) */
+    /* bottom: 0px !important; */ /* 位置も調整 (例: 下端に合わせる) */
+    /* left: 10% !important;   */ /* 例: 左から10%の位置に */
+    /* z-index: 1 !important; はそのままで良いでしょう */
+}
+
+/* キャラクター画像のスタイル (これは現状でも良さそうですが、親に合わせる形に) */
+.tyrano_chara.roger .chara_img {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+
+    width: 400% !important;  /* 親要素の幅いっぱいに */
+    height: 400% !important; /* 親要素の高さいっぱいに */
+    object-fit: contain !important; /* アスペクト比を保つ */
+}
+
+/* style.css または tyrano.css の末尾に追加 */
