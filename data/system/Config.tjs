@@ -530,7 +530,7 @@ scWidth = 450
 scHeight = 800
 
 ;文字のデフォルト設定
-;defaultFontSize = 28
+;defaultFontSize = 20
 ;defaultFontFace = "rounded-mplus-1c-regular" // 使用するフォント名を指定 (CSSで読み込んでいる必要あり)
 
 ;その他の設定項目...
