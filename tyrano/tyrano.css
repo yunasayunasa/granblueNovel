@@ -72,34 +72,31 @@ body {
     mix-blend-mode: plus-lighter;
 }
 
-.tyrano_chara { /* キャラクターを包括するコンテナDIV (もしあれば) */
-    position: absolute; /* TyranoScriptが設定するはずだが、念のため */
-    /* background-color: rgba(255, 0, 0, 0.3); */ /* デバッグ用に一時的に背景色をつけてみる */
+/* style.css */
+.tyrano_chara {
+    position: absolute !important;
+    /* 例: 画面の横幅の25%の位置、縦は下から10%の位置に表示したい場合 */
+    left: 25% !important;  /* 画面左端から25%の位置 */
+    bottom: 10% !important; /* 画面下端から10%の位置 */
+    /* Y軸の中心を合わせるために、キャラクターの高さの半分を上に移動させる */
+    /* transform: translateY(-50%); */ /* これはキャラクターの高さが固定の場合に有効 */
+    /* または、キャラクター画像の中心を基準にしたいなら */
+    /* transform: translate(-50%, -50%); left:50%; top:50%; のようにする */
+
+    /* サイズはimg側で制御するので、コンテナは成り行きでも良いが、
+       基準となる幅や高さを指定しておくと安定する場合もある */
+    /* width: auto; */
+    /* height: auto; */
 }
 
-.tyrano_chara .chara_img { /* キャラクター画像そのもの (imgタグ) */
-    display: block !important; /* 強制的に表示 */
-    opacity: 1 !important;    /* 強制的に表示 */
-    visibility: visible !important; /* 強制的に表示 */
-
-    max-width: 200%;  /* 横幅は親要素の80%を上限 (画面サイズに応じて調整) */
-    max-height: 200vh; /* 高さはビューポートの70%を上限 (画面サイズに応じて調整) */
+.tyrano_chara .chara_img {
+    /* サイズ関連のスタイルは前回までのものを維持 */
+    max-width: 200vw !important;  /* ビューポート幅の40%など */
+    max-height: 200vh !important; /* ビューポート高さの75%など */
     width: auto !important;
     height: auto !important;
-    object-fit: contain !important; /* アスペクト比を保つ */
-
-    /* 位置調整は [chara_show] の x, y を優先させたいので、ここでは細かく指定しないか、
-       あるいは transform で微調整する程度にする */
-    /* position: absolute; はimgの親要素が持つことが多い */
-    /* bottom: 0; */ /* 足元を合わせる場合など */
-    /* left: 50%; */
-    /* transform: translateX(-50%); */ /* 中央揃えの場合 */
+    object-fit: contain !important;
 }
-/* [edit]タグで出す<input>要素 */
-/*
-.text_box {
-}
-*/
 
 /*ダイアログボックス*/
 #alertify {
