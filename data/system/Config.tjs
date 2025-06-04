@@ -338,7 +338,7 @@
 
 // ◆ 文字の大きさ
 // デフォルトの文字の大きさ ( 高さ ) を pixel 単位で指定します。
-;defaultFontSize = 28;  // deffont タグの size 属性に相当
+defaultFontSize = 20;  // deffont タグの size 属性に相当
 
 
 // ◆ 行間
