@@ -3,12 +3,11 @@
 var tyrano_base_element = document.getElementById('tyrano_base');
 if (tyrano_base_element) {
     tyrano_base_element.style.setProperty('transform', 'scale(1)', 'important');
-    tyrano_base_element.style.setProperty('transform-origin', '0px 0px', 'important');
-    // 必要であれば width, height, left, top もここで設定
+    tyrano_base_element.style.setProperty('transform-origin', '0px 0px', 'important'); // 念のため基点も指定
+    // Config.tjsで 450x800 にしているので、CSSでのwidth/height強制は不要かもしれません。
+    // もしTyranoScriptの自動調整でうまくいかない場合は、ここで固定サイズを設定することも検討。
     // tyrano_base_element.style.setProperty('width', '450px', 'important');
     // tyrano_base_element.style.setProperty('height', '800px', 'important');
-    // tyrano_base_element.style.setProperty('left', '0px', 'important');
-    // tyrano_base_element.style.setProperty('top', '0px', 'important');
     console.log("#tyrano_base の transform を script で scale(1) に設定試行");
 } else {
     console.error("#tyrano_base が見つかりません");
@@ -18,83 +17,28 @@ if (tyrano_base_element) {
 [title name="演算世界とチヨコレイト"]
 [bg storage="calc_space.jpg" time="1000"]
 
-; メッセージウィンドウの位置とサイズを指定 (縦画面 720x1280 を想定した例)
-[position layer="message0" left="30" top="600" width="400" height="250" page=fore visible=true]
+; メッセージウィンドウの位置とサイズ (画面 450x800 を想定)
+; 画面下部に表示する例
+[position layer="message0" left="25" top="600" width="400" height="180" page=fore visible=true]
 ; 文字が表示される実際の領域を内側に設定 (パディングのようなもの)
-[position layer="message0" page=fore margint="30" marginl="30" marginr="30" marginb="30"]
+[position layer="message0" page=fore margint="25" marginl="25" marginr="25" marginb="25"]
 
-; キャラクター名表示エリアの設定 (メッセージウィンドウ内の上部に配置する例)
-[ptext name="chara_name_area" layer="message0" color="white" size="28" bold="true" x="50" y="1000"] ; y座標は上記 top + margint より少し下
+; キャラクター名表示エリアの設定 (メッセージウィンドウの少し上に表示する例)
+; [ptext]のx,yはメッセージレイヤ(message0)の左上からの絶対座標になります。
+; そのため、メッセージウィンドウの枠の外に配置することも可能です。
+; ここではメッセージウィンドウの枠内左上あたりに配置する例とします。
+[ptext name="chara_name_area" layer="message0" color="white" size="24" bold="true" x="40" y="605"] ; メッセージウィンドウの top より少し下、margint より手前
 [chara_config ptext="chara_name_area"]
 
-; ★★★ キャラクター定義はここで行うか、専用の system.ks などで最初に読み込む ★★★
+; ★★★ キャラクター定義 ★★★
 [chara_new name="roger" storage="roger_normal.png" jname="ロジャー"]
-; [chara_new name="unknown_oracle" jname="？？？"] ; 立ち絵なしの場合
 
 君は、見たこともない空間にいる。ノイズのような歪みが空間に走り、とても現実とは思えない。[l]
 
+; ロジャー登場 (表示位置は適宜調整してください)
+[chara_show name="roger" x="100" y="150"] ; yを少し上げて、メッセージウィンドウと被らないように
 
-; ロジャー登場
-[chara_show name="roger"　]
-; (width, height 属性も指定している場合は、それも考慮)
-[iscript]
-var kag_obj = TYRANO.kag;
-
-if (kag_obj) {
-    console.log("--- TyranoScript Debug Log ---");
-
-    var chara_roger = kag_obj.stat.charas["roger"];
-    if (chara_roger) {
-        console.log("キャラクター'roger'の情報:", chara_roger);
-        // chara_roger の width と height が空なので、[chara_show] で指定するかCSSで制御する必要がありそう
-    } else {
-        console.error("キャラクター'roger'の定義が見つかりません！");
-    }
-
-    // map_layer_fore から前景レイヤー0の情報を取得
-    if (kag_obj.layer && kag_obj.layer.map_layer_fore && kag_obj.layer.map_layer_fore["0"]) {
-        var fore_layer_0_obj = kag_obj.layer.map_layer_fore["0"];
-        console.log("前景レイヤー0 (map_layer_fore['0']):", fore_layer_0_obj);
-
-        if (fore_layer_0_obj.canvas) {
-            console.log("  前景レイヤー0のjQuery要素:", fore_layer_0_obj.canvas);
-            console.log("  前景レイヤー0の表示状態 (visible):", fore_layer_0_obj.visible);
-
-            // 前景レイヤー0の中に 'roger' らしき要素を探す
-            if (window.jQuery) {
-                var roger_element_container = fore_layer_0_obj.canvas.find('.tyrano_chara[data-name="roger"], figure[data-name="roger"]'); // TyranoV5/V6では .tyrano_chara の中に img があることが多い
-                if (roger_element_container.length > 0) {
-                    var roger_img = roger_element_container.find('img'); // img要素を取得
-                    console.log("  前景レイヤー0内で'roger'のコンテナ要素を発見:", roger_element_container);
-                    if(roger_img.length > 0){
-                        console.log("    その中のimg要素:", roger_img);
-                        console.log("      imgの幅(width):", roger_img.width());
-                        console.log("      imgの高さ(height):", roger_img.height());
-                        console.log("      imgのCSS(display):", roger_img.css('display'));
-                        console.log("      imgのCSS(opacity):", roger_img.css('opacity'));
-                        console.log("      imgのCSS(max-height):", roger_img.css('max-height')); // CSSで設定した値を確認
-                        console.log("      imgのsrc:", roger_img.attr('src'));
-                    } else {
-                        console.warn("    'roger'のコンテナ内にimg要素が見つかりません。");
-                    }
-                } else {
-                    console.warn("  前景レイヤー0内に'roger'のコンテナ要素が見つかりません。");
-                }
-            }
-        } else {
-            console.warn("  前景レイヤー0に canvas (jQuery要素) がありません。");
-        }
-    } else {
-        console.warn("map_layer_fore から前景レイヤー0の情報が取得できませんでした。");
-    }
-    console.log("--- Debug Log End ---");
-} else {
-    console.error("TYRANO.kag オブジェクトが見つかりません！");
-}
-[endscript]
-[l]
-
-; オロロジャイアちゃんのセリフ (立ち絵なし、名前表示のみの例)
+; オロロジャイアちゃんのセリフ (仮でロジャーが話す)
 #ロジャー
 おはよう！お呼びとあらば即参上できない！今日も今日とて限界勤務上等のオロロジャイアちゃんでっす！[l]
 
@@ -126,9 +70,9 @@ if (kag_obj) {
 
 ; 選択肢 (glinkを使用)
 ; x, y, width, size は縦画面のレイアウトに合わせて調整してください
-[glink color="blue" x="50" y="250" width="200" size="28" text="ナルメア" target="*narumia_route_start"]
-[glink color="blue" x="50" y="350" width="200" size="28" text="シエテ" target="*siete_route_start"]
-[glink color="blue" x="50" y="450" width="200" size="28" text="誰も仲間にしない" target="*hard_mode_start"]
+[glink color="blue" x="70" y="250" width="200" size="28" text="ナルメア" target="*narumia_route_start"]
+[glink color="blue" x="70" y="350" width="200" size="28" text="シエテ" target="*siete_route_start"]
+[glink color="blue" x="70" y="450" width="200" size="28" text="誰も仲間にしない" target="*hard_mode_start"]
 [s]
 
 
