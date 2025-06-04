@@ -23,7 +23,7 @@ if (tyrano_base_element) {
 [position layer="message0" page=fore margint="25" marginl="25" marginr="25" marginb="25"]
 
 
-[ptext name="chara_name_area" layer="message0" color="white" size="20" bold="true" x="40" y="605"] 
+[ptext name="chara_name_area" layer="message0" color="white" size="24" bold="true" x="40" y="605"] 
 
 
 [chara_new name="roger" storage="roger_normal.png" jname="ロジャー"]
@@ -32,6 +32,7 @@ if (tyrano_base_element) {
 
 [chara_show name="roger" x="200" y="150"]
 
+; オロロジャイアちゃんのセリフ (仮でロジャーが話す)
 #ロジャー
 おはよう！お呼びとあらば即参上できない！[r]
 今日も今日とて限界勤務上等の[r]
