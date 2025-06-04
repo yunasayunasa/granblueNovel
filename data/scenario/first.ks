@@ -23,8 +23,7 @@ if (tyrano_base_element) {
 [position layer="message0" page=fore margint="25" marginl="25" marginr="25" marginb="25"]
 
 
-[ptext name="chara_name_area" layer="message0" color="white" size="24" bold="true" x="40" y="605"] ; メッセージウィンドウの top より少し下、margint より手前
-[chara_config ptext="chara_name_area"]
+[ptext name="chara_name_area" layer="message0" color="white" size="24" bold="true" x="40" y="605"] 
 
 
 [chara_new name="roger" storage="roger_normal.png" jname="ロジャー"]
@@ -32,7 +31,7 @@ if (tyrano_base_element) {
 君は、見たこともない空間にいる。ノイズのような歪みが空間に走り、とても現実とは思えない。[l]
 
 ; ロジャー登場 (表示位置は適宜調整してください)
-[chara_show name="roger" x="150" y="150"] ; yを少し上げて、メッセージウィンドウと被らないように
+[chara_show name="roger" x="200" y="150"] ; yを少し上げて、メッセージウィンドウと被らないように
 
 ; オロロジャイアちゃんのセリフ (仮でロジャーが話す)
 #ロジャー
