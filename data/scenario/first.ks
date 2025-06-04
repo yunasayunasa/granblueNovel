@@ -17,20 +17,16 @@ if (tyrano_base_element) {
 [title name="演算世界とチヨコレイト"]
 [bg storage="calc_space.jpg" time="1000"]
 
-; メッセージウィンドウの位置とサイズ (画面 450x800 を想定)
-; 画面下部に表示する例
+
 [position layer="message0" left="25" top="600" width="400" height="180" page=fore visible=true]
-; 文字が表示される実際の領域を内側に設定 (パディングのようなもの)
+
 [position layer="message0" page=fore margint="25" marginl="25" marginr="25" marginb="25"]
 
-; キャラクター名表示エリアの設定 (メッセージウィンドウの少し上に表示する例)
-; [ptext]のx,yはメッセージレイヤ(message0)の左上からの絶対座標になります。
-; そのため、メッセージウィンドウの枠の外に配置することも可能です。
-; ここではメッセージウィンドウの枠内左上あたりに配置する例とします。
+
 [ptext name="chara_name_area" layer="message0" color="white" size="24" bold="true" x="40" y="605"] ; メッセージウィンドウの top より少し下、margint より手前
 [chara_config ptext="chara_name_area"]
 
-; ★★★ キャラクター定義 ★★★
+
 [chara_new name="roger" storage="roger_normal.png" jname="ロジャー"]
 
 君は、見たこともない空間にいる。ノイズのような歪みが空間に走り、とても現実とは思えない。[l]
