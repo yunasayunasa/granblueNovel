@@ -91,8 +91,8 @@ body {
 
 .tyrano_chara .chara_img {
     /* サイズ関連のスタイルは前回までのものを維持 */
-    max-width: 150vw !important;  /* ビューポート幅の40%など */
-    max-height: 150vh !important; /* ビューポート高さの75%など */
+    max-width: 200vw !important;  /* ビューポート幅の40%など */
+    max-height: 200vh !important; /* ビューポート高さの75%など */
     width: auto !important;
     height: auto !important;
     object-fit: contain !important;
