@@ -28,7 +28,7 @@ if (tyrano_base_element) {
 
 [chara_new name="roger" storage="roger_normal.png" jname="ロジャー"]
 
-君は、見たこともない空間にいる。ノイズのような歪みが空間に走り、とても現実とは思えない。[p]
+君は、見たこともない空間にいる。幻想的な一面の花畑、とても現実とは思えない。[p]
 
 [chara_show name="roger" x="200" y="150"]
 
