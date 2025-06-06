@@ -77,7 +77,7 @@ body {
     position: absolute !important;
     /* 例: 画面の横幅の25%の位置、縦は下から10%の位置に表示したい場合 */
     left: 20% !important;  /* 画面左端から25%の位置 */
-    bottom: 10% !important; /* 画面下端から10%の位置 */
+    bottom: 0% !important; /* 画面下端から10%の位置 */
     /* Y軸の中心を合わせるために、キャラクターの高さの半分を上に移動させる */
     /* transform: translateY(-50%); */ /* これはキャラクターの高さが固定の場合に有効 */
     /* または、キャラクター画像の中心を基準にしたいなら */
@@ -91,8 +91,8 @@ body {
 
 .tyrano_chara .chara_img {
     /* サイズ関連のスタイルは前回までのものを維持 */
-    max-width: 200vw !important;  /* ビューポート幅の40%など */
-    max-height: 200vh !important; /* ビューポート高さの75%など */
+    max-width: 150vw !important;  /* ビューポート幅の40%など */
+    max-height: 150vh !important; /* ビューポート高さの75%など */
     width: auto !important;
     height: auto !important;
     object-fit: contain !important;
