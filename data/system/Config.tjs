@@ -523,7 +523,8 @@ projectID = "MyNovelGameV6"
 game_title = "演算世界とチヨコレイト"
 
 ;最初に読み込むシナリオファイル名（data/scenario/ フォルダ内のファイル名を指定）
-firstScenario = "title_screen.ks" // ← この行を確認・追記！
+firstScenario = "title_screen.ks" // ← "first.ks" から変更！
+
 
 ;画面サイズ（デフォルトは1280x720）
 scWidth = 450
