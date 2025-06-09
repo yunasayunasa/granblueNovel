@@ -78,8 +78,7 @@ if (tyrano_base_element) {
 
 ; ----- 各ルートへの分岐先ラベル (これらは別の .ks ファイルに分けても良い) -----
 *narumia_route_start
-  ; ナルメアが仲間になる処理
-  ;[chara_hide name="silhouette" time="100" wait="true"]
+ 
   [chara_new name="narumia" storage="narumia_normal.png" jname="ナルメア"] ; data/fgimage/narumia_normal.png
   [chara_show name="narumia" time="500" wait="true"]
   #ナルメア
