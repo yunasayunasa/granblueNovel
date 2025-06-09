@@ -23,7 +23,7 @@ if (tyrano_base_element) {
 [position layer="message0" page=fore margint="25" marginl="25" marginr="25" marginb="25"]
 
 
-[ptext name="chara_name_area" layer="message0" color="white" size="20" bold="true" x="100" y="550"] 
+[ptext name="chara_name_area" layer="message0" color="white" size="20" bold="true" x="200" y="100"] 
 
 
 [chara_new name="roger" storage="roger_normal.png" jname="ロジャー"]
@@ -56,7 +56,7 @@ if (tyrano_base_element) {
 
 ; ガチャ演出 (今は省略、SEや簡単なアニメーションを入れることも可能)
 
-1人の仲間が目の前に現れる。[l]
+1人の仲間が目の前に現れる。[p]
 
 
 
