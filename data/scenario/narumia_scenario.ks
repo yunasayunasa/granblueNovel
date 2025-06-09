@@ -6,20 +6,19 @@
 [bg storage="cafe_bg.jpg" time="1000"]
 
 ; ナルメアを表示 (前のシナリオから引き継いでいるか、ここで表示)
-[chara_show name="narumia" x="150" y="150"] ; x, y は適切な位置に調整
+[chara_show name="narumia" x="150" y="150"] 
 
 君はナルメアと共にグランサイファー船内にある[r]
 カフェへと辿り着いた。[p]
 
-; サンダルフォン登場 -> ナルメアを消す
+
 [chara_hide name="narumia" time="200" wait="true"]
 [chara_new name="sandalphon" storage="sandalphon_normal.png" jname="サンダルフォン"]
-[chara_show name="sandalphon" x="150" y="150" time="500" wait="true"] ; x,y は画面中央想定
+[chara_show name="sandalphon" x="150" y="150" time="500" wait="true"]
 
 #サンダルフォン
 注文は？[p]
 
-; ナルメアが話す -> サンダルフォンを消してナルメアを表示
 [chara_hide name="sandalphon" time="200" wait="true"]
 [chara_show name="narumia" x="150" y="150" time="500" wait="true"]
 
@@ -28,16 +27,15 @@
 この【熱々！ホットチョコレート】なんて[r]
 いいんじゃないかな？[p]
 
-注文するのは...[l] ; ← 選択肢の直前なので [l] のまま
+注文するのは...[l] 
 
-; 選択肢
+
 [glink color="blue" x="70" y="250" width="300" size="24" text="オリジナルブレンド" target="*order_original_blend"]
 [glink color="blue" x="70" y="320" width="300" size="24" text="ホットチョコレート" target="*order_hot_chocolate"]
 [s]
 
 *order_hot_chocolate
-    ; ホットチョコレートを選んだ (ナルメアが話す)
-    ; ナルメアが表示されたまま
+ 
     君はホットチョコレートを注文した。[p]
 
     #ナルメア
@@ -59,13 +57,13 @@
     態々演算するまでもなく、[r]
     チョコを貰える世界にいたのだ。[p]
 
-    ～ナルメアEND～[l] ; エンディング表示後なので [l]
+    ～ナルメアEND～[l] 
 
     [chara_hide name="narumia" time="500" wait="true"]
     [jump storage="first.ks" target="*start"]
 
 *order_original_blend
-    ; オリジナルブレンドを選んだ (サンダルフォンが話す)
+   
     [chara_hide name="narumia" time="200" wait="true"]
     [chara_show name="sandalphon" x="150" y="150" time="500" wait="true"]
 
@@ -82,16 +80,15 @@
     #サンダルフォン
     どうだ？[p]
 
-    君は答えた。[l] ; ← 選択肢の直前なので [l] のまま
+    君は答えた。[l] 
 
-    ; 次の選択肢
+    
     [glink color="blue" x="70" y="250" width="300" size="24" text="...苦い" target="*answer_bitter"]
     [glink color="blue" x="70" y="320" width="300" size="24" text="...美味しい！" target="*answer_delicious"]
     [s]
 
 *answer_bitter
-    ; 「苦い」と答えた (サンダルフォンが話す)
-    ; サンダルフォンが表示されたまま
+  
     君は苦いと答えた[p]
 
     #サンダルフォン
@@ -104,16 +101,14 @@
     サンダルフォンは呟きながら、[r]
     考え込み始めた。[p]
 
-    君は...[l] ; ← 選択肢の直前なので [l] のまま
-
+    君は...[l]
     ; 次の選択肢 (この先の展開はゲームブックに従う)
     [glink color="blue" x="70" y="250" width="300" size="24" text="席を立つ" target="*bitter_leave_cafe"]
     [glink color="blue" x="70" y="320" width="300" size="24" text="ゆっくりする" target="*bitter_relax_cafe"]
     [s]
 
 *answer_delicious
-    ; 「美味しい！」と答えた (サンダルフォンが話す - サンダルフォンEND)
-    ; サンダルフォンが表示されたまま
+  
     君は美味しいと答えた。[p]
 
     #サンダルフォン
@@ -128,29 +123,27 @@
     #サンダルフォン
     ハッピーバレンタイン、団長。[p]
 
-    ～サンダルフォンEND～[l] ; エンディング表示後なので [l]
+    ～サンダルフォンEND～[l] 
     [chara_hide name="sandalphon" time="500" wait="true"]
     [jump storage="first.ks" target="*start"]
 
 
 ; ----- 「苦い」と答えた後の分岐 -----
 *bitter_leave_cafe
-    ; 「席を立つ」を選んだ場合の展開
-    [chara_hide name="sandalphon" time="200" wait="true"] ; サンダルフォンを消す
+ 
+    [chara_hide name="sandalphon" time="200" wait="true"] 
     君はコーヒー飲み干し、[r]
-    カフェを出ようとした。すると、[p] ; ← この後、3人娘登場なので [p] のまま
+    カフェを出ようとした。すると、[p] 
 
-    ; ディアンサ、アンスリア、ニーア登場シーンへ続く (仮のジャンプ)
+   
     [jump target="*three_girls_appear_after_leave"]
 
 *bitter_relax_cafe
-    ; 「ゆっくりする」を選んだ場合の展開
-    ; サンダルフォンは考え込んでいるので表示したままでも良いし、消しても良い
-    ; ここでは表示したままとする
+   
     君はコーヒーを味わいながら[r]
-    もう少し寛ぐことにした。[p] ; ← この後、3人娘登場なので [p] のまま
+    もう少し寛ぐことにした。[p] 
 
-    ; ディアンサ、アンスリア、ニーア登場シーンへ続く (仮のジャンプ)
+   
     [jump target="*three_girls_appear_after_relax"]
 
 
@@ -186,7 +179,7 @@
     受け取ってくれるよね...？[r]
     愛して...くれるよね...？[l]
 
-    君は...[l] ; ← 選択肢の直前なので [l] のまま
+    君は...[l] 
 
     ; 選択肢 (誰から受け取るか)
     [glink color="blue" x="70" y="250" width="300" size="24" text="ディアンサから受け取る" target="*receive_diantha"]

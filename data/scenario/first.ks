@@ -79,7 +79,7 @@ if (tyrano_base_element) {
 ; ----- 各ルートへの分岐先ラベル (これらは別の .ks ファイルに分けても良い) -----
 *narumia_route_start
  
-  [chara_new name="narumia" storage="narumia_normal.png" jname="ナルメア"] ; data/fgimage/narumia_normal.png
+  [chara_new name="narumia" storage="narumia_normal.png" jname="ナルメア"] 
   [chara_show name="narumia" time="500" wait="true"]
   #ナルメア
   よろしくね、団長ちゃん！[l]
