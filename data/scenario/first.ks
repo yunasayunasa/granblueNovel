@@ -1,4 +1,5 @@
-; opening.ks
+; first.ks (タイトル風シーンを組み込む例)
+*start
 [iscript]
 var tyrano_base_element = document.getElementById('tyrano_base');
 if (tyrano_base_element) {
@@ -13,6 +14,17 @@ if (tyrano_base_element) {
     console.error("#tyrano_base が見つかりません");
 }
 [endscript]
+
+; ----- タイトル画面風の表示 -----
+[cm]
+[clearfix]
+[stopbgm]
+[bg storage="title_page_bg.jpg" time="500"] ; タイトル用背景
+[mtext text="演算世界とチヨコレイト" x="100" y="200" size="40" color="white" time="500"]
+[glink text="ゲームスタート" x="150" y="500" width="150" size="28" color="blue" target="*prologue_main"]
+[s]
+
+*prologue_main ; ← プロローグ本体の開始ラベル
 
 [title name="演算世界とチヨコレイト"]
 [bg storage="calc_space.jpg" time="1000"]
