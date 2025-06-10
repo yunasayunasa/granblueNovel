@@ -122,20 +122,7 @@
         
         
         <!-- index.html の </body> の直前に追加 -->
-<script>
-    // TyranoScriptの準備が整うのを少し待つ (タイミングがシビアな場合がある)
-    setTimeout(function() {
-        if (TYRANO && TYRANO.kag && TYRANO.kag.stat) {
-            TYRANO.kag.stat.default_scenario = "title_screen.ks";
-            TYRANO.kag.stat.current_scenario = "title_screen.ks"; //念のため現在シナリオも
-            console.log("index.html: 開始シナリオを title_screen.ks に強制変更試行");
-            // もし可能なら、ここでゲームを再起動するような処理を呼び出せれば理想的
-            // TYRANO.kag.ftag.startTag("load", { storage: "title_screen.ks" }); // これは動作しない可能性が高い
-        } else {
-            console.error("index.html: TYRANOオブジェクトが見つかりません");
-        }
-    }, 500); // 500ミリ秒待つ (この時間は調整が必要かも)
-</script>
+
         
     </body>
 </html>
