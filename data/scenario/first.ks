@@ -15,17 +15,6 @@ if (tyrano_base_element) {
 }
 [endscript]
 
-; ----- タイトル画面風の表示 -----
-[cm]
-[clearfix]
-[stopbgm]
-[bg storage="title_page_bg.jpg" time="500"] ; タイトル用背景
-[mtext text="演算世界とチヨコレイト" x="100" y="200" size="40" color="white" time="500"]
-[glink text="ゲームスタート" x="150" y="500" width="150" size="28" color="blue" target="*prologue_main"]
-[s]
-
-*prologue_main ; ← プロローグ本体の開始ラベル
-
 [title name="演算世界とチヨコレイト"]
 [bg storage="calc_space.jpg" time="1000"]
 
