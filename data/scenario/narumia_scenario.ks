@@ -13,7 +13,15 @@
 
 
 [chara_hide name="narumia" time="200" wait="true"]
+; ニーアの定義と表情差分
+[chara_new name="nier" storage="nier_normal.png" jname="ニーア"]
+[chara_face name="nier" face="give_choco" storage="nier_give_choco.png"] ; チョコを渡す時の表情
+[chara_face name="nier" face="yandere" storage="nier_yandere.png"]    ; 「ずっと一緒だよ」の表情
+
+; デスの定義
+[chara_new name="death" storage="death_stand.png" jname="デス"]
 [chara_new name="sandalphon" storage="sandalphon_normal.png" jname="サンダルフォン"]
+
 [chara_show name="sandalphon" x="150" y="150" time="500" wait="true"]
 
 #サンダルフォン
@@ -148,16 +156,16 @@
 
 
 ; ----- ディアンサ、アンスリア、ニーア登場シーン共通部分 (仮) -----
+
+; ----- ディアンサ、アンスリア、ニーア登場シーン共通部分 -----
 *three_girls_appear_common
     ; 必要であれば前のキャラクターを消す
-    [chara_hide name="sandalphon" time="100" wait="true"] ; もしサンダルフォンが表示されていたら
+    [chara_hide name="sandalphon" time="100" wait="true"]
 
-    ; 3人のうち誰か1人を代表して表示するか、あるいはテキストのみで進行するか
-    ; ここでは仮にテキストのみで進行し、選択肢で誰のチョコを受け取るかを選ぶ
-    ; [chara_new name="diantha" storage="diantha_normal.png" jname="ディアンサ"]
-    ; [chara_new name="anthuria" storage="anthuria_normal.png" jname="アンスリア"]
-    ; [chara_new name="nier" storage="nier_normal.png" jname="ニーア"]
-    ; (立ち絵はまだないので、名前表示のみで進行するか、[chara_show]は後で追加)
+    ; キャラクター定義 (表情差分やデスの立ち絵を追加)
+    [chara_new name="diantha" jname="ディアンサ"] ; 立ち絵ができたら storage を追加
+    [chara_new name="anthuria" jname="アンスリア"] ; 立ち絵ができたら storage を追加
+    ; (ニーアとデスの定義は上記のように事前に行われている想定)
 
     「「「団長さん、ここにいたんだ。[r]
     探したんだよ？」」」[p]
@@ -166,48 +174,41 @@
     君を探していたようだ。[p]
     何やら殺気立っている様子だ。[l]
 
+    ; ディアンサのセリフ
     #ディアンサ
     団長さん！はい！チョコレート！[r]
     受け取って！[p]
 
+    ; アンスリアのセリフ
     #アンスリア
     チョコ、作ってきたの、団長さんの為に。[r]
     受け取って欲しいな...？[p]
 
+    ; ニーアのセリフ (チョコを渡す時の表情で登場)
+    [chara_show name="nier" face="give_choco" x="150" y="150" time="500" wait="true"] ; x,y は調整
     #ニーア
     団長さん...？[r]
     受け取ってくれるよね...？[r]
     愛して...くれるよね...？[l]
+    ; [chara_hide name="nier"] ; 選択肢の前に消すか、表示したままにするかはお好みで
 
-    君は...[l] 
+    君は...[l]
 
     ; 選択肢 (誰から受け取るか)
-    [glink color="blue" x="70" y="250" width="300" size="24" text="ディアンサから受け取る" target="*receive_diantha"]
-    [glink color="blue" x="70" y="320" width="300" size="24" text="アンスリアから受け取る" target="*receive_anthuria"]
-    [glink color="blue" x="70" y="390" width="300" size="24" text="ニーアから受け取る" target="*receive_nier"]
+    [glink color="blue" x="70" y="250" width="350" size="24" text="ディアンサから受け取る" target="*receive_diantha_or_anthuria"]
+    [glink color="blue" x="70" y="320" width="350" size="24" text="アンスリアから受け取る" target="*receive_diantha_or_anthuria"]
+    [glink color="blue" x="70" y="390" width="350" size="24" text="ニーアから受け取る" target="*receive_nier_good_end"]
     [s]
 
 
-; ----- 「席を立つ」を選んだ後の3人娘登場 -----
-*three_girls_appear_after_leave
-    ; (ここまでの地の文は bitter_leave_cafe で表示済み)
-    [jump target="*three_girls_appear_common"]
-
-; ----- 「ゆっくりする」を選んだ後の3人娘登場 -----
-*three_girls_appear_after_relax
-    ; (ここまでの地の文は bitter_relax_cafe で表示済み)
-    「「「団長さん、ここにいたんだ。[r]
-    探したんだよ？」」」[p]
-    君の前に3人の見目麗しい女性が現れた。[r]
-    君を探していたようだ。[l]
-    [jump target="*three_girls_appear_common"]
-
-
 ; ----- チョコ受け取り処理とエンディング分岐 -----
-*receive_diantha
-    ; ディアンサから受け取った (BAD ENDへ)
-    君はチョコを受け取った。[p] ; ← ゲームブックでは「君はディアンサからチョコを受け取った」のはず
 
+*receive_diantha_or_anthuria ; ディアンサまたはアンスリアから受け取った場合 (BAD END)
+    [chara_hide name="nier" time="100" wait="true"] ; もしニーアが表示されていたら消す
+    君はチョコを受け取った。[p]
+
+    ; ニーアのセリフ (ヤンデレ顔で再登場)
+    [chara_show name="nier" face="yandere" x="150" y="150" time="500" wait="true"]
     #ニーア
     どうして...？どうして受け取ってくれないの...？[r]
     愛してくれないの...？私のことを捨てるの...？[r]
@@ -215,11 +216,17 @@
 
     嫌！嫌あああああ！[r]
     お願い！捨てないで！私を...、愛して...[p]
+    [chara_hide name="nier" time="200" wait="true"] ; ニーアを消してデス登場の準備
 
+    ; デス登場
+    [chara_show name="death" x="150" y="150" time="500" wait="true"]
     #デス
     愛シイ人、人ノ愛ハ移リ行クモノ。[r]
     永遠ノ愛ヲ求メルナラ、答エハヒトツ...[p]
+    [chara_hide name="death" time="200" wait="true"] ; デスを消す
 
+    ; ニーア再登場 (ヤンデレ顔のまま)
+    [chara_show name="nier" face="yandere" x="150" y="150" time="500" wait="true"]
     #ニーア
     ...そっか、そうだよね...。[r]
     移ろう前に...一つになればいいんだ...。[p]
@@ -227,61 +234,66 @@
     デス、お願い。[p]
 
     ずっと、ずっと一緒だよ...。[p]
+    [chara_hide name="nier" time="500" wait="true"]
 
+    ; ロジャーのセリフ
+    [chara_show name="roger" x="150" y="150" time="500" wait="true"]
     #ロジャー
     うわあああああ！まずい！[r]
     再演算！演算し直さなきゃ！[p]
+    [chara_hide name="roger" time="500" wait="true"]
 
-    BAD END [l]
-
-    [jump target="*three_girls_appear_common"] ; 再演算 (一つ前の選択肢へ)
-   [jump storage="first.ks" target="*start"]
-
-*receive_anthuria
-    ; アンスリアから受け取った (BAD ENDへ)
-    君はチョコを受け取った。[p] ; ← ゲームブックでは「君はアンスリアからチョコを受け取った」のはず
-    ; (BAD END の内容は上記 receive_diantha と同じなので省略。内容は同じものを記述)
-    #ニーア
-    どうして...？ (以下略) ...[p]
     BAD END [l]
     [jump target="*three_girls_appear_common"]
-  [jump storage="first.ks" target="*start"]
 
-*receive_nier
-    ; ニーアから受け取った (Good ENDへ)
+*receive_nier_good_end ; ニーアから受け取った場合 (Good END)
+    ; ニーアは give_choco の表情で表示されているはず
+    ; [chara_mod name="nier" face="smile"] ; もしここでさらに表情を変えるなら (例: 満面の笑みなど)
     君はニーアからチョコを受け取った。[p]
 
     #ニーア
     嬉しい...！私ね、団長さんの為なら[r]
     なんでもできる...。[r]
     団長さんが愛してくれるなら、なんでも...。[p]
+    ; この後ニーアは表示したままで、他のキャラが割り込んでくる
 
+    ; ディアンサのセリフ (ディアンサ立ち絵表示)
+    ; [chara_show name="diantha" x="左側X" y="Y"] ; ニーアと重ならない位置に
     #ディアンサ
     あー！ずるい！ニーアさんだけじゃなくて、[r]
     私のも受け取ってよ！[p]
+    ; [chara_hide name="diantha"]
 
+    ; アンスリアのセリフ (アンスリア立ち絵表示)
+    ; [chara_show name="anthuria" x="右側X" y="Y"] ; ニーアと重ならない位置に
     #アンスリア
     わ、私のも受け取って！[r]
     それで、中に手紙が入ってるの...！[r]
     そこで待ってるから！2人っきりで...[p]
+    ; [chara_hide name="anthuria"]
 
-    ; ナルメア登場
+    ; ナルメアのセリフ (ナルメア立ち絵表示)
+    ; この時点でニーア、ディアンサ、アンスリアが表示されている場合、
+    ; 一旦全員消してナルメアを中央に表示するか、ナルメアも端に表示するかなど演出方針による
+    [chara_hide name="nier" time="100" wait="false"] ; 例: 他のキャラを素早く消す
+    ; [chara_hide name="diantha" time="100" wait="false"]
+    ; [chara_hide name="anthuria" time="100" wait="false"]
     [chara_show name="narumia" x="150" y="150" time="500" wait="true"]
     #ナルメア
     お姉さんも用意してあるんだから！[r]
     はい、あーんしてあげる♪[p]
+    [chara_hide name="narumia" time="200" wait="true"]
 
-    ; サンダルフォン登場
-    [chara_hide name="narumia" time="100" wait="true"] ; 一旦ナルメアを消すか、位置を調整
+    ; サンダルフォンのセリフ (サンダルフォン立ち絵表示)
     [chara_show name="sandalphon" x="150" y="150" time="500" wait="true"]
     #サンダルフォン
     お前達、静かにしろ！[p]
+    [chara_hide name="sandalphon" time="500" wait="true"]
 
     ━━かしましい声が響き辺り、[r]
     今日もグランサイファーは平和そのものであった。[p]
 
     Good END[p]
 
-    「...どうしよう。うち、完っ全に出遅れてる...！」[l] ; 最後のセリフ後なので [l]
-    [chara_hide name="sandalphon" time="500" wait="true"] ; 表示されているキャラを消す
-  [jump storage="first.ks" target="*start"]
+    「...どうしよう。うち、完っ全に出遅れてる...！」[l]
+    [jump storage="first.ks" target="*start"]
