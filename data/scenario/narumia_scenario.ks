@@ -60,7 +60,7 @@
     ～ナルメアEND～[l] 
 
     [chara_hide name="narumia" time="500" wait="true"]
-   [jump storage="title_screen.ks" target="*show_title"]
+  [jump storage="first.ks" target="*start"]
 
 *order_original_blend
    
@@ -125,7 +125,7 @@
 
     ～サンダルフォンEND～[l] 
     [chara_hide name="sandalphon" time="500" wait="true"]
-    [jump storage="title_screen.ks" target="*show_title"]
+   [jump storage="first.ks" target="*start"]
 
 
 ; ----- 「苦い」と答えた後の分岐 -----
@@ -235,7 +235,7 @@
     BAD END [l]
 
     [jump target="*three_girls_appear_common"] ; 再演算 (一つ前の選択肢へ)
-   [jump storage="title_screen.ks" target="*show_title"]
+   [jump storage="first.ks" target="*start"]
 
 *receive_anthuria
     ; アンスリアから受け取った (BAD ENDへ)
@@ -245,7 +245,7 @@
     どうして...？ (以下略) ...[p]
     BAD END [l]
     [jump target="*three_girls_appear_common"]
-   [jump storage="title_screen.ks" target="*show_title"]
+  [jump storage="first.ks" target="*start"]
 
 *receive_nier
     ; ニーアから受け取った (Good ENDへ)
@@ -284,4 +284,4 @@
 
     「...どうしよう。うち、完っ全に出遅れてる...！」[l] ; 最後のセリフ後なので [l]
     [chara_hide name="sandalphon" time="500" wait="true"] ; 表示されているキャラを消す
-   [jump storage="title_screen.ks" target="*show_title"]
+  [jump storage="first.ks" target="*start"]
