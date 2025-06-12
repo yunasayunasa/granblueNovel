@@ -250,8 +250,12 @@
 
     [chara_show name="nier" face="yandere" x="150" y="150" time="500" wait="true"]
 
-    デス、お願い。[p]
+    デス、お願い。[l] 
 
+    ; ★★★ 赤いフラッシュ演出 ★★★
+    [image storage="red_flash.png" layer="fix" x="0" y="0" width="& Tyrone.kag.config.scWidth" height="& Tyrone.kag.config.scHeight" time="50" wait="true" zindex="9999"] 
+    [wait time="100"] 
+    [freeimage layer="fix" time="50" wait="true"] 
     ずっと、ずっと一緒だよ...。[p]
     [chara_hide name="nier" time="500" wait="true"]
 
