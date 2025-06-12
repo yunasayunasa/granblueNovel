@@ -16,6 +16,7 @@
 ; ----- キャラクター定義 -----
 [chara_new name="roger" storage="roger_normal.png" jname="ロジャー"]
 [chara_new name="narumia" storage="narumia_normal.png" jname="ナルメア"]
+[chara_new name="flash" storage="red_flash.png" jname="フラッシュ"]
 
 
 [chara_new name="sandalphon" storage="sandalphon_normal.png" jname="サンダルフォン"]
@@ -253,9 +254,8 @@
     デス、お願い。[l] 
 
     ; ★★★ 赤いフラッシュ演出 ★★★
-    [image storage="red_flash.png" layer="fix" x="0" y="0" width="& Tyrone.kag.config.scWidth" height="& Tyrone.kag.config.scHeight" time="50" wait="true" zindex="9999"] 
-    [wait time="100"] 
-    [freeimage layer="fix" time="50" wait="true"] 
+    [chara_show name="red_flash.png" layer="fix" x="0" y="0" width="& Tyrone.kag.config.scWidth" height="& Tyrone.kag.config.scHeight" time="50" wait="true" zindex="9999"] 
+   [chara_hide name="roger" time="100" wait="true"]
     ずっと、ずっと一緒だよ...。[p]
     [chara_hide name="nier" time="500" wait="true"]
 
