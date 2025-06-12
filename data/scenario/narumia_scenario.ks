@@ -175,16 +175,17 @@
     君の前に3人の見目麗しい女性が現れた。[r]
     君を探していたようだ。[p]
 
-   
-    [chara_show name="diantha" x="10" y="150" time="500" wait="false"]  
-    [chara_show name="anthuria" x="300" y="150" time="500" wait="false"]
-    [chara_show name="nier" face="give_choco" x="500" y="150" time="500" wait="true"] 
-    何やら殺気立っている様子だ。[p]
+   [chara_show name="diantha" classname="diantha_pos" time="500" wait="false"]
+[chara_show name="anthuria" classname="anthuria_pos" time="500" wait="false"]
+[chara_show name="nier"  classname="nier_pos" time="500" wait="true"]
+    何やら殺気立っている様子だ。[l]
 
    
     [chara_hide name="diantha" time="100" wait="false"]
     [chara_hide name="anthuria" time="100" wait="false"]
-    [chara_hide name="nier" time="100" wait="true"]
+    [chara_hide name="nier" time="100" wait="false"]
+    [wait time="150"] ; 念のため少し待つ
+    [eval exp="alert('3人消しました')"] ; または [current layer="message0"][text text="3人消しました"][l]
 
     ; ディアンサのセリフ
     [chara_show name="diantha" x="150" y="150" time="300" wait="true"] 
