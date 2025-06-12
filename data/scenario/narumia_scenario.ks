@@ -48,7 +48,7 @@
 
 
 [glink color="blue" x="70" y="250" width="200" size="28" text="オリジナルブレンド" target="*order_original_blend"]
-[glink color="blue" x="70" y="250" width="200" size="28" text="ホットチョコレート" target="*order_hot_chocolate"]
+[glink color="blue" x="70" y="350" width="200" size="28" text="ホットチョコレート" target="*order_hot_chocolate"]
 [s]
 
 *order_hot_chocolate
@@ -101,7 +101,7 @@
 
     
     [glink color="blue" x="70" y="250" width="200" size="28" text="...苦い" target="*answer_bitter"]
-    [glink color="blue" x="70" y="250" width="200" size="28" text="...美味しい！" target="*answer_delicious"]
+    [glink color="blue" x="70" y="350" width="200" size="28" text="...美味しい！" target="*answer_delicious"]
     [s]
 
 *answer_bitter
@@ -121,7 +121,7 @@
     君は...[l]
     ; 次の選択肢 (この先の展開はゲームブックに従う)
     [glink color="blue" x="70" y="250" width="200" size="28" text="席を立つ" target="*bitter_leave_cafe"]
-    [glink color="blue" x="70" y="250" width="200" size="28" text="ゆっくりする" target="*bitter_relax_cafe"]
+    [glink color="blue" x="70" y="350" width="200" size="28" text="ゆっくりする" target="*bitter_relax_cafe"]
     [s]
 
 *answer_delicious
@@ -212,8 +212,8 @@
 
     ; 選択肢 (誰から受け取るか)
     [glink color="blue" x="70" y="250" width="200" size="28" text="ディアンサから受け取る" target="*receive_diantha_or_anthuria"]
-    [glink color="blue" x="70" y="250" width="200" size="28" text="アンスリアから受け取る" target="*receive_diantha_or_anthuria"]
-    [glink color="blue" x="70" y="250" width="200" size="28" text="ニーアから受け取る" target="*receive_nier_good_end"]
+    [glink color="blue" x="70" y="350" width="200" size="28" text="アンスリアから受け取る" target="*receive_diantha_or_anthuria"]
+    [glink color="blue" x="70" y="450" width="200" size="28" text="ニーアから受け取る" target="*receive_nier_good_end"]
     [s]
 
 ; ----- チョコ受け取り処理とエンディング分岐 -----
@@ -314,5 +314,5 @@
 
     Good END[p]
 
-    「...どうしよう。うち、完っ全に出遅れてる...！」[l]
+    ???「...どうしよう。うち、完っ全に出遅れてる...！」[l]
     [jump storage="first.ks" target="*start"]
