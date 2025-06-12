@@ -16,23 +16,19 @@
 ; ----- キャラクター定義 -----
 [chara_new name="roger" storage="roger_normal.png" jname="ロジャー"]
 [chara_new name="narumia" storage="narumia_normal.png" jname="ナルメア"]
-[chara_face name="narumia" face="happy" storage="narumia_happy.png"] ; ナルメアの笑顔差分 (もしあれば)
+
 
 [chara_new name="sandalphon" storage="sandalphon_normal.png" jname="サンダルフォン"]
-; [chara_face name="sandalphon" face="smile" storage="sandalphon_smile.png"] ; サンダルフォンの笑顔差分 (もしあれば)
+
 
 [chara_new name="diantha" storage="diantha_normal.png" jname="ディアンサ"]
 [chara_new name="anthuria" storage="anthuria_normal.png" jname="アンスリア"]
 
 [chara_new name="nier" storage="nier_normal.png" jname="ニーア"]
-[chara_face name="nier" face="give_choco" storage="nier_give_choco.png"] ; チョコを渡す時の表情
-[chara_face name="nier" face="yandere" storage="nier_yandere.png"]    ; 「ずっと一緒だよ」の表情
+[chara_face name="nier" face="give_choco" storage="nier_give_choco.png"] 
+[chara_face name="nier" face="yandere" storage="nier_yandere.png"]  
 
 [chara_new name="death" storage="death_stand.png" jname="デス"]
-
-; 立ち絵なしのキャラクター (必要であれば)
-[chara_new name="unknown_oracle" jname="？？？"] ; プロローグのオロロジャイアちゃん
-; [chara_new name="silhouette_companion" storage="companion_silhouette.png" jname="？？？"] ; シルエット使わないなら不要
 [chara_new name="sandalphon" storage="sandalphon_normal.png" jname="サンダルフォン"]
 
 [chara_show name="sandalphon" x="150" y="150" time="500" wait="true"]

@@ -83,7 +83,7 @@ if (tyrano_base_element) {
   [chara_new name="narumia" storage="narumia_normal.png" jname="ナルメア"] 
   [chara_show name="narumia" time="500" wait="true"]
   #ナルメア
-  よろしくね、団長ちゃん！[l]
+  よろしくね、団長ちゃん！[p]
   [jump storage="narumia_scenario.ks" target="*cafe_scene"] // ナルメア編のシナリオファイルへジャンプ (例)
 
 *siete_route_start
