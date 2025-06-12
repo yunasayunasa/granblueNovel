@@ -47,8 +47,8 @@
 注文するのは...[l] 
 
 
-[glink color="blue" x="70" y="250" width="300" size="24" text="オリジナルブレンド" target="*order_original_blend"]
-[glink color="blue" x="70" y="320" width="300" size="24" text="ホットチョコレート" target="*order_hot_chocolate"]
+[glink color="blue" x="70" y="250" width="200" size="28" text="オリジナルブレンド" target="*order_original_blend"]
+[glink color="blue" x="70" y="250" width="200" size="28" text="ホットチョコレート" target="*order_hot_chocolate"]
 [s]
 
 *order_hot_chocolate
@@ -100,8 +100,8 @@
     君は答えた。[l] 
 
     
-    [glink color="blue" x="70" y="250" width="300" size="24" text="...苦い" target="*answer_bitter"]
-    [glink color="blue" x="70" y="320" width="300" size="24" text="...美味しい！" target="*answer_delicious"]
+    [glink color="blue" x="70" y="250" width="200" size="28" text="...苦い" target="*answer_bitter"]
+    [glink color="blue" x="70" y="250" width="200" size="28" text="...美味しい！" target="*answer_delicious"]
     [s]
 
 *answer_bitter
@@ -120,8 +120,8 @@
 
     君は...[l]
     ; 次の選択肢 (この先の展開はゲームブックに従う)
-    [glink color="blue" x="70" y="250" width="300" size="24" text="席を立つ" target="*bitter_leave_cafe"]
-    [glink color="blue" x="70" y="320" width="300" size="24" text="ゆっくりする" target="*bitter_relax_cafe"]
+    [glink color="blue" x="70" y="250" width="200" size="28" text="席を立つ" target="*bitter_leave_cafe"]
+    [glink color="blue" x="70" y="250" width="200" size="28" text="ゆっくりする" target="*bitter_relax_cafe"]
     [s]
 
 *answer_delicious
@@ -185,8 +185,7 @@
     [chara_hide name="anthuria" time="100" wait="false"]
     [chara_hide name="nier" time="100" wait="false"]
     [wait time="150"] ; 念のため少し待つ
-    [eval exp="alert('3人消しました')"] ; または [current layer="message0"][text text="3人消しました"][l]
-
+    
     ; ディアンサのセリフ
     [chara_show name="diantha" x="150" y="150" time="300" wait="true"] 
     #ディアンサ
@@ -212,9 +211,9 @@
     君は...[l]
 
     ; 選択肢 (誰から受け取るか)
-    [glink color="blue" x="70" y="450" width="310" size="24" text="ディアンサから受け取る" target="*receive_diantha_or_anthuria"]
-    [glink color="blue" x="70" y="520" width="310" size="24" text="アンスリアから受け取る" target="*receive_diantha_or_anthuria"]
-    [glink color="blue" x="70" y="590" width="310" size="24" text="ニーアから受け取る" target="*receive_nier_good_end"]
+    [glink color="blue" x="70" y="250" width="200" size="28" text="ディアンサから受け取る" target="*receive_diantha_or_anthuria"]
+    [glink color="blue" x="70" y="250" width="200" size="28" text="アンスリアから受け取る" target="*receive_diantha_or_anthuria"]
+    [glink color="blue" x="70" y="250" width="200" size="28" text="ニーアから受け取る" target="*receive_nier_good_end"]
     [s]
 
 ; ----- チョコ受け取り処理とエンディング分岐 -----
@@ -224,7 +223,7 @@
     君はチョコを受け取った。[p]
 
     ; ニーアのセリフ (ヤンデレ顔で再登場)
-    [chara_show name="nier" face="yandere" x="150" y="150" time="500" wait="true"]
+    [chara_show name="nier" face="give_choco" x="150" y="150" time="500" wait="true"]
     #ニーア
     どうして...？どうして受け取ってくれないの...？[r]
     愛してくれないの...？私のことを捨てるの...？[r]
@@ -242,10 +241,14 @@
     [chara_hide name="death" time="200" wait="true"]
 
     ; ニーア再登場 (ヤンデレ顔のまま)
-    [chara_show name="nier" face="yandere" x="150" y="150" time="500" wait="true"]
+    [chara_show name="nier" face="give_choco" x="150" y="150" time="500" wait="true"]
     #ニーア
     ...そっか、そうだよね...。[r]
     移ろう前に...一つになればいいんだ...。[p]
+
+     [chara_hide name="nier" time="200" wait="true"]
+
+    [chara_show name="nier" face="yandere" x="150" y="150" time="500" wait="true"]
 
     デス、お願い。[p]
 

@@ -75,8 +75,8 @@ body {
 /* style.css */
 .tyrano_chara {
     position: absolute !important;
-    /* 例: 画面の横幅の25%の位置、縦は下から10%の位置に表示したい場合 
-    left: 15% !important;  /* 画面左端から25%の位置 
+    /* 例: 画面の横幅の25%の位置、縦は下から10%の位置に表示したい場合 */
+    left: 15% !important;  /* 画面左端から25%の位置 */
     bottom: 0% !important; /* 画面下端から10%の位置 */
     /* Y軸の中心を合わせるために、キャラクターの高さの半分を上に移動させる */
     /* transform: translateY(-50%); */ /* これはキャラクターの高さが固定の場合に有効 */
