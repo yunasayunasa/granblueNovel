@@ -176,16 +176,11 @@
     君の前に3人の見目麗しい女性が現れた。[r]
     君を探していたようだ。[p]
 
-   [chara_show name="diantha" classname="diantha_pos" time="500" wait="false"]
-[chara_show name="anthuria" classname="anthuria_pos" time="500" wait="false"]
-[chara_show name="nier"  classname="nier_pos" time="500" wait="true"]
+
     何やら殺気立っている様子だ。[l]
 
    
-    [chara_hide name="diantha" time="100" wait="false"]
-    [chara_hide name="anthuria" time="100" wait="false"]
-    [chara_hide name="nier" time="100" wait="false"]
-    [wait time="150"] ; 念のため少し待つ
+
     
     ; ディアンサのセリフ
     [chara_show name="diantha" x="150" y="150" time="300" wait="true"] 
@@ -253,22 +248,31 @@
 
     デス、お願い。[l] 
 
-   ; ★★★ 赤いフラッシュ演出 (JPG画像を使用) ★★★
+    ; ★★★ 赤いフラッシュ演出 ★★★
         [image storage="red_flash.png" layer="fix" x="0" y="0" width="&TYRANO.kag.config.scWidth" height="&TYRANO.kag.config.scHeight" time="50" wait="true" zindex="9999"]
         [wait time="100"]
-        [freeimage layer="fix" time="50" wait="true"]
-    ずっと、ずっと一緒だよ...。[p]
-    [chara_hide name="nier" time="500" wait="true"]
+        [freeimage layer="fix" time="50" wait="true"] ; 赤い画像を消す
 
-    ; ロジャーのセリフ
-    [chara_show name="roger" x="150" y="150" time="500" wait="true"]
-    #ロジャー
-    うわあああああ！まずい！[r]
-    再演算！演算し直さなきゃ！[p]
-    [chara_hide name="roger" time="500" wait="true"]
+        ; ★★★ 背景を暗転させる (または真っ黒な背景画像を指定) ★★★
+        [bg storage="" time="100"] ; data/bgimage/black_bg.jpg (真っ黒な画像) を用意
+        ; または、もし背景を完全に消したいなら [layopt layer="base" visible=false] なども検討
 
-    BAD END [l]
-    [jump target="*three_girls_appear_common"] ; 再演算 (一つ前の選択肢へ)
+        ; ニーア再登場 (ヤンデレ顔のまま、暗い背景に)
+        [chara_show name="nier" face="yandere" x="150" y="150" time="500" wait="true"]
+        #ニーア
+        ずっと、ずっと一緒だよ...。[p]
+        [chara_hide name="nier" time="500" wait="true"]
+
+        ; ロジャーのセリフ (この時も背景は暗いままか、元の背景に戻すか)
+        ; [bg storage="calc_space.jpg" time="100"] ; もしここで元の背景に戻すなら
+        [chara_show name="roger" x="150" y="150" time="500" wait="true"]
+        #ロジャー
+        うわあああああ！まずい！[r]
+        再演算！演算し直さなきゃ！[p]
+        [chara_hide name="roger" time="500" wait="true"]
+
+        BAD END [l]
+        [jump target="*three_girls_appear_common"]
 
 *receive_nier_good_end ; ニーアから受け取った場合 (Good END)
     ; ニーアは give_choco の表情で表示されているはず
