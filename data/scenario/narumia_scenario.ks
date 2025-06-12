@@ -253,9 +253,10 @@
 
     デス、お願い。[l] 
 
-    ; ★★★ 赤いフラッシュ演出 ★★★
-    [chara_show name="red_flash.png" layer="fix" x="0" y="0" width="& Tyrone.kag.config.scWidth" height="& Tyrone.kag.config.scHeight" time="50" wait="true" zindex="9999"] 
-   [chara_hide name="roger" time="100" wait="true"]
+   ; ★★★ 赤いフラッシュ演出 (JPG画像を使用) ★★★
+        [image storage="red_flash.png" layer="fix" x="0" y="0" width="&TYRANO.kag.config.scWidth" height="&TYRANO.kag.config.scHeight" time="50" wait="true" zindex="9999"]
+        [wait time="100"]
+        [freeimage layer="fix" time="50" wait="true"]
     ずっと、ずっと一緒だよ...。[p]
     [chara_hide name="nier" time="500" wait="true"]
 
