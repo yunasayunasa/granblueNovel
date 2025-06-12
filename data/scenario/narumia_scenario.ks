@@ -176,9 +176,9 @@
     君を探していたようだ。[p]
 
    
-    [chara_show name="diantha" x="30" y="150" time="500" wait="false"]  
-    [chara_show name="anthuria" x="150" y="150" time="500" wait="false"]
-    [chara_show name="nier" face="give_choco" x="270" y="150" time="500" wait="true"] 
+    [chara_show name="diantha" x="10" y="150" time="500" wait="false"]  
+    [chara_show name="anthuria" x="300" y="150" time="500" wait="false"]
+    [chara_show name="nier" face="give_choco" x="500" y="150" time="500" wait="true"] 
     何やら殺気立っている様子だ。[p]
 
    
