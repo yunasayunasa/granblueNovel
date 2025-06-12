@@ -175,22 +175,19 @@
     君の前に3人の見目麗しい女性が現れた。[r]
     君を探していたようだ。[p]
 
-    ; ★★★ 3人をまとめて表示 ★★★
-    ; 位置は仮です。画面サイズ (450x800) に合わせて調整してください。
-    ; 例: 左からディアンサ、中央にアンスリア、右にニーア
-    [chara_show name="diantha" x="30" y="150" time="500" wait="false"]  ; wait=falseで同時に表示開始
+   
+    [chara_show name="diantha" x="30" y="150" time="500" wait="false"]  
     [chara_show name="anthuria" x="150" y="150" time="500" wait="false"]
-    [chara_show name="nier" face="give_choco" x="270" y="150" time="500" wait="true"] ; 最後のキャラだけ wait=true
+    [chara_show name="nier" face="give_choco" x="270" y="150" time="500" wait="true"] 
+    何やら殺気立っている様子だ。[p]
 
-    何やら殺気立っている様子だ。[l]
-
-    ; 一旦全員消して、一人ずつセリフを言う
+   
     [chara_hide name="diantha" time="100" wait="false"]
     [chara_hide name="anthuria" time="100" wait="false"]
     [chara_hide name="nier" time="100" wait="true"]
 
     ; ディアンサのセリフ
-    [chara_show name="diantha" x="150" y="150" time="300" wait="true"] ; 中央に表示 (仮)
+    [chara_show name="diantha" x="150" y="150" time="300" wait="true"] 
     #ディアンサ
     団長さん！はい！チョコレート！[r]
     受け取って！[p]
