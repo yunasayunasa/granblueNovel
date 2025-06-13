@@ -258,7 +258,7 @@
         [eval exp="alert('赤フラッシュ完了、黒背景表示前');"] 
 
         ; ★★★ 背景を暗転させる ★★★
-        [bg storage="black_bg.jpg" time="100"] 
+       [bg storage="calc_space.jpg"] 
         [eval exp="alert('黒背景表示試行後');"]
         ; ニーア再登場 (ヤンデレ顔のまま、暗い背景に)
         [chara_show name="nier" face="yandere" x="150" y="150" time="500" wait="true"]
