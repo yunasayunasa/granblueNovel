@@ -120,10 +120,10 @@
     考え込み始めた。[l][p]
 
 ; ★★★ 選択肢を削除し、共通の展開へ ★★★
-    [chara_hide name="sandalphon" time="200" wait="true"] ; サンダルフォンを消す
+    [chara_hide name="sandalphon" time="200" wait="true"] 
     君はコーヒーを味わいながら、[r] 
-    もう少し寛ぐことにした。[l] ; （または「カフェを出ようとした。すると、」）
-    [jump target="*three_girls_appear_common"] ; 共通の3人娘登場シーンへ
+    もう少し寛ぐことにした。[p]
+    [jump target="*three_girls_appear_common"] 
 
    
 
@@ -150,10 +150,10 @@
 
 ; ----- ディアンサ、アンスリア、ニーア登場シーン共通部分 -----
 *three_girls_appear_common
-    [chara_hide name="sandalphon" time="100" wait="true"] ; 前のキャラを消す (もし表示されていれば)
+    [chara_hide name="sandalphon" time="100" wait="true"] 
 
     ; ★★★ ここで元のシーンの背景に戻す ★★★
-    [bg storage="cafe_bg.jpg" time="500"] ; カフェのシーンの背景画像を指定
+    [bg storage="cafe_bg.jpg" time="500"] 
 
     ; キャラクター定義は事前に済ませておく
 
@@ -252,10 +252,10 @@
   
 
         ; ニーア再登場 (ヤンデレ顔のまま、暗い背景に)
-        [chara_show name="nier" face="yandere" x="150" y="150" time="500" wait="true"]
+        [chara_show name="nier" face="yandere" x="150" y="150" time="1000" wait="true"]
         #ニーア
         ずっと、ずっと一緒だよ...。[p]
-        [chara_hide name="nier" time="500" wait="true"]
+        [chara_hide name="nier" time="1000" wait="true"]
 
        
         [chara_show name="roger" x="150" y="150" time="500" wait="true"]
