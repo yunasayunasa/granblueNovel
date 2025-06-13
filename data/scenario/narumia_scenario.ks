@@ -248,18 +248,24 @@
 
     デス、お願い。[l] 
 
-   ; ★★★ 赤いフラッシュ演出を一時的に全てコメントアウト ★★★
-        ; [eval exp="alert('赤フラッシュ前');"]
-        ; [image storage="red_flash.jpg" layer="fix" x="0" y="0" width="&TYRANO.kag.config.scWidth" height="&TYRANO.kag.config.scHeight" time="50" wait="false" zindex="9999"]
-        ; [wait time="150"]
-        ; [eval exp="alert('赤画像表示後、消去前');"]
-        ; [freeimage layer="fix" time="50" wait="false"]
-        ; [wait time="150"]
-        ; [eval exp="alert('赤フラッシュ完了、黒背景表示前');"]
+  ; ★★★ 赤いフラッシュ演出 (前景レイヤーを使用する代替案) ★★★
+    [eval exp="alert('赤フラッシュ前 (前景レイヤー版)');"]
 
-        ; ★★★ 背景変更処理 ★★★
-        [bg storage="calc_space.jpg"] 
-        [eval exp="alert('背景表示試行後');"] 
+    ; 前景レイヤー2に赤い画像を表示 (zindexを非常に大きくして最前面に)
+    [image storage="red_flash.jpg" layer="2" x="0" y="0" width="&TYRANO.kag.config.scWidth" height="&TYRANO.kag.config.scHeight" time="50" wait="false" zindex="99999"]
+    [wait time="150"] ; 表示と描画のための少し長めのウェイト
+
+    [eval exp="alert('赤画像表示後、消去前 (前景レイヤー版)');"]
+
+    ; 前景レイヤー2の画像を消去
+    [freeimage layer="2" time="50" wait="false"]
+    [wait time="150"] ; 消去と描画のための少し長めのウェイト
+
+    [eval exp="alert('赤フラッシュ完了、黒背景表示前 (前景レイヤー版)');"]
+
+    ; ★★★ 背景を暗転させる ★★★
+    [bg storage="black_bg.jpg" time="100"] ; または cafe_bg.jpg
+    [eval exp="alert('黒背景表示試行後');"]
 
         ; ニーア再登場 (ヤンデレ顔のまま、暗い背景に)
         [chara_show name="nier" face="yandere" x="150" y="150" time="500" wait="true"]
