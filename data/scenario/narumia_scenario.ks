@@ -250,7 +250,7 @@
 
   ; ★★★ 赤いフラッシュ演出 (修正案1) ★★★
         [eval exp="alert('赤フラッシュ前');"]
-        [image storage="red_flash.jpg" layer="fix" x="0" y="0" width="&TYRANO.kag.config.scWidth" height="&TYRANO.kag.config.scHeight" time="50" wait="false" zindex="9999"]
+        [image storage="red_flash.png" layer="fix" x="0" y="0" width="&TYRANO.kag.config.scWidth" height="&TYRANO.kag.config.scHeight" time="50" wait="false" zindex="9999"]
         [wait time="150"] ; 表示と描画のための少し長めのウェイト
         [eval exp="alert('赤画像表示後、消去前');"]
         [freeimage layer="fix" time="50" wait="false"]
