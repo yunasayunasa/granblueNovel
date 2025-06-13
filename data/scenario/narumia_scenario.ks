@@ -117,13 +117,15 @@
     ...もう少し配合を変えてみるか。[p]
 
     サンダルフォンは呟きながら、[r]
-    考え込み始めた。[p]
+    考え込み始めた。[l][p]
 
-    君は...[l]
-    ; 次の選択肢 (この先の展開はゲームブックに従う)
-    [glink color="blue" x="70" y="250" width="200" size="28" text="席を立つ" target="*bitter_leave_cafe"]
-    [glink color="blue" x="70" y="350" width="200" size="28" text="ゆっくりする" target="*bitter_relax_cafe"]
-    [s]
+; ★★★ 選択肢を削除し、共通の展開へ ★★★
+    [chara_hide name="sandalphon" time="200" wait="true"] ; サンダルフォンを消す
+    君はコーヒーを味わいながら、[r] 
+    もう少し寛ぐことにした。[l] ; （または「カフェを出ようとした。すると、」）
+    [jump target="*three_girls_appear_common"] ; 共通の3人娘登場シーンへ
+
+   
 
 *answer_delicious
   
@@ -146,29 +148,14 @@
    [jump storage="first.ks" target="*start"]
 
 
-; ----- 「苦い」と答えた後の分岐 -----
-*bitter_leave_cafe
- 
-    [chara_hide name="sandalphon" time="200" wait="true"] 
-    君はコーヒー飲み干し、[r]
-    カフェを出ようとした。すると、[p] 
-
-   
-    [jump target="*three_girls_appear_after_leave"]
-
-*bitter_relax_cafe
-   
-    君はコーヒーを味わいながら[r]
-    もう少し寛ぐことにした。[p] 
-
-   
-    [jump target="*three_girls_appear_after_relax"]
-
-
 ; ----- ディアンサ、アンスリア、ニーア登場シーン共通部分 -----
 *three_girls_appear_common
-    ; 必要であれば前のキャラクターを消す (サンダルフォンなど)
-    [chara_hide name="sandalphon" time="100" wait="true"]
+    [chara_hide name="sandalphon" time="100" wait="true"] ; 前のキャラを消す (もし表示されていれば)
+
+    ; ★★★ ここで元のシーンの背景に戻す ★★★
+    [bg storage="cafe_bg.jpg" time="500"] ; カフェのシーンの背景画像を指定
+
+    ; キャラクター定義は事前に済ませておく
 
     「「「団長さん、ここにいたんだ。[r]
     探したんだよ？」」」[p]
@@ -201,7 +188,7 @@
     #ニーア
     団長さん...？[r]
     受け取ってくれるよね...？[r]
-    愛して...くれるよね...？[l]
+    愛して...くれるよね...？[p]
     ; 選択肢の前にニーアは表示したままにするか、消すかはお好みで。ここでは表示したまま。
 
     君は...[l]
@@ -215,7 +202,7 @@
 ; ----- チョコ受け取り処理とエンディング分岐 -----
 
 *receive_diantha_or_anthuria ; ディアンサまたはアンスリアから受け取った場合 (BAD END)
-    [chara_hide name="nier" time="100" wait="true"] ; 選択肢表示時にいたニーアを消す
+    [chara_hide name="nier" time="100" wait="true"] 
     君はチョコを受け取った。[p]
 
     ; ニーアのセリフ (ヤンデレ顔で再登場)
@@ -246,7 +233,7 @@
 
     [chara_show name="nier" face="yandere" x="150" y="150" time="500" wait="true"]
 
-    デス、お願い。[l] 
+    デス、お願い。[l] [p] 
 
   ; ★★★ 赤いフラッシュ演出 (前景レイヤーを使用する代替案) ★★★
    
@@ -277,12 +264,12 @@
         再演算！演算し直さなきゃ！[p]
         [chara_hide name="roger" time="500" wait="true"]
 
-        BAD END [l]
+        BAD END [l][p]
         [jump target="*three_girls_appear_common"]
 
 *receive_nier_good_end ; ニーアから受け取った場合 (Good END)
     ; ニーアは give_choco の表情で表示されているはず
-    ; [chara_mod name="nier" face="happy_smile"] ; もしここでさらに表情を変えるなら (例: とても嬉しい笑顔)
+   
     君はニーアからチョコを受け取った。[p]
 
     #ニーア
@@ -292,7 +279,7 @@
     ; この後ニーアは表示したままで、他のキャラが割り込んでくる想定
 
     ; ディアンサのセリフ
-    [chara_hide name="nier" time="100" wait="true"] ; ニーアを消してディアンサ表示
+    [chara_hide name="nier" time="100" wait="true"] 
     [chara_show name="diantha" x="150" y="150" time="300" wait="true"]
     #ディアンサ
     あー！ずるい！ニーアさんだけじゃなくて、[r]
@@ -325,5 +312,5 @@
 
     Good END[p]
 
-    ???「...どうしよう。うち、完っ全に出遅れてる...！」[l]
+    ???「...どうしよう。うち、完っ全に出遅れてる...！」[l][p]
     [jump storage="first.ks" target="*start"]
