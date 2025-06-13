@@ -249,22 +249,20 @@
     デス、お願い。[l] 
 
   ; ★★★ 赤いフラッシュ演出 (前景レイヤーを使用する代替案) ★★★
-    [eval exp="alert('赤フラッシュ前 (前景レイヤー版)');"]
-
+   
     ; 前景レイヤー2に赤い画像を表示 (zindexを非常に大きくして最前面に)
     [image storage="red_flash.png" layer="0" x="0" y="0" width="&TYRANO.kag.config.scWidth" height="&TYRANO.kag.config.scHeight" time="50" wait="false" zindex="99999"]
-    [wait time="150"] ; 表示と描画のための少し長めのウェイト
+    [wait time="150"]
 
-    [eval exp="alert('赤画像表示後、消去前 (前景レイヤー版)');"]
+   
 
     ; 前景レイヤー2の画像を消去
     [freeimage layer="0" time="50" wait="false"]
-    [wait time="150"] ; 消去と描画のための少し長めのウェイト
+    [wait time="150"] 
 
-    [eval exp="alert('赤フラッシュ完了、黒背景表示前 (前景レイヤー版)');"]
-
+   
     ; ★★★ 背景を暗転させる ★★★
-    [bg storage="black_bg.jpg" time="100"] ; または cafe_bg.jpg
+    [bg storage="black_bg.jpg" time="100"] 
     [eval exp="alert('黒背景表示試行後');"]
 
         ; ニーア再登場 (ヤンデレ顔のまま、暗い背景に)
@@ -273,8 +271,7 @@
         ずっと、ずっと一緒だよ...。[p]
         [chara_hide name="nier" time="500" wait="true"]
 
-        ; ロジャーのセリフ (この時も背景は暗いままか、元の背景に戻すか)
-        ; [bg storage="calc_space.jpg" time="100"] ; もしここで元の背景に戻すなら
+       
         [chara_show name="roger" x="150" y="150" time="500" wait="true"]
         #ロジャー
         うわあああああ！まずい！[r]
