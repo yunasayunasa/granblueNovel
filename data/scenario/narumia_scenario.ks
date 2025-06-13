@@ -252,7 +252,7 @@
     [eval exp="alert('赤フラッシュ前 (前景レイヤー版)');"]
 
     ; 前景レイヤー2に赤い画像を表示 (zindexを非常に大きくして最前面に)
-    [image storage="red_flash.png" layer="2" x="0" y="0" width="&TYRANO.kag.config.scWidth" height="&TYRANO.kag.config.scHeight" time="50" wait="false" zindex="99999"]
+    [image storage="red_flash.png" layer="0" x="0" y="0" width="&TYRANO.kag.config.scWidth" height="&TYRANO.kag.config.scHeight" time="50" wait="false" zindex="99999"]
     [wait time="150"] ; 表示と描画のための少し長めのウェイト
 
     [eval exp="alert('赤画像表示後、消去前 (前景レイヤー版)');"]
