@@ -258,7 +258,7 @@
     [eval exp="alert('赤画像表示後、消去前 (前景レイヤー版)');"]
 
     ; 前景レイヤー2の画像を消去
-    [freeimage layer="2" time="50" wait="false"]
+    [freeimage layer="0" time="50" wait="false"]
     [wait time="150"] ; 消去と描画のための少し長めのウェイト
 
     [eval exp="alert('赤フラッシュ完了、黒背景表示前 (前景レイヤー版)');"]
