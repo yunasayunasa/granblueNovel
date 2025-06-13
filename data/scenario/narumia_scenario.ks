@@ -267,7 +267,7 @@
         BAD END [l][p]
         [jump target="*three_girls_appear_common"]
 
-*receive_nier_good_end ; ニーアから受け取った場合 (Good END)
+*receive_nier_good_end 
     ; ニーアは give_choco の表情で表示されているはず
    
     君はニーアからチョコを受け取った。[p]
