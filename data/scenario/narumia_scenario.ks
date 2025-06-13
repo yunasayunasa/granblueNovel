@@ -254,16 +254,15 @@
     [image storage="red_flash.png" layer="0" x="0" y="0" width="&TYRANO.kag.config.scWidth" height="&TYRANO.kag.config.scHeight" time="50" wait="false" zindex="99999"]
     [wait time="150"]
 
-   
+    ; ★★★ 背景を暗転させる ★★★
+    [bg storage="black_bg.jpg" time="100"] 
 
     ; 前景レイヤー2の画像を消去
     [freeimage layer="0" time="50" wait="false"]
     [wait time="150"] 
 
    
-    ; ★★★ 背景を暗転させる ★★★
-    [bg storage="black_bg.jpg" time="100"] 
-    [eval exp="alert('黒背景表示試行後');"]
+  
 
         ; ニーア再登場 (ヤンデレ顔のまま、暗い背景に)
         [chara_show name="nier" face="yandere" x="150" y="150" time="500" wait="true"]
