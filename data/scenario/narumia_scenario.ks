@@ -255,7 +255,7 @@
 
         ; ★★★ 背景を暗転させる (または真っ黒な背景画像を指定) ★★★
         [eval exp="alert('黒背景表示前');"]
-        [bg storage="black_bg.jpg"]
+       [bg storage="cafe_bg.jpg" time="1000"]
         [eval exp="alert('黒背景表示試行後');"]
         ; ニーア再登場 (ヤンデレ顔のまま、暗い背景に)
         [chara_show name="nier" face="yandere" x="150" y="150" time="500" wait="true"]
