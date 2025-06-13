@@ -254,7 +254,7 @@
         [freeimage layer="fix" time="50" wait="true"] ; 赤い画像を消す
 
         ; ★★★ 背景を暗転させる (または真っ黒な背景画像を指定) ★★★
-        [bg storage="" time="100"] ; data/bgimage/black_bg.jpg (真っ黒な画像) を用意
+        [bg storage="black_bg.jpg" time="100"] ; data/bgimage/black_bg.jpg (真っ黒な画像) を用意
         ; または、もし背景を完全に消したいなら [layopt layer="base" visible=false] なども検討
 
         ; ニーア再登場 (ヤンデレ顔のまま、暗い背景に)
