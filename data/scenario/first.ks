@@ -15,7 +15,7 @@ if (tyrano_base_element) {
 }
 [endscript]
 
-[popopo type=triangle frequency=A octave=0]
+[popopo type=square frequency=A octave=0]
 
 [title name="演算世界とチヨコレイト"]
 [bg storage="calc_space.jpg" time="1000"]
