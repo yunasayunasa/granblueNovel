@@ -1224,3 +1224,39 @@ a.link_button:hover { /* ← 同様にセレクタを合わせる */
     left: 70% !important;
     bottom: 0% !important;
 }
+
+/* [glink] で生成されるボタンの共通スタイル */
+/* セレクタは開発者ツールで確認した実際のクラス名に合わせる (例: a.glink_button) */
+a.glink_button {
+    display: block; /* 各ボタンをブロック要素にして縦に並べる */
+    width: 80%;    /* 親要素(コンテナ)の幅の80% (調整可) */
+    max-width: 300px; /* 最大幅 (調整可) */
+    margin: 10px auto; /* 上下に10pxのマージン、左右はautoで中央揃え */
+    padding: 15px;
+    font-size: 24px; /* 基本のフォントサイズ */
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    background-color: blue; /* 例: 青色 */
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+a.glink_button:hover {
+    background-color: darkblue;
+}
+
+/* 選択肢ボタンを配置するコンテナのスタイル (TyranoScriptが自動生成する場合) */
+/* もしTyranoScriptが選択肢群を特定のdivで囲むなら、そのdivのクラス名を指定 */
+/* 例: .clickable_area や .fixlayer の中の特定のdivなど */
+div.custom_button_container { /* 仮のクラス名 */
+    position: fixed;
+    bottom: 10%; /* 画面下から10%の位置 */
+    left: 50%;
+    transform: translateX(-50%); /* 水平中央揃え */
+    width: 90%; /* 画面幅の90% */
+    z-index: 10000; /* メッセージウィンドウより手前 */
+    display: flex;
+    flex-direction: column; /* ボタンを縦に並べる */
+    align-items: center;    /* ボタンを水平中央に */
+}

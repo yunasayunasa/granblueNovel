@@ -42,6 +42,13 @@
     ; 例: 左からジン、中央にソリッズ、右にオイゲン
    
     [chara_show name="oigen" x="150" y="150" time="300" wait="true"] 
+      ; ★★★ 画面揺らし演出 ★★★
+    [quake time="500" count="3" hmax="15" vmax="15" wait="false"]
+    ; time: 揺れる合計時間 (ミリ秒)
+    ; count: 揺れる回数 (指定しないと揺れ続けるので注意)
+    ; hmax: 横揺れの最大幅 (ピクセル)
+    ; vmax: 縦揺れの最大幅 (ピクセル)
+    ; wait: 揺れが終わるまで待つか (true/false)
 
     ; ★★★ 「ソイヤアアアアアアアアアッッッッ！！！！！」の文字を太く大きく ★★★
     [font size="40" bold="true" color="red"] ; 例: サイズ40、太字、赤色
