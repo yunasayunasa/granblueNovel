@@ -1,7 +1,8 @@
 ; siete_scenario.ks
 
 *deck_scene_start
-
+[chara_new name="oigen" storage="oigen_normal.png" jname="オイゲン"] 
+; data/fgimage/oigen_normal.png を用意
 ; 背景を甲板に変更
 [bg storage="deck_bg.jpg" time="1000"]
 
@@ -32,15 +33,28 @@
     ......ソイヤッ！[p]
     静かに...待[p]
     ソイヤッ！ソイヤッ！[p]
+      ; ★★★ シエテを一旦消す (3人組を目立たせるため) ★★★
+    [chara_hide name="siete" time="200" wait="true"]
+
+    ; ★★★ 三人組を登場させる ★★★
+    ; 位置は仮です。画面サイズ (450x800) に合わせて、3人が重ならず、
+    ; かつ暑苦しい感じが出るように配置を調整してください。
+    ; 例: 左からジン、中央にソリッズ、右にオイゲン
+   
+    [chara_show name="oigen" x="150" y="150" time="300" wait="true"] 
+
+    ; ★★★ 「ソイヤアアアアアアアアアッッッッ！！！！！」の文字を太く大きく ★★★
+    [font size="40" bold="true" color="red"] ; 例: サイズ40、太字、赤色
     「「「ソイヤアアアアアアアアアッッッッ！！！！！」」」[p]
+    [resetfont] ; フォントスタイルをデフォルトに戻す
 
     君の前に3人の暑苦しい男が現れた。[l] ; キャラクター名は出てこないが、状況説明
 
     君は...[l]
 
     ; 次の選択肢
-    [glink color="blue" x="70" y="250" width="200" size="28" text="ソイヤッ！" target="*soiya_end"]
-    [glink color="blue" x="70" y="320" width="200" size="28" text="うるさい！" target="*scold_them"]
+    [glink color="blue" x="70" y="250" width="150" size="28" text="ソイヤッ！" target="*soiya_end"]
+    [glink color="blue" x="70" y="320" width="150" size="28" text="うるさい！" target="*scold_them"]
     [s]
 
 *spar_with_siete
@@ -58,8 +72,8 @@
 
     ; 次の選択肢
     [glink color="blue" x="70" y="250" width="250" size="24" text="左に避ける" target="*dodge_left"]
-    [glink color="blue" x="70" y="320" width="250" size="24" text="剣で受ける" target="*block_sword"] ; この先の展開は台本に従う
-    [glink color="blue" x="70" y="390" width="250" size="24" text="右に避ける" target="*dodge_right"] ; この先の展開は台本に従う
+    [glink color="blue" x="70" y="320" width="250" size="24" text="剣で受ける" target="*block_sword"] 
+    [glink color="blue" x="70" y="390" width="250" size="24" text="右に避ける" target="*dodge_right"] 
     [s]
 
 ; 以下、各選択肢の先の展開を記述していく
