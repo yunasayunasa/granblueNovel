@@ -86,13 +86,13 @@ if (tyrano_base_element) {
   [chara_show name="narumia" time="500" wait="true"]
   #ナルメア
   よろしくね、団長ちゃん！[p]
-  [jump storage="narumia_scenario.ks" target="*cafe_scene"] // ナルメア編のシナリオファイルへジャンプ (例)
+  [jump storage="narumia_scenario.ks" target="*cafe_scene"]
 
 
 *siete_route_start
     ; シエテが仲間になる処理
     ; [chara_hide name="silhouette" time="100" wait="true"]
-    [chara_new name="siete" storage="siete_normal.png" jname="シエテ"] ; data/fgimage/siete_normal.png を用意
+    [chara_new name="siete" storage="siete_normal.png" jname="シエテ"] 
     [chara_show name="siete" x="150" y="150" time="500" wait="true"]
     #シエテ
     やあ、団長ちゃん。俺と行くのかい？[p] 
