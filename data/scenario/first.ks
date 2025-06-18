@@ -88,10 +88,6 @@ if (tyrano_base_element) {
   よろしくね、団長ちゃん！[p]
   [jump storage="narumia_scenario.ks" target="*cafe_scene"] // ナルメア編のシナリオファイルへジャンプ (例)
 
-*siete_route_start
-  *siete_route_start_select
-    [playse storage="select_se.wav"] ; 選択決定音 (これは後で実装)
-    [jump target="*siete_route_start"]
 
 *siete_route_start
     ; シエテが仲間になる処理
