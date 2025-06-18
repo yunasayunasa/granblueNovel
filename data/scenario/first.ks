@@ -89,10 +89,18 @@ if (tyrano_base_element) {
   [jump storage="narumia_scenario.ks" target="*cafe_scene"] // ナルメア編のシナリオファイルへジャンプ (例)
 
 *siete_route_start
-  ; シエテが仲間になる処理
-  ; ... (同様に)
-  [jump storage="siete_scenario.ks" target="*deck_scene"]
+  *siete_route_start_select
+    [playse storage="select_se.wav"] ; 選択決定音 (これは後で実装)
+    [jump target="*siete_route_start"]
 
+*siete_route_start
+    ; シエテが仲間になる処理
+    ; [chara_hide name="silhouette" time="100" wait="true"]
+    [chara_new name="siete" storage="siete_normal.png" jname="シエテ"] ; data/fgimage/siete_normal.png を用意
+    [chara_show name="siete" x="150" y="150" time="500" wait="true"]
+    #シエテ
+    やあ、団長ちゃん。俺と行くのかい？[p] 
+    [jump storage="siete_scenario.ks" target="*deck_scene_start"] 
 *hard_mode_start
   ; 誰も仲間にしない処理
   ; ...
