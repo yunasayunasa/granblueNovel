@@ -78,9 +78,9 @@
     君は...[p]
 
     ; 次の選択肢
-    [glink color="blue" x="70" y="250" width="250" size="24" text="左に避ける" target="*dodge_left"]
-    [glink color="blue" x="70" y="320" width="250" size="24" text="剣で受ける" target="*block_sword"] 
-    [glink color="blue" x="70" y="390" width="250" size="24" text="右に避ける" target="*dodge_right"] 
+    [glink  text="左に避ける" target="*dodge_left"]
+    [glink  text="剣で受ける" target="*block_sword"] 
+    [glink  text="右に避ける" target="*dodge_right"] 
     [s]
 
 ; 以下、各選択肢の先の展開を記述していく
