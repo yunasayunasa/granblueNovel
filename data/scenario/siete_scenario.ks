@@ -83,7 +83,80 @@
     [glink  text="右に避ける" target="*dodge_right"] 
     [s]
 
-; 以下、各選択肢の先の展開を記述していく
-; 例: *soiya_end ラベル、*scold_them ラベル、*dodge_left ラベルなど
+
+*soiya_with_them ; 「ソイヤッ！」を選んだ (ソイヤッ！END)
+    ; [playse storage="select_se.wav"] ; 選択音
+
+    ; 3人組は表示されたまま（またはここで再度表示位置などを調整）
+    ; 必要であれば、シエテを再表示して困惑させるセリフを追加しても面白い
+
+    君は彼らと共にソイヤッ！する事にした。[p]
+
+
+    ソイヤッ！[p]
+   
+    ソイヤッ！ソイヤッ！[p]
+
+   
+    #オイゲン
+    ソイヤソイヤソイヤソイヤッ！[p]
+    [chara_hide name="oigen" time="100" wait="true"]
+
+    ; 全員でソイヤ (ここは地の文や、特別な演出で)
+    「ソイヤッサ！」[p]
+    [font size="35" bold="true"]
+    「「「「ソイヤッ！ソイヤッ！ソイヤッサ！！」」」」[p]
+    [resetfont]
+
+    ; シエテ登場（または再登場）
+  
+    [chara_hide name="oigen" time="100" wait="false"]
+    [chara_show name="siete" x="150" y="150" time="500" wait="true"]
+    #シエテ
+    えぇ...？何...これ...？[p]
+    え？コレで終わり！？[r]
+    嘘でしょ！？[p]
+
+    ━ソイヤの魅力には誰も抗えない。[p]
+    ～ソイヤッ！END～[l]
+
+    [chara_hide name="siete" time="500" wait="true"]
+    [jump storage="first.ks" target="*start"] ; 最初のシナリオへ
+
+
+*scold_soiya_group ; 「うるさい！」を選んだ
+    ; [playse storage="select_se.wav"]
+
+    君は彼らにうるさいと注意した。[p]
+
+    ; 3人組が悲しむ演出 (表情差分があれば [chara_mod] で変更)
+    ; ここではセリフのみで表現
+    ; 必要であれば、[chara_move] などで退場する動きをつけても良い
+    
+    #オイゲン
+    ｿｲﾔｧ...(´；ω；`)[p]
+    [chara_hide name="oigen" time="500" wait="true"] 
+
+    肩を落とし船内に戻っていく3人を見送りながら、[r]
+    君は静かに待つ。[p]
+
+    ; シエテを表示したままにするか、ここで再表示するか
+    [chara_show name="siete" x="150" y="150" time="300" wait="true"] ; もし消えていたら再表示
+
+    そこに現れたのは...[l]
+
+    ; 次の選択肢
+    [glink color="blue" x="70" y="250" width="350" size="24" text="ウィルナス、ルオー" target="*wilnas_luoh_appear"]
+    [glink color="blue" x="70" y="320" width="350" size="24" text="ワムデュス、ガレヲン" target="*wamdus_galleon_appear"]
+    [s]
+
+; 以下、ウィルナス・ルオー登場ルート、ワムデュス・ガレヲン登場ルート、
+; そして「手合わせする」を選んだ場合のルートを記述していきます。
+; *wilnas_luoh_appear
+; *wamdus_galleon_appear
+; *spar_with_siete
+;   *dodge_left (避けた後の次の選択肢など)
+;   *block_sword
+;   *dodge_right
 
 ; エンディングの最後には [jump storage="first.ks" target="*start"] でプロローグへ戻る
