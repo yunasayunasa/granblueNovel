@@ -84,7 +84,7 @@
     [s]
 
 
-*soiya_with_them ; 「ソイヤッ！」を選んだ (ソイヤッ！END)
+*soiya_with_them 
     ; [playse storage="select_se.wav"] ; 選択音
 
     ; 3人組は表示されたまま（またはここで再度表示位置などを調整）
@@ -124,7 +124,7 @@
     [jump storage="first.ks" target="*start"] ; 最初のシナリオへ
 
 
-*scold_them ; 「うるさい！」を選んだ
+*scold_them 
     ; [playse storage="select_se.wav"]
 
     君は彼らにうるさいと注意した。[p]
