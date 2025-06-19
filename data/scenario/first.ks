@@ -15,8 +15,8 @@ if (tyrano_base_element) {
 }
 [endscript]
 ; ★★★ レスポンシブ対応初期化 ★★★
-[call storage="resizecall.ks"] ; 初期レイアウト設定
-[set_resizecall storage="resizecall.ks"] ; 画面リサイズ時の自動呼び出し設定
+[call storage="resizecall.ks"] 
+[set_resizecall storage="resizecall.ks"] 
 [popopo type=sine frequency=A octave=0]
 
 [title name="演算世界とチヨコレイト"]
