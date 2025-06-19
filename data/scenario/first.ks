@@ -28,8 +28,6 @@ if (tyrano_base_element) {
 [position layer="message0" page=fore margint="25" marginl="25" marginr="25" marginb="25"]
 
 
-[ptext name="chara_name_area" layer="message0" color="white" size="20" bold="true" x="200" y="100"] 
-
 
 [chara_new name="roger" storage="roger_normal.png" jname="ロジャー"]
 
