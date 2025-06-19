@@ -201,7 +201,7 @@
 
 ; ----- チョコ受け取り処理とエンディング分岐 -----
 
-*receive_diantha_or_anthuria ; ディアンサまたはアンスリアから受け取った場合 (BAD END)
+*receive_diantha_or_anthuria 
     [chara_hide name="nier" time="100" wait="true"] 
     君はチョコを受け取った。[p]
 
