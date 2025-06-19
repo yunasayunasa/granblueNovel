@@ -20,8 +20,8 @@
 １つ手合わせでもしながら暇を潰すかい？[l]
 
 ; 選択肢
-[glink color="blue" x="70" y="250" width="300" size="24" text="静かに待つ" target="*wait_quietly"]
-[glink color="blue" x="70" y="320" width="300" size="24" text="手合わせする" target="*spar_with_siete"]
+[glink  text="静かに待つ" target="*wait_quietly"]
+[glink  text="手合わせする" target="*spar_with_siete"]
 [s]
 
 *wait_quietly
@@ -51,17 +51,17 @@
     ; wait: 揺れが終わるまで待つか (true/false)
 
     ; ★★★ 「ソイヤアアアアアアアアアッッッッ！！！！！」の文字を太く大きく ★★★
-    [font size="40" bold="true" color="red"] ; 例: サイズ40、太字、赤色
+    [font size="40" bold="true" color="red"]
     「「「ソイヤアアアアアアアアアッッッッ！！！！！」」」[p]
-    [resetfont] ; フォントスタイルをデフォルトに戻す
+    [resetfont] 
 
-    君の前に3人の暑苦しい男が現れた。[l] ; キャラクター名は出てこないが、状況説明
+    君の前に3人の暑苦しい男が現れた。[p] 
 
     君は...[l]
 
     ; 次の選択肢
-    [glink color="blue" x="70" y="250" width="150" size="28" text="ソイヤッ！" target="*soiya_end"]
-    [glink color="blue" x="70" y="320" width="150" size="28" text="うるさい！" target="*scold_them"]
+    [glink  text="ソイヤッ！" target="*soiya_end"]
+    [glink  text="うるさい！" target="*scold_them"]
     [s]
 
 *spar_with_siete
@@ -73,9 +73,9 @@
     見せてもらうよ。[p]
     まずはコレでどうかな！[p]
 
-    シエテが右上段から斬り掛かる。[l]
+    シエテが右上段から斬り掛かる。[p]
 
-    君は...[l]
+    君は...[p]
 
     ; 次の選択肢
     [glink color="blue" x="70" y="250" width="250" size="24" text="左に避ける" target="*dodge_left"]
