@@ -60,7 +60,7 @@
     君は...[l]
 
     ; 次の選択肢
-    [glink  text="ソイヤッ！" target="*soiya_end"]
+    [glink  text="ソイヤッ！" target="*soiya_with_them"]
     [glink  text="うるさい！" target="*scold_them"]
     [s]
 
@@ -124,7 +124,7 @@
     [jump storage="first.ks" target="*start"] ; 最初のシナリオへ
 
 
-*scold_soiya_group ; 「うるさい！」を選んだ
+*scold_them ; 「うるさい！」を選んだ
     ; [playse storage="select_se.wav"]
 
     君は彼らにうるさいと注意した。[p]
