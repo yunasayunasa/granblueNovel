@@ -19,16 +19,16 @@ tf.chara_name_str = $(".chara_name_area").text();
 
 ; 縦持ちの場合 (または is_landscape が false の場合)
 [if exp="tf.is_landscape == false"]
-    [body scWidth=450 scHeight=800] ; 縦画面の基準解像度
+    [body scWidth=450 scHeight=800] 
 
     ; メッセージウィンドウ設定 (あなたの現在の設定に近い値)
     [position layer="message0" left="25" top="600" width="400" height="180" page=fore visible=true]
     [position layer="message0" page=fore margint="25" marginl="25" marginr="25" marginb="25"]
 
     ; 名前表示欄 (あなたの現在の設定に近い値)
-    [free layer="message0" name="chara_name_area"] ; 一度クリア
+    [free layer="message0" name="chara_name_area"] 
     [ptext name="chara_name_area" text="&tf.chara_name_str" layer="message0" color="white" size="20" bold="true" x="40" y="605"]
-    [chara_config ptext="chara_name_area"] ; 再度関連付け
+    [chara_config ptext="chara_name_area"] 
 
     [iscript]
     // 各要素のサイズや位置をゲーム変数に設定
