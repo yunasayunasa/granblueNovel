@@ -59,7 +59,7 @@ tf.chara_name_str = $(".chara_name_area").text();
 
     ; 名前表示欄 (横持ち用)
     [free layer="message0" name="chara_name_area"]
-    [ptext name="chara_name_area" text="&tf.chara_name_str" layer="message0" color="white" size="20" bold="true" x="60" y="305"]
+    [ptext name="chara_name_area" text="&tf.chara_name_str" layer="message0" color="white" size="20" bold="true" x="40" y="605"]
     [chara_config ptext="chara_name_area"]
 
     [iscript]

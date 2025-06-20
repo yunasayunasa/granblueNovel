@@ -1,6 +1,6 @@
 ; first.ks (タイトル風シーンを組み込む例)
 *start
-[call storage="macro.ks"]
+
 [iscript]
 var tyrano_base_element = document.getElementById('tyrano_base');
 if (tyrano_base_element) {
@@ -18,6 +18,7 @@ if (tyrano_base_element) {
 ; ★★★ レスポンシブ対応初期化 ★★★
 [call storage="resizecall.ks"] 
 [set_resizecall storage="resizecall.ks"] 
+[call storage="macro.ks"]
 [popopo type=sine frequency=A octave=0]
 
 [title name="演算世界とチヨコレイト"]
