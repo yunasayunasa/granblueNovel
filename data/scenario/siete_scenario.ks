@@ -89,7 +89,7 @@
     君は...[l]
 
     ; 選択肢
-    [glink  size="24" text="左に避ける" target="*spar_dodge_left"]
+    [glink   text="左に避ける" target="*spar_dodge_left"]
     [glink  text="剣で受ける" target="*spar_block_sword_badend"] 
     [glink  text="右に避ける" target="*spar_block_sword_badend"] 
     [s]
