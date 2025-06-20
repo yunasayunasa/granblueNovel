@@ -89,9 +89,9 @@
     君は...[l]
 
     ; 選択肢
-    [glink color="blue" x="70" y="250" width="250" size="24" text="左に避ける" target="*spar_dodge_left"]
-    [glink color="blue" x="70" y="320" width="250" size="24" text="剣で受ける" target="*spar_block_sword_badend"] 
-    [glink color="blue" x="70" y="390" width="250" size="24" text="右に避ける" target="*spar_block_sword_badend"] 
+    [glink  size="24" text="左に避ける" target="*spar_dodge_left"]
+    [glink  text="剣で受ける" target="*spar_block_sword_badend"] 
+    [glink  text="右に避ける" target="*spar_block_sword_badend"] 
     [s]
 
 *spar_block_sword_badend 
@@ -280,7 +280,7 @@
     ～ソイヤッ！END～[l]
 
     [chara_hide name="siete" time="500" wait="true"]
-    [jump storage="first.ks" target="*start"] ; 最初のシナリオへ
+    [jump storage="first.ks" target="*start"] 
 
 
 *scold_them 
