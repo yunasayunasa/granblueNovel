@@ -72,7 +72,7 @@
     ; シエテが表示されている状態
 #
     君はシエテと手合わせする事にした。[p]
-
+ [chara_mod name="siete" face="stance" time="300"] 
     #シエテ
     さて、君がどれほど強くなったか[r]
     見せてもらうよ。[p]
@@ -117,7 +117,7 @@
 
     [jump target="*spar_with_siete"] 
 
-*spar_dodge_left ; 「左に避ける」を選んだ
+*spar_dodge_left 
     ; [playse storage="select_se.wav"]
     ; シエテが表示されている状態 (通常顔のままか、少し驚いた表情差分があればそれも良い)
 #
@@ -130,13 +130,13 @@
 
     #シエテ
     いいね！さぁ団長ちゃんの番だ！[r]
-    かかって来なさい！[l]
+    かかって来なさい！[p]
 #
     君は...[l]
 
     ; 次の選択肢
-    [glink color="blue" x="70" y="250" width="350" size="24" text="横一文字に斬り掛かる" target="*spar_block_sword_badend"] ; BAD ENDへ (台本では区別ないため)
-    [glink color="blue" x="70" y="320" width="350" size="24" text="大きくジャンプして斬り掛かる" target="*spar_block_sword_badend"] ; BAD ENDへ
+    [glink color="blue" x="70" y="250" width="350" size="24" text="横一文字に斬り掛かる" target="*spar_block_sword_badend"] 
+    [glink color="blue" x="70" y="320" width="350" size="24" text="大きくジャンプして斬り掛かる" target="*spar_block_sword_badend"] 
     [glink color="blue" x="70" y="390" width="350" size="24" text="後の先を取る為に斬りかからない" target="*spar_dont_attack"]
     [s]
 
@@ -164,22 +164,22 @@
     まともに受ければ、死だと。[p]
 
     #シエテ
-    「グラン•シャリオ」[l]
+    「グラン•シャリオ」[p]
 #
     君は...[l]
 
     ; 次の選択肢
-    [glink color="blue" x="70" y="250" width="300" size="24" text="ガードで受け止める！" target="*spar_block_sword_badend"] ; BAD ENDへ
-    [glink color="blue" x="70" y="320" width="300" size="24" text="一か八かで突っ込む！" target="*spar_block_sword_badend"] ; BAD ENDへ
+    [glink color="blue" x="70" y="250" width="300" size="24" text="ガードで受け止める！" target="*spar_block_sword_badend"] 
+    [glink color="blue" x="70" y="320" width="300" size="24" text="一か八かで突っ込む！" target="*spar_block_sword_badend"] 
     [glink color="blue" x="70" y="390" width="300" size="24" text="チョコあげる！" target="*spar_give_choco_siete_end"]
     [s]
 
-*spar_give_choco_siete_end ; 「チョコあげる！」を選んだ (シエテEND)
+*spar_give_choco_siete_end 
     ; [playse storage="select_se.wav"]
     ; シエテは granchariot の立ち絵のままか、ここで通常顔に戻すか
-    ; [chara_mod name="siete" face="normal" time="200"] ; 通常顔に戻す例
-    ; [freeimage layer="1"] ; もし効果線などを表示していたら消す
-    ; [filter layer="base" name="brightness" value="0" time="300"] ; 背景の明るさを戻す
+     [chara_mod name="siete" face="normal" time="200"] 
+     [freeimage layer="1"] ; もし効果線などを表示していたら消す
+     [filter layer="base" name="brightness" value="0" time="300"] 
 
     君はチョコを差し出した。[p]
 
@@ -190,7 +190,7 @@
 
     あ、そうだ。お返ししなくちゃね。[r]
     はい、コレ！十天衆チョコ！[p]
-
+#
     シエテからチョコを受け取った。[p]
     ...中にはデフォルメされたシエテのシールと共に、[r]
     ウエハースチョコが入っていた。[p]
