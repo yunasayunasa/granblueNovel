@@ -135,9 +135,9 @@
     君は...[l]
 
     ; 次の選択肢
-    [glink color="blue" x="70" y="250" width="350" size="24" text="横一文字に斬り掛かる" target="*spar_block_sword_badend"] 
-    [glink color="blue" x="70" y="320" width="350" size="24" text="大きくジャンプして斬り掛かる" target="*spar_block_sword_badend"] 
-    [glink color="blue" x="70" y="390" width="350" size="24" text="後の先を取る為に斬りかからない" target="*spar_dont_attack"]
+    [glink  text="横一文字に斬り掛かる" target="*spar_block_sword_badend"] 
+    [glink  text="大きくジャンプして斬り掛かる" target="*spar_block_sword_badend"] 
+    [glink  text="後の先を取る為に斬りかからない" target="*spar_dont_attack"]
     [s]
 
 *spar_dont_attack 
