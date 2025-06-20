@@ -222,7 +222,7 @@
     ソイヤッ！ソイヤッ！[p]
 
    
-    #オイゲン
+    #三羽烏
     ソイヤソイヤソイヤソイヤッ！[p]
     [chara_hide name="oigen" time="100" wait="true"]
 
