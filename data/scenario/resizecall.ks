@@ -57,11 +57,7 @@ tf.chara_name_str = $(".chara_name_area").text();
     [position layer="message0" left="50" top="300" width="700" height="130" page=fore visible=true]
     [position layer="message0" page=fore margint="20" marginl="20" marginr="20" marginb="20"]
 
-    ; 名前表示欄 (横持ち用)
-    [free layer="message0" name="chara_name_area"]
-    [ptext name="chara_name_area" text="&tf.chara_name_str" layer="message0" color="white" size="20" bold="true" x="40" y="605"]
-    [chara_config ptext="chara_name_area"]
-
+   
     [iscript]
     // 横持ち時の各要素のサイズや位置
     f.roger_x = Math.round(800 * 0.5 - 150);
