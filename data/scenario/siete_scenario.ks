@@ -2,6 +2,9 @@
 
 *deck_scene_start
 [chara_new name="oigen" storage="oigen_normal.png" jname="オイゲン"] 
+[chara_new name="siete" storage="siete_normal.png" jname="シエテ"]
+[chara_face name="siete" face="stance" storage="siete_stance.png"] 
+[chara_face name="siete" face="granchariot" storage="siete_granchariot.png"] 
 ; data/fgimage/oigen_normal.png を用意
 ; 背景を甲板に変更
 [bg storage="deck_bg.jpg" time="1000"]
@@ -18,7 +21,7 @@
 
 それとも...、[r]
 １つ手合わせでもしながら暇を潰すかい？[l]
-
+#
 ; 選択肢
 [glink  text="静かに待つ" target="*wait_quietly"]
 [glink  text="手合わせする" target="*spar_with_siete"]
@@ -54,9 +57,9 @@
     [font size="40" bold="true" color="red"]
     「「「ソイヤアアアアアアアアアッッッッ！！！！！」」」[p]
     [resetfont] 
-
+#
     君の前に3人の暑苦しい男が現れた。[p] 
-
+#
     君は...[l]
 
     ; 次の選択肢
@@ -64,24 +67,145 @@
     [glink  text="うるさい！" target="*scold_them"]
     [s]
 
-*spar_with_siete
-    ; 「手合わせする」を選んだ場合の展開
+*spar_with_siete 
+    ; [playse storage="select_se.wav"] 
+    ; シエテが表示されている状態
+#
     君はシエテと手合わせする事にした。[p]
 
     #シエテ
     さて、君がどれほど強くなったか[r]
     見せてもらうよ。[p]
     まずはコレでどうかな！[p]
+#
+    シエテが右上段から斬り掛かる。[l]
 
-    シエテが右上段から斬り掛かる。[p]
+    君は...[l]
 
-    君は...[p]
+    ; 選択肢
+    [glink color="blue" x="70" y="250" width="250" size="24" text="左に避ける" target="*spar_dodge_left"]
+    [glink color="blue" x="70" y="320" width="250" size="24" text="剣で受ける" target="*spar_block_sword_badend"] 
+    [glink color="blue" x="70" y="390" width="250" size="24" text="右に避ける" target="*spar_block_sword_badend"] 
+    [s]
+
+*spar_block_sword_badend 
+    ; [playse storage="select_se.wav"]
+    [chara_hide name="siete" time="200" wait="true"] 
+    君は、暗闇から目を覚ました。[r]
+    どうやら気絶していたらしい。[p]
+
+    [chara_show name="siete" x="150" y="150" time="500" wait="true"] 
+    #シエテ
+    ごめん！団長ちゃん！[r]
+    団長ちゃんならこれぐらいなら大丈夫と思って、[r]
+    強く打ち込みすぎちゃった！[r]
+    本当ごめんね！[p]
+#
+    ベッドの横の時計を見ると、[r]
+    既に0時を回っていた。[p]
+    バレンタインは、終わったのだ。[p]
+
+    BAD END [p]
+
+    ; ロジャー登場
+    [chara_hide name="siete" time="200" wait="true"]
+    [chara_show name="roger" x="150" y="150" time="500" wait="true"]
+    #ロジャー
+    ありゃ！バレンタインおわちゃた！[r]
+    再演算再演算！[p]
+    [chara_hide name="roger" time="500" wait="true"]
+
+    [jump target="*spar_with_siete"] 
+
+*spar_dodge_left ; 「左に避ける」を選んだ
+    ; [playse storage="select_se.wav"]
+    ; シエテが表示されている状態 (通常顔のままか、少し驚いた表情差分があればそれも良い)
+#
+    君は左に避けた。[p]
+    すかさず打ち込むが、[r]
+    シエテには容易に防がれる。[p]
+
+    ; ★★★ シエテのポーズ変更 ★★★
+    [chara_mod name="siete" face="stance" time="300"] 
+
+    #シエテ
+    いいね！さぁ団長ちゃんの番だ！[r]
+    かかって来なさい！[l]
+#
+    君は...[l]
 
     ; 次の選択肢
-    [glink  text="左に避ける" target="*dodge_left"]
-    [glink  text="剣で受ける" target="*block_sword"] 
-    [glink  text="右に避ける" target="*dodge_right"] 
+    [glink color="blue" x="70" y="250" width="350" size="24" text="横一文字に斬り掛かる" target="*spar_block_sword_badend"] ; BAD ENDへ (台本では区別ないため)
+    [glink color="blue" x="70" y="320" width="350" size="24" text="大きくジャンプして斬り掛かる" target="*spar_block_sword_badend"] ; BAD ENDへ
+    [glink color="blue" x="70" y="390" width="350" size="24" text="後の先を取る為に斬りかからない" target="*spar_dont_attack"]
     [s]
+
+*spar_dont_attack 
+    ; [playse storage="select_se.wav"]
+    ; シエテは stance のポーズのまま
+
+    君は剣を構えた。[p]
+
+    #シエテ
+    へぇ...、そういう手で来るんだね。[r]
+    いいよ。じゃあ...[p]
+
+    「本気、出しちゃおっかな。」[p]
+
+    ; ★★★ グランシャリオ発動演出 ★★★
+    ; ここで背景を暗転させたり、効果線などのエフェクト画像を表示しても良い
+   [filter layer="base" name="brightness" value="-100" time="300"] 
+  [image storage="effect_lines.png" layer="1" x="0" y="0" time="100"]
+    [chara_mod name="siete" face="granchariot" time="500"] 
+
+    天星剣王の髪が蒼く染まる。[r]
+    途方もない剣気が集まるのが分かる。[p]
+    体の震えが告げている。[r]
+    まともに受ければ、死だと。[p]
+
+    #シエテ
+    「グラン•シャリオ」[l]
+#
+    君は...[l]
+
+    ; 次の選択肢
+    [glink color="blue" x="70" y="250" width="300" size="24" text="ガードで受け止める！" target="*spar_block_sword_badend"] ; BAD ENDへ
+    [glink color="blue" x="70" y="320" width="300" size="24" text="一か八かで突っ込む！" target="*spar_block_sword_badend"] ; BAD ENDへ
+    [glink color="blue" x="70" y="390" width="300" size="24" text="チョコあげる！" target="*spar_give_choco_siete_end"]
+    [s]
+
+*spar_give_choco_siete_end ; 「チョコあげる！」を選んだ (シエテEND)
+    ; [playse storage="select_se.wav"]
+    ; シエテは granchariot の立ち絵のままか、ここで通常顔に戻すか
+    ; [chara_mod name="siete" face="normal" time="200"] ; 通常顔に戻す例
+    ; [freeimage layer="1"] ; もし効果線などを表示していたら消す
+    ; [filter layer="base" name="brightness" value="0" time="300"] ; 背景の明るさを戻す
+
+    君はチョコを差し出した。[p]
+
+    #シエテ
+    グランシャリ...え？僕に？[r]
+    くれるのかい？ありがとう、団長ちゃん！[p]
+    とても嬉しいよ！[p]
+
+    あ、そうだ。お返ししなくちゃね。[r]
+    はい、コレ！十天衆チョコ！[p]
+
+    シエテからチョコを受け取った。[p]
+    ...中にはデフォルメされたシエテのシールと共に、[r]
+    ウエハースチョコが入っていた。[p]
+
+    #シエテ
+    お！僕だね！レア物だよ〜？[r]
+    大事にしてね！[p]
+#
+    ━すっかり気が抜けてしまった君とシエテは、[r]
+    十天衆チョコを開けまくり、[r]
+    無事全種コンプリート出来たのであった。[p]
+
+    ～シエテEND～[l]
+    [chara_hide name="siete" time="500" wait="true"]
+    [jump storage="first.ks" target="*start"]
 
 
 *soiya_with_them 
