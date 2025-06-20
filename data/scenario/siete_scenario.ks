@@ -170,26 +170,31 @@
     ; [wait time="500"]
 
     ; --- エネルギー集中 ---
-    [flash time="300" color="0x87CEFA" wait="true"] 
-    [wait time="200"]
-    [flash time="200" color="white" wait="true"] 
-    ; [playse storage="charge_loop_se.wav" loop="true"] 
+; [playse storage="charge_loop_se.wav" loop="true"] ; 溜めループ音 (もしあれば)
+[image storage="lightblue_flash.png" layer="0" x="0" y="0" width="&TYRANO.kag.config.scWidth" height="&TYRANO.kag.config.scHeight" time="150" wait="false" zindex="99998"] 
+[wait time="200"]
+[freeimage layer="0" time="50" wait="false"] 
+[wait time="100"]
+[image storage="white_flash.png" layer="0" x="0" y="0" width="&TYRANO.kag.config.scWidth" height="&TYRANO.kag.config.scHeight" time="100" wait="false" zindex="99999"] 
+[wait time="150"]
+[freeimage layer="0" time="50" wait="false"] 
+[wait time="100"]
 
-    体の震えが告げている。[r]
-    まともに受ければ、死だと。[p]
-    [stopquake] 
-    ; [stopse] 
+体の震えが告げている。[r]
+まともに受ければ、死だと。[p]
+[stopquake]
+; [stopse]
 
-    ; --- 発動 ---
-    #シエテ
-    「グラン•シャリオ」[p]
+; --- 発動 ---
+#シエテ
+「グラン•シャリオ」[l]
 
-    ; [playse storage="granchariot_slash_se.wav"] ; 斬撃音・爆発音
-    [quake time="800" count="10" hmax="30" vmax="30" wait="false"] 
-    [flash time="500" color="white" wait="true"] ; 最大の白い閃光
-    ; [flash time="300" color="0x00BFFF" wait="true"] 
-
-    ; ここで画面が白アウト/暗転したり、特別な結果表示があっても良い
+; [playse storage="granchariot_slash_se.wav"]
+[quake time="800" count="10" hmax="30" vmax="30" wait="false"]
+[image storage="white_flash.png" layer="0" x="0" y="0" width="&TYRANO.kag.config.scWidth" height="&TYRANO.kag.config.scHeight" time="250" wait="false" zindex="99999"] 
+[wait time="300"]
+[freeimage layer="0" time="100" wait="false"]
+[wait time="150"]
 
 #
     君は...[l]
