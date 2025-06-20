@@ -158,21 +158,38 @@
 
     「本気、出しちゃおっかな。」[p]
 
-    ; ★★★ グランシャリオ発動演出 ★★★
-    ; ここで背景を暗転させたり、効果線などのエフェクト画像を表示しても良い
-   [filter layer="base" name="brightness" value="-100" time="1000"] 
-  [image storage="effect_lines.png" layer="1" x="0" y="0" time="100"]
-    [chara_mod name="siete" face="granchariot" time="500"] 
+     ; ★★★ グランシャリオ発動演出 (画像なしバージョン) ★★★
 
+    ; --- 溜め開始 ---
+    ; [playse storage="charge_start_se.wav"] 
+    [chara_mod name="siete" face="granchariot" time="300"] 
+    [quake time="1000" count="5" hmax="5" vmax="5" wait="false"] 
+#
     天星剣王の髪が蒼く染まる。[r]
     途方もない剣気が集まるのが分かる。[p]
+    ; [wait time="500"]
+
+    ; --- エネルギー集中 ---
+    [flash time="300" color="0x87CEFA" wait="true"] 
+    [wait time="200"]
+    [flash time="200" color="white" wait="true"] 
+    ; [playse storage="charge_loop_se.wav" loop="true"] 
+
     体の震えが告げている。[r]
     まともに受ければ、死だと。[p]
+    [stopquake] 
+    ; [stopse] 
 
+    ; --- 発動 ---
     #シエテ
-     [font size="35" bold="true"]
     「グラン•シャリオ」[p]
-      [resetfont]
+
+    ; [playse storage="granchariot_slash_se.wav"] ; 斬撃音・爆発音
+    [quake time="800" count="10" hmax="30" vmax="30" wait="false"] 
+    [flash time="500" color="white" wait="true"] ; 最大の白い閃光
+    ; [flash time="300" color="0x00BFFF" wait="true"] 
+
+    ; ここで画面が白アウト/暗転したり、特別な結果表示があっても良い
 
 #
     君は...[l]
