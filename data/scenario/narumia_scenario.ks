@@ -256,9 +256,9 @@
         [chara_show name="nier" face="yandere" x="150" y="150" time="1000" wait="true"]
         #ニーア
         ずっと、ずっと一緒だよ...。[p]
+        #
         [chara_hide name="nier" time="1000" wait="true"]
-#
-       
+        
         [chara_show name="roger" x="150" y="150" time="500" wait="true"]
         #ロジャー
         うわあああああ！まずい！[r]
