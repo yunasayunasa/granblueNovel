@@ -169,25 +169,15 @@
     途方もない剣気が集まるのが分かる。[p]
     ; [wait time="500"]
 
-    ; --- エネルギー集中 ---
-; [playse storage="charge_loop_se.wav" loop="true"] ; 溜めループ音 (もしあれば)
-[image storage="lightblue_flash.png" layer="0" x="0" y="0" width="&TYRANO.kag.config.scWidth" height="&TYRANO.kag.config.scHeight" time="150" wait="false" zindex="99998"] 
-[wait time="200"]
-[freeimage layer="0" time="50" wait="false"] 
-[wait time="100"]
-[image storage="white_flash.png" layer="0" x="0" y="0" width="&TYRANO.kag.config.scWidth" height="&TYRANO.kag.config.scHeight" time="100" wait="false" zindex="99999"] 
-[wait time="150"]
-[freeimage layer="0" time="50" wait="false"] 
-[wait time="100"]
 
 体の震えが告げている。[r]
 まともに受ければ、死だと。[p]
-[stopquake]
+
 ; [stopse]
 
 ; --- 発動 ---
 #シエテ
-「グラン•シャリオ」[l]
+「グラン•シャリオ」[p]
 
 ; [playse storage="granchariot_slash_se.wav"]
 [quake time="800" count="10" hmax="30" vmax="30" wait="false"]
