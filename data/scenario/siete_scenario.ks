@@ -3,6 +3,7 @@
 *deck_scene_start
 [chara_new name="oigen" storage="oigen_normal.png" jname="オイゲン"] 
 [chara_new name="siete" storage="siete_normal.png" jname="シエテ"]
+[chara_face name="siete" face="normal" storage="siete_normal.png"] 
 [chara_face name="siete" face="stance" storage="siete_stance.png"] 
 [chara_face name="siete" face="granchariot" storage="siete_granchariot.png"] 
 ; data/fgimage/oigen_normal.png を用意
