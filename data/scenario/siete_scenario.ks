@@ -181,10 +181,7 @@
 
 ; [playse storage="granchariot_slash_se.wav"]
 [quake time="800" count="10" hmax="30" vmax="30" wait="false"]
-[image storage="white_flash.png" layer="0" x="0" y="0" width="&TYRANO.kag.config.scWidth" height="&TYRANO.kag.config.scHeight" time="250" wait="false" zindex="99999"] 
-[wait time="300"]
-[freeimage layer="0" time="100" wait="false"]
-[wait time="150"]
+
 
 #
     君は...[l]
@@ -198,14 +195,15 @@
 *spar_give_choco_siete_end 
     ; [playse storage="select_se.wav"]
     ; シエテは granchariot の立ち絵のままか、ここで通常顔に戻すか
-     [chara_show name="siete" face="normal" x="150" y="150" time="300" wait="true"]
-     [freeimage layer="1"] ; もし効果線などを表示していたら消す
-     [filter layer="base" name="brightness" value="0" time="300"] 
+   
 
     君はチョコを差し出した。[p]
 
     #シエテ
-    グランシャリ...え？僕に？[r]
+    グランシャリ...[p]
+      [chara_show name="siete" face="normal" x="150" y="150" time="300" wait="true"]
+    
+    え？僕に？[r]
     くれるのかい？ありがとう、団長ちゃん！[p]
     とても嬉しいよ！[p]
 
