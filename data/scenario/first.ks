@@ -1,5 +1,6 @@
 ; first.ks (タイトル風シーンを組み込む例)
 *start
+[call storage="macro.ks"]
 [iscript]
 var tyrano_base_element = document.getElementById('tyrano_base');
 if (tyrano_base_element) {
