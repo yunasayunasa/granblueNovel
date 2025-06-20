@@ -72,6 +72,10 @@
     ; シエテが表示されている状態
 #
     君はシエテと手合わせする事にした。[p]
+      [chara_show name="siete" face="normal" x="150" y="150" time="0" wait="true"]
+    ; face="normal" で通常立ち絵に戻す (もし前のシーンで別の表情になっていたら)
+    ; time="0" で瞬時に表示 (再挑戦なのでフェードインなどは不要かもしれません)
+    ; x,y はシエテの基本表示位置
  [chara_mod name="siete" face="stance" time="300"] 
     #シエテ
     さて、君がどれほど強くなったか[r]
