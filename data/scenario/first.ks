@@ -59,7 +59,7 @@ if (tyrano_base_element) {
 [chara_hide name="roger" time="500" wait="true"]
 
 ; ガチャ演出 (今は省略、SEや簡単なアニメーションを入れることも可能)
-
+[clearname]
 1人の仲間が目の前に現れる。[p]
 
 
@@ -87,6 +87,7 @@ if (tyrano_base_element) {
   [chara_show name="narumia" time="500" wait="true"]
   #ナルメア
   よろしくね、団長ちゃん！[p]
+  [clearname]
   [jump storage="narumia_scenario.ks" target="*cafe_scene"]
 
 
@@ -97,6 +98,7 @@ if (tyrano_base_element) {
     [chara_show name="siete" x="150" y="150" time="500" wait="true"]
     #シエテ
     やあ、団長ちゃん。俺と行くのかい？[p] 
+    [clearname]
     [jump storage="siete_scenario.ks" target="*deck_scene_start"] 
 *hard_mode_start
   ; 誰も仲間にしない処理
