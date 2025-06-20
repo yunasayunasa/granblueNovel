@@ -164,7 +164,10 @@
     まともに受ければ、死だと。[p]
 
     #シエテ
+     [font size="35" bold="true"]
     「グラン•シャリオ」[p]
+      [resetfont]
+
 #
     君は...[l]
 
@@ -177,7 +180,7 @@
 *spar_give_choco_siete_end 
     ; [playse storage="select_se.wav"]
     ; シエテは granchariot の立ち絵のままか、ここで通常顔に戻すか
-     [chara_mod name="siete" face="normal" time="200"] 
+     [chara_show name="siete" x="150" y="150" time="500" wait="true"]
      [freeimage layer="1"] ; もし効果線などを表示していたら消す
      [filter layer="base" name="brightness" value="0" time="300"] 
 
@@ -216,13 +219,17 @@
 
     君は彼らと共にソイヤッ！する事にした。[p]
 
-
+#四羽烏
     ソイヤッ！[p]
    
     ソイヤッ！ソイヤッ！[p]
 
    
+<<<<<<< HEAD
+   
+=======
     #三羽烏
+>>>>>>> bca021b83bf15d2867e70a17abee26686fe9297a
     ソイヤソイヤソイヤソイヤッ！[p]
     [chara_hide name="oigen" time="100" wait="true"]
 
@@ -265,7 +272,7 @@
     君は静かに待つ。[p]
 
     ; シエテを表示したままにするか、ここで再表示するか
-    [chara_show name="siete" x="150" y="150" time="300" wait="true"] ; もし消えていたら再表示
+    [chara_show name="siete" x="150" y="150" time="300" wait="true"] 
 
     そこに現れたのは...[l]
 
