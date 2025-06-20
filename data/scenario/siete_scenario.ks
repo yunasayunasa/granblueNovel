@@ -71,9 +71,10 @@
 *spar_with_siete 
     ; [playse storage="select_se.wav"] 
     ; シエテが表示されている状態
+     [chara_show name="siete" face="normal" x="150" y="150" time="300" wait="true"]
 #
     君はシエテと手合わせする事にした。[p]
-      [chara_show name="siete" face="normal" x="150" y="150" time="0" wait="true"]
+     
     ; face="normal" で通常立ち絵に戻す (もし前のシーンで別の表情になっていたら)
     ; time="0" で瞬時に表示 (再挑戦なのでフェードインなどは不要かもしれません)
     ; x,y はシエテの基本表示位置
@@ -159,7 +160,7 @@
 
     ; ★★★ グランシャリオ発動演出 ★★★
     ; ここで背景を暗転させたり、効果線などのエフェクト画像を表示しても良い
-   [filter layer="base" name="brightness" value="-100" time="300"] 
+   [filter layer="base" name="brightness" value="-100" time="1000"] 
   [image storage="effect_lines.png" layer="1" x="0" y="0" time="100"]
     [chara_mod name="siete" face="granchariot" time="500"] 
 
@@ -177,15 +178,15 @@
     君は...[l]
 
     ; 次の選択肢
-    [glink color="blue" x="70" y="250" width="300" size="24" text="ガードで受け止める！" target="*spar_block_sword_badend"] 
-    [glink color="blue" x="70" y="320" width="300" size="24" text="一か八かで突っ込む！" target="*spar_block_sword_badend"] 
-    [glink color="blue" x="70" y="390" width="300" size="24" text="チョコあげる！" target="*spar_give_choco_siete_end"]
+    [glink  text="ガードで受け止める！" target="*spar_block_sword_badend"] 
+    [glink  text="一か八かで突っ込む！" target="*spar_block_sword_badend"] 
+    [glink  text="チョコあげる！" target="*spar_give_choco_siete_end"]
     [s]
 
 *spar_give_choco_siete_end 
     ; [playse storage="select_se.wav"]
     ; シエテは granchariot の立ち絵のままか、ここで通常顔に戻すか
-     [chara_show name="siete" x="150" y="150" time="500" wait="true"]
+     [chara_show name="siete" face="normal" x="150" y="150" time="300" wait="true"]
      [freeimage layer="1"] ; もし効果線などを表示していたら消す
      [filter layer="base" name="brightness" value="0" time="300"] 
 
