@@ -246,11 +246,7 @@
     ソイヤッ！ソイヤッ！[p]
 
    
-<<<<<<< HEAD
    
-=======
-    #三羽烏
->>>>>>> bca021b83bf15d2867e70a17abee26686fe9297a
     ソイヤソイヤソイヤソイヤッ！[p]
     [chara_hide name="oigen" time="100" wait="true"]
 
@@ -307,9 +303,7 @@
     ; シエテは表示されたままか、一旦消して六竜を目立たせるか
     [chara_hide name="siete" time="200" wait="true"]
 
-    ; キャラクター定義 (立ち絵ができたらstorageを追加)
-    [chara_new name="wilnas" jname="ウィルナス"]
-    [chara_new name="luoh" jname="ルオー"]
+   
 
     現れたのは六竜のウィルナスとルオーだった。[p]
 
@@ -341,9 +335,7 @@
     ; [playse storage="select_se.wav"]
     [chara_hide name="siete" time="200" wait="true"]
 
-    ; キャラクター定義
-    [chara_new name="wamdus" jname="ワムデュス"]
-    [chara_new name="galleon" jname="ガレヲン"]
+   
 
     現れたのは六竜のワムデュスとガレヲンだった。[p]
 
