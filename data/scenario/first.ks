@@ -1,39 +1,64 @@
 ; first.ks (タイトル風シーンを組み込む例)
 *start
-; ★★★ 画面クリアと主要要素の再設定 ★★★
-[cm]       
-[clearfix]  
-[stopbgm]  
-[stopse]   
-; [freeimage layer="fix"]
-
 ; iscriptでのtransformスケール調整は引き続き行う
 [iscript]
 var tyrano_base_element = document.getElementById('tyrano_base');
 if (tyrano_base_element) {
-    console.log("ジャンプ後の #tyrano_base transform (変更前):", window.getComputedStyle(tyrano_base_element).transform);
+    console.log("ジャンプ後の #tyrano_base transform (iscript前):", window.getComputedStyle(tyrano_base_element).transform);
     tyrano_base_element.style.setProperty('transform', 'scale(1)', 'important');
     tyrano_base_element.style.setProperty('transform-origin', '0px 0px', 'important');
-    setTimeout(function(){
-        console.log("ジャンプ後の #tyrano_base transform (変更後):", window.getComputedStyle(tyrano_base_element).transform);
+    setTimeout(function(){ // 少し遅れて確認
+        console.log("ジャンプ後の #tyrano_base transform (iscript後):", window.getComputedStyle(tyrano_base_element).transform);
     }, 100);
 } else {
     console.error("#tyrano_base が見つかりません");
 }
 [endscript]
 
- [wait time=100] 
+; ★★★ 画面クリアと主要要素の再設定 ★★★
+[cm]
+[clearfix]
+[stopbgm]
+[stopse]
+
+; ★★★ 意図的な画面更新処理 ★★★
+; 方法1: TyranoScriptの内部的な画面リフレッシュを試みる (もしあれば)
+; [refresh_screen] ; ← このようなタグがあれば (架空のタグです)
+
+; 方法2: 短いウェイトの後に、何らかの描画関連のダミータグを実行
+[wait time="100"] ; iscriptの適用や初期化を少し待つ
+[bg storage="calc_space.jpg" time="0" ] ; 背景を瞬時に再描画 (これでリサイズイベントに近い効果を期待)
+; または、前景レイヤーの表示/非表示などでも良いかもしれません
+; [layopt layer="0" visible=false]
+; [layopt layer="0" visible=true]
+
+; 方法3: JavaScriptでリサイズイベントを疑似的に発火 (ブラウザやTyranoScriptが反応するかは不明)
+[iscript]
+// TyranoScriptのエンジンがリサイズイベントをリッスンしていることを期待
+window.dispatchEvent(new Event('resize'));
+console.log("Resize event dispatched.");
+// さらに TyranoScript 内部のリサイズ関数を直接呼び出すことを試みる (非常に高度で危険)
+// if (TYRANO && TYRANO.kag && TYRANO.kag.event && TYRANO.kag.event.resizeEvent) {
+//     TYRANO.kag.event.resizeEvent();
+//     console.log("TYRANO.kag.event.resizeEvent() called.");
+// }
+[endscript]
+[wait time="100"] ; さらに少し待つ
 
 ; ★★★ プロローグの初期要素を再描画 ★★★
-[playbgm storage="prologue_bgm.ogg" loop="true"] 
-[bg storage="calc_space.jpg" time="1000"]    
+[playbgm storage="prologue_bgm.ogg" loop="true"]
+[bg storage="calc_space.jpg" time="1000"] ; 通常の背景表示
 
 ; メッセージウィンドウの位置とサイズを再設定
 [position layer="message0" left="25" top="600" width="400" height="180" page=fore visible=true]
 [position layer="message0" page=fore margint="25" marginl="25" marginr="25" marginb="25"]
-; ★★★ キャラクター名表示エリアをクリア（内容を空にして非表示）★★★
+
+; キャラクター名表示エリアをクリアして再設定
 [ptext name="chara_name_area" layer="message0" x="40" y="605" text="" visible="false"]
-; 次に名前を表示する際に、再度 [ptext ... visible=true text="表示したい名前"] で再定義・表示する
+[chara_config ptext="chara_name_area"]
+
+; キャラクター定義
+[chara_new name="roger" storage="roger_normal.png" jname="ロジャー"]
 
 ; ★★★ レスポンシブ対応初期化 ★★★
 [call storage="resizecall.ks"] 
@@ -47,8 +72,6 @@ if (tyrano_base_element) {
 
 
 
-
-[chara_new name="roger" storage="roger_normal.png" jname="ロジャー"]
 
 君は、見たこともない空間にいる。[r]幻想的な一面の花畑、[r]とても現実とは思えない。[p]
 
