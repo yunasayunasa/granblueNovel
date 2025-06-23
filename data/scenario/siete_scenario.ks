@@ -201,7 +201,7 @@
 
     #シエテ
     グランシャリ...[p]
-      [chara_show name="siete" face="normal" x="150" y="150" time="300" wait="true"]
+  [chara_mod name="siete" face="normal" time="300"] 
     
     え？僕に？[r]
     くれるのかい？ありがとう、団長ちゃん！[p]
@@ -280,7 +280,7 @@
     ; ここではセリフのみで表現
     ; 必要であれば、[chara_move] などで退場する動きをつけても良い
     
-    #オイゲン
+    #三羽烏
     ｿｲﾔｧ...(´；ω；`)[p]
     [chara_hide name="oigen" time="500" wait="true"] 
 
@@ -288,7 +288,7 @@
     君は静かに待つ。[p]
 
     ; シエテを表示したままにするか、ここで再表示するか
-    [chara_show name="siete" x="150" y="150" time="300" wait="true"] 
+    ;[chara_show name="siete" x="150" y="150" time="300" wait="true"] 
 
     そこに現れたのは...[l]
 
