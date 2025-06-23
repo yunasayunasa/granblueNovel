@@ -6,6 +6,11 @@
 [chara_face name="siete" face="normal" storage="siete_normal.png"] 
 [chara_face name="siete" face="stance" storage="siete_stance.png"] 
 [chara_face name="siete" face="granchariot" storage="siete_granchariot.png"] 
+; ★★★ 六竜のファイル名も _normal を付けることを推奨 ★★★
+[chara_new name="wilnas" storage="wilnas_normal.png" jname="ウィルナス"]
+[chara_new name="luoh" storage="luoh_normal.png" jname="ルオー"]
+[chara_new name="wamdus" storage="wamdus_normal.png" jname="ワムデュス"]
+[chara_new name="galleon" storage="galleon_normal.png" jname="ガレヲン"]
 ; data/fgimage/oigen_normal.png を用意
 ; 背景を甲板に変更
 [bg storage="deck_bg.jpg" time="1000"]
