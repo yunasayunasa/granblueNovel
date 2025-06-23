@@ -27,7 +27,7 @@ if (tyrano_base_element) {
 
 ; 方法2: 短いウェイトの後に、何らかの描画関連のダミータグを実行
 [wait time="100"] ; iscriptの適用や初期化を少し待つ
-[bg storage="calc_space.jpg" time="0" ] ; 背景を瞬時に再描画 (これでリサイズイベントに近い効果を期待)
+[bg storage="calc_space.jpg" time="0" ] 
 ; または、前景レイヤーの表示/非表示などでも良いかもしれません
 ; [layopt layer="0" visible=false]
 ; [layopt layer="0" visible=true]
@@ -47,7 +47,7 @@ console.log("Resize event dispatched.");
 
 ; ★★★ プロローグの初期要素を再描画 ★★★
 [playbgm storage="prologue_bgm.ogg" loop="true"]
-[bg storage="calc_space.jpg" time="1000"] ; 通常の背景表示
+[bg storage="calc_space.jpg" time="1000"] 
 
 ; メッセージウィンドウの位置とサイズを再設定
 [position layer="message0" left="25" top="600" width="400" height="180" page=fore visible=true]
