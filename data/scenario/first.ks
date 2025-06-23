@@ -1,11 +1,11 @@
 ; first.ks (タイトル風シーンを組み込む例)
 *start
 ; ★★★ 画面クリアと主要要素の再設定 ★★★
-[cm]        ; 現在のメッセージレイヤの内容をクリア
-[clearfix]  ; 全ての前景レイヤ（キャラクターなど）をクリア
-[stopbgm]   ; 現在再生中のBGMを停止 (念のため)
-[stopse]    ; 現在再生中の効果音を停止 (念のため)
-; [freeimage layer="fix"] ; もしfixレイヤーに何か残っている可能性があるならクリア
+[cm]       
+[clearfix]  
+[stopbgm]  
+[stopse]   
+; [freeimage layer="fix"]
 
 ; iscriptでのtransformスケール調整は引き続き行う
 [iscript]
@@ -22,11 +22,11 @@ if (tyrano_base_element) {
 }
 [endscript]
 
-; [wait time=100] ; iscriptの適用を待つために短いウェイトを入れる (任意)
+; [wait time=100] 
 
 ; ★★★ プロローグの初期要素を再描画 ★★★
-[playbgm storage="prologue_bgm.ogg" loop="true"] ; プロローグのBGMを再生
-[bg storage="calc_space.jpg" time="1000"]      ; プロローグの背景を表示
+[playbgm storage="prologue_bgm.ogg" loop="true"] 
+[bg storage="calc_space.jpg" time="1000"]    
 
 ; メッセージウィンドウの位置とサイズを再設定
 [position layer="message0" left="25" top="600" width="400" height="180" page=fore visible=true]
@@ -34,7 +34,7 @@ if (tyrano_base_element) {
 
 ; キャラクター名表示エリアを再設定（一度クリアしてから再定義する方が確実な場合もある）
 [free_ptext name="chara_name_area" layer="message0"] ; 念のため一度クリア
-[ptext name="chara_name_area" layer="message0" color="white" size="20" bold="true" x="40" y="575"] ; Y座標をメッセージウィンドウの上部に調整
+[ptext name="chara_name_area" layer="message0" color="white" size="20" bold="true" x="40" y="575"]
 [chara_config ptext="chara_name_area"]
 ; ★★★ レスポンシブ対応初期化 ★★★
 [call storage="resizecall.ks"] 
