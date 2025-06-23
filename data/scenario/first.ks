@@ -4,12 +4,16 @@
 [iscript]
 var tyrano_base_element = document.getElementById('tyrano_base');
 if (tyrano_base_element) {
+    // 適用前の状態を確認
+    console.log("リロード後/ジャンプ後の #tyrano_base transform (変更前):", window.getComputedStyle(tyrano_base_element).transform);
+
     tyrano_base_element.style.setProperty('transform', 'scale(1)', 'important');
-    tyrano_base_element.style.setProperty('transform-origin', '0px 0px', 'important'); // 念のため基点も指定
-    // Config.tjsで 450x800 にしているので、CSSでのwidth/height強制は不要かもしれません。
-    // もしTyranoScriptの自動調整でうまくいかない場合は、ここで固定サイズを設定することも検討。
-    // tyrano_base_element.style.setProperty('width', '450px', 'important');
-    // tyrano_base_element.style.setProperty('height', '800px', 'important');
+    tyrano_base_element.style.setProperty('transform-origin', '0px 0px', 'important');
+
+    // 適用後の状態を少し遅れて確認 (ブラウザのレンダリングタイミングを考慮)
+    setTimeout(function(){
+        console.log("リロード後/ジャンプ後の #tyrano_base transform (変更後):", window.getComputedStyle(tyrano_base_element).transform);
+    }, 100);
     console.log("#tyrano_base の transform を script で scale(1) に設定試行");
 } else {
     console.error("#tyrano_base が見つかりません");
