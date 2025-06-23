@@ -32,7 +32,7 @@ if (tyrano_base_element) {
 [position layer="message0" left="25" top="600" width="400" height="180" page=fore visible=true]
 [position layer="message0" page=fore margint="25" marginl="25" marginr="25" marginb="25"]
 ; ★★★ キャラクター名表示エリアをクリア（内容を空にして非表示）★★★
-[ptext name="chara_name_area" layer="message0" x="40" y="575" text="" visible="false"]
+[ptext name="chara_name_area" layer="message0" x="40" y="605" text="" visible="false"]
 ; 次に名前を表示する際に、再度 [ptext ... visible=true text="表示したい名前"] で再定義・表示する
 
 ; ★★★ レスポンシブ対応初期化 ★★★
@@ -54,7 +54,7 @@ if (tyrano_base_element) {
 
 [chara_show name="roger" x="200" y="150"]
 ; ★★★ ロジャーの名前を表示するために ptext を再設定 ★★★
-[ptext name="chara_name_area" layer="message0" color="white" size="20" bold="true" x="40" y="575" text="&sf._system_config_chara_ptext_first_name || ''" visible="true"]
+[ptext name="chara_name_area" layer="message0" color="white" size="20" bold="true" x="40" y="605" text="&sf._system_config_chara_ptext_first_name || ''" visible="true"]
 ; [chara_config ptext="chara_name_area"] ← これは[ptext]定義の直後に一度で良い場合が多い
 
 #ロジャー
