@@ -143,7 +143,7 @@
 
     #サンダルフォン
     ハッピーバレンタイン、団長。[p]
-
+#
     ～サンダルフォンEND～[l] 
     [chara_hide name="sandalphon" time="500" wait="true"]
    [jump storage="first.ks" target="*start"]

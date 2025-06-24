@@ -146,9 +146,15 @@ console.log("Resize event dispatched.");
    #
     [jump storage="siete_scenario.ks" target="*deck_scene_start"] 
 *hard_mode_start
-  ; 誰も仲間にしない処理
-  ; ...
-  [jump storage="hard_scenario.ks" target="*auguste_scene"]
+  *hard_mode_start_select
+    ; [playse storage="select_se.wav"] ; SEは後で
+    [jump target="*hard_mode_start"]
+
+*hard_mode_start
+    ; ハードモード開始時の初期処理 (もしあれば)
+    ; 例えば、特定のフラグを立てるなど
+    ; [eval exp="f.hard_mode = true"]
+    [jump storage="hard_scenario.ks" target="*auguste_arrival"]
 
 
 ; ----- 説明表示用ラベル (任意) -----
