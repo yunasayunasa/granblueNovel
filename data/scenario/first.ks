@@ -1,53 +1,19 @@
 ; first.ks (タイトル風シーンを組み込む例)
-*start ; ゲーム全体の開始点 (タイトル画面表示へジャンプ)
-    
-; ★★★ レスポンシブ対応初期化 ★★★
-[call storage="resizecall.ks"] 
-[set_resizecall storage="resizecall.ks"] 
-[call storage="macro.ks"]
-    [iscript]
-    var tyrano_base_element = document.getElementById('tyrano_base');
-    if (tyrano_base_element) {
-        tyrano_base_element.style.setProperty('transform', 'scale(1)', 'important');
-        tyrano_base_element.style.setProperty('transform-origin', '0px 0px', 'important');
-        console.log("#tyrano_base の transform を script で scale(1) に設定試行");
-    } else {
-        console.error("#tyrano_base が見つかりません");
-    }
-    [endscript]
-    [jump target="*show_title_screen"]
-
-*show_title_screen
-    [cm]
-    [clearfix]
-    @layopt layer=message0 visible=false ; メッセージウィンドウを非表示
-    [stopbgm]
-
-    ; [playbgm storage="title_theme.ogg" loop="true"] ; タイトルBGM (後で)
-
-    ; 背景なし (黒背景のまま) または単色背景を指定する場合
-    ; [bg color="0x333333" time="0"] ; 暗いグレー背景の例
-
-    ; タイトルテキスト表示 (画面中央あたりに大きく)
-    [mtext text="演算世界とチヨコレイト" x="50" y="150" size="36" color="white" time="500" align="center" width="350"]
-    ; width と align="center" で中央揃えを試みる (xは左端からの位置なので注意)
-    ; もっと確実に中央揃えしたい場合は、xを計算するか、CSSで調整
-
-    ; 「はじめから」ボタン (glinkを使用)
-    ; x, y, width, size は Config.tjs の 450x800 画面に合わせて調整
-    [glink text="はじめから" x="125" y="400" width="200" size="28" color="blue" target="*start_prologue" name="start_button"]
-
-    ; 「つづきから」ボタン (glinkを使用)
-    [glink text="つづきから" x="125" y="480" width="200" size="28" color="green" target="*load_game_from_title" name="load_button"]
-
-    [s]
-
-*start_prologue
-    ; [playse storage="select_se.wav"] ; 開始音 (後で)
-    [cm]
-    @layopt layer=message0 visible=true ; メッセージウィンドウを表示
-    ; [freeimage layer="1"] ; ロゴを表示していたら消す (今回は未使用)
-
+*start
+; iscriptでのtransformスケール調整は引き続き行う
+[iscript]
+var tyrano_base_element = document.getElementById('tyrano_base');
+if (tyrano_base_element) {
+    console.log("ジャンプ後の #tyrano_base transform (iscript前):", window.getComputedStyle(tyrano_base_element).transform);
+    tyrano_base_element.style.setProperty('transform', 'scale(1)', 'important');
+    tyrano_base_element.style.setProperty('transform-origin', '0px 0px', 'important');
+    setTimeout(function(){ // 少し遅れて確認
+        console.log("ジャンプ後の #tyrano_base transform (iscript後):", window.getComputedStyle(tyrano_base_element).transform);
+    }, 100);
+} else {
+    console.error("#tyrano_base が見つかりません");
+}
+[endscript]
 
 ; ★★★ 画面クリアと主要要素の再設定 ★★★
 [cm]
@@ -94,6 +60,10 @@ console.log("Resize event dispatched.");
 ; キャラクター定義
 [chara_new name="roger" storage="roger_normal.png" jname="ロジャー"]
 
+; ★★★ レスポンシブ対応初期化 ★★★
+[call storage="resizecall.ks"] 
+[set_resizecall storage="resizecall.ks"] 
+[call storage="macro.ks"]
 [popopo type=sine frequency=A octave=0]
 
 [title name="演算世界とチヨコレイト"]
@@ -180,16 +150,7 @@ console.log("Resize event dispatched.");
   ; ...
   [jump storage="hard_scenario.ks" target="*auguste_scene"]
 
-*load_game_from_title
-    ; [playse storage="select_se.wav"]
-    [cm]
-    [showload]
-    ; ロード後、タイトルに戻るか、ゲーム再開かは showload の挙動次第
-    ; 通常はゲーム再開される。キャンセル時はタイトルに戻したい。
-    ; TyranoScriptのバージョンによって showload の戻り値や分岐方法が異なる場合がある。
-    ; 最もシンプルなのは、ロード画面を抜けたら必ずタイトルに戻るようにすること。
-    [jump target="*show_title_screen"]
-[s] ; showloadの後には[s]が必要な場合が多い
+
 ; ----- 説明表示用ラベル (任意) -----
 *show_narumia_desc
   [mtext text="【ナルメア】\nイージーモード。３つのエンディングが存在します。\nまずはここから始めることをお勧めします" size="20" x="300" y="200" time="500"]
