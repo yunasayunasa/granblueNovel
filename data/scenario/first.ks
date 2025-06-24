@@ -150,6 +150,13 @@ console.log("Resize event dispatched.");
     ; ハードモード開始時の初期処理 (もしあれば)
     ; 例えば、特定のフラグを立てるなど
     ; [eval exp="f.hard_mode = true"]
+    [chara_show name="roger" x="200" y="150"]
+    #ロジャー
+    え！？誰もいらない！？[p] 
+    まぁ、君がそういうなら…[r]
+    …その先は地獄だよ？[p]
+    [chara_hide name="roger" time="500" wait="true"]
+    
     [jump storage="hard_scenario.ks" target="*auguste_arrival"]
 
 
