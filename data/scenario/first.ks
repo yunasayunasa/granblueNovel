@@ -145,10 +145,6 @@ console.log("Resize event dispatched.");
     やあ、団長ちゃん。俺と行くのかい？[p] 
    #
     [jump storage="siete_scenario.ks" target="*deck_scene_start"] 
-*hard_mode_start
-  *hard_mode_start_select
-    ; [playse storage="select_se.wav"] ; SEは後で
-    [jump target="*hard_mode_start"]
 
 *hard_mode_start
     ; ハードモード開始時の初期処理 (もしあれば)
