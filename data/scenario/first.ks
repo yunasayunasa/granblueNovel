@@ -113,7 +113,7 @@ console.log("Resize event dispatched.");
 それじゃあ、団長ちゃん、一緒に行こっか♪[p]
 
 ; first.ks の選択肢部分 (glinkバージョン)
-
+#
 ; ... (前の行まで) ...
 仲間になったのは...[l]
 
