@@ -26,7 +26,7 @@ if (tyrano_base_element) {
 ; [refresh_screen] ; ← このようなタグがあれば (架空のタグです)
 
 ; 方法2: 短いウェイトの後に、何らかの描画関連のダミータグを実行
-[wait time="100"] ; iscriptの適用や初期化を少し待つ
+[wait time="100"] 
 [bg storage="calc_space.jpg" time="0" ] 
 ; または、前景レイヤーの表示/非表示などでも良いかもしれません
 ; [layopt layer="0" visible=false]
@@ -43,7 +43,7 @@ console.log("Resize event dispatched.");
 //     console.log("TYRANO.kag.event.resizeEvent() called.");
 // }
 [endscript]
-[wait time="100"] ; さらに少し待つ
+[wait time="100"] 
 
 ; ★★★ プロローグの初期要素を再描画 ★★★
 [playbgm storage="prologue_bgm.ogg" loop="true"]
