@@ -24,6 +24,7 @@
 
 *return_to_ship_badend ; 「船に戻る」を選んだ (BAD END)
     ; [playse storage="select_se.wav"]
+    [bg storage="ship_interior.jpg" time="500"]
     君は船に戻った。[p]
     ムードに気圧され、圧倒された。[p]
     自分の情けなさに嫌気がさし、[p]
@@ -33,6 +34,8 @@
 
 *shopping_mindlessly_badend ; 「無心で買い物へ」を選んだ (BAD END)
     ; [playse storage="select_se.wav"]
+     ; ★★★ 背景をカフェに変更 (流用) ★★★
+    [bg storage="cafe_bg.jpg" time="500"]
     君は無心で買い物へ出かけた。[p]
 
     「ねぇ、まりっぺ！これ美味しそう！」[p]
