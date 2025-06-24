@@ -1,5 +1,17 @@
 ; hard_scenario.ks
+; ----- ハードモード登場キャラクター定義 -----
 
+[chara_new name="ruria" storage="ruria_normal.png" jname="ルリア"]
+; ルリアの表情差分などあれば、ここに [chara_face] で追加
+
+[chara_new name="lowain" storage="lowain_normal.png" jname="ローアイン"]
+; ローアインの仲間たち（エルセム、トモイ）も個別に立ち絵があるなら、同様に定義
+[chara_new name="erusemu" storage="erusemu_normal.png" jname="エルセム"]
+[chara_new name="tomoi" storage="tomoi_normal.png" jname="トモイ"]
+
+[chara_new name="thug" storage="thug_normal.png" jname="荒くれ者"]
+; 荒くれ者が複数いる場合、見た目が同じならこの定義を使いまわし、
+; 表示位置やセリフで区別するか、あるいは thug1, thug2 のように別IDで定義しても良い
 *auguste_arrival
 
 ; 背景をアウギュステの街に変更 (例: data/bgimage/auguste_town.jpg を用意)
@@ -22,7 +34,7 @@
 [glink  text="船に戻る" target="*return_to_ship_badend"]
 [s]
 
-*return_to_ship_badend ; 「船に戻る」を選んだ (BAD END)
+*return_to_ship_badend 
     ; [playse storage="select_se.wav"]
     [bg storage="ship_interior.jpg" time="500"]
     君は船に戻った。[p]
@@ -32,7 +44,7 @@
     BAD END [l]
     [jump storage="first.ks" target="*start"] 
 
-*shopping_mindlessly_badend ; 「無心で買い物へ」を選んだ (BAD END)
+*shopping_mindlessly_badend 
     ; [playse storage="select_se.wav"]
      ; ★★★ 背景をカフェに変更 (流用) ★★★
     [bg storage="cafe_bg.jpg" time="500"]
@@ -55,11 +67,10 @@
     BAD END [l]
     [jump storage="first.ks" target="*start"]
 
-*dash_to_sea ; 「海までダッシュ！」を選んだ
+*dash_to_sea 
     ; [playse storage="select_se.wav"]
 
-    ; 背景をアウギュステの海に変更 (例: data/bgimage/auguste_beach.jpg を用意)
-    [bg storage="auguste_beach.jpg" time="1000"]
+  
 
     君は海まで走った。[p]
     周りに目もくれず、ひた走る。[p]
