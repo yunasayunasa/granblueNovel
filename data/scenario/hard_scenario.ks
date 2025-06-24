@@ -79,15 +79,155 @@
     無心で素振りを続けた結果、[r]
     君の素振りは、音を置き去りにしていた。[l]
 
+   
+
+
+
     そんな君の前に現れたのは...[l]
 
     ; 次の選択肢
-    [glink  text="荒くれ者達" target="*thugs_appear_badend"]
-    [glink  text="海のトンチキ生物達" target="*sea_creatures_appear"]
-    [glink  text="ローアイン達" target="*lowain_appear_badend"]
+    [glink  text="荒くれ者達" target="*thugs_appear_badend_hard"] ; ラベル名を少し変更
+    [glink  text="海のトンチキ生物達" target="*sea_creatures_appear_hard"]
+    [glink  text="ローアイン達" target="*lowain_appear_badend_hard"]
     [s]
 
-; 以下、各選択肢の先の展開を記述していく
-; *thugs_appear_badend
-; *sea_creatures_appear
-; *lowain_appear_badend
+*thugs_appear_badend_hard 
+    ; [playse storage="select_se.wav"]
+    ; 背景は海のまま
+
+    君の前に現れたのは荒くれ者達だった。[p]
+
+    ; 荒くれ者を表示
+    [chara_show name="thug" x="150" y="150" time="500" wait="true"] 
+    #荒くれ者
+    こんなとこで剣なんか振ってんじゃねえよ！[r]
+    あぶねえだろうが！[p]
+    [chara_hide name="thug" time="300" wait="true"]
+#
+    ...正論を振りかざされ、君は心が折れた。[p]
+    BAD END [l]
+    [jump storage="first.ks" target="*start"]
+
+*lowain_appear_badend_hard 
+    ; [playse storage="select_se.wav"]
+    ; 背景は海のまま
+
+    君の前に現れたのはローアイン達だった。[p]
+
+    ; ローアインを表示 (エルセムとトモイは出さないのでローアインのみ)
+    [chara_show name="lowain" x="150" y="150" time="500" wait="true"]
+    #ローアイン
+    あれ？ﾀﾞﾝﾁｮ？[r]
+    こんなとこで剣なんか振っちゃってDoしたん？[p]
+    ; トモイのセリフ (ローアインが代弁するか、地の文で)
+    ; #トモイ
+    ; 「俺たち今からそこの海の家でダベるんすよ。ﾀﾞﾝﾁｮもDoすか？」[p]
+    ; エルセムのセリフ
+    ; #エルセム
+    ; 「一緒にグラブっちゃいまっしょ！フワッフワッ！」[p]
+    ; もしローアインが全部言うなら上記のように。地の文で補足も可。
+    ; ここでは台本通り、各キャラが言っている体で進めます（立ち絵はローアインのみ）
+    
+
+#
+    君はローアイン達と海の家でダベることにした。[p]
+    妄想トークが捗り、[r]
+    非常に楽しい1日を過ごした━[p]
+
+    [chara_hide name="lowain" time="300" wait="true"]
+    ; ロジャー登場
+    [chara_show name="roger" x="150" y="150" time="500" wait="true"]
+    #ロジャー
+    ちょちょちょい！待って！[r]
+    チョコ忘れてない！？再演算！[p]
+    [chara_hide name="roger" time="300" wait="true"]
+    #
+    BAD END[l]
+    [jump storage="first.ks" target="*start"]
+
+*sea_creatures_appear_hard ; 「海のトンチキ生物達」を選んだ
+    ; [playse storage="select_se.wav"]
+    ; 背景は海のまま
+    ; ここではまだキャラクターは表示しない（地の文で進行）
+
+    君の前に現れたのは、海のトンチキ生物達だった。[p]
+    カキフライ「━━━━！」[p]
+    ンニ「━━━━━！！！」[p]
+    カツウォヌス「━━━━━━━！！！！！」[p]
+
+    前から後ろから、左右から、[r]
+    海の生物が襲いかかる。[l]
+    どれから対処すべきか...[l]
+
+    ; 次の選択肢
+    [glink color="blue" x="70" y="250" width="250" size="24" text="ンニ" target="*failed_battle_badend"] 
+    [glink color="blue" x="70" y="320" width="250" size="24" text="カツウォヌス" target="*progress_battle_1"] 
+    [glink color="blue" x="70" y="390" width="250" size="24" text="カキフライ" target="*failed_battle_badend"] 
+    [s]
+
+*failed_battle_badend 
+    ; [playse storage="select_se.wav"]
+    ; 背景は海のままか、自室の背景に変更するか
+    ; [bg storage="my_room_bg.jpg" time="500"] ; もし自室の背景があるなら
+#
+    君は目を覚ました。[p]
+    見知った天井、自分の部屋だ。[p]
+
+    ; ルリア登場
+    [chara_show name="ruria" x="150" y="150" time="500" wait="true"]
+    #ルリア
+    大丈夫ですか？[r]
+    今、ティコさんを呼んできますね！[p]
+    [chara_hide name="ruria" time="300" wait="true"]
+#
+    どうやら選択を誤ったらしい。[p]
+    全身の痛みに生を実感しながら、[p]
+    君は、目を閉じた。[p]
+    BAD END [l]
+    [jump storage="first.ks" target="*start"]
+
+
+*progress_battle_1 
+    ; [playse storage="select_se.wav"]
+    ; 背景は海のまま
+
+    カキフライ「━━━━！？」[p] 
+    まずは1つ、次は━[p]
+    ンナギ「━━━！」[p]
+    アルバコア「━━━━！！！」[p]
+    #
+    増援。君は選択を迫られる...[l]
+
+    ; 次の選択肢
+    [glink  text="ンナギ" target="*final_battle_badend"]
+    [glink  text="ンニ" target="*final_battle_badend"]
+    [glink  text="アルバコア" target="*final_battle_badend"]
+    [glink  text="カツウォヌス" target="*final_battle_badend"] 
+    [s]
+
+*final_battle_badend ; 戦闘最終盤 (BAD END)
+    ; [playse storage="select_se.wav"]
+    ; 背景は海のまま
+
+    マツヴァガニ「━━━━！！」[p]
+    灼弩火罹「━━！」[p]
+    ゾンビィ「ドライブイン！とっ！りっ！」[p] 
+
+    更に増えるトンチキ生物達。[p]
+    無理だ。1人では━[p]
+    君は押し迫る海の生物達の中に消えていった...。[p]
+
+    ; ★★★ ここで「再演算する」か「タイトルに戻る」の選択肢 ★★★
+    ; 台本ではリンクになっているが、ゲームの選択肢として実装
+    [glink color="orange" x="70" y="400" width="300" size="24" text="再演算する" target="*restart_hard_mode_sea"] ; 海のシーンの最初に戻るなど調整
+    [glink color="gray" x="70" y="470" width="300" size="24" text="最初のシナリオに戻る" target="*jump_to_prologue_from_hard"]
+    [s]
+
+*restart_hard_mode_sea
+    ; [playse storage="select_se.wav"]
+    ; 海のトンチキ生物との遭遇の最初に戻る
+    [jump target="*sea_creatures_appear_hard"]
+
+*jump_to_prologue_from_hard
+    ; [playse storage="select_se.wav"]
+    [jump storage="first.ks" target="*start"]
