@@ -18,6 +18,8 @@
 [chara_new name="lowain" storage="lowain_normal.png" jname="ローアイン"]
 [chara_new name="narumia" storage="narumia_normal.png" jname="ナルメア"] 
   [chara_new name="siete" storage="siete_normal.png" jname="シエテ"] 
+  
+ [chara_new name="korwa" storage="korwa_normal.png" jname="コルワ"] 
 [chara_new name="thug" storage="thug_normal.png" jname="荒くれ者"]
 ; 荒くれ者が複数いる場合、見た目が同じならこの定義を使いまわし、
 ; 表示位置やセリフで区別するか、あるいは thug1, thug2 のように別IDで定義しても良い
@@ -167,9 +169,9 @@
     どれから対処すべきか...[l]
 
     ; 次の選択肢
-    [glink color="blue" x="70" y="250" width="250" size="24" text="ンニ" target="*failed_battle_badend"] 
-    [glink color="blue" x="70" y="320" width="250" size="24" text="カツウォヌス" target="*progress_battle_1"] 
-    [glink color="blue" x="70" y="390" width="250" size="24" text="カキフライ" target="*failed_battle_badend"] 
+    [glink  text="ンニ" target="*failed_battle_badend"] 
+    [glink  text="カツウォヌス" target="*progress_battle_1"] 
+    [glink  text="カキフライ" target="*failed_battle_badend"] 
     [s]
 
 *failed_battle_badend 
@@ -287,9 +289,9 @@
     仲間になったのは...[l]
 
     ; 選択肢 (通常のプロローグと同じものを表示)
-    [glink color="blue" x="70" y="250" width="200" size="28" text="ナルメア" target="*pseudo_select_narumia_true_route"]
-    [glink color="blue" x="70" y="350" width="200" size="28" text="シエテ" target="*pseudo_select_siete_loop"]
-    [glink color="blue" x="70" y="450" width="200" size="28" text="誰も仲間にしない" target="*pseudo_select_hard_loop"]
+    [glink  text="ナルメア" target="*pseudo_select_narumia_true_route"]
+    [glink  text="シエテ" target="*pseudo_select_siete_loop"]
+    [glink  text="誰も仲間にしない" target="*pseudo_select_hard_loop"]
     [s]
 
 *pseudo_select_narumia_true_route
@@ -297,18 +299,20 @@
     [eval exp="f.true_ending_route_flag = true"]
 
     ; ナルメアとシエテが登場する展開へ
-    [chara_show name="narumia" x="50" y="150" time="500" wait="false"]
-    [chara_show name="siete" x="250" y="150" time="500" wait="true"]
-
+    [chara_show name="narumia" x="50" y="150" time="500" wait="true"]
+    
     #ナルメア
     ...どうしてあなたもいるのかな？[r]
     団長ちゃんのお願いは、私だけだったはずだけど？[p]
+    [chara_hide name="narumia" time="200" wait="true"]
+[chara_show name="siete" x="250" y="150" time="500" wait="true"]
 
     #シエテ
     まぁまぁ、そう硬いこと言わないで。[r]
     団長ちゃんには俺たちの両方の力が必要みたいだからね。[p]
-
-    ナルメア、シエテ「「それじゃあ、一緒に行こっか、団長ちゃん！」」[l]
+     [chara_hide name="siete" time="200" wait="true"]
+#ナルメア、シエテ
+    「「それじゃあ、一緒に行こっか、団長ちゃん！」」[p]
 
     君は海へ向かった━[l]
     [jump target="*true_route_sea_battle_start"] 
@@ -334,7 +338,7 @@
     カツウォヌス「━━━━━━━！！！！！」[p]
 
     前から後ろから、左右から、[r]
-    海の生物が襲いかかる。[l]
+    海の生物が襲いかかる。[p]
     どれから対処すべきか...[l]
 
     ; 選択肢 (ここもどれを選んでもOK？それとも正解がある？台本からは判断難しい)
@@ -348,13 +352,15 @@
     ; [playse storage="select_se.wav"]
 
     カキフライ「━━━━！？」[p] 
-
+[chara_show name="siete" x="250" y="150" time="500" wait="true"]
     #シエテ
     左右は任せて！[p] 
-
+ [chara_hide name="siete" time="200" wait="true"]
+  [chara_show name="narumia" x="50" y="150" time="500" wait="true"]
     #ナルメア
     うん！団長ちゃんは正面に集中して！[p]
-
+ [chara_hide name="narumia" time="200" wait="true"]
+    #
     ンナギ「━━━！」[p]
     アルバコア「━━━━！！！」[p]
     増援。君は選択を迫られる...[l]
@@ -372,7 +378,7 @@
     マツヴァガニ「━━━━！！」[p]
     灼弩火罹「━━！」[p]
     ; ゾンビィのセリフは名前表示にするか検討
-    #ゾンビィ ; [chara_new name="zombie" jname="ゾンビィ"] の定義が必要
+    #ゾンビィ
     おっはよーございまーす！[p]
     ; [chara_hide name="zombie"]
 
@@ -407,8 +413,8 @@
     最後の選択だ、君は...[l]
 
     ; 最後の選択肢
-    [glink color="green" x="70" y="300" width="250" size="28" text="目を狙う" target="*true_ending"] 
-    [glink color="red" x="70" y="370" width="250" size="28" text="ヒレを狙う" target="*failed_battle_badend"] 
+    [glink color="green"  size="28" text="目を狙う" target="*true_ending"] 
+    [glink color="red"  size="28" text="ヒレを狙う" target="*failed_battle_badend"] 
     [s]
 
     *hard_mode_start
@@ -435,7 +441,7 @@
     #ルリア
     チョコを司る星晶獣なんて、[r]
     びっくりです〜！あむっ！[p]
-
+#
     チョコ味になったアルバコアの甘さに頬を緩めながら、[r]
     ルリアは言う。[p]
     アウギュステ全体に漂うバレンタインムードは、[r]
@@ -446,26 +452,29 @@
     #ルリア
     そうそう！ずっとあなたを探してたんです！[r]
     これ、どうぞ！[p]
-
+#
     ルリアの手から、丁寧に包装された包みが渡された。[p]
 
     #ルリア
     ハッピーバレンタイン♪[r]
     これからもよろしくお願いしますね！[p]
     [chara_hide name="ruria" time="300" wait="true"]
-
+#
     ～HAPPY END～[p]
 
     ; ロジャーとコルワのセリフ (立ち絵を表示するか、名前表示のみか)
-     [chara_show name="roger" x="80" y="150"]
-     [chara_new name="korwa" jname="コルワ"] 
-     [chara_show name="korwa" x="280" y="150"]
-    #ロジャー、コルワ
-    うんうん、やっぱり最後は[r]
-    ハッピーエンドだよね！(よね！)[p]
+     [chara_show name="roger" x="40" y="150"]
     
-    [chara_hide name="roger"] 
-    [chara_hide name="korwa"]
+    
+    #ロジャー
+    うんうん、やっぱり最後は[r]
+     [chara_hide name="roger" time="500" wait="true"]
+     [chara_show name="korwa" x="300" y="150"]
+     #コルワ
+    ハッピーエンドよね！[p]
+     [chara_hide name="korwa" time="500" wait="true"]
+    
+   
 
     ゲームブック[r]
     【演算世界とチヨコレイト】[r]
@@ -476,6 +485,3 @@
     [save_system] ; システム変数を保存
 
     [jump storage="first.ks" target="*start"] ; 最初のシナリオへ
-
-*true_ending_another ; もしヒレを狙うと別の結末があるなら (今回はHAPPY ENDと同じにしておく)
-    [jump target="*true_ending"]
