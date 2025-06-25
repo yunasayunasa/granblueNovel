@@ -324,7 +324,7 @@
 
 ; ----- 本当のエンディングルートの戦闘開始 -----
 *true_route_sea_battle_start
-    [bg storage="auguste_beach.jpg" time="500"] 
+   [bg storage="auguste_town.jpg" time="1000"]
     ; ナルメアとシエテは表示されたまま
 
     海に着いた君たちの前に現れたのは、[r]
