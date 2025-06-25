@@ -1,6 +1,8 @@
 ; hard_scenario.ks
 ; ----- ハードモード登場キャラクター定義 -----
 
+
+*auguste_arrival
 [chara_new name="ruria" storage="ruria_normal.png" jname="ルリア"]
 ; ルリアの表情差分などあれば、ここに [chara_face] で追加
 
@@ -12,8 +14,6 @@
 [chara_new name="thug" storage="thug_normal.png" jname="荒くれ者"]
 ; 荒くれ者が複数いる場合、見た目が同じならこの定義を使いまわし、
 ; 表示位置やセリフで区別するか、あるいは thug1, thug2 のように別IDで定義しても良い
-*auguste_arrival
-
 ; 背景をアウギュステの街に変更 (例: data/bgimage/auguste_town.jpg を用意)
 [bg storage="auguste_town.jpg" time="1000"]
 
