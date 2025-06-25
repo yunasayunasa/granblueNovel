@@ -145,7 +145,7 @@
     BAD END[l]
     [jump storage="first.ks" target="*start"]
 
-*sea_creatures_appear_hard ; 「海のトンチキ生物達」を選んだ
+*sea_creatures_appear_hard 
     ; [playse storage="select_se.wav"]
     ; 背景は海のまま
     ; ここではまだキャラクターは表示しない（地の文で進行）
