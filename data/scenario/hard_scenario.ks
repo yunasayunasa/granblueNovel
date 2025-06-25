@@ -5,10 +5,19 @@
 *auguste_arrival
 [chara_new name="ruria" storage="ruria_normal.png" jname="ルリア"]
 ; ルリアの表情差分などあれば、ここに [chara_face] で追加
-
+[chara_new name="oigen" storage="oigen_normal.png" jname="オイゲン"] 
+[chara_new name="siete" storage="siete_normal.png" jname="シエテ"]
+[chara_face name="siete" face="normal" storage="siete_normal.png"] 
+[chara_face name="siete" face="stance" storage="siete_stance.png"] 
+[chara_face name="siete" face="granchariot" storage="siete_granchariot.png"] 
+; ★★★ 六竜のファイル名も _normal を付けることを推奨 ★★★
+[chara_new name="wilnas" storage="wilnas_normal.png" jname="ウィルナス"]
+[chara_new name="luoh" storage="luoh_normal.png" jname="ルオー"]
+[chara_new name="wamdus" storage="wamdus_normal.png" jname="ワムデュス"]
+[chara_new name="galleon" storage="galleon_normal.png" jname="ガレヲン"]
 [chara_new name="lowain" storage="lowain_normal.png" jname="ローアイン"]
-
-
+[chara_new name="narumia" storage="narumia_normal.png" jname="ナルメア"] 
+  [chara_new name="siete" storage="siete_normal.png" jname="シエテ"] 
 [chara_new name="thug" storage="thug_normal.png" jname="荒くれ者"]
 ; 荒くれ者が複数いる場合、見た目が同じならこの定義を使いまわし、
 ; 表示位置やセリフで区別するか、あるいは thug1, thug2 のように別IDで定義しても良い
@@ -84,7 +93,7 @@
     そんな君の前に現れたのは...[l]
 
     ; 次の選択肢
-    [glink  text="荒くれ者達" target="*thugs_appear_badend_hard"] ; ラベル名を少し変更
+    [glink  text="荒くれ者達" target="*thugs_appear_badend_hard"] 
     [glink  text="海のトンチキ生物達" target="*sea_creatures_appear_hard"]
     [glink  text="ローアイン達" target="*lowain_appear_badend_hard"]
     [s]
@@ -200,7 +209,7 @@
     [glink  text="ンナギ" target="*final_battle_badend"]
     [glink  text="ンニ" target="*final_battle_badend"]
     [glink  text="アルバコア" target="*final_battle_badend"]
-    [glink  text="カツウォヌス" target="*final_battle_badend"] 
+    [glink  text="煉獄カツウォヌス" target="*final_battle_badend"] 
     [s]
 
 *final_battle_badend ; 戦闘最終盤 (BAD END)
@@ -217,8 +226,8 @@
 
     ; ★★★ ここで「再演算する」か「タイトルに戻る」の選択肢 ★★★
     ; 台本ではリンクになっているが、ゲームの選択肢として実装
-    [glink color="orange" x="70" y="400" width="300" size="24" text="再演算する" target="*pseudo_prologue_start"] ; 海のシーンの最初に戻るなど調整
-    [glink color="gray" x="70" y="470" width="300" size="24" text="最初のシナリオに戻る" storage="first.ks" target="*start"]
+    [glink  text="再演算する" target="*pseudo_prologue_start"] 
+    [glink  text="あきらめる" storage="first.ks" target="*start"]
     [s]
 
 *pseudo_prologue_start
@@ -237,14 +246,9 @@
 
     君は、どこか見覚えのある空間にいる。[r]
     幻想的な一面の花畑、[r]
-    以前よりノイズは少ないようだ。[r]
-    だが、やはり現実とは思えない。[p]
+    やはり現実とは思えない。[p]
 
-    # ; オロロジャイアちゃん名乗りなど (通常通り)
-    #？？？
-    おはよう！お呼びとあらば即参上できない！[r]
-    今日も今日とて限界勤務上等の[r]
-    オロロジャイアちゃんでっす！[p]
+   
 
 
     [chara_show name="roger" x="200" y="150"]
