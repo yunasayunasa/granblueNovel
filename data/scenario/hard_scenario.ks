@@ -175,7 +175,7 @@
 *failed_battle_badend 
     ; [playse storage="select_se.wav"]
     ; 背景は海のままか、自室の背景に変更するか
-    ; [bg storage="my_room_bg.jpg" time="500"] ; もし自室の背景があるなら
+    [bg storage="my_room_bg.jpg" time="500"] 
 #
     君は目を覚ました。[p]
     見知った天井、自分の部屋だ。[p]
