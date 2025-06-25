@@ -480,7 +480,15 @@
     【演算世界とチヨコレイト】[r]
     〜完〜[l]
 
+
+    
+    
+
     ; ★★★ ハードモードクリアフラグを立てる ★★★
     [eval exp="sf.hard_mode_cleared = true"]
+
+    ハードモードをクリアしました。[p]
+    追加ルートを開放します。[p]
+    ここでセーブを推奨します。[l][p]
     
     [jump storage="first.ks" target="*start"] ; 最初のシナリオへ
