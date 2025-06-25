@@ -15,6 +15,7 @@
 ; 背景を甲板に変更
 [bg storage="deck_bg.jpg" time="1000"]
 
+    [chara_show name="siete" x="150" y="150" time="500" wait="true"]
 ; シエテが表示されている状態 (first.ksから引き継ぎ、またはここで再表示)
 ; [chara_show name="siete" x="150" y="150"] ; 必要であれば表示位置を再調整
 

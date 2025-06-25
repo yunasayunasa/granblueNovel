@@ -212,7 +212,7 @@
     [glink  text="煉獄カツウォヌス" target="*final_battle_badend"] 
     [s]
 
-*final_battle_badend ; 戦闘最終盤 (BAD END)
+*final_battle_badend
     ; [playse storage="select_se.wav"]
     ; 背景は海のまま
 
@@ -239,7 +239,7 @@
     ; メッセージウィンドウ等も first.ks と同様に設定
     [position layer="message0" left="25" top="600" width="400" height="180" page=fore visible=true]
     [position layer="message0" page=fore margint="25" marginl="25" marginr="25" marginb="25"]
-    [ptext name="chara_name_area" layer="message0" color="white" size="20" bold="true" x="40" y="575" visible="false"]
+    [ptext name="chara_name_area" layer="message0" color="white" size="20" bold="true" x="40" y="605" visible="false"]
     [chara_config ptext="chara_name_area"]
 
     ; キャラクター定義は事前に済んでいる想定
@@ -410,6 +410,19 @@
     [glink color="green" x="70" y="300" width="250" size="28" text="目を狙う" target="*true_ending"] 
     [glink color="red" x="70" y="370" width="250" size="28" text="ヒレを狙う" target="*failed_battle_badend"] 
     [s]
+
+    *hard_mode_start
+    ; ハードモード開始時の初期処理 (もしあれば)
+    ; 例えば、特定のフラグを立てるなど
+    ; [eval exp="f.hard_mode = true"]
+    [chara_show name="roger" x="200" y="150"]
+    #ロジャー
+    え！？誰もいらない！？[p] 
+    まぁ、君がそういうなら…[r]
+    …その先は地獄だよ？[p]
+    [chara_hide name="roger" time="500" wait="true"]
+    
+    [jump storage="hard_scenario.ks" target="*auguste_arrival"]
 
 *true_ending 
     ; [playse storage="select_se.wav"]
