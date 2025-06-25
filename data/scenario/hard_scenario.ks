@@ -7,9 +7,7 @@
 ; ルリアの表情差分などあれば、ここに [chara_face] で追加
 
 [chara_new name="lowain" storage="lowain_normal.png" jname="ローアイン"]
-; ローアインの仲間たち（エルセム、トモイ）も個別に立ち絵があるなら、同様に定義
-[chara_new name="erusemu" storage="erusemu_normal.png" jname="エルセム"]
-[chara_new name="tomoi" storage="tomoi_normal.png" jname="トモイ"]
+
 
 [chara_new name="thug" storage="thug_normal.png" jname="荒くれ者"]
 ; 荒くれ者が複数いる場合、見た目が同じならこの定義を使いまわし、
