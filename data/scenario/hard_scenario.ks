@@ -482,6 +482,5 @@
 
     ; ★★★ ハードモードクリアフラグを立てる ★★★
     [eval exp="sf.hard_mode_cleared = true"]
-    [save_system]
-
+    
     [jump storage="first.ks" target="*start"] ; 最初のシナリオへ
