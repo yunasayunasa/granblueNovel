@@ -219,15 +219,248 @@
 
     ; ★★★ ここで「再演算する」か「タイトルに戻る」の選択肢 ★★★
     ; 台本ではリンクになっているが、ゲームの選択肢として実装
-    [glink color="orange" x="70" y="400" width="300" size="24" text="再演算する" target="*restart_hard_mode_sea"] ; 海のシーンの最初に戻るなど調整
-    [glink color="gray" x="70" y="470" width="300" size="24" text="最初のシナリオに戻る" target="*jump_to_prologue_from_hard"]
+    [glink color="orange" x="70" y="400" width="300" size="24" text="再演算する" target="*pseudo_prologue_start"] ; 海のシーンの最初に戻るなど調整
+    [glink color="gray" x="70" y="470" width="300" size="24" text="最初のシナリオに戻る" storage="first.ks" target="*start"]
     [s]
 
-*restart_hard_mode_sea
-    ; [playse storage="select_se.wav"]
-    ; 海のトンチキ生物との遭遇の最初に戻る
-    [jump target="*sea_creatures_appear_hard"]
+*pseudo_prologue_start
+    [cm]
+    [clearfix]
+    [playbgm storage="prologue_bgm.ogg" loop="true"] 
+    [bg storage="calc_space.jpg" time="1000"]
 
-*jump_to_prologue_from_hard
+    ; メッセージウィンドウ等も first.ks と同様に設定
+    [position layer="message0" left="25" top="600" width="400" height="180" page=fore visible=true]
+    [position layer="message0" page=fore margint="25" marginl="25" marginr="25" marginb="25"]
+    [ptext name="chara_name_area" layer="message0" color="white" size="20" bold="true" x="40" y="575" visible="false"]
+    [chara_config ptext="chara_name_area"]
+
+    ; キャラクター定義は事前に済んでいる想定
+
+    君は、どこか見覚えのある空間にいる。[r]
+    幻想的な一面の花畑、[r]
+    以前よりノイズは少ないようだ。[r]
+    だが、やはり現実とは思えない。[p]
+
+    # ; オロロジャイアちゃん名乗りなど (通常通り)
+    #？？？
+    おはよう！お呼びとあらば即参上できない！[r]
+    今日も今日とて限界勤務上等の[r]
+    オロロジャイアちゃんでっす！[p]
+
+
+    [chara_show name="roger" x="200" y="150"]
+    #ロジャー
+おはよう！お呼びとあらば即参上できない！[r]
+今日も今日とて限界勤務上等の[r]
+オロロジャイアちゃんでっす！[p]
+
+ｵﾎﾝｴﾍﾝ...!ここは演算世界。[r]
+僕の力で作り出された世界。[r]
+あらゆる可能性を探るための場所さ。[p]
+
+これから君には僕と一緒に[r]
+旅をしてもらいたいんだ。[p]
+そう！君がチョコをもらえる世界を[r]
+探り出す為に！[p]
+そんな訳で早速行ってみよう〜！[r]
+と言っても...僕は一緒に行ける訳ではないんだけどね！[r]
+社畜の悲しみ！[p]
+代わりにガチャ回させてあげるから許して！[p]
+はい！10連ガチャガチャっとね！[p]
+
+; ロジャー退場
+[chara_hide name="roger" time="500" wait="true"]
+
+; ガチャ演出 (今は省略、SEや簡単なアニメーションを入れることも可能)
+[clearname]
+#
+1人の仲間が目の前に現れる。[p]
+
+
+
+#？？？
+それじゃあ、団長ちゃん、一緒に行こっか♪[p]
+
+    仲間になったのは...[l]
+
+    ; 選択肢 (通常のプロローグと同じものを表示)
+    [glink color="blue" x="70" y="250" width="200" size="28" text="ナルメア" target="*pseudo_select_narumia_true_route"]
+    [glink color="blue" x="70" y="350" width="200" size="28" text="シエテ" target="*pseudo_select_siete_loop"]
+    [glink color="blue" x="70" y="450" width="200" size="28" text="誰も仲間にしない" target="*pseudo_select_hard_loop"]
+    [s]
+
+*pseudo_select_narumia_true_route
     ; [playse storage="select_se.wav"]
-    [jump storage="first.ks" target="*start"]
+    [eval exp="f.true_ending_route_flag = true"]
+
+    ; ナルメアとシエテが登場する展開へ
+    [chara_show name="narumia" x="50" y="150" time="500" wait="false"]
+    [chara_show name="siete" x="250" y="150" time="500" wait="true"]
+
+    #ナルメア
+    ...どうしてあなたもいるのかな？[r]
+    団長ちゃんのお願いは、私だけだったはずだけど？[p]
+
+    #シエテ
+    まぁまぁ、そう硬いこと言わないで。[r]
+    団長ちゃんには俺たちの両方の力が必要みたいだからね。[p]
+
+    ナルメア、シエテ「「それじゃあ、一緒に行こっか、団長ちゃん！」」[l]
+
+    君は海へ向かった━[l]
+    [jump target="*true_route_sea_battle_start"] 
+
+*pseudo_select_siete_loop
+    ; [playse storage="select_se.wav"]
+    [jump storage="siete_scenario.ks" target="*deck_scene_start"]
+
+*pseudo_select_hard_loop 
+    ; [playse storage="select_se.wav"]
+    [jump storage="hard_scenario.ks" target="*auguste_arrival"] 
+
+
+; ----- 本当のエンディングルートの戦闘開始 -----
+*true_route_sea_battle_start
+    [bg storage="auguste_beach.jpg" time="500"] 
+    ; ナルメアとシエテは表示されたまま
+
+    海に着いた君たちの前に現れたのは、[r]
+    海のトンチキ生物達だった。[p]
+    カキフライ「━━━━！」[p]
+    ンニ「━━━━━！！！」[p]
+    カツウォヌス「━━━━━━━！！！！！」[p]
+
+    前から後ろから、左右から、[r]
+    海の生物が襲いかかる。[l]
+    どれから対処すべきか...[l]
+
+    ; 選択肢 (ここもどれを選んでもOK？それとも正解がある？台本からは判断難しい)
+    ; ここでは仮にどれを選んでも次の展開に進むようにします
+    [glink color="blue" x="70" y="250" width="250" size="24" text="ンニ" target="*true_route_battle_progress_1"]
+    [glink color="blue" x="70" y="320" width="250" size="24" text="カツウォヌス" target="*true_route_battle_progress_1"]
+    [glink color="blue" x="70" y="390" width="250" size="24" text="カキフライ" target="*true_route_battle_progress_1"]
+    [s]
+
+*true_route_battle_progress_1
+    ; [playse storage="select_se.wav"]
+
+    カキフライ「━━━━！？」[p] 
+
+    #シエテ
+    左右は任せて！[p] 
+
+    #ナルメア
+    うん！団長ちゃんは正面に集中して！[p]
+
+    ンナギ「━━━！」[p]
+    アルバコア「━━━━！！！」[p]
+    増援。君は選択を迫られる...[l]
+
+    ; 次の選択肢 (ここもどれを選んでもOKか？)
+    [glink color="blue" x="70" y="250" width="250" size="24" text="ンナギ" target="*true_route_final_battle"]
+    [glink color="blue" x="70" y="320" width="250" size="24" text="ンニ" target="*true_route_final_battle"]
+    [glink color="blue" x="70" y="390" width="250" size="24" text="アルバコア" target="*true_route_final_battle"]
+    [glink color="blue" x="70" y="460" width="250" size="24" text="カツウォヌス" target="*true_route_final_battle"]
+    [s]
+
+*true_route_final_battle
+    ; [playse storage="select_se.wav"]
+
+    マツヴァガニ「━━━━！！」[p]
+    灼弩火罹「━━！」[p]
+    ; ゾンビィのセリフは名前表示にするか検討
+    #ゾンビィ ; [chara_new name="zombie" jname="ゾンビィ"] の定義が必要
+    おっはよーございまーす！[p]
+    ; [chara_hide name="zombie"]
+
+    更に増えるトンチキ生物達。[p]
+    無理だ。1人では━[p]
+    「でも今は...！」[p]
+
+    ; (#10人の画像を挿入) -> これは一枚絵を表示するイメージ [image storage="ten_allies.jpg" ...]
+
+    「1人じゃない！」[p]
+
+    ; ここで仲間たちの攻撃演出 (SEや短いエフェクトなど)
+    「「「ソイヤッ！」」」[p]
+    カツウォヌスが捌かれる━[p]
+    「殲滅、殲滅！」[p]
+    「ワム、お腹すいた...全部食べる。」[p]
+    ンニが、ンナギが、ゾンビが、[p]
+    「アイン•ソフ•オウル！」[p]
+
+    殆どの海の生物達が彼らの前に倒れた。[p]
+    残すは━[p]
+    チョコ•アルバコア「チョコオオオオオオオオオオオオ━━━！！」[p] 
+
+    ; ルリア登場
+    [chara_hide name="narumia" time="100" wait="false"] 
+    [chara_hide name="siete" time="100" wait="true"]
+    [chara_show name="ruria" x="150" y="150" time="500" wait="true"]
+    #ルリア
+    ...！目の中にもう一つ星晶獣の気配を感じます！[l]
+    [chara_hide name="ruria" time="200" wait="true"]
+
+    最後の選択だ、君は...[l]
+
+    ; 最後の選択肢
+    [glink color="green" x="70" y="300" width="250" size="28" text="目を狙う" target="*true_ending"] 
+    [glink color="red" x="70" y="370" width="250" size="28" text="ヒレを狙う" target="*failed_battle_badend"] 
+    [s]
+
+*true_ending 
+    ; [playse storage="select_se.wav"]
+    [cm]
+    [clearfix]
+    ; [playbgm storage="happy_ending_bgm.ogg"] 
+
+    ; ルリア登場
+    [chara_show name="ruria" x="150" y="150" time="500" wait="true"]
+    #ルリア
+    チョコを司る星晶獣なんて、[r]
+    びっくりです〜！あむっ！[p]
+
+    チョコ味になったアルバコアの甘さに頬を緩めながら、[r]
+    ルリアは言う。[p]
+    アウギュステ全体に漂うバレンタインムードは、[r]
+    チョコの星晶獣「チョコアニィサキウス」の仕業だった。[p]
+    その甘い香りを嗅いだものは、[r]
+    無性に甘い気分になるのだ。[p]
+
+    #ルリア
+    そうそう！ずっとあなたを探してたんです！[r]
+    これ、どうぞ！[p]
+
+    ルリアの手から、丁寧に包装された包みが渡された。[p]
+
+    #ルリア
+    ハッピーバレンタイン♪[r]
+    これからもよろしくお願いしますね！[p]
+    [chara_hide name="ruria" time="300" wait="true"]
+
+    ～HAPPY END～[p]
+
+    ; ロジャーとコルワのセリフ (立ち絵を表示するか、名前表示のみか)
+     [chara_show name="roger" x="80" y="150"]
+     [chara_new name="korwa" jname="コルワ"] 
+     [chara_show name="korwa" x="280" y="150"]
+    #ロジャー、コルワ
+    うんうん、やっぱり最後は[r]
+    ハッピーエンドだよね！(よね！)[p]
+    
+    [chara_hide name="roger"] 
+    [chara_hide name="korwa"]
+
+    ゲームブック[r]
+    【演算世界とチヨコレイト】[r]
+    〜完〜[l]
+
+    ; ★★★ ハードモードクリアフラグを立てる ★★★
+    [eval exp="sf.hard_mode_cleared = true"]
+    [save_system] ; システム変数を保存
+
+    [jump storage="first.ks" target="*start"] ; 最初のシナリオへ
+
+*true_ending_another ; もしヒレを狙うと別の結末があるなら (今回はHAPPY ENDと同じにしておく)
+    [jump target="*true_ending"]
