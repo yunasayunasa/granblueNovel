@@ -69,7 +69,38 @@ console.log("Resize event dispatched.");
 [title name="演算世界とチヨコレイト"]
 [bg storage="calc_space.jpg" time="1000"]
 
+  ; ★★★ デバッグ用フラグ操作 ★★★
+    ; デバッグモードかどうかを判定する変数 (trueの間だけデバッグ操作を有効にするなど)
+    ; [eval exp="f.debug_mode = true"] ; 開発中はtrueにしておく
 
+    [if exp="f.debug_mode == true"]
+        [button text="ハードクリアフラグON"  role="debug" x="10" y="10" width="200" size="16" clickse="" target="*debug_flag_on"]
+        [button text="ハードクリアフラグOFF" role="debug" x="10" y="50" width="200" size="16" clickse="" target="*debug_flag_off"]
+        [button text="フラグ状態確認"       role="debug" x="10" y="90" width="200" size="16" clickse="" target="*debug_flag_check"]
+        ; 通常プレイ時はこれらのボタンは見えないように、リリース前に f.debug_mode を false にするか、この if ブロックごと削除/コメントアウト
+    [endif]
+
+    ; ... (通常のプロローグ開始処理 [playbgm] [bg] など) ...
+    ; ... (仲間選択肢の表示、[if exp="sf.hard_mode_cleared == true"] での追加選択肢表示もここ) ...
+
+*debug_flag_on
+    [eval exp="sf.hard_mode_cleared = true"]
+    [save_system] ; sf変数を保存
+    [alert text="ハードモードクリアフラグをONにしました。"]
+    [jump target="*start"] ; プロローグの最初に戻って選択肢を再評価
+
+*debug_flag_off
+    [eval exp="sf.hard_mode_cleared = false"]
+    [save_system]
+    [alert text="ハードモードクリアフラグをOFFにしました。"]
+    [jump target="*start"]
+
+*debug_flag_check
+    [iscript]
+    var flag_status = TYRANO.kag.stat.sf.hard_mode_cleared;
+    alert("ハードモードクリアフラグの状態: " + flag_status);
+    [endscript]
+    [jump target="*start"]
 
 
 
