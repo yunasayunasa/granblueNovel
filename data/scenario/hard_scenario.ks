@@ -387,7 +387,7 @@
     #ゾンビィ
     おっはよーございまーす！[p]
     ; [chara_hide name="zombie"]
-
+#
     更に増えるトンチキ生物達。[p]
     無理だ。1人では━[p]
     「でも今は...！」[p]
@@ -428,14 +428,16 @@ if (tf.cutin_index < tf.cutin_characters.length) {
 [chara_show name="ruria" x="150" y="150" time="200" wait="true"]
 [wait time="800"]
     「1人じゃない！」[p]
-
+[chara_hide name="ruria" time="200" wait="true"]
     ; ここで仲間たちの攻撃演出 (SEや短いエフェクトなど)
    
   [chara_show name="oigen" x="50" y="150" time="500" wait="true"]
    [quake time="500" count="3" hmax="15" vmax="15" wait="false"]
+   #三羽烏
     「「「ソイヤッ！」」」[p]
      [chara_hide name="oigen" time="200" wait="true"]
-    カツウォヌスが捌かれる━[p]
+   #
+   カツウォヌスが捌かれる━[p]
      [chara_show name="wilnas" x="50" y="150" time="500" wait="true"]
     #ウィルナス
     「殲滅、殲滅！」[p]
