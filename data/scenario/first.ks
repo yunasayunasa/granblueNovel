@@ -164,14 +164,10 @@ console.log("Resize event dispatched.");
     
     [jump storage="hard_scenario.ks" target="*auguste_arrival"]
 
-    *new_investigation_route_start
-    ; [playse storage="select_se.wav"]
-    ; ここで新しいシナリオファイルにジャンプするか、この下に直接記述
+  *new_investigation_route_start
     [cm]
     [clearfix]
-    ; [bg storage="interrogation_room_bg.jpg"] 
-    これは全く新しい物語の始まりだ...！[l]
-    ; ... (逆転裁判やダンガンロンパ風の展開へ) ...
+    [jump storage="investigation_test.ks" target="*start_investigation"]
     
 
 
