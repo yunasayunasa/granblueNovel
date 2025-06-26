@@ -3,6 +3,15 @@
 
 
 *auguste_arrival
+[chara_new name="zombie" storage="zombie.png" jname="ゾンビィ"]
+[chara_new name="nni" storage="nni.png" jname="ンニ"]
+[chara_new name="koa" storage="koa.png" jname="アルバコア"]
+[chara_new name="chocokoa" storage="chocokoa.png" jname="チョコアルバコア"]
+[chara_new name="same" storage="same.png" jname="サメ"]
+[chara_new name="kaki" storage="kaki.png" jname="カキフライ"]
+[chara_new name="kani" storage="kani.png" jname="クァニ"]
+[chara_new name="yadokari" storage="yadokari.png" jname="灼弩火罹"]
+[chara_new name="katuo" storage="katuo.png" jname="カツウォヌス"]
 [chara_new name="ruria" storage="ruria_normal.png" jname="ルリア"]
 ; ルリアの表情差分などあれば、ここに [chara_face] で追加
 [chara_new name="oigen" storage="oigen_normal.png" jname="オイゲン"] 
