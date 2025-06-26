@@ -71,7 +71,7 @@ console.log("Resize event dispatched.");
 
   ; ★★★ デバッグ用フラグ操作 ★★★
     ; デバッグモードかどうかを判定する変数 (trueの間だけデバッグ操作を有効にするなど)
-    ; [eval exp="f.debug_mode = true"] ; 開発中はtrueにしておく
+     [eval exp="f.debug_mode = true"] 
 
     [if exp="f.debug_mode == true"]
         [button text="ハードクリアフラグON"  role="debug" x="10" y="10" width="200" size="16" clickse="" target="*debug_flag_on"]
@@ -85,14 +85,14 @@ console.log("Resize event dispatched.");
 
 *debug_flag_on
     [eval exp="sf.hard_mode_cleared = true"]
-    [save_system] ; sf変数を保存
-    [alert text="ハードモードクリアフラグをONにしました。"]
+   
+   ハードモードクリアフラグをONにしました。
     [jump target="*start"] ; プロローグの最初に戻って選択肢を再評価
 
 *debug_flag_off
     [eval exp="sf.hard_mode_cleared = false"]
-    [save_system]
-    [alert text="ハードモードクリアフラグをOFFにしました。"]
+   
+    alert text="ハードモードクリアフラグをOFFにしました。
     [jump target="*start"]
 
 *debug_flag_check
