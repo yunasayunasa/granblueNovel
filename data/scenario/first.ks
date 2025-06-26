@@ -33,7 +33,7 @@ if (tyrano_base_element) {
     [button text="ハードクリアフラグ ON"  x="100" y="100" width="250" size="20" target="*debug_do_flag_on"]
     [button text="ハードクリアフラG OFF" x="100" y="150" width="250" size="20" target="*debug_do_flag_off"]
     [button text="フラグ状態 確認"       x="100" y="200" width="250" size="20" target="*debug_do_flag_check"]
-    [button text="プロローグへ進む"     x="100" y="300" width="250" size="20" target="*proceed_to_prologue" clickse=""] ; 通常のゲーム開始
+    [button text="プロローグへ進む"     x="100" y="300" width="250" size="20" target="*proceed_to_prologue" clickse=""] 
     [s] ; ボタン選択を待つ
 
 *debug_do_flag_on
