@@ -428,7 +428,7 @@
   [chara_hide name="yadokari" time="300" wait="true"]
      [chara_show name="zombie" x="150" y="150" time="500" wait="true"]
     #ゾンビィ
-    「おっはよーございまーす！[p]」[p] 
+    「おっはよーございまーす！[p]
   [chara_hide name="zombie" time="300" wait="true"]
    
 #
