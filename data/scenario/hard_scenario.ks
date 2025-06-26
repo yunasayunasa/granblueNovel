@@ -367,7 +367,7 @@
     うん！団長ちゃんは正面に集中して！[p]
  [chara_hide name="narumia" time="200" wait="true"]
     #
-    ンナギ「━━━！」[p]
+    サメ「━━━！」[p]
     アルバコア「━━━━！！！」[p]
     増援。君は選択を迫られる...[l]
 
@@ -381,7 +381,7 @@
 *true_route_final_battle
     ; [playse storage="select_se.wav"]
 
-    マツヴァガニ「━━━━！！」[p]
+    クァニ「━━━━！！」[p]
     灼弩火罹「━━！」[p]
     ; ゾンビィのセリフは名前表示にするか検討
     #ゾンビィ
@@ -492,7 +492,7 @@ if (tf.cutin_index < tf.cutin_characters.length) {
     ; [playbgm storage="happy_ending_bgm.ogg"] 
 
     ; ルリア登場
-    [chara_show name="ruria" x="150" y="150" time="500" wait="true"]
+    [chara_show name="ruria" x="150" y="150" time="1000" wait="true"]
     #ルリア
     チョコを司る星晶獣なんて、[r]
     びっくりです〜！あむっ！[p]
