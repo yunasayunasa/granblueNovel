@@ -245,7 +245,7 @@
     [chara_config ptext="chara_name_area"]
 
     ; キャラクター定義は事前に済んでいる想定
-
+#
     君は、どこか見覚えのある空間にいる。[r]
     幻想的な一面の花畑、[r]
     やはり現実とは思えない。[p]
@@ -313,7 +313,7 @@
      [chara_hide name="siete" time="200" wait="true"]
 #ナルメア、シエテ
     「「それじゃあ、一緒に行こっか、団長ちゃん！」」[p]
-
+#
     君は海へ向かった━[l]
     [jump target="*true_route_sea_battle_start"] 
 
@@ -330,9 +330,10 @@
 *true_route_sea_battle_start
    [bg storage="auguste_town.jpg" time="1000"]
     ; ナルメアとシエテは表示されたまま
-
+#
     海に着いた君たちの前に現れたのは、[r]
     海のトンチキ生物達だった。[p]
+     [quake time="500" count="3" hmax="15" vmax="15" wait="false"]
     カキフライ「━━━━！」[p]
     ンニ「━━━━━！！！」[p]
     カツウォヌス「━━━━━━━！！！！！」[p]
@@ -350,7 +351,7 @@
 
 *true_route_battle_progress_1
     ; [playse storage="select_se.wav"]
-
+ [quake time="500" count="3" hmax="15" vmax="15" wait="false"]
     カキフライ「━━━━！？」[p] 
 [chara_show name="siete" x="250" y="150" time="500" wait="true"]
     #シエテ
@@ -386,20 +387,67 @@
     無理だ。1人では━[p]
     「でも今は...！」[p]
 
-    ; (#10人の画像を挿入) -> これは一枚絵を表示するイメージ [image storage="ten_allies.jpg" ...]
+     ; --- カットイン開始 ---
+    ; 表示するキャラクターのリスト (表示したい順に)
+     [eval exp="tf.cutin_chars = ['roger', 'narumia', 'siete', 'sandalphon', 'diantha', 'anthuria', 'nier',  'oigen', 'wilnas', 'luoh', 'wamdus', 'galleon', 'lowain', 'thug']"]
+     [eval exp="tf.cutin_chars.push('ruria')"]
+  ; 表示位置やエフェクトは共通化も可能
+    ; ここではシンプルに中央に表示して消す例
 
+   [iscript]
+tf.cutin_characters = ["roger", "narumia", "siete", "sandalphon", "diantha","anthuria","nier","oigen","wilnas","luoh","wamdus","galleon","lowain","thug", ];
+tf.cutin_index = 0;
+[endscript]
+
+*cutin_loop
+[iscript]
+if (tf.cutin_index < tf.cutin_characters.length) {
+    var chara_id = tf.cutin_characters[tf.cutin_index];
+    // ここで [chara_show] に相当する処理をJavaScriptで書くか、
+    // あるいは f変数にキャラIDをセットしてタグで呼び出す
+    TYRANO.kag.ftag.startTag("chara_show", { name: chara_id, x:"150", y:"150", time:"50", wait:"false" });
+}
+[endscript]
+[wait time="100"]
+[iscript]
+if (tf.cutin_index < tf.cutin_characters.length) {
+    var chara_id = tf.cutin_characters[tf.cutin_index];
+    TYRANO.kag.ftag.startTag("chara_hide", { name: chara_id, time:"50", wait:"false" });
+    tf.cutin_index++;
+}
+[endscript]
+[wait time="50"]
+[jump target="*cutin_loop" cond="tf.cutin_index < tf.cutin_characters.length"]
+
+; ループ終了後、ルリア表示
+[chara_show name="ruria" x="150" y="150" time="200" wait="true"]
+[wait time="800"]
     「1人じゃない！」[p]
 
     ; ここで仲間たちの攻撃演出 (SEや短いエフェクトなど)
+   
+  [chara_show name="oigen" x="50" y="150" time="500" wait="true"]
+   [quake time="500" count="3" hmax="15" vmax="15" wait="false"]
     「「「ソイヤッ！」」」[p]
+     [chara_hide name="oigen" time="200" wait="true"]
     カツウォヌスが捌かれる━[p]
+     [chara_show name="wilnas" x="50" y="150" time="500" wait="true"]
+    #ウィルナス
     「殲滅、殲滅！」[p]
+    [chara_hide name="wilnas" time="200" wait="true"]
+    [chara_show name="wamdus" x="50" y="150" time="500" wait="true"]
+    #ワムデュス
     「ワム、お腹すいた...全部食べる。」[p]
+     [chara_hide name="wamdus" time="200" wait="true"]
     ンニが、ンナギが、ゾンビが、[p]
+    [chara_show name="sandalphon" x="50" y="150" time="500" wait="true"]
+    #サンダルフォン
     「アイン•ソフ•オウル！」[p]
-
+     [chara_hide name="sandalphon" time="200" wait="true"]
+#
     殆どの海の生物達が彼らの前に倒れた。[p]
     残すは━[p]
+     [quake time="500" count="3" hmax="15" vmax="15" wait="false"]
     チョコ•アルバコア「チョコオオオオオオオオオオオオ━━━！！」[p] 
 
     ; ルリア登場
@@ -409,7 +457,7 @@
     #ルリア
     ...！目の中にもう一つ星晶獣の気配を感じます！[l]
     [chara_hide name="ruria" time="200" wait="true"]
-
+#
     最後の選択だ、君は...[l]
 
     ; 最後の選択肢
@@ -473,7 +521,7 @@
      #コルワ
     ハッピーエンドよね！[p]
      [chara_hide name="korwa" time="500" wait="true"]
-    
+    #
    
 
     ゲームブック[r]
