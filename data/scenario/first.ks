@@ -18,29 +18,27 @@ if (tyrano_base_element) {
     [eval exp="f.debug_mode = true"]
 
     [if exp="f.debug_mode == true"]
-        [jump target="*debug_menu_screen"] ; デバッグメニュー画面へ
+        [jump target="*debug_menu_screen"] 
     [else]
-        [jump target="*proceed_to_prologue"] ; 通常は直接プロローグへ
+        [jump target="*proceed_to_prologue"] 
     [endif]
-    [s] ; [if]の後に[s]を置くか、各ジャンプ先で適切に停止させる
+    [s] 
 
 *debug_menu_screen
-    [cm] ; 画面クリア
+    [cm] 
     [clearfix]
-    [title name="デバッグメニュー"] ; タイトル表示 (任意)
-    [bg color="0x222222"] ; 背景を暗くするなど (任意)
+    [title name="デバッグメニュー"] 
 
     [button text="ハードクリアフラグ ON"  x="100" y="100" width="250" size="20" target="*debug_do_flag_on"]
     [button text="ハードクリアフラG OFF" x="100" y="150" width="250" size="20" target="*debug_do_flag_off"]
     [button text="フラグ状態 確認"       x="100" y="200" width="250" size="20" target="*debug_do_flag_check"]
     [button text="プロローグへ進む"     x="100" y="300" width="250" size="20" target="*proceed_to_prologue" clickse=""] 
-    [s] ; ボタン選択を待つ
-
+    [s] 
 *debug_do_flag_on
     [eval exp="sf.hard_mode_cleared = true"]
     [save_system]
     [alert text="ハードモードクリアフラグをONにしました。"]
-    [jump target="*debug_menu_screen"] ; デバッグメニューに戻る
+    [jump target="*debug_menu_screen"] 
 
 *debug_do_flag_off
     [eval exp="sf.hard_mode_cleared = false"]
@@ -51,7 +49,7 @@ if (tyrano_base_element) {
 *debug_do_flag_check
     [iscript]
     var flag_status = TYRANO.kag.stat.sf.hard_mode_cleared;
-    alert("ハードモードクリアフラグの状態: " + (flag_status === true ? "ON" : "OFF (または未設定)")); // より分かりやすい表示に
+    alert("ハードモードクリアフラグの状態: " + (flag_status === true ? "ON" : "OFF (または未設定)")); 
     [endscript]
     [jump target="*debug_menu_screen"]
 
