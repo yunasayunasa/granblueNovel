@@ -382,9 +382,9 @@
 
     ; 選択肢 (ここもどれを選んでもOK？それとも正解がある？台本からは判断難しい)
     ; ここでは仮にどれを選んでも次の展開に進むようにします
-    [glink color="blue" x="70" y="250" width="250" size="24" text="ンニ" target="*true_route_battle_progress_1"]
-    [glink color="blue" x="70" y="320" width="250" size="24" text="カツウォヌス" target="*true_route_battle_progress_1"]
-    [glink color="blue" x="70" y="390" width="250" size="24" text="カキフライ" target="*true_route_battle_progress_1"]
+    [glink  text="ンニ" target="*true_route_battle_progress_1"]
+    [glink  text="カツウォヌス" target="*true_route_battle_progress_1"]
+    [glink  text="カキフライ" target="*true_route_battle_progress_1"]
     [s]
 
 *true_route_battle_progress_1
@@ -411,10 +411,10 @@
     増援。君は選択を迫られる...[l]
 
     ; 次の選択肢 (ここもどれを選んでもOKか？)
-    [glink color="blue" x="70" y="250" width="250" size="24" text="ンナギ" target="*true_route_final_battle"]
-    [glink color="blue" x="70" y="320" width="250" size="24" text="ンニ" target="*true_route_final_battle"]
-    [glink color="blue" x="70" y="390" width="250" size="24" text="アルバコア" target="*true_route_final_battle"]
-    [glink color="blue" x="70" y="460" width="250" size="24" text="カツウォヌス" target="*true_route_final_battle"]
+    [glink  text="ンナギ" target="*true_route_final_battle"]
+    [glink  text="ンニ" target="*true_route_final_battle"]
+    [glink  text="アルバコア" target="*true_route_final_battle"]
+    [glink  text="カツウォヌス" target="*true_route_final_battle"]
     [s]
 
 *true_route_final_battle
