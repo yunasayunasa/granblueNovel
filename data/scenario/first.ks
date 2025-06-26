@@ -14,44 +14,7 @@ if (tyrano_base_element) {
     console.error("#tyrano_base が見つかりません");
 }
 [endscript]
-  ; ★★★ デバッグモードフラグ (開発中のみ true にする) ★★★
-    [eval exp="f.debug_mode = true"]
-
-    [if exp="f.debug_mode == true"]
-        [jump target="*debug_menu_screen"] 
-    [else]
-        [jump target="*proceed_to_prologue"] 
-    [endif]
-    [s] 
-
-*debug_menu_screen
-    [cm] 
-    [clearfix]
-    [title name="デバッグメニュー"] 
-
-    [button text="ハードクリアフラグ ON"  x="100" y="100" width="250" size="20" target="*debug_do_flag_on"]
-    [button text="ハードクリアフラG OFF" x="100" y="150" width="250" size="20" target="*debug_do_flag_off"]
-    [button text="フラグ状態 確認"       x="100" y="200" width="250" size="20" target="*debug_do_flag_check"]
-    [button text="プロローグへ進む"     x="100" y="300" width="250" size="20" target="*proceed_to_prologue" clickse=""] 
-    [s] 
-*debug_do_flag_on
-    [eval exp="sf.hard_mode_cleared = true"]
-    [save_system]
-    [alert text="ハードモードクリアフラグをONにしました。"]
-    [jump target="*debug_menu_screen"] 
-
-*debug_do_flag_off
-    [eval exp="sf.hard_mode_cleared = false"]
-    [save_system]
-    [alert text="ハードモードクリアフラグをOFFにしました。"]
-    [jump target="*debug_menu_screen"]
-
-*debug_do_flag_check
-    [iscript]
-    var flag_status = TYRANO.kag.stat.sf.hard_mode_cleared;
-    alert("ハードモードクリアフラグの状態: " + (flag_status === true ? "ON" : "OFF (または未設定)")); 
-    [endscript]
-    [jump target="*debug_menu_screen"]
+ 
 
 ; ★★★ 画面クリアと主要要素の再設定 ★★★
 [cm]
@@ -107,7 +70,44 @@ console.log("Resize event dispatched.");
 [title name="演算世界とチヨコレイト"]
 [bg storage="calc_space.jpg" time="1000"]
 
- 
+  ; ★★★ デバッグモードフラグ (開発中のみ true にする) ★★★
+    [eval exp="f.debug_mode = true"]
+
+    [if exp="f.debug_mode == true"]
+        [jump target="*debug_menu_screen"] 
+    [else]
+        [jump target="*proceed_to_prologue"] 
+    [endif]
+    [s] 
+
+*debug_menu_screen
+    [cm] 
+    [clearfix]
+    [title name="デバッグメニュー"] 
+
+    [button text="ハードクリアフラグ ON"  x="100" y="100" width="250" size="20" target="*debug_do_flag_on"]
+    [button text="ハードクリアフラG OFF" x="100" y="150" width="250" size="20" target="*debug_do_flag_off"]
+    [button text="フラグ状態 確認"       x="100" y="200" width="250" size="20" target="*debug_do_flag_check"]
+    [button text="プロローグへ進む"     x="100" y="300" width="250" size="20" target="*proceed_to_prologue" clickse=""] 
+    [s] 
+*debug_do_flag_on
+    [eval exp="sf.hard_mode_cleared = true"]
+    [save_system]
+    [alert text="ハードモードクリアフラグをONにしました。"]
+    [jump target="*debug_menu_screen"] 
+
+*debug_do_flag_off
+    [eval exp="sf.hard_mode_cleared = false"]
+    [save_system]
+    [alert text="ハードモードクリアフラグをOFFにしました。"]
+    [jump target="*debug_menu_screen"]
+
+*debug_do_flag_check
+    [iscript]
+    var flag_status = TYRANO.kag.stat.sf.hard_mode_cleared;
+    alert("ハードモードクリアフラグの状態: " + (flag_status === true ? "ON" : "OFF (または未設定)")); 
+    [endscript]
+    [jump target="*debug_menu_screen"]
 
 
 君は、見たこともない空間にいる。[r]幻想的な一面の花畑、[r]とても現実とは思えない。[p]
