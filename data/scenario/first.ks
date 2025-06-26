@@ -117,11 +117,7 @@ console.log("Resize event dispatched.");
 ; ... (前の行まで) ...
 仲間になったのは...[l]
 
-    ; ★★★ デバッグ用：ハードクリアフラグを強制的にOFFにする ★★★
-    ; テストが終わったらこの行は削除またはコメントアウトしてください
-    [eval exp="sf.hard_mode_cleared = false"]
-    ; [save_system] ; ← もしsf変数の即時保存方法が分かれば（現状はなくても動作確認できるはず）
-    ; [iscript]alert("デバッグ: ハードクリアフラグをOFFにしました。sf.hard_mode_cleared = " + TYRANO.kag.stat.sf.hard_mode_cleared);[endscript]
+  
 ; 選択肢 (glinkを使用)
 ; x, y, width, size は縦画面のレイアウトに合わせて調整してください
 [glink color="blue" x="70" y="250" width="200" size="28" text="ナルメア" target="*narumia_route_start"]
@@ -129,7 +125,7 @@ console.log("Resize event dispatched.");
 [glink color="blue" x="70" y="450" width="200" size="28" text="誰も仲間にしない" target="*hard_mode_start"]
 ; ★★★ ハードモードクリア後に追加される選択肢 ★★★
 [if exp="sf.hard_mode_cleared == true"]
-    [glink  text="新たなる演算" target="*new_investigation_route_start"] 
+    [glink  color="black" x="70" y="150" width="200" size="28"　text="新たなる演算" target="*new_investigation_route_start"] 
 [endif]
 [s]
 
