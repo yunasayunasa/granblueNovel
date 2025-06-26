@@ -19,6 +19,11 @@
 [chara_new name="narumia" storage="narumia_normal.png" jname="ナルメア"] 
   [chara_new name="siete" storage="siete_normal.png" jname="シエテ"] 
   
+[chara_new name="diantha" storage="diantha_normal.png" jname="ディアンサ"]
+[chara_new name="anthuria" storage="anthuria_normal.png" jname="アンスリア"]
+
+[chara_new name="nier" storage="nier_normal.png" jname="ニーア"]
+[chara_new name="sandalphon" storage="sandalphon_normal.png" jname="サンダルフォン"]
  [chara_new name="korwa" storage="korwa_normal.png" jname="コルワ"] 
 [chara_new name="thug" storage="thug_normal.png" jname="荒くれ者"]
 ; 荒くれ者が複数いる場合、見た目が同じならこの定義を使いまわし、
