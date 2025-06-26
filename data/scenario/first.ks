@@ -124,7 +124,7 @@ console.log("Resize event dispatched.");
 [glink color="blue" x="70" y="450" width="200" size="28" text="誰も仲間にしない" target="*hard_mode_start"]
 ; ★★★ ハードモードクリア後に追加される選択肢 ★★★
 [if exp="sf.hard_mode_cleared == true"]
-    [glink font_color="yellow" color="purple" x="70" y="550" width="300" size="28" text="新たなる演算" target="*new_investigation_route_start"] 
+    [glink  text="新たなる演算" target="*new_investigation_route_start"] 
 [endif]
 [s]
 
