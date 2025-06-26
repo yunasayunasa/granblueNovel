@@ -174,10 +174,15 @@
     ; ここではまだキャラクターは表示しない（地の文で進行）
 
     君の前に現れたのは、海のトンチキ生物達だった。[p]
+    [chara_show name="kaki" x="150" y="150" time="500" wait="true"]
     カキフライ「━━━━！」[p]
+[chara_hide name="kaki" time="300" wait="true"]
+    [chara_show name="nni" x="150" y="150" time="500" wait="true"]
     ンニ「━━━━━！！！」[p]
+[chara_hide name="nni" time="300" wait="true"]
+    [chara_show name="katuo" x="150" y="150" time="500" wait="true"]
     カツウォヌス「━━━━━━━！！！！！」[p]
-
+[chara_hide name="katuo" time="300" wait="true"]
     前から後ろから、左右から、[r]
     海の生物が襲いかかる。[l]
     どれから対処すべきか...[l]
@@ -213,11 +218,17 @@
 *progress_battle_1 
     ; [playse storage="select_se.wav"]
     ; 背景は海のまま
-
+[chara_show name="kaki" x="150" y="150" time="500" wait="true"]
+ [quake time="500" count="3" hmax="15" vmax="15" wait="false"]
     カキフライ「━━━━！？」[p] 
+    [chara_hide name="kaki" time="300" wait="true"]
     まずは1つ、次は━[p]
-    ンナギ「━━━！」[p]
+    [chara_show name="same" x="150" y="150" time="500" wait="true"]
+    サメ「━━━！」[p]
+     [chara_hide name="same" time="300" wait="true"]
+     [chara_show name="koa" x="150" y="150" time="500" wait="true"]
     アルバコア「━━━━！！！」[p]
+     [chara_hide name="koa" time="300" wait="true"]
     #
     増援。君は選択を迫られる...[l]
 
@@ -231,11 +242,17 @@
 *final_battle_badend
     ; [playse storage="select_se.wav"]
     ; 背景は海のまま
-
-    マツヴァガニ「━━━━！！」[p]
+ [chara_show name="kani" x="150" y="150" time="500" wait="true"]
+    クァニ「━━━━！！」[p]
+  [chara_hide name="kani" time="300" wait="true"]
+     [chara_show name="yadokari" x="150" y="150" time="500" wait="true"]
     灼弩火罹「━━！」[p]
-    ゾンビィ「ドライブイン！とっ！りっ！」[p] 
-
+  [chara_hide name="yadokari" time="300" wait="true"]
+     [chara_show name="zombie" x="150" y="150" time="500" wait="true"]
+    #ゾンビィ
+    「ドライブイン！とっ！りっ！」[p] 
+  [chara_hide name="zombie" time="300" wait="true"]
+    #
     更に増えるトンチキ生物達。[p]
     無理だ。1人では━[p]
     君は押し迫る海の生物達の中に消えていった...。[p]
@@ -347,11 +364,18 @@
 #
     海に着いた君たちの前に現れたのは、[r]
     海のトンチキ生物達だった。[p]
+    
+    [chara_show name="kaki" x="150" y="150" time="500" wait="true"]
      [quake time="500" count="3" hmax="15" vmax="15" wait="false"]
     カキフライ「━━━━！」[p]
+[chara_hide name="kaki" time="300" wait="true"]
+    [chara_show name="nni" x="150" y="150" time="500" wait="true"]
     ンニ「━━━━━！！！」[p]
+[chara_hide name="nni" time="300" wait="true"]
+    [chara_show name="katuo" x="150" y="150" time="500" wait="true"]
     カツウォヌス「━━━━━━━！！！！！」[p]
-
+[chara_hide name="katuo" time="300" wait="true"]
+#
     前から後ろから、左右から、[r]
     海の生物が襲いかかる。[p]
     どれから対処すべきか...[l]
@@ -365,8 +389,10 @@
 
 *true_route_battle_progress_1
     ; [playse storage="select_se.wav"]
- [quake time="500" count="3" hmax="15" vmax="15" wait="false"]
-    カキフライ「━━━━！？」[p] 
+  [chara_show name="kaki" x="150" y="150" time="500" wait="true"]
+     [quake time="500" count="3" hmax="15" vmax="15" wait="false"]
+    カキフライ「━━━━！？」[p]
+[chara_hide name="kaki" time="300" wait="true"]
 [chara_show name="siete" x="250" y="150" time="500" wait="true"]
     #シエテ
     左右は任せて！[p] 
@@ -376,8 +402,12 @@
     うん！団長ちゃんは正面に集中して！[p]
  [chara_hide name="narumia" time="200" wait="true"]
     #
+    [chara_show name="same" x="150" y="150" time="500" wait="true"]
     サメ「━━━！」[p]
+     [chara_hide name="same" time="300" wait="true"]
+     [chara_show name="koa" x="150" y="150" time="500" wait="true"]
     アルバコア「━━━━！！！」[p]
+     [chara_hide name="koa" time="300" wait="true"]
     増援。君は選択を迫られる...[l]
 
     ; 次の選択肢 (ここもどれを選んでもOKか？)
@@ -390,12 +420,17 @@
 *true_route_final_battle
     ; [playse storage="select_se.wav"]
 
+    [chara_show name="kani" x="150" y="150" time="500" wait="true"]
     クァニ「━━━━！！」[p]
+  [chara_hide name="kani" time="300" wait="true"]
+     [chara_show name="yadokari" x="150" y="150" time="500" wait="true"]
     灼弩火罹「━━！」[p]
-    ; ゾンビィのセリフは名前表示にするか検討
+  [chara_hide name="yadokari" time="300" wait="true"]
+     [chara_show name="zombie" x="150" y="150" time="500" wait="true"]
     #ゾンビィ
-    おっはよーございまーす！[p]
-    ; [chara_hide name="zombie"]
+    「おっはよーございまーす！[p]」[p] 
+  [chara_hide name="zombie" time="300" wait="true"]
+   
 #
     更に増えるトンチキ生物達。[p]
     無理だ。1人では━[p]
@@ -463,9 +498,14 @@ if (tf.cutin_index < tf.cutin_characters.length) {
 #
     殆どの海の生物達が彼らの前に倒れた。[p]
     残すは━[p]
+
+    [chara_hide name="nni" time="300" wait="true"]
+    [chara_show name="chocokoa" x="150" y="150" time="500" wait="true"]
+    
+
      [quake time="500" count="3" hmax="15" vmax="15" wait="false"]
     チョコ•アルバコア「チョコオオオオオオオオオオオオ━━━！！」[p] 
-
+[chara_hide name="chocokoa" time="300" wait="true"]
     ; ルリア登場
     [chara_hide name="narumia" time="100" wait="false"] 
     [chara_hide name="siete" time="100" wait="true"]
