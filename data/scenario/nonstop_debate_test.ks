@@ -37,7 +37,7 @@ tf.is_debate_active = false;
 [endscript]
 
 ; ----- 議論開始 -----
-[button name="shoot_button" graphic="tyrano/images/system/arrow_down.png" x="150" y="650" target="*shoot_action" clickse=""]
+[button name="shoot_button" graphic="cobra-03.jpg" x="150" y="650" target="*shoot_action" clickse=""]
 
 ; 発言表示用のテキストエリアをptextで作成
     [ptext name="debate_text" layer="0" x="50" y="300" width="350" height="100" size="28" color="white" border="line" border_color="red" border_size="2"]
