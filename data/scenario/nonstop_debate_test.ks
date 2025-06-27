@@ -39,8 +39,8 @@ tf.is_debate_active = false;
 ; ----- 議論開始 -----
 [button name="shoot_button" graphic="nni.png" x="150" y="650" target="*shoot_action" clickse=""]
 
-; *start_debate ラベルのptext定義の代わりに
-[div class="debate_text" style="position: absolute; top: 300px; left: 50px; width: 350px; height: 100px; color: white; font-size: 28px; z-index: 999; border: 2px solid red;"]
+; 発言表示用のテキストエリアをptextで作成
+    [ptext name="debate_text" layer="0" x="50" y="300" width="350" height="100" size="28" color="white" border="line" border_color="red" border_size="2"]
 ; ★★★ height, frame, borderを追加 ★★★
 [eval exp="tf.is_debate_active = true"]
 [jump target="*debate_loop"]
