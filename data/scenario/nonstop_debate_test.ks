@@ -40,7 +40,6 @@ tf.is_debate_active = false;
 [button name="shoot_button" graphic="nni.png" x="150" y="650" target="*shoot_action" clickse=""]
 
 ; 発言表示用のテキストエリアをptextで作成
-  ; 発言表示用のテキストエリアをptextで作成 (ここで位置を決定)
     [ptext name="debate_text" layer="0" x="50" y="300" width="350" height="100" size="28" color="white" border="line" border_color="red" border_size="2"]
 ; ★★★ height, frame, borderを追加 ★★★
 [eval exp="tf.is_debate_active = true"]
@@ -48,7 +47,7 @@ tf.is_debate_active = false;
 [s]
 
 *debate_loop
-    ; ★★★ 発言を順番に表示するループ (修正版) ★★★
+    ; ... (iscript で f.current_text などに値をセット) ...
     [iscript]
     if (tf.is_debate_active === true) {
         if (tf.debate_loop_timer) clearTimeout(tf.debate_loop_timer);
@@ -59,21 +58,20 @@ tf.is_debate_active = false;
     }
     [endscript]
 
-    ; ★★★ [ptext]タグでテキストを更新 ★★★
-   ; ★★★ [ptext]タグでテキストを更新 (x, y を追加) ★★★
-    [ptext name="debate_text" x="50" y="300" text="&f.current_text"]
+    ; ★★★ [ptext]タグでテキストを更新 (必須属性を全て追加) ★★★
+    [ptext name="debate_text" layer="0" x="50" y="300" width="350" height="100" size="28" color="white" text="&f.current_text"]
+    ; (デバッグ用のborderはここでは不要なので外してもOK)
+
     ; ★★★ HTML要素に弱点フラグを保存する処理 ★★★
     [eval exp="tyrano.plugin.kag.layer.getLayer('0', 'fore').find('.ptext[name=debate_text]').data('is_weakpoint', f.is_weakpoint)"]
 
-
-  [iscript]
+    [iscript]
     // 2秒後に再度このループを呼び出すタイマーをセット
     tf.debate_loop_timer = setTimeout(function(){
         TYRANO.kag.ftag.startTag("jump", {target: "*debate_loop"});
     }, 2000);
     [endscript]
     [s]
-
 *shoot_action
     ; ★★★ 「撃つ！」ボタンが押された時の処理 ★★★
     [iscript]
