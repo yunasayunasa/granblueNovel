@@ -47,7 +47,6 @@ tf.is_debate_active = false;
 [s]
 
 *debate_loop
-    ; ... (iscript で f.current_text などに値をセット) ...
     [iscript]
     if (tf.is_debate_active === true) {
         if (tf.debate_loop_timer) clearTimeout(tf.debate_loop_timer);
@@ -58,20 +57,19 @@ tf.is_debate_active = false;
     }
     [endscript]
 
-    ; ★★★ [ptext]タグでテキストを更新 (必須属性を全て追加) ★★★
-    [ptext name="debate_text" layer="0" x="50" y="300" width="350" height="100" size="28" color="white" text="&f.current_text"]
-    ; (デバッグ用のborderはここでは不要なので外してもOK)
+    ; ★ 修正点1: クリアしてから表示
+    [ptext name="debate_text" layer="0" x="50" y="300" width="350" height="100" text="" size="28"] 
+    [ptext name="debate_text" layer="0" x="50" y="300" width="350" height="100" size="28" color="white" text="&f.current_text"] 
 
-    ; ★★★ HTML要素に弱点フラグを保存する処理 ★★★
     [eval exp="tyrano.plugin.kag.layer.getLayer('0', 'fore').find('.ptext[name=debate_text]').data('is_weakpoint', f.is_weakpoint)"]
 
     [iscript]
-    // 2秒後に再度このループを呼び出すタイマーをセット
     tf.debate_loop_timer = setTimeout(function(){
         TYRANO.kag.ftag.startTag("jump", {target: "*debate_loop"});
     }, 2000);
     [endscript]
     [s]
+
 *shoot_action
     ; ★★★ 「撃つ！」ボタンが押された時の処理 ★★★
     [iscript]
@@ -114,11 +112,10 @@ tf.is_debate_active = false;
 
 *debate_fail
     ; ★★★ 失敗時の演出 ★★★
-    [free name="shoot_button" layer="fix"] 
-    ; [free_ptext name="debate_text" layer="0"] 
+    [free name="shoot_button" layer="fix"] ; ボタンを消す (このタグが有効か確認)
 
-    ; ★★★ 代わりにptextの内容を空にする ★★★
-    [ptext name="debate_text" text=""]
+    ; ★★★ 必須パラメータを追加してテキストエリアをクリア ★★★
+    [ptext name="debate_text" layer="0" x="50" y="300" text=""] ; x, y, layer を指定
 
     @layopt layer=message0 visible=true
     #
