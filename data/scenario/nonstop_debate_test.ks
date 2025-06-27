@@ -37,38 +37,40 @@ tf.is_debate_active = false;
 [endscript]
 
 ; ----- 議論開始 -----
-[button name="shoot_button" graphic="shoot_button.png" x="150" y="650" target="*shoot_action" clickse=""]
-[ptext name="debate_text" layer="0" x="50" y="300" width="350" size="28" color="white"]
+[button name="shoot_button" graphic="nni.png" x="150" y="650" target="*shoot_action" clickse=""]
+
+; 発言表示用のテキストエリアをptextで作成
+[ptext name="debate_text" layer="0" x="50" y="300" width="350" height="100" size="28" color="white" frame="frame.png" border="line" border_color="red" border_size="2"]
+; ★★★ height, frame, borderを追加 ★★★
 [eval exp="tf.is_debate_active = true"]
 [jump target="*debate_loop"]
 [s]
 
 *debate_loop
-    ; ★★★ 発言を順番に表示するループ ★★★
+    ; ★★★ 発言を順番に表示するループ (修正版) ★★★
     [iscript]
-    // 議論がアクティブな場合のみ処理を実行するように変更
-    if (tf.is_debate_active === true) { // '===' で厳密に比較
-        // タイマーがもしあればクリア (二重実行防止)
-        if (tf.debate_loop_timer) {
-            clearTimeout(tf.debate_loop_timer);
-        }
-
-        // 現在の発言を取得
+    if (tf.is_debate_active === true) {
+        if (tf.debate_loop_timer) clearTimeout(tf.debate_loop_timer);
         var current_statement = tf.debate_statements[tf.debate_index];
-        var ptext_area = $(".ptext[name='debate_text']");
-        if (ptext_area.length > 0) {
-            ptext_area.find(".inner_ptext").html(current_statement.text);
-            ptext_area.data("is_weakpoint", current_statement.is_weakpoint);
-        }
-
+        // 表示するテキストと、弱点かどうかを次の処理で使えるようにf変数に格納
+        f.current_text = current_statement.text;
+        f.is_weakpoint = current_statement.is_weakpoint;
         // 次の発言のインデックスを計算
         tf.debate_index = (tf.debate_index + 1) % tf.debate_statements.length;
+    }
+    [endscript]
 
-        // 2秒後に再度このループを呼び出すタイマーをセット
-        tf.debate_loop_timer = setTimeout(function(){
-            TYRANO.kag.ftag.startTag("jump", {target: "*debate_loop"});
-        }, 2000);
-    } // if (tf.is_debate_active) の閉じカッコ
+    ; ★★★ [ptext]タグでテキストを更新 ★★★
+    [ptext name="debate_text" text="&f.current_text"]
+    ; ★★★ HTML要素に弱点フラグを保存する処理もタグで試みる ★★★
+    [eval exp="TYRANO.kag.layer.getLayer('0', 'fore').find('.ptext[name=debate_text]').data('is_weakpoint', f.is_weakpoint)"]
+    ; 上記のevalがエラーになる可能性もあるので、最初はコメントアウトして試しても良い
+
+    [iscript]
+    // 2秒後に再度このループを呼び出すタイマーをセット
+    tf.debate_loop_timer = setTimeout(function(){
+        TYRANO.kag.ftag.startTag("jump", {target: "*debate_loop"});
+    }, 2000);
     [endscript]
     [s]
 
@@ -114,10 +116,14 @@ tf.is_debate_active = false;
 
 *debate_fail
     ; ★★★ 失敗時の演出 ★★★
-    [free name="shoot_button" layer="fix"]
-    [free_ptext name="debate_text" layer="0"]
+    [free name="shoot_button" layer="fix"] 
+    ; [free_ptext name="debate_text" layer="0"] 
+
+    ; ★★★ 代わりにptextの内容を空にする ★★★
+    [ptext name="debate_text" text=""]
+
     @layopt layer=message0 visible=true
-    # ; 名前クリア
+    #
     くっ…タイミングが違ったか…[p]
     議論をやり直そう。[l]
     [jump target="*start_debate"]
