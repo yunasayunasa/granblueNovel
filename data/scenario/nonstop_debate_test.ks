@@ -37,7 +37,7 @@ tf.is_debate_active = false;
 [endscript]
 
 ; ----- 議論開始 -----
-[button name="shoot_button" graphic="nni.png" x="150" y="650" target="*shoot_action" clickse=""]
+[button name="shoot_button" text="ここだ！" x="150" y="650" target="*shoot_action" clickse=""]
 
 ; 発言表示用のテキストエリアをptextで作成
     [ptext name="debate_text" layer="0" x="50" y="300" width="350" height="100" size="28" color="white" border="line" border_color="red" border_size="2"]
@@ -81,17 +81,30 @@ tf.is_debate_active = false;
     [s] ; iscript内のjumpが実行されるまで待つ
 
 *shoot_action
-    ; ★★★ 「撃つ！」ボタンが押された時の処理 ★★★
+    ; ★★★ 「撃つ！」ボタンが押された時の処理 (修正版) ★★★
     [iscript]
-    // 議論がアクティブな場合のみ処理を実行するように変更
     if (tf.is_debate_active === true) {
         // 議論を停止
         tf.is_debate_active = false;
         clearTimeout(tf.debate_loop_timer);
 
-        // 発言エリアが弱点を表示していたかチェック
-        var ptext_area = $(".ptext[name='debate_text']");
-        var was_weakpoint = ptext_area.data("is_weakpoint");
+        // ★★★ ボタンが押された時に「表示されていたはず」の発言を特定 ★★★
+        // tf.debate_index は「次に表示する」インデックスを指しているので、
+        // その一つ前が、ボタンを押した時に表示されていた発言になります。
+        var displayed_index = tf.debate_index - 1;
+
+        // もしインデックスが0の時にボタンが押された場合、-1になるので、
+        // リストの最後のインデックスに戻す
+        if (displayed_index < 0) {
+            displayed_index = tf.debate_statements.length - 1;
+        }
+
+        // console.log("表示されていたはずのインデックス:", displayed_index); // デバッグ用
+
+        // その発言が弱点だったか、元の配列から直接参照して判定する
+        var was_weakpoint = tf.debate_statements[displayed_index].is_weakpoint;
+
+        // console.log("その発言は弱点か？:", was_weakpoint); // デバッグ用
 
         if (was_weakpoint === true) {
             // 正解！
@@ -100,7 +113,7 @@ tf.is_debate_active = false;
             // 不正解
             TYRANO.kag.ftag.startTag("jump", {target: "*debate_fail"});
         }
-    } // if (tf.is_debate_active) の閉じカッコ
+    }
     [endscript]
     [s]
 
