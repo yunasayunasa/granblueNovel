@@ -40,7 +40,8 @@ tf.is_debate_active = false;
 [button name="shoot_button" graphic="nni.png" x="150" y="650" target="*shoot_action" clickse=""]
 
 ; 発言表示用のテキストエリアをptextで作成
-[ptext name="debate_text" layer="0" x="50" y="300" width="350" height="100" size="28" color="white" frame="frame.png" border="line" border_color="red" border_size="2"]
+  ; 発言表示用のテキストエリアをptextで作成 (ここで位置を決定)
+    [ptext name="debate_text" layer="0" x="50" y="300" width="350" height="100" size="28" color="white" border="line" border_color="red" border_size="2"]
 ; ★★★ height, frame, borderを追加 ★★★
 [eval exp="tf.is_debate_active = true"]
 [jump target="*debate_loop"]
@@ -52,21 +53,20 @@ tf.is_debate_active = false;
     if (tf.is_debate_active === true) {
         if (tf.debate_loop_timer) clearTimeout(tf.debate_loop_timer);
         var current_statement = tf.debate_statements[tf.debate_index];
-        // 表示するテキストと、弱点かどうかを次の処理で使えるようにf変数に格納
         f.current_text = current_statement.text;
         f.is_weakpoint = current_statement.is_weakpoint;
-        // 次の発言のインデックスを計算
         tf.debate_index = (tf.debate_index + 1) % tf.debate_statements.length;
     }
     [endscript]
 
     ; ★★★ [ptext]タグでテキストを更新 ★★★
-    [ptext name="debate_text" text="&f.current_text"]
-    ; ★★★ HTML要素に弱点フラグを保存する処理もタグで試みる ★★★
-    [eval exp="TYRANO.kag.layer.getLayer('0', 'fore').find('.ptext[name=debate_text]').data('is_weakpoint', f.is_weakpoint)"]
-    ; 上記のevalがエラーになる可能性もあるので、最初はコメントアウトして試しても良い
+   ; ★★★ [ptext]タグでテキストを更新 (x, y を追加) ★★★
+    [ptext name="debate_text" x="50" y="300" text="&f.current_text"]
+    ; ★★★ HTML要素に弱点フラグを保存する処理 ★★★
+    [eval exp="tyrano.plugin.kag.layer.getLayer('0', 'fore').find('.ptext[name=debate_text]').data('is_weakpoint', f.is_weakpoint)"]
 
-    [iscript]
+
+  [iscript]
     // 2秒後に再度このループを呼び出すタイマーをセット
     tf.debate_loop_timer = setTimeout(function(){
         TYRANO.kag.ftag.startTag("jump", {target: "*debate_loop"});
