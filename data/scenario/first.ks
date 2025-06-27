@@ -167,7 +167,7 @@ console.log("Resize event dispatched.");
   *new_investigation_route_start
     [cm]
     [clearfix]
-    [jump storage="investigation_test.ks" target="*start_investigation"]
+    [jump storage="nonstop_debate_test.ks" target="*start_debate"]
     
 
 
