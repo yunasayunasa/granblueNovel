@@ -120,7 +120,7 @@ tf.is_debate_active = false;
     やった！矛盾を突き崩した！[l]
     [jump storage="first.ks" target="*start"]
 
-; *debate_fail
+ *debate_fail
     [free name="shoot_button" layer="fix"]
 
     ; ★★★ iscriptでテキストエリアを空にする (正しいセレクタで) ★★★
