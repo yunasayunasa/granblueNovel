@@ -39,8 +39,8 @@ tf.is_debate_active = false;
 ; ----- 議論開始 -----
 [button name="shoot_button" graphic="nni.png" x="150" y="650" target="*shoot_action" clickse=""]
 
-; 発言表示用のテキストエリアをptextで作成
-    [ptext name="debate_text" layer="0" x="50" y="300" width="350" height="100" size="28" color="white" border="line" border_color="red" border_size="2"]
+; *start_debate ラベルのptext定義の代わりに
+[div class="debate_text" style="position: absolute; top: 300px; left: 50px; width: 350px; height: 100px; color: white; font-size: 28px; z-index: 999; border: 2px solid red;"]
 ; ★★★ height, frame, borderを追加 ★★★
 [eval exp="tf.is_debate_active = true"]
 [jump target="*debate_loop"]
@@ -48,44 +48,35 @@ tf.is_debate_active = false;
 
 *debate_loop
     ; ★★★ iscript内でテキストのセットまで完結させる ★★★
-    [iscript]
+   [iscript]
     if (tf.is_debate_active === true) {
         if (tf.debate_loop_timer) clearTimeout(tf.debate_loop_timer);
 
-        // 現在の発言を取得
         var current_statement = tf.debate_statements[tf.debate_index];
         var text_to_show = current_statement.text;
         var is_weakpoint_flag = current_statement.is_weakpoint;
 
-        // ★★★ jQueryでptextエリアを特定し、内容を書き換える ★★★
-        // TyranoScriptがptextで生成するHTML要素のセレクタを特定する必要がある
-        // 一般的には、ptext要素は `.ptext` クラスと `name` 属性を持つ
-        // その中に実際に文字が表示される `.inner_ptext` のような要素がある
-        var ptext_area_inner = $(".ptext[name='debate_text'] .inner_ptext");
+        // ★★★ 正しいセレクタに変更 ★★★
+        var p_element = $("p.debate_text");
 
-        if (ptext_area_inner.length > 0) {
+        if (p_element.length > 0) {
             // .html() で内容を完全に上書きする
-            ptext_area_inner.html(text_to_show);
+            p_element.html(text_to_show);
 
-            // .data() で弱点フラグを親要素に保存する
-            ptext_area_inner.parent().data("is_weakpoint", is_weakpoint_flag);
+            // .data() で弱点フラグを保存する
+            p_element.data("is_weakpoint", is_weakpoint_flag);
 
         } else {
-            // もしセレクタで見つからない場合、コンソールに警告を出す
-            console.warn("ptextエリアのセレクタ '.ptext[name=debate_text] .inner_ptext' が見つかりません。");
+            console.warn("p要素(class=debate_text)が見つかりません。");
         }
 
-
-        // 次の発言のインデックスを計算
         tf.debate_index = (tf.debate_index + 1) % tf.debate_statements.length;
 
-        // 2秒後に再度このループを呼び出すタイマーをセット
         tf.debate_loop_timer = setTimeout(function(){
             TYRANO.kag.ftag.startTag("jump", {target: "*debate_loop"});
         }, 2000);
     }
     [endscript]
-    ; [ptext]タグは削除し、[eval]も不要
 
     [s] ; iscript内のjumpが実行されるまで待つ
 
@@ -129,12 +120,12 @@ tf.is_debate_active = false;
     やった！矛盾を突き崩した！[l]
     [jump storage="first.ks" target="*start"]
 
-*debate_fail
+; *debate_fail
     [free name="shoot_button" layer="fix"]
 
-    ; ★★★ iscriptでテキストエリアを空にする ★★★
+    ; ★★★ iscriptでテキストエリアを空にする (正しいセレクタで) ★★★
     [iscript]
-    $(".ptext[name='debate_text'] .inner_ptext").html("");
+    $("p.debate_text").html("");
     [endscript]
 
     @layopt layer=message0 visible=true
