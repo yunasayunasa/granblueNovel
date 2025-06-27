@@ -37,78 +37,62 @@ tf.is_debate_active = false;
 [endscript]
 
 ; ----- 議論開始 -----
-
-; 「撃つ！」ボタンを配置
-; name属性を付けておくことで、後から非表示にしたりできる
 [button name="shoot_button" graphic="shoot_button.png" x="150" y="650" target="*shoot_action" clickse=""]
-
-; 発言表示用のテキストエリアをptextで作成
 [ptext name="debate_text" layer="0" x="50" y="300" width="350" size="28" color="white"]
-; 議論開始の合図
 [eval exp="tf.is_debate_active = true"]
-; 議論ループの開始
 [jump target="*debate_loop"]
-[s] 
+[s]
 
 *debate_loop
     ; ★★★ 発言を順番に表示するループ ★★★
     [iscript]
-    // 議論がアクティブでなければループを止める
-    if (!tf.is_debate_active) {
-        // タイマーを止めて何もしない
+    // 議論がアクティブな場合のみ処理を実行するように変更
+    if (tf.is_debate_active === true) { // '===' で厳密に比較
+        // タイマーがもしあればクリア (二重実行防止)
         if (tf.debate_loop_timer) {
             clearTimeout(tf.debate_loop_timer);
         }
-        // このままだとスクリプトがここで止まるので、次のラベルにジャンプするなどの処理が必要
-        // TYRANO.kag.ftag.startTag("jump", {target: "*debate_end"});
-        return;
-    }
 
-    // 現在の発言を取得
-    var current_statement = tf.debate_statements[tf.debate_index];
-    // jQueryを使ってptextエリアにテキストを表示
-    // .tyrano_ptext[data-name='debate_text'] のようにセレクタを特定する必要がある場合も
-    var ptext_area = $(".ptext[name='debate_text']");
-    if (ptext_area.length > 0) {
-        ptext_area.find(".inner_ptext").html(current_statement.text);
-        // 弱点かどうかをHTML要素のデータ属性に保存しておく
-        ptext_area.data("is_weakpoint", current_statement.is_weakpoint);
-    }
+        // 現在の発言を取得
+        var current_statement = tf.debate_statements[tf.debate_index];
+        var ptext_area = $(".ptext[name='debate_text']");
+        if (ptext_area.length > 0) {
+            ptext_area.find(".inner_ptext").html(current_statement.text);
+            ptext_area.data("is_weakpoint", current_statement.is_weakpoint);
+        }
 
-    // 次の発言のインデックスを計算 (最後まで行ったら0に戻る)
-    tf.debate_index = (tf.debate_index + 1) % tf.debate_statements.length;
+        // 次の発言のインデックスを計算
+        tf.debate_index = (tf.debate_index + 1) % tf.debate_statements.length;
 
-    // 2秒後(2000ミリ秒)に、再度このループを呼び出すタイマーをセット
-    tf.debate_loop_timer = setTimeout(function(){
-        TYRANO.kag.ftag.startTag("jump", {target: "*debate_loop"});
-    }, 2000);
+        // 2秒後に再度このループを呼び出すタイマーをセット
+        tf.debate_loop_timer = setTimeout(function(){
+            TYRANO.kag.ftag.startTag("jump", {target: "*debate_loop"});
+        }, 2000);
+    } // if (tf.is_debate_active) の閉じカッコ
     [endscript]
-    ; iscript内でjumpするので、ここには[s]は置かない
-    [s] ; ただし、次のjumpが実行されるまでスクリプトを止めるために必要
+    [s]
 
 *shoot_action
     ; ★★★ 「撃つ！」ボタンが押された時の処理 ★★★
     [iscript]
-    // 議論がアクティブでなければ何もしない
-    if (!tf.is_debate_active) {
-        return;
-    }
-    // 議論を一旦停止
-    tf.is_debate_active = false;
-    clearTimeout(tf.debate_loop_timer); 
+    // 議論がアクティブな場合のみ処理を実行するように変更
+    if (tf.is_debate_active === true) {
+        // 議論を停止
+        tf.is_debate_active = false;
+        clearTimeout(tf.debate_loop_timer);
 
-    // 発言エリアが弱点を表示していたかチェック
-    var ptext_area = $(".ptext[name='debate_text']");
-    var was_weakpoint = ptext_area.data("is_weakpoint");
+        // 発言エリアが弱点を表示していたかチェック
+        var ptext_area = $(".ptext[name='debate_text']");
+        var was_weakpoint = ptext_area.data("is_weakpoint");
 
-    // ここでは弾丸は固定なので、弱点を撃てたかどうかだけで判定
-    if (was_weakpoint === true) {
-        // 正解！
-        TYRANO.kag.ftag.startTag("jump", {target: "*debate_success"});
-    } else {
-        // 不正解
-        TYRANO.kag.ftag.startTag("jump", {target: "*debate_fail"});
-    }
+        if (was_weakpoint === true) {
+            // 正解！
+            TYRANO.kag.ftag.startTag("jump", {target: "*debate_success"});
+        } else {
+            // 不正解
+            TYRANO.kag.ftag.startTag("jump", {target: "*debate_fail"});
+        }
+    } // if (tf.is_debate_active) の閉じカッコ
     [endscript]
     [s]
 
@@ -117,9 +101,8 @@ tf.is_debate_active = false;
     [cm]
     [clearfix]
     @layopt layer=message0 visible=true
-    [bg storage="cafe_bg.jpg" time="100"] 
+    [bg storage="courtroom_break.jpg" time="100"]
 
-    ; 「論破！」などの演出
     [quake time="300" count="3"]
     [font size="50" color="red" bold="true"]
     論破！[p]
@@ -131,14 +114,10 @@ tf.is_debate_active = false;
 
 *debate_fail
     ; ★★★ 失敗時の演出 ★★★
-    ; [playse storage="fail_se.wav"]
-    ; 「撃つ！」ボタンと発言エリアを消す
-    [free name="shoot_button" layer="fix"] 
+    [free name="shoot_button" layer="fix"]
     [free_ptext name="debate_text" layer="0"]
-
     @layopt layer=message0 visible=true
     # ; 名前クリア
-    くっ…タイミングが違ったか…[l]
-    ; ここから議論を再開するか、ペナルティを受けて別の展開に進むか
-    ; 今回はシンプルに議論再開
+    くっ…タイミングが違ったか…[p]
+    議論をやり直そう。[l]
     [jump target="*start_debate"]
