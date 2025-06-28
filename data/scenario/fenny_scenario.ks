@@ -297,10 +297,19 @@
     [glink graphic="button/shake.png" x="250" y="500" target="*shake_testimony" name="shake_btn"]
     [glink graphic="button/present.png" x="350" y="500" target="*present_evidence" name="present_btn"]
 
-    ; ★★★ 操作説明のptextのnameもダブルクォーテーションで囲む ★★★
-    [ptext name="instruction_text" layer="fix" x="25" y="600" width="400" size="18" color="white" text="証言を移動し、揺さぶって情報を引き出すか、証拠品を突きつけて矛盾を指摘しよう。"]
-    [wait time="300"]
-    [ptext name="instruction_text" layer="fix" x="25" y="600" text=""]
+   ; ★★★ 操作説明 (mtext と erasemsg に変更) ★★★
+    ; mtextでテキストをフェードイン表示
+    [mtext text="証言を移動し、揺さぶって情報を引き出すか、証拠品を突きつけて矛盾を指摘しよう。" x="25" y="600" width="400" size="18" color="white" time="500" wait="false"]
+
+    ; 3秒待つ
+    [wait time="3000"]
+
+    ; mtextで表示したテキストをフェードアウトで消す
+    [erasemsg time="500"]
+    ; または [mtext_hide time="500"] でも良い (erasemsgの方が汎用的)
+
+    ; テキストが消えるのを待つ (任意だが推奨)
+    [wait time="500"]
 
     ; 最初の証言を表示して開始
     [jump target="*display_current_testimony"]
