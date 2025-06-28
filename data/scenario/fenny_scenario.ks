@@ -297,21 +297,50 @@
     [glink graphic="button/shake.png" x="250" y="500" target="*shake_testimony" name="shake_btn"]
     [glink graphic="button/present.png" x="350" y="500" target="*present_evidence" name="present_btn"]
 
-   ; ★★★ 操作説明 (mtext と erasemsg に変更) ★★★
-    ; mtextでテキストをフェードイン表示
-    [mtext text="証言を移動し、揺さぶって情報を引き出すか、証拠品を突きつけて矛盾を指摘しよう。" x="25" y="600" width="400" size="18" color="white" time="500" wait="false"]
+  ; ★★★ 操作説明 (iscriptで表示・消去) ★★★
+    [iscript]
+    // 表示するテキスト
+    var instruction_text = "証言を移動し、揺さぶって情報を引き出すか、証拠品を突きつけて矛盾を指摘しよう。";
 
-    ; 3秒待つ
-    [wait time="3000"]
+    // テキストを表示するためのHTML要素を作成
+    var p_element = $("<p></p>");
 
-    ; mtextで表示したテキストをフェードアウトで消す
-    [erasemsg time="500"]
-    ; または [mtext_hide time="500"] でも良い (erasemsgの方が汎用的)
+    // スタイルを設定
+    p_element.css({
+        "position": "absolute",
+        "left": "25px",
+        "top": "600px",
+        "width": "400px",
+        "font-size": "18px",
+        "color": "white",
+        "z-index": "10000", // 他のUIより手前に
+        "display": "none" // 最初は非表示
+    });
 
-    ; テキストが消えるのを待つ (任意だが推奨)
-    [wait time="500"]
+    // テキストをセットし、ユニークなクラス名 (またはID) をつける
+    p_element.html(instruction_text).addClass("instruction_text_js");
+
+    // ゲーム画面の前景レイヤーに追加 (セレクタは環境に合わせて調整)
+    // .layer_fore.fix_fore_layer など、最前面に近いレイヤーを探す
+    var target_layer = $(".layer_fore.fix_fore_layer"); // fixレイヤーの前景
+    if(target_layer.length === 0){
+        target_layer = $(".layer_fore").last(); // もしfix_foreがなければ、一番手前の前景レイヤー
+    }
+    target_layer.append(p_element);
+
+    // フェードインで表示
+    p_element.fadeIn(500);
+
+    // 3秒後にフェードアウトして要素を削除するタイマーをセット
+    setTimeout(function() {
+        p_element.fadeOut(500, function() {
+            $(this).remove(); // フェードアウト完了後に要素を完全に削除
+        });
+    }, 3000); // 表示開始から3秒後 (2500ms待ってから500msかけて消える)
+    [endscript]
 
     ; 最初の証言を表示して開始
+    ; iscript内のsetTimeoutはバックグラウンドで動くので、[wait]は不要
     [jump target="*display_current_testimony"]
     [s]
 
