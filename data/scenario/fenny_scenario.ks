@@ -292,12 +292,11 @@
     [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="体力：&f.life"]
     [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="24" color="white" class="testimony_area_js"]
 
-   ; ★★★ ボタンの target を、処理分岐用の中継ラベルに向ける ★★★
-    [button name="prev_btn" graphic="button/prev.png" x="50" y="500" target="*button_action_router" clickse=""]
-    [button name="next_btn" graphic="button/next.png" x="150" y="500" target="*button_action_router" clickse=""]
-    [button name="shake_btn" graphic="button/shake.png" x="250" y="500" target="*button_action_router" clickse=""]
-    [button name="present_btn" graphic="button/present.png" x="350" y="500" target="*button_action_router" clickse=""]
-
+    ; ★★★ ボタンの target を、それぞれ専用の中継ラベルに向ける ★★★
+    [button name="prev_btn" graphic="button/prev.png" x="50" y="500" target="*on_prev_button_click"]
+    [button name="next_btn" graphic="button/next.png" x="150" y="500" target="*on_next_button_click"]
+    [button name="shake_btn" graphic="button/shake.png" x="250" y="500" target="*on_shake_button_click"]
+    [button name="present_btn" graphic="button/present.png" x="350" y="500" target="*on_present_button_click"]
     ; ★★★ 操作説明 ([ptext] と [free] を使用) ★★★
     [ptext name="instruction_text" layer="fix" x="25" y="600" width="400" size="18" color="white" text="証言を移動し、揺さぶって情報を引き出すか、証拠品を突きつけて矛盾を指摘しよう。"]
 
@@ -313,32 +312,23 @@
     [s]
 
     ; ★★★ ボタンが押されたら、まずこの共通ラベルに飛んでくる ★★★
-*button_action_router
-    ; [iscript] でどのボタンが押されたかを判定する
-    [iscript]
-    // クリックされたボタンの'name'属性をTyranoScriptのシステム変数から取得
-    var clicked_button_name = TYRANO.kag.stat.clicked_button_name;
-    // console.log("Clicked button: " + clicked_button_name); // デバッグ用
+; ----- 各ボタンが押された時の中継ラベル -----
 
-    // 押されたボタンのnameに応じて、ジャンプ先を決定
-    var target_label = "";
-    if (clicked_button_name === "prev_btn") {
-        target_label = "*prev_testimony";
-    } else if (clicked_button_name === "next_btn") {
-        target_label = "*next_testimony";
-    } else if (clicked_button_name === "shake_btn") {
-        target_label = "*shake_testimony";
-    } else if (clicked_button_name === "present_btn") {
-        target_label = "*present_evidence";
-    }
+*on_prev_button_click
+    ; [playse storage="select_se.wav"]
+    [jump target="*prev_testimony"]
 
-    // 計算したジャンプ先を一時変数に格納
-    tf.jump_target_label = target_label;
-    [endscript]
+*on_next_button_click
+    ; [playse storage="select_se.wav"]
+    [jump target="*next_testimony"]
 
-    ; ★★★ iscriptで決定したラベルに [jump] で飛ぶ ★★★
-    [jump cond="tf.jump_target_label != ''" target="&tf.jump_target_label"]
-    
+*on_shake_button_click
+    ; [playse storage="select_se.wav"]
+    [jump target="*shake_testimony"]
+
+*on_present_button_click
+    ; [playse storage="select_se.wav"]
+    [jump target="*present_evidence"]
 
 
 *display_current_testimony
@@ -357,10 +347,7 @@
     [endscript]
     [s] 
 
-*next_testimony
-    [iscript] f.current_testimony_index = (f.current_testimony_index + 1) % tf.testimonies.length; [endscript]
-    ; ↓↓↓ この行を手で打ち直す ↓↓↓
-    [jump target="*display_current_testimony"]
+; ----- 各ボタンの実際の処理 -----
 
 *prev_testimony
     [iscript]
@@ -369,6 +356,9 @@
     [endscript]
     [jump target="*display_current_testimony"]
 
+*next_testimony
+    [iscript] f.current_testimony_index = (f.current_testimony_index + 1) % tf.testimonies.length; [endscript]
+    [jump target="*display_current_testimony"]
 
 *shake_testimony
     ; ★★★ 「待った！」演出 ★★★
