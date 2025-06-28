@@ -286,52 +286,62 @@
     ; ルリアを表示
     [chara_show name="ruria" x="150" y="100"]
 
-    ; 体力表示用のテキストエリア
-    [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="体力：&f.life"]
+     ; 体力表示用のテキストエリア
+    [iscript] f.life_text = "体力：" + f.life; [endscript]
+    [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="&f.life_text"]
 
-    ; 体力表示部分
-[iscript] f.life_text = "体力：" + f.life; [endscript]
-[ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="&f.life_text"]
-    
+    ; 証言表示用のテキストエリア (ここで一度定義)
+    [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="24" color="white"]
 
-    ; 操作ボタンの配置
+    ; 操作ボタンの配置 
     [button name="prev_btn" graphic="button/prev.png" x="50" y="500" target="*prev_testimony"]
     [button name="next_btn" graphic="button/next.png" x="150" y="500" target="*next_testimony"]
     [button name="shake_btn" graphic="button/shake.png" x="250" y="500" target="*shake_testimony"]
     [button name="present_btn" graphic="button/present.png" x="350" y="500" target="*present_evidence"]
 
-    ; 変更後
-[ptext name="instruction_text" layer="fix" x="25" y="600" width="400" size="18" color="white" text="証言を移動し、揺さぶって情報を引き出すか、証拠品を突きつけて矛盾を指摘しよう。"]
-[wait time="3000"] 
-[free_ptext name="instruction_text" layer="fix"] ; free_ptextが使えない場合は [ptext name="instruction_text" text=""]
+    ; 操作説明
+    [ptext name="instruction_text" layer="fix" x="25" y="600" width="400" size="18" color="white" text="証言を移動し、揺さぶって情報を引き出すか、証拠品を突きつけて矛盾を指摘しよう。"]
+    [wait time="3000"]
+    [ptext name="instruction_text" layer="fix" x="25" y="600" text=""] ; 内容をクリアして消す
+
     ; 最初の証言を表示して開始
     [jump target="*display_current_testimony"]
     [s]
 
 
-*display_current_testimony ; 現在の証言を表示する共通処理
+*display_current_testimony
+    ; ★★★ iscript内でテキスト表示とデータ保存を完結させる ★★★
     [iscript]
     // 表示する証言を取得
-    f.current_testimony = tf.testimonies[f.current_testimony_index];
+    var current_testimony = tf.testimonies[f.current_testimony_index];
+    var text_to_show = current_testimony.text;
+    var is_weakpoint_flag = current_testimony.is_weakpoint;
+
+    // jQueryでptextエリアを特定し、内容を書き換える
+    // ptextはname属性を持たないようなので、classで指定する
+    // ただし、ptextが複数あると問題なので、ここでは専用のクラスを付与する
+    var ptext_area = $(".testimony_area_js"); // ← 専用クラスで探す
+
+    if (ptext_area.length > 0) {
+        ptext_area.find(".inner_ptext").html(text_to_show);
+        ptext_area.data("is_weakpoint", is_weakpoint_flag);
+    } else {
+        console.warn("証言エリアのセレクタ '.testimony_area_js' が見つかりません。");
+    }
     [endscript]
-    ; 証言をテキストエリアに表示
-    [ptext name="testimony_text" text="&f.current_testimony.text"]
     [s] ; ボタン入力を待つ
 
-*next_testimony ; 「次へ」ボタン
-    ; [playse storage="cursor_move_se.wav"]
+*next_testimony
     [iscript] f.current_testimony_index = (f.current_testimony_index + 1) % tf.testimonies.length; [endscript]
     [jump target="*display_current_testimony"]
 
-*prev_testimony ; 「前へ」ボタン
-    ; [playse storage="cursor_move_se.wav"]
+*prev_testimony
     [iscript]
     f.current_testimony_index--;
-    if (f.current_testimony_index < 0) {
-        f.current_testimony_index = tf.testimonies.length - 1;
-    }
+    if (f.current_testimony_index < 0) { f.current_testimony_index = tf.testimonies.length - 1; }
     [endscript]
     [jump target="*display_current_testimony"]
+
 
 *shake_testimony ; 「ゆさぶる」ボタン
     ; ★★★ 「待った！」演出 ★★★
@@ -378,24 +388,32 @@
 
 *ruria_evidence_selected
     ; ★★★ つきつけ判定 ★★★
-    [if exp="f.current_testimony.id == 3 && f.selected_evidence_id == 'singing'"]
-        ; 正解！
+    [iscript]
+    // iscript内で判定まで完結させる
+    var is_correct = false;
+    // f.current_testimony は [display_current_testimony] でセットされているはず
+    if (f.current_testimony && f.current_testimony.id == 3 && f.selected_evidence_id == 'singing') {
+        is_correct = true;
+    }
+    f.is_correct_evidence = is_correct;
+    [endscript]
+
+    [if exp="f.is_correct_evidence == true"]
         [jump target="*ruria_breakdown_success"]
     [else]
-        ; 不正解
-        ; 体力を減らす
         [eval exp="f.life--"]
-        [ptext name="life_gauge" text="体力：&f.life"] ; 体力表示を更新
-        ; [playse storage="damage_se.wav"]
+        ; 体力表示を更新
+        [iscript] f.life_text = "体力：" + f.life; [endscript]
+        [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="&f.life_text"]
 
         #ルリア
         そ、そんなの証拠になりません！[p]
         もう一回言いますよ！[l]
 
         [if exp="f.life <= 0"]
-            [jump target="*ruria_investigation_badend"] ; 体力ゼロでBAD ENDへ
+            [jump target="*ruria_investigation_badend"]
         [else]
-            [jump target="*display_current_testimony"] ; 証言に戻る
+            [jump target="*display_current_testimony"]
         [endif]
     [endif]
     [s]
