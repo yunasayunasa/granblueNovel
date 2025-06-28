@@ -131,7 +131,7 @@ console.log("Resize event dispatched.");
 
     [anim name="secret_route_button" left="70" top="450" time="0"] 
 [endif]
-
+[s]
 
 ; ----- 各ルートへの分岐先ラベル (これらは別の .ks ファイルに分けても良い) -----
 *narumia_route_start
