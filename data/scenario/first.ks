@@ -120,12 +120,12 @@ console.log("Resize event dispatched.");
   
 ; 選択肢 (glinkを使用)
 ; x, y, width, size は縦画面のレイアウトに合わせて調整してください
-[glink color="blue" x="70" y="250" width="200" size="28" text="ナルメア" target="*narumia_route_start"]
-[glink color="blue" x="70" y="350" width="200" size="28" text="シエテ" target="*siete_route_start"]
-[glink color="blue" x="70" y="450" width="200" size="28" text="誰も仲間にしない" target="*hard_mode_start"]
+[glink color="blue" x="70" y="200" width="200" size="28" text="ナルメア" target="*narumia_route_start"]
+[glink color="blue" x="70" y="250" width="200" size="28" text="シエテ" target="*siete_route_start"]
+[glink color="blue" x="70" y="300" width="200" size="28" text="誰も仲間にしない" target="*hard_mode_start"]
 ; ★★★ ハードモードクリア後に追加される選択肢 ★★★
 [if exp="sf.hard_mode_cleared == true"]
-    [glink  color="black" x="70" y="550" width="200" size="28"　text="新たなる演算" target="*new_investigation_route_start"] 
+    [glink  color="black" x="70" y="450" width="200" size="28"　text="フェニー" target="*fenny_route_start_select"] 
 [endif]
 [s]
 
@@ -164,11 +164,12 @@ console.log("Resize event dispatched.");
     
     [jump storage="hard_scenario.ks" target="*auguste_arrival"]
 
-  *new_investigation_route_start
-    [cm]
-    [clearfix]
-    [jump storage="nonstop_debate_test.ks" target="*start_debate"]
-    
+  *fenny_route_start
+    [chara_new name="fenny" storage="fenny_normal.png" jname="フェニー"] 
+    [chara_show name="fenny" x="150" y="150"]
+    #フェニー
+    団長さんとお出かけ楽しみなんだよ！[l]
+    [jump storage="fenny_scenario.ks" target="*port_breeze_arrival"] 
 
 
 ; ----- 説明表示用ラベル (任意) -----
