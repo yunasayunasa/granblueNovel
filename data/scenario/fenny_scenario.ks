@@ -312,23 +312,18 @@
     [jump target="*display_current_testimony"]
     [s]
 
-
 *display_current_testimony
     [iscript]
     // 表示する証言のテキストだけを変数にセット
     f.current_text = tf.testimonies[f.current_testimony_index].text;
     [endscript]
 
-    ; ★★★ overwrite="true" を使ってテキストを上書き ★★★
-    [ptext name="testimony_text" text="&f.current_text" overwrite="true"]
-    ; (overwriteを使う場合、x,y,layerなどの属性は不要な可能性もあるが、念のためつけておくと安全)
-    ; [ptext name="testimony_text" layer="0" x="50" y="300" text="&f.current_text" overwrite="true"]
+    ; ★★★ 必須パラメータを追加してテキストを上書き ★★★
+    [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="24" color="white" text="&f.current_text" overwrite="true"]
 
-    ; ★★★ 弱点フラグの保存 (ここだけiscriptが必要) ★★★
+    ; ★★★ 弱点フラグの保存 (iscript) ★★★
     [iscript]
     var is_weakpoint_flag = tf.testimonies[f.current_testimony_index].is_weakpoint;
-    // .tyrano_ptext[data-name='testimony_text'] のように、ptextが生成する要素の
-    // 正しいセレクタを開発者ツールで確認し、そこにデータを保存する
     $(".tyrano_ptext[data-name='testimony_text']").data("is_weakpoint", is_weakpoint_flag);
     [endscript]
     [s] 
