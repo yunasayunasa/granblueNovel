@@ -280,29 +280,30 @@
     // 初期状態
     f.current_testimony_index = 0; // 現在の証言インデックス
     f.life = 5; // 体力
+    f.life_text = "体力：" + f.life; // iscript内で先にテキストを結合しておく
+    [endscript]
+
     [endscript]
 
     ; --- UIの配置 ---
-    ; ルリアを表示
     [chara_show name="ruria" x="150" y="100"]
 
-     ; 体力表示用のテキストエリア
-    [iscript] f.life_text = "体力：" + f.life; [endscript]
+    ; ★★★ 属性値をダブルクォーテーションで囲む ★★★
     [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="&f.life_text"]
 
-    ; 証言表示用のテキストエリア (ここで一度定義)
-    [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="24" color="white"]
+    ; class属性も追加しておく
+    [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="24" color="white" class="testimony_area_js"]
 
-    ; 操作ボタンの配置 
+    ; ★★★ ボタンのname属性もダブルクォーテーションで囲む ★★★
     [button name="prev_btn" graphic="button/prev.png" x="50" y="500" target="*prev_testimony"]
     [button name="next_btn" graphic="button/next.png" x="150" y="500" target="*next_testimony"]
     [button name="shake_btn" graphic="button/shake.png" x="250" y="500" target="*shake_testimony"]
     [button name="present_btn" graphic="button/present.png" x="350" y="500" target="*present_evidence"]
 
-    ; 操作説明
+    ; ★★★ 操作説明のptextのnameもダブルクォーテーションで囲む ★★★
     [ptext name="instruction_text" layer="fix" x="25" y="600" width="400" size="18" color="white" text="証言を移動し、揺さぶって情報を引き出すか、証拠品を突きつけて矛盾を指摘しよう。"]
     [wait time="3000"]
-    [ptext name="instruction_text" layer="fix" x="25" y="600" text=""] ; 内容をクリアして消す
+    [ptext name="instruction_text" layer="fix" x="25" y="600" text=""]
 
     ; 最初の証言を表示して開始
     [jump target="*display_current_testimony"]
