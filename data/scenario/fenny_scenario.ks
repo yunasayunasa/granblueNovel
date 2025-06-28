@@ -338,7 +338,7 @@
 
     ; ★★★ iscriptで決定したラベルに [jump] で飛ぶ ★★★
     [jump cond="tf.jump_target_label != ''" target="&tf.jump_target_label"]
-    [s] ; 念のため
+    
 
 
 *display_current_testimony
