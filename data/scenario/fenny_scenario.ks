@@ -303,10 +303,10 @@
 
     [wait time="3000"]
 
-    ; ★★★ [free] タグに layer="fix" を追加 ★★★
-    [free name="instruction_text" layer="fix"]
+    ; ★★★ [free] の代わりに [ptext] で内容を空にして非表示にする ★★★
+    [ptext name="instruction_text" layer="fix" x="25" y="600" text="" visible="false"]
 
-    ; [wait time="100"] ; 念のため
+    ; [wait time="100"]
 
     ; 最初の証言を表示して開始
     [jump target="*display_current_testimony"]
