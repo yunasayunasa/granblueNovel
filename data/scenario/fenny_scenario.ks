@@ -359,7 +359,7 @@
     ; [image storage="igiari_effect.png" layer="1" time="100" wait="false"] [wait time=500] [freeimage layer=1]
 
     ; 証拠品選択画面へ
-    [jump storage="investigation_test.ks" target="*show_evidence_selection_for_ruria"] ; 証拠品選択用の新しいラベルへ
+    [jump target="*show_evidence_selection_for_ruria"]
 
 ; ----- 証拠品選択と判定（証拠品つきつけプロトタイプを流用） -----
 *show_evidence_selection_for_ruria
