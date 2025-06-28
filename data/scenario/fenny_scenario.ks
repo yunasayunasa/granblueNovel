@@ -252,7 +252,7 @@
     
    
 *start_cross_examination
-    [cm] ; メッセージクリア
+    [cm]
     ; [playbgm storage="cross_examination_bgm.ogg"] 
 
     ; ★★★ 論破パートの初期設定 ★★★
@@ -387,12 +387,13 @@
     [s]
 
 *ruria_evidence_selected
-    ; ★★★ つきつけ判定 ★★★
+    ; ★★★ iscript内で判定まで完結させる ★★★
     [iscript]
-    // iscript内で判定まで完結させる
     var is_correct = false;
-    // f.current_testimony は [display_current_testimony] でセットされているはず
-    if (f.current_testimony && f.current_testimony.id == 3 && f.selected_evidence_id == 'singing') {
+    // f.current_testimony は *display_current_testimony の iscript でセットされるはず
+    // ただし、tf変数かもしれないので、tf.current_testimony も確認
+    var testimony_obj = f.current_testimony || tf.current_testimony; // fかtfのどちらかにあるはず
+    if (testimony_obj && testimony_obj.id == 3 && f.selected_evidence_id == 'singing') {
         is_correct = true;
     }
     f.is_correct_evidence = is_correct;
@@ -401,9 +402,14 @@
     [if exp="f.is_correct_evidence == true"]
         [jump target="*ruria_breakdown_success"]
     [else]
-        [eval exp="f.life--"]
+        ; ★★★ [eval] を [iscript] に変更 ★★★
+        [iscript]
+        f.life--; // または f.life = f.life - 1;
+        // 体力表示用のテキストもここで更新
+        f.life_text = "体力：" + f.life;
+        [endscript]
+
         ; 体力表示を更新
-        [iscript] f.life_text = "体力：" + f.life; [endscript]
         [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="&f.life_text"]
 
         #ルリア
