@@ -344,7 +344,7 @@
     [jump target="*display_current_testimony"]
 
 
-*shake_testimony ; 「ゆさぶる」ボタン
+*shake_testimony
     ; ★★★ 「待った！」演出 ★★★
     ; [playse storage="matta_voice.ogg"]
     ; [image storage="matta_effect.png" layer="1" time="100" wait="false"] [wait time=500] [freeimage layer=1]
@@ -357,7 +357,7 @@
     &f.shake_response_text;[l]
     [jump target="*next_testimony"] ; 揺さぶった後は自動で次の証言へ
 
-*present_evidence ; 「つきつける」ボタン
+*present_evidence
     ; ★★★ 「異議あり！」演出 ★★★
     ; [playse storage="igiari_voice.ogg"]
     ; [image storage="igiari_effect.png" layer="1" time="100" wait="false"] [wait time=500] [freeimage layer=1]
