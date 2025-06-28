@@ -294,9 +294,9 @@
 
     ; ★★★ 操作ボタンを [glink] に変更 ★★★
     [glink graphic="angry.png" x="50" y="500" target="*prev_testimony" name="prev_btn"]
-    [glink graphic="button/next.png" x="150" y="500" target="*next_testimony" name="next_btn"]
-    [glink graphic="button/shake.png" x="250" y="500" target="*shake_testimony" name="shake_btn"]
-    [glink graphic="button/present.png" x="350" y="500" target="*present_evidence" name="present_btn"]
+    [glink graphic="angry.png" x="150" y="500" target="*next_testimony"  name="next_btn"]
+    [glink graphic="angry.png" x="250" y="500" target="*shake_testimony"  name="shake_btn"]
+    [glink graphic="angry.png" x="350" y="500" target="*present_evidence" name="present_btn"]
 
     ; ★★★ 操作説明 ([ptext] と [free] を使用) ★★★
     [ptext name="instruction_text" layer="fix" x="25" y="600" width="400" size="18" color="white" text="証言を移動し、揺さぶって情報を引き出すか、証拠品を突きつけて矛盾を指摘しよう。"]
@@ -380,7 +380,7 @@
     }
     [endscript]
     ; ★★★ 戻るボタンも追加 ★★★
-    [glink text="戻る" x="70" y="&y_pos" width="300" size="24" color="gray" target="*start_cross_examination"]
+    [glink text="戻る" x="70" y="&y_pos" width="300" size="24" color="gray" target="*start_cross_examination" name="back_button"]
     [s]
 
 *ruria_evidence_selecte
