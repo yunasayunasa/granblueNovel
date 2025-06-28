@@ -125,9 +125,10 @@ console.log("Resize event dispatched.");
 [glink color="blue" x="70" y="340" width="200" size="23" text="誰も仲間にしない" target="*hard_mode_start"]
 
 ; ★★★ 追加の選択肢ボタンを、最初は画面外の見えない位置に定義しておく ★★★
-[glink name="secret_route_button"  x="-1000" y="-1000"            font_color="yellow" color="purple" width="300" size="28" text="フェニー" target="*fenny_route_start"]
 
 [if exp="sf.hard_mode_cleared == true"]
+[glink name="secret_route_button"  x="-1000" y="-1000"            font_color="yellow" color="purple" width="300" size="28" text="フェニー" target="*fenny_route_start"]
+
     [anim name="secret_route_button" left="70" top="450" time="0"] 
 [endif]
 
