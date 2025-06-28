@@ -248,8 +248,7 @@
     君はルリアの証言を聞くことにした。[l]
 
     ; ★★★ 逆転裁判パートへジャンプ ★★★
-    [jump *start_cross_examination"]
-
+    
    
 *start_cross_examination
     [cm] ; メッセージクリア
