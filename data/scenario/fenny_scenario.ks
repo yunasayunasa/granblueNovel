@@ -1,15 +1,14 @@
 ; fenny_scenario.ks
 
-; ----- キャラクター定義 (このファイルで使うキャラ) -----
-[chara_new name="hauhet" storage="hauhet_normal.png" jname="ハウヘト"]
-[chara_new name="sabrina" storage="sabrina_normal.png" jname="サブリナ"]
-; (ルリア、サンダルフォンなどは既に定義済みと想定)
-
 *port_breeze_arrival
     ; フェニーは表示されている状態
     [bg storage="port_breeze_bg.jpg" time="1000"] 
     君は、フェニーと共にとりま突発で[r]
     ポートブリーズに向かうことにした。[p]
+
+; ----- キャラクター定義 (このファイルで使うキャラ) -----
+[chara_new name="hauhet" storage="hauhet_normal.png" jname="ハウヘト"]
+[chara_new name="sabrina" storage="sabrina_normal.png" jname="サブリナ"]
 
     #フェニー
     サブリナにチョコを渡したくて、[r]
