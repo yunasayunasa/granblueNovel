@@ -291,10 +291,8 @@
 ; ★★★ ここからデバッグ用のシンプルなコードに置き換え ★★★
 
 *main_interrogation_choice
-    [cm]
-    デバッグ：選択肢表示テスト[l]
-
-    [glink text="テストボタン１" target="*test1"]
+    どうする？[l]
+    [glink text="ゆさぶる" target="*shake_all_testimonies"]
     [glink text="テストボタン２" target="*test2"]
     [s]
 
