@@ -292,12 +292,11 @@
     [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="体力：&f.life"]
     [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="24" color="white" class="testimony_area_js"]
 
-    ; ★★★ 操作ボタンを [glink] に変更 ★★★
-    [glink graphic="angry.png" x="50" y="500" target="*prev_testimony" name="prev_btn"]
-    [glink graphic="angry.png" x="150" y="500" target="*next_testimony" name="next_btn"]
-    [glink graphic="angry.png" x="250" y="500" target="*shake_testimony" name="shake_btn"]
-    [glink graphic="angry.png" x="350" y="500" target="*present_evidence" name="present_btn"]
-
+   ; ★★★ 操作ボタンを [button role="sleepgame"] に変更 ★★★
+    [button name="prev_btn" graphic="button/prev.png" x="50" y="500" role="sleepgame" storage="fenny_scenario.ks" target_scenario="fenny_scenario.ks" target_label="*prev_testimony"]
+    [button name="next_btn" graphic="button/next.png" x="150" y="500" role="sleepgame" storage="fenny_scenario.ks" target_label="*next_testimony"]
+    [button name="shake_btn" graphic="button/shake.png" x="250" y="500" role="sleepgame" storage="fenny_scenario.ks" target_label="*shake_testimony"]
+    [button name="present_btn" graphic="button/present.png" x="350" y="500" role="sleepgame" storage="fenny_scenario.ks" target_label="*present_evidence"]
     ; ★★★ 操作説明 ([ptext] と [free] を使用) ★★★
     [ptext name="instruction_text" layer="fix" x="25" y="600" width="400" size="18" color="white" text="証言を移動し、揺さぶって情報を引き出すか、証拠品を突きつけて矛盾を指摘しよう。"]
 
