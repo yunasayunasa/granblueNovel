@@ -330,6 +330,7 @@
 
 *next_testimony
     [iscript] f.current_testimony_index = (f.current_testimony_index + 1) % tf.testimonies.length; [endscript]
+    ; ↓↓↓ この行を手で打ち直す ↓↓↓
     [jump target="*display_current_testimony"]
 
 *prev_testimony
@@ -350,8 +351,8 @@
     f.shake_response_text = tf.shake_responses[testimony_id];
     [endscript]
     #ルリア
-    &f.shake_response_text;[l]
-    [jump target="*next_testimony"] 
+    [emb exp="f.shake_response_text"][l]
+    [jump target="*next_testimony"]
 
 *present_evidence
     ; ★★★ 「異議あり！」演出 ★★★
