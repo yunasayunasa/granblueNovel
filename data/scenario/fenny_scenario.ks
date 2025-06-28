@@ -319,21 +319,31 @@
     ; 揺さぶった後は、再度選択肢に戻る
     [jump target="*main_interrogation_choice"]
 
-*present_evidence_simple 
-    ; [playse storage="igiari_voice.ogg"]
-    # ; 名前クリア
-    （主人公の心の声）「異議あり！その証言、[r]この証拠品と矛盾する！」[l]
+*present_evidence_simple ; 「つきつける」を選んだ
+    ; ... (前のテキスト) ...
     （主人公の心の声）「どの証拠品を突きつけようか…」[l]
 
-    ; ★★★ 証拠品選択肢を固定の [glink] で表示 ★★★
-    ; f.evidence_list の内容と対応させる
-    [glink text="&f.evidence_list[0].name" x="70" y="250" width="300" size="24" color="green" target="*check_evidence_result" exp="f.selected_evidence_id = f.evidence_list[0].id"]
-    [glink text="&f.evidence_list[1].name" x="70" y="320" width="300" size="24" color="green" target="*check_evidence_result" exp="f.selected_evidence_id = f.evidence_list[1].id"]
-    [glink text="&f.evidence_list[2].name" x="70" y="390" width="300" size="24" color="green" target="*check_evidence_result" exp="f.selected_evidence_id = f.evidence_list[2].id"]
+    ; ★★★ 選択肢は、それぞれ別の中継ラベルにジャンプするだけ ★★★
+    [glink text="&f.evidence_list[0].name" x="70" y="250" width="300" size="24" color="green" target="*selected_evidence_0"]
+    [glink text="&f.evidence_list[1].name" x="70" y="320" width="300" size="24" color="green" target="*selected_evidence_1"]
+    [glink text="&f.evidence_list[2].name" x="70" y="390" width="300" size="24" color="green" target="*selected_evidence_2"]
 
     ; 戻るボタン
     [glink text="戻る" x="70" y="480" width="300" size="24" color="gray" target="*main_interrogation_choice"]
     [s]
+
+; ----- 証拠品ごとの中継ラベル -----
+*selected_evidence_0
+    [eval exp="f.selected_evidence_id = f.evidence_list[0].id"]
+    [jump target="*check_evidence_result"]
+
+*selected_evidence_1
+    [eval exp="f.selected_evidence_id = f.evidence_list[1].id"]
+    [jump target="*check_evidence_result"]
+
+*selected_evidence_2
+    [eval exp="f.selected_evidence_id = f.evidence_list[2].id"]
+    [jump target="*check_evidence_result"]
 
 
 *check_evidence_result 
@@ -367,12 +377,11 @@
             #ルリア
             そ、そんなの証拠になりません！[p]
             もう一回言いますよ！[l]
-            [jump target="*main_interrogation_choice"] ; 選択肢に戻る
-        [endif]
+            [jump target="*main_interrogation_choice"] 
     [endif]
     [s]
 
-*ruria_breakdown_success_simple 
+*ruria_breakdown_success_success
     [cm]
     ; [playbgm storage="success_bgm.ogg"]
     #ルリア
