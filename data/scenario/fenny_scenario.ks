@@ -293,7 +293,7 @@
 *main_interrogation_choice
     どうする？[l]
     [glink text="ゆさぶる" target="*shake_all_testimonies"]
-    [glink text="テストボタン２" target="*test2"]
+    [glink text="突き付ける" targett="*present_evidence_simple"]
     [s]
 
 *test1
