@@ -129,7 +129,7 @@ console.log("Resize event dispatched.");
 [if exp="sf.hard_mode_cleared == true"]
 [glink name="secret_route_button"  x="-1000" y="-1000"    text="フェニー" target="*fenny_route_start"]
 
-    [anim name="secret_route_button" left="50" top="450" time="0"] 
+    [anim name="secret_route_button" left="60" top="450" time="0"] 
 [endif]
 [s]
 
