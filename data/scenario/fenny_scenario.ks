@@ -299,7 +299,7 @@
 
     ; ★★★ 操作説明のptextのnameもダブルクォーテーションで囲む ★★★
     [ptext name="instruction_text" layer="fix" x="25" y="600" width="400" size="18" color="white" text="証言を移動し、揺さぶって情報を引き出すか、証拠品を突きつけて矛盾を指摘しよう。"]
-    [wait time="3000"]
+    [wait time="300"]
     [ptext name="instruction_text" layer="fix" x="25" y="600" text=""]
 
     ; 最初の証言を表示して開始
@@ -327,7 +327,7 @@
         console.warn("証言エリアのセレクタ '.testimony_area_js' が見つかりません。");
     }
     [endscript]
-    [s] ; ボタン入力を待つ
+    [s] 
 
 *next_testimony
     [iscript] f.current_testimony_index = (f.current_testimony_index + 1) % tf.testimonies.length; [endscript]
@@ -352,7 +352,7 @@
     [endscript]
     #ルリア
     &f.shake_response_text;[l]
-    [jump target="*next_testimony"] ; 揺さぶった後は自動で次の証言へ
+    [jump target="*next_testimony"] 
 
 *present_evidence
     ; ★★★ 「異議あり！」演出 ★★★
