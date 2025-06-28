@@ -292,11 +292,12 @@
     [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="体力：&f.life"]
     [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="24" color="white" class="testimony_area_js"]
 
-   ; ★★★ 操作ボタンを [button role="sleepgame"] に変更 ★★★
-    [button name="prev_btn" graphic="button/prev.png" x="50" y="500" role="sleepgame" storage="fenny_scenario.ks" target_scenario="fenny_scenario.ks" target_label="*prev_testimony"]
-    [button name="next_btn" graphic="button/next.png" x="150" y="500" role="sleepgame" storage="fenny_scenario.ks" target_label="*next_testimony"]
-    [button name="shake_btn" graphic="button/shake.png" x="250" y="500" role="sleepgame" storage="fenny_scenario.ks" target_label="*shake_testimony"]
-    [button name="present_btn" graphic="button/present.png" x="350" y="500" role="sleepgame" storage="fenny_scenario.ks" target_label="*present_evidence"]
+   ; ★★★ ボタンの target を、処理分岐用の中継ラベルに向ける ★★★
+    [button name="prev_btn" graphic="button/prev.png" x="50" y="500" target="*button_action_router" clickse=""]
+    [button name="next_btn" graphic="button/next.png" x="150" y="500" target="*button_action_router" clickse=""]
+    [button name="shake_btn" graphic="button/shake.png" x="250" y="500" target="*button_action_router" clickse=""]
+    [button name="present_btn" graphic="button/present.png" x="350" y="500" target="*button_action_router" clickse=""]
+
     ; ★★★ 操作説明 ([ptext] と [free] を使用) ★★★
     [ptext name="instruction_text" layer="fix" x="25" y="600" width="400" size="18" color="white" text="証言を移動し、揺さぶって情報を引き出すか、証拠品を突きつけて矛盾を指摘しよう。"]
 
@@ -310,6 +311,35 @@
     ; 最初の証言を表示して開始
     [jump target="*display_current_testimony"]
     [s]
+
+    ; ★★★ ボタンが押されたら、まずこの共通ラベルに飛んでくる ★★★
+*button_action_router
+    ; [iscript] でどのボタンが押されたかを判定する
+    [iscript]
+    // クリックされたボタンの'name'属性をTyranoScriptのシステム変数から取得
+    var clicked_button_name = TYRANO.kag.stat.clicked_button_name;
+    // console.log("Clicked button: " + clicked_button_name); // デバッグ用
+
+    // 押されたボタンのnameに応じて、ジャンプ先を決定
+    var target_label = "";
+    if (clicked_button_name === "prev_btn") {
+        target_label = "*prev_testimony";
+    } else if (clicked_button_name === "next_btn") {
+        target_label = "*next_testimony";
+    } else if (clicked_button_name === "shake_btn") {
+        target_label = "*shake_testimony";
+    } else if (clicked_button_name === "present_btn") {
+        target_label = "*present_evidence";
+    }
+
+    // 計算したジャンプ先を一時変数に格納
+    tf.jump_target_label = target_label;
+    [endscript]
+
+    ; ★★★ iscriptで決定したラベルに [jump] で飛ぶ ★★★
+    [jump cond="tf.jump_target_label != ''" target="&tf.jump_target_label"]
+    [s] ; 念のため
+
 
 *display_current_testimony
     [iscript]
