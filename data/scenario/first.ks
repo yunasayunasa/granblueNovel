@@ -130,10 +130,8 @@ console.log("Resize event dispatched.");
        font_color="yellow" color="purple" width="300" size="28"
        text="フェニー" target="*fenny_route_start"]
 
-; ★★★ ハードモードクリアフラグをチェックし、ボタンの位置を移動させて表示する ★★★
 [if exp="sf.hard_mode_cleared == true"]
-    ; [anim]タグを使って、事前に作成したボタンの位置を画面内の正しい位置に移動させる
-    [anim name="secret_route_button" left="70" top="550" time="0"] 
+    [anim name="secret_route_button" left="70" top="450" time="0"] 
 [endif]
 
 
