@@ -100,6 +100,7 @@
     [jump storage="first.ks" target="*start"] 
 
 *ingredients_deceive
+[chara_hide name="sabrina" time="200" wait="true"]
     [bg storage="cafe_bg.jpg" time="1000"] 
     なんとかサブリナをごまかし、[r]
     退散することができた君たちは、[r]
@@ -288,8 +289,10 @@
     ; 体力表示用のテキストエリア
     [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="体力：&f.life"]
 
-    ; 証言表示用のテキストエリア
-    [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="24" color="white"]
+    ; 体力表示部分
+[iscript] f.life_text = "体力：" + f.life; [endscript]
+[ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="&f.life_text"]
+    
 
     ; 操作ボタンの配置
     [button name="prev_btn" graphic="button/prev.png" x="50" y="500" target="*prev_testimony"]
@@ -297,9 +300,10 @@
     [button name="shake_btn" graphic="button/shake.png" x="250" y="500" target="*shake_testimony"]
     [button name="present_btn" graphic="button/present.png" x="350" y="500" target="*present_evidence"]
 
-    ; 操作説明
-    [mtext text="証言を移動し、揺さぶって情報を引き出すか、証拠品を突きつけて矛盾を指摘しよう。" x="25" y="600" width="400" size="18" time="3000" wait="false"]
-
+    ; 変更後
+[ptext name="instruction_text" layer="fix" x="25" y="600" width="400" size="18" color="white" text="証言を移動し、揺さぶって情報を引き出すか、証拠品を突きつけて矛盾を指摘しよう。"]
+[wait time="3000"] 
+[free_ptext name="instruction_text" layer="fix"] ; free_ptextが使えない場合は [ptext name="instruction_text" text=""]
     ; 最初の証言を表示して開始
     [jump target="*display_current_testimony"]
     [s]

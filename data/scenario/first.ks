@@ -171,7 +171,7 @@ console.log("Resize event dispatched.");
     [chara_new name="fenny" storage="fenny_normal.png" jname="フェニー"] 
     [chara_show name="fenny" x="150" y="150"]
     #フェニー
-    団長さんとお出かけ楽しみなんだよ！[l]
+    団長さんとお出かけ楽しみなんだよ！[p]
     [jump storage="fenny_scenario.ks" target="*port_breeze_arrival"] 
 
 
