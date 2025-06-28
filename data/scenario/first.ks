@@ -123,11 +123,18 @@ console.log("Resize event dispatched.");
 [glink color="blue" x="70" y="200" width="200" size="24" text="ナルメア" target="*narumia_route_start"]
 [glink color="blue" x="70" y="270" width="200" size="24" text="シエテ" target="*siete_route_start"]
 [glink color="blue" x="70" y="340" width="200" size="23" text="誰も仲間にしない" target="*hard_mode_start"]
-; ★★★ ハードモードクリア後に追加される選択肢 ★★★
+
+; ★★★ 追加の選択肢ボタンを、最初は画面外の見えない位置に定義しておく ★★★
+[glink name="secret_route_button" 
+       x="-1000" y="-1000"         
+       font_color="yellow" color="purple" width="300" size="28"
+       text="フェニー" target="*fenny_route_start"]
+
+; ★★★ ハードモードクリアフラグをチェックし、ボタンの位置を移動させて表示する ★★★
 [if exp="sf.hard_mode_cleared == true"]
-    [glink  color="black" x="70" y="410" width="200" size="24"　text="フェニー" target="*fenny_route_start"] 
+    ; [anim]タグを使って、事前に作成したボタンの位置を画面内の正しい位置に移動させる
+    [anim name="secret_route_button" left="70" top="550" time="0"] 
 [endif]
-[s]
 
 
 ; ----- 各ルートへの分岐先ラベル (これらは別の .ks ファイルに分けても良い) -----
