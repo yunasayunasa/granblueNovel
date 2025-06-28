@@ -248,4 +248,165 @@
     君はルリアの証言を聞くことにした。[l]
 
     ; ★★★ 逆転裁判パートへジャンプ ★★★
-    [jump storage="investigation_test.ks" target="*start_investigation"]
+    [jump *start_cross_examination"]
+
+   
+*start_cross_examination
+    [cm] ; メッセージクリア
+    ; [playbgm storage="cross_examination_bgm.ogg"] 
+
+    ; ★★★ 論破パートの初期設定 ★★★
+    [iscript]
+    // 証言リスト
+    tf.testimonies = [
+        { id: 1, text: "わ、私じゃありません！" },
+        { id: 2, text: "私はあなたと一緒にフェニーちゃんを見守ってたじゃないですか！" },
+        { id: 3, text: "フェニーちゃんは黙々とチョコを作ってたのを私も見てます！" }, // これが弱点
+        { id: 4, text: "ほら！ちゃんとフェニーちゃんが何してたかも分かります！" }
+    ];
+    // 揺さぶった時のセリフ
+    tf.shake_responses = {
+        1: "ま、まだ証言を始めたばかりです！ちゃんと話を聞いてください！",
+        2: "フェニーちゃんが何をしてたかって？それはもちろん...！",
+        3: "黙々と黙ってたかって...？ええ！そうです！真剣な顔で作ってましたよ！鼻歌一つ歌ってません！", // 矛盾！
+        4: "だから、私は犯人じゃないんです！信じて下さい！"
+    };
+    // 証拠品リスト
+    f.evidence_list = [
+        { id: "singing", name:"フェニーの鼻歌", desc:"楽しそうに歌っていた"}, // 正解の証拠品
+        { id: "choco_mouth", name:"口元のチョコ", desc:"ルリアの口元にチョコが...？"},
+        { id: "hihiiro_bowl", name:"ヒヒイロボウル", desc:"ハウヘトおすすめの高級品"}
+    ];
+    // 初期状態
+    f.current_testimony_index = 0; // 現在の証言インデックス
+    f.life = 5; // 体力
+    [endscript]
+
+    ; --- UIの配置 ---
+    ; ルリアを表示
+    [chara_show name="ruria" x="150" y="100"]
+
+    ; 体力表示用のテキストエリア
+    [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="体力：&f.life"]
+
+    ; 証言表示用のテキストエリア
+    [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="24" color="white"]
+
+    ; 操作ボタンの配置
+    [button name="prev_btn" graphic="button/prev.png" x="50" y="500" target="*prev_testimony"]
+    [button name="next_btn" graphic="button/next.png" x="150" y="500" target="*next_testimony"]
+    [button name="shake_btn" graphic="button/shake.png" x="250" y="500" target="*shake_testimony"]
+    [button name="present_btn" graphic="button/present.png" x="350" y="500" target="*present_evidence"]
+
+    ; 操作説明
+    [mtext text="証言を移動し、揺さぶって情報を引き出すか、証拠品を突きつけて矛盾を指摘しよう。" x="25" y="600" width="400" size="18" time="3000" wait="false"]
+
+    ; 最初の証言を表示して開始
+    [jump target="*display_current_testimony"]
+    [s]
+
+
+*display_current_testimony ; 現在の証言を表示する共通処理
+    [iscript]
+    // 表示する証言を取得
+    f.current_testimony = tf.testimonies[f.current_testimony_index];
+    [endscript]
+    ; 証言をテキストエリアに表示
+    [ptext name="testimony_text" text="&f.current_testimony.text"]
+    [s] ; ボタン入力を待つ
+
+*next_testimony ; 「次へ」ボタン
+    ; [playse storage="cursor_move_se.wav"]
+    [iscript] f.current_testimony_index = (f.current_testimony_index + 1) % tf.testimonies.length; [endscript]
+    [jump target="*display_current_testimony"]
+
+*prev_testimony ; 「前へ」ボタン
+    ; [playse storage="cursor_move_se.wav"]
+    [iscript]
+    f.current_testimony_index--;
+    if (f.current_testimony_index < 0) {
+        f.current_testimony_index = tf.testimonies.length - 1;
+    }
+    [endscript]
+    [jump target="*display_current_testimony"]
+
+*shake_testimony ; 「ゆさぶる」ボタン
+    ; ★★★ 「待った！」演出 ★★★
+    ; [playse storage="matta_voice.ogg"]
+    ; [image storage="matta_effect.png" layer="1" time="100" wait="false"] [wait time=500] [freeimage layer=1]
+
+    [iscript]
+    var testimony_id = f.current_testimony.id;
+    f.shake_response_text = tf.shake_responses[testimony_id];
+    [endscript]
+    #ルリア
+    &f.shake_response_text;[l]
+    [jump target="*next_testimony"] ; 揺さぶった後は自動で次の証言へ
+
+*present_evidence ; 「つきつける」ボタン
+    ; ★★★ 「異議あり！」演出 ★★★
+    ; [playse storage="igiari_voice.ogg"]
+    ; [image storage="igiari_effect.png" layer="1" time="100" wait="false"] [wait time=500] [freeimage layer=1]
+
+    ; 証拠品選択画面へ
+    [jump storage="investigation_test.ks" target="*show_evidence_selection_for_ruria"] ; 証拠品選択用の新しいラベルへ
+
+; ----- 証拠品選択と判定（証拠品つきつけプロトタイプを流用） -----
+*show_evidence_selection_for_ruria
+    [cm]
+    （主人公の心の声）「どの証拠品を突きつけようか…」[l]
+
+    ; 証拠品選択肢の動的生成 (プロトタイプと同じロジック)
+    [iscript]
+    var y_pos = 200;
+    for (var i = 0; i < f.evidence_list.length; i++) {
+        var evidence = f.evidence_list[i];
+        var pm = { text: evidence.name, x: 70, y: y_pos, width: 300, size: 24, color: "green",
+                   storage: "fenny_scenario.ks", target: "*ruria_evidence_selected",
+                   exp: "f.selected_evidence_id = '" + evidence.id + "'" };
+        TYRANO.kag.ftag.startTag("glink", pm);
+        TYRANO.kag.ftag.startTag("r");
+        y_pos += 70;
+    }
+    [endscript]
+    ; ★★★ 戻るボタンも追加 ★★★
+    [glink text="戻る" x="70" y="&y_pos" width="300" size="24" color="gray" target="*start_cross_examination"]
+    [s]
+
+*ruria_evidence_selected
+    ; ★★★ つきつけ判定 ★★★
+    [if exp="f.current_testimony.id == 3 && f.selected_evidence_id == 'singing'"]
+        ; 正解！
+        [jump target="*ruria_breakdown_success"]
+    [else]
+        ; 不正解
+        ; 体力を減らす
+        [eval exp="f.life--"]
+        [ptext name="life_gauge" text="体力：&f.life"] ; 体力表示を更新
+        ; [playse storage="damage_se.wav"]
+
+        #ルリア
+        そ、そんなの証拠になりません！[p]
+        もう一回言いますよ！[l]
+
+        [if exp="f.life <= 0"]
+            [jump target="*ruria_investigation_badend"] ; 体力ゼロでBAD ENDへ
+        [else]
+            [jump target="*display_current_testimony"] ; 証言に戻る
+        [endif]
+    [endif]
+    [s]
+
+*ruria_breakdown_success ; 成功ルート
+    ; ... (台本の成功ルートのテキストをここに記述) ...
+    #ルリア
+    そ、そんな...[r]
+    ご、ごめんなさい〜！[l]
+    ; ...
+    ～フェニーエンド～[l]
+    [jump storage="first.ks" target="*start"]
+
+*ruria_investigation_badend ; 体力ゼロのBAD END
+    ; ... (台本の「君は矛盾を指摘できなかった。」のテキストを記述) ...
+    ～バッドエンド～[l]
+    [jump storage="first.ks" target="*start"]
