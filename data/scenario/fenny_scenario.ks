@@ -255,6 +255,7 @@
     [cm]
     ; [playbgm storage="cross_examination_bgm.ogg"] 
  ; 証言表示用のテキストエリアを最初に一度だけ定義
+    [call storage="macro.ks"]
     [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="24" color="white"]
     ; ★★★ 論破パートの初期設定 ★★★
     [iscript]
@@ -308,7 +309,7 @@
     ; [wait time="100"]
 
     ; 最初の証言を表示して開始
-    [jump target="*display_current_testimony"]
+    [update_testimony_display]
     [s]
 
     ; ★★★ ボタンが押されたら、まずこの共通ラベルに飛んでくる ★★★
@@ -331,47 +332,35 @@
     [jump target="*present_evidence"]
 
 
-*display_current_testimony
-    [iscript]
-    // 表示する証言のテキストだけを変数にセット
-    f.current_text = tf.testimonies[f.current_testimony_index].text;
-    [endscript]
-
-    ; ★★★ 必須パラメータを追加してテキストを上書き ★★★
-    [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="24" color="white" text="&f.current_text" overwrite="true"]
-
-    ; ★★★ 弱点フラグの保存 (iscript) ★★★
-    [iscript]
-    var is_weakpoint_flag = tf.testimonies[f.current_testimony_index].is_weakpoint;
-    $(".tyrano_ptext[data-name='testimony_text']").data("is_weakpoint", is_weakpoint_flag);
-    [endscript]
-    [s] 
-
-; ----- 各ボタンの実際の処理 -----
-
 *prev_testimony
+    ; [playse storage="select_se.wav"]
     [iscript]
     f.current_testimony_index--;
     if (f.current_testimony_index < 0) { f.current_testimony_index = tf.testimonies.length - 1; }
     [endscript]
-    [jump target="*display_current_testimony"]
+    ; ★★★ マクロを呼び出して証言を更新 ★★★
+    [update_testimony_display]
+    [s] ; 再びボタン入力を待つ
 
 *next_testimony
+    ; [playse storage="select_se.wav"]
     [iscript] f.current_testimony_index = (f.current_testimony_index + 1) % tf.testimonies.length; [endscript]
-    [jump target="*display_current_testimony"]
+    ; ★★★ マクロを呼び出して証言を更新 ★★★
+    [update_testimony_display]
+    [s] ; 再びボタン入力を待つ
 
 *shake_testimony
-    ; ★★★ 「待った！」演出 ★★★
-    ; [playse storage="matta_voice.ogg"]
-    ; [image storage="matta_effect.png" layer="1" time="100" wait="false"] [wait time=500] [freeimage layer=1]
-
+    ; 「待った！」演出など
     [iscript]
-    var testimony_id = f.current_testimony.id;
+    var testimony_id = tf.testimonies[f.current_testimony_index].id;
     f.shake_response_text = tf.shake_responses[testimony_id];
     [endscript]
     #ルリア
-    [emb exp="f.shake_response_text"][l]
-    [jump target="*next_testimony"]
+    [emb exp="f.shake_response_text"][l] ; 変数表示は [emb] が確実
+    ; ★★★ 揺さぶった後は、自動で次の証言に進み、表示を更新 ★★★
+    [iscript] f.current_testimony_index = (f.current_testimony_index + 1) % tf.testimonies.length; [endscript]
+    [update_testimony_display]
+    [s] ; 再びボタン入力を待つ
 
 *present_evidence
     ; ★★★ 「異議あり！」演出 ★★★
