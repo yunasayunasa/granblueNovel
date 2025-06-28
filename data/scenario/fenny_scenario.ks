@@ -9,6 +9,8 @@
 ; ----- キャラクター定義 (このファイルで使うキャラ) -----
 [chara_new name="hauhet" storage="hauhet_normal.png" jname="ハウヘト"]
 [chara_new name="sabrina" storage="sabrina_normal.png" jname="サブリナ"]
+[chara_new name="ruria" storage="ruria_normal.png" jname="ルリア"]
+[chara_new name="sandalphon" storage="sandalphon_normal.png" jname="サンダルフォン"]
 
     #フェニー
     サブリナにチョコを渡したくて、[r]
@@ -16,8 +18,8 @@
     どっちを先に買いに行ったほうがいいかな？[l]
 
     ; 選択肢
-    [glink color="blue"  y="300"  size="24" text="器材を買いに行く" target="*buy_equipment_route"]
-    [glink color="blue"  y="370"  size="24" text="材料を買いに行く" target="*buy_ingredients_route"]
+    [glink color="blue"   text="器材を買いに行く" target="*buy_equipment_route"]
+    [glink color="blue"   text="材料を買いに行く" target="*buy_ingredients_route"]
     [s]
 
 
@@ -46,8 +48,8 @@
     君は...[l]
 
     ; 選択肢
-    [glink color="blue" x="70" y="300" width="300" size="24" text="ごまかす！" target="*ingredients_deceive"]
-    [glink color="blue" x="70" y="370" width="300" size="24" text="フェニーにまかせる！" target="*ingredients_leave_to_fenny_badend"]
+    [glink color="blue"  size="24" text="ごまかす！" target="*ingredients_deceive"]
+    [glink color="blue"  size="24" text="フェニーにまかせる！" target="*ingredients_leave_to_fenny_badend"]
     [s]
 
 *ingredients_leave_to_fenny_badend
@@ -92,7 +94,7 @@
     #フェニー
     あ、、あれ？なんか不穏なんだよ...？[p]
     [chara_hide name="fenny" time="200" wait="true"]
-
+#
     その後、君の行方を知るものは誰もいなかった...[p]
     ～バッドエンド～[l]
     [jump storage="first.ks" target="*start"] 
@@ -106,7 +108,7 @@
     [chara_show name="fenny" x="150" y="150"]
     #フェニー
     〜♪〜♪サブリナ喜んでくれるかなぁ？[p]
-
+#
     金色に輝くボウルを混ぜながら、チョコを作るフェニー。[p]
     見守っていると、自然と口元が綻んでくる。[p]
     すると...[p]
@@ -120,7 +122,7 @@
     #ルリア
     え、ええーーー！！[r]
     ソ、ソンナ、イッタイダレガー！[p]
-
+#
     あからさまに動揺しているルリア。[r]
     まさかこれは...[p]
     [chara_hide name="ruria" time="200" wait="true"]
@@ -134,7 +136,7 @@
     #ルリア
     ち、違います！[r]
     私じゃありません！話を聞いて下さい！[p]
-
+#
     どうやら証言を聞く必要があるようだ。[p]
     君はルリアの証言を聞くことにした。[l]
 
@@ -171,10 +173,10 @@
     団長さん！[r]
     ハウヘトなら色々目利きが効くかもなんだよ！[p]
     買い物のアドバイスしてもらおう？[l]
-
+#
     ; 選択肢
-    [glink color="blue" x="70" y="300"  size="24" text="受ける" target="*equipment_ask_hauhet_end"]
-    [glink color="blue" x="70" y="370"  size="24" text="受けない" target="*equipment_decline"]
+    [glink color="blue"  size="24" text="受ける" target="*equipment_ask_hauhet_end"]
+    [glink color="blue"   size="24" text="受けない" target="*equipment_decline"]
     [s]
 
 *equipment_ask_hauhet_end
@@ -195,7 +197,7 @@
     なんか...すっごい早口で[r]
     何言ってるか全然わかんないんだよ...[p]
     [chara_hide name="fenny" time="200" wait="true"]
-
+#
     その後閉店時間まで延々と[r]
     ハウヘトの講釈を聞く羽目になった...[p]
     チョコ作りは当然間に合わなかった。[p]
@@ -210,7 +212,7 @@
     [chara_show name="fenny" x="150" y="150"]
     #フェニー
     〜♪〜♪サブリナ、喜んでくれるかなあ？[p]
-
+#
     鼻歌を歌いながら楽しそうにチョコを作るフェニー。[p]
     見ているこちらも顔が綻んでくる。[p]
     すると...[p]
@@ -224,7 +226,7 @@
     #ルリア
     ええーーーー！！[r]
     ソ、ソンナ...イッタイダレガー...[p]
-
+#
     一緒に見守っていたはずのルリアが[r]
     明らかに動揺している...[p]
     これは...[p]
@@ -240,7 +242,7 @@
     ち、違います！私じゃありません！[r]
     アリバイだってあります！[p]
     それに！しょ、証拠がありません！[p]
-
+#
     どうやらシラを切るつもりらしい。[p]
     このままでは埒が開かない。[p]
     君はルリアの証言を聞くことにした。[l]
