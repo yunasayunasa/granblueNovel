@@ -120,12 +120,12 @@ console.log("Resize event dispatched.");
   
 ; 選択肢 (glinkを使用)
 ; x, y, width, size は縦画面のレイアウトに合わせて調整してください
-[glink color="blue" x="70" y="200" width="200" size="28" text="ナルメア" target="*narumia_route_start"]
-[glink color="blue" x="70" y="270" width="200" size="28" text="シエテ" target="*siete_route_start"]
-[glink color="blue" x="70" y="340" width="200" size="28" text="誰も仲間にしない" target="*hard_mode_start"]
+[glink color="blue" x="70" y="200" width="200" size="24" text="ナルメア" target="*narumia_route_start"]
+[glink color="blue" x="70" y="270" width="200" size="24" text="シエテ" target="*siete_route_start"]
+[glink color="blue" x="70" y="340" width="200" size="23" text="誰も仲間にしない" target="*hard_mode_start"]
 ; ★★★ ハードモードクリア後に追加される選択肢 ★★★
 [if exp="sf.hard_mode_cleared == true"]
-    [glink  color="black" x="70" y="410" width="200" size="28"　text="フェニー" target="*fenny_route_start"] 
+    [glink  color="black" x="70" y="410" width="200" size="24"　text="フェニー" target="*fenny_route_start"] 
 [endif]
 [s]
 

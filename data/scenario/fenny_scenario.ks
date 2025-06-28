@@ -16,8 +16,8 @@
     どっちを先に買いに行ったほうがいいかな？[l]
 
     ; 選択肢
-    [glink color="blue" x="70" y="300" width="300" size="24" text="器材を買いに行く" target="*buy_equipment_route"]
-    [glink color="blue" x="70" y="370" width="300" size="24" text="材料を買いに行く" target="*buy_ingredients_route"]
+    [glink color="blue"  y="300"  size="24" text="器材を買いに行く" target="*buy_equipment_route"]
+    [glink color="blue"  y="370"  size="24" text="材料を買いに行く" target="*buy_ingredients_route"]
     [s]
 
 
@@ -173,15 +173,22 @@
     買い物のアドバイスしてもらおう？[l]
 
     ; 選択肢
-    [glink color="blue" x="70" y="300" width="300" size="24" text="受ける" target="*equipment_ask_hauhet_end"]
-    [glink color="blue" x="70" y="370" width="300" size="24" text="受けない" target="*equipment_decline"]
+    [glink color="blue" x="70" y="300"  size="24" text="受ける" target="*equipment_ask_hauhet_end"]
+    [glink color="blue" x="70" y="370"  size="24" text="受けない" target="*equipment_decline"]
     [s]
 
 *equipment_ask_hauhet_end
     [chara_hide name="fenny" time="200" wait="true"]
     [chara_show name="hauhet" x="150" y="150"]
     #ハウヘト
-    ; ... (ハウヘトの早口セリフ) ...
+    チョコを手作りするのね。[p]
+    そうね、ならやはりボウルとヘラは妥協出来ないわ。[p]
+熱伝導効率を最大に高めるためにはこのヒヒイロボウル！[r]
+これは良いものよ...。[p]
+ヒヒイロカネはその希少性から市場にほぼ出回ることはないわ[r]
+だからこそそれを贅沢に使ったこのヒヒイロボウルはそんじょそこらの金属製ボウルとはまた違った
+圧倒的な熱伝導効率でチョコを溶かすことができるの[p]
+そしてこのダマスカスヘラは4凸済み！これこそが一流の仕事これこそが...[p]
     [chara_hide name="hauhet" time="200" wait="true"]
     [chara_show name="fenny" x="150" y="150"]
     #フェニー
