@@ -321,37 +321,52 @@
 
 *present_evidence_simple 
     ; [playse storage="igiari_voice.ogg"]
+    # ; 名前クリア
     （主人公の心の声）「異議あり！その証言、[r]この証拠品と矛盾する！」[l]
-
-    ; 証拠品選択画面
     （主人公の心の声）「どの証拠品を突きつけようか…」[l]
-    [iscript]
-    var y_pos = 200;
-    for (var i = 0; i < f.evidence_list.length; i++) {
-        var evidence = f.evidence_list[i];
-        var pm = { text: evidence.name, x: 70, y: y_pos, width: 300, size: 24, color: "green",
-                   storage: "fenny_scenario.ks", target: "*check_evidence_result",
-                   exp: "f.selected_evidence_id = '" + evidence.id + "'" };
-        TYRANO.kag.ftag.startTag("glink", pm);
-        y_pos += 70;
-    }
-    [endscript]
-    [glink text="戻る" x="70" y="&y_pos" width="300" size="24" color="gray" target="*main_interrogation_choice"]
+
+    ; ★★★ 証拠品選択肢を固定の [glink] で表示 ★★★
+    ; f.evidence_list の内容と対応させる
+    [glink text="&f.evidence_list[0].name" x="70" y="250" width="300" size="24" color="green" target="*check_evidence_result" exp="f.selected_evidence_id = f.evidence_list[0].id"]
+    [glink text="&f.evidence_list[1].name" x="70" y="320" width="300" size="24" color="green" target="*check_evidence_result" exp="f.selected_evidence_id = f.evidence_list[1].id"]
+    [glink text="&f.evidence_list[2].name" x="70" y="390" width="300" size="24" color="green" target="*check_evidence_result" exp="f.selected_evidence_id = f.evidence_list[2].id"]
+
+    ; 戻るボタン
+    [glink text="戻る" x="70" y="480" width="300" size="24" color="gray" target="*main_interrogation_choice"]
     [s]
+
 
 *check_evidence_result 
     ; [playse storage="select_se.wav"]
-    [if exp="f.selected_evidence_id == 'singing'"]
-        ; 正解の証拠品！
-        [jump target="*ruria_breakdown_success_simple"]
+
+    ; ★★★ iscript で安全に判定を行う ★★★
+    [iscript]
+    var is_correct = false;
+    // 正解条件: 証言3 (weakpoint) に対して、証拠品 'singing' (鼻歌) を選んだ
+    // f.current_testimony_index は「ゆさぶる」などで変化するため、
+    // ここではどの証言に対してでも「鼻歌」が正解、というシンプルな判定にする
+    if (f.selected_evidence_id == 'singing') {
+        is_correct = true;
+    }
+    f.is_correct_evidence = is_correct;
+    [endscript]
+
+    [if exp="f.is_correct_evidence == true"]
+        [jump target="*ruria_breakdown_success"]
     [else]
-        ; 不正解の証拠品
-        [eval exp="f.life--"]
+        ; 不正解なら体力を減らす
+        [iscript]
+        f.life--;
+        f.life_text = "体力：" + f.life;
+        [endscript]
+        [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="&f.life_text"]
+
         [if exp="f.life <= 0"]
             [jump target="*ruria_investigation_badend"]
         [else]
             #ルリア
-            そ、そんなの証拠になりません！[l]
+            そ、そんなの証拠になりません！[p]
+            もう一回言いますよ！[l]
             [jump target="*main_interrogation_choice"] ; 選択肢に戻る
         [endif]
     [endif]
