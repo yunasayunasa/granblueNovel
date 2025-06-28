@@ -254,7 +254,8 @@
 *start_cross_examination
     [cm]
     ; [playbgm storage="cross_examination_bgm.ogg"] 
-
+ ; 証言表示用のテキストエリアを最初に一度だけ定義
+    [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="24" color="white"]
     ; ★★★ 論破パートの初期設定 ★★★
     [iscript]
     // 証言リスト
@@ -297,73 +298,37 @@
     [glink graphic="button/shake.png" x="250" y="500" target="*shake_testimony" name="shake_btn"]
     [glink graphic="button/present.png" x="350" y="500" target="*present_evidence" name="present_btn"]
 
-  ; ★★★ 操作説明 (iscriptで表示・消去) ★★★
-    [iscript]
-    // 表示するテキスト
-    var instruction_text = "証言を移動し、揺さぶって情報を引き出すか、証拠品を突きつけて矛盾を指摘しよう。";
+  ; ★★★ 操作説明 ([ptext] と [free] を使用) ★★★
+    [ptext name="instruction_text" layer="fix" x="25" y="600" width="400" size="18" color="white" text="証言を移動し、揺さぶって情報を引き出すか、証拠品を突きつけて矛盾を指摘しよう。"]
 
-    // テキストを表示するためのHTML要素を作成
-    var p_element = $("<p></p>");
+    [wait time="3000"] ; 3秒間表示
 
-    // スタイルを設定
-    p_element.css({
-        "position": "absolute",
-        "left": "25px",
-        "top": "600px",
-        "width": "400px",
-        "font-size": "18px",
-        "color": "white",
-        "z-index": "10000", // 他のUIより手前に
-        "display": "none" // 最初は非表示
-    });
+    [free name="instruction_text"] ; name属性で指定したptextを消去
 
-    // テキストをセットし、ユニークなクラス名 (またはID) をつける
-    p_element.html(instruction_text).addClass("instruction_text_js");
-
-    // ゲーム画面の前景レイヤーに追加 (セレクタは環境に合わせて調整)
-    // .layer_fore.fix_fore_layer など、最前面に近いレイヤーを探す
-    var target_layer = $(".layer_fore.fix_fore_layer"); // fixレイヤーの前景
-    if(target_layer.length === 0){
-        target_layer = $(".layer_fore").last(); // もしfix_foreがなければ、一番手前の前景レイヤー
-    }
-    target_layer.append(p_element);
-
-    // フェードインで表示
-    p_element.fadeIn(500);
-
-    // 3秒後にフェードアウトして要素を削除するタイマーをセット
-    setTimeout(function() {
-        p_element.fadeOut(500, function() {
-            $(this).remove(); // フェードアウト完了後に要素を完全に削除
-        });
-    }, 3000); // 表示開始から3秒後 (2500ms待ってから500msかけて消える)
-    [endscript]
+    ; [wait time="100"] ; 消えるのを待つ (任意)
 
     ; 最初の証言を表示して開始
-    ; iscript内のsetTimeoutはバックグラウンドで動くので、[wait]は不要
     [jump target="*display_current_testimony"]
     [s]
 
 
 *display_current_testimony
-    ; ★★★ iscript内でテキスト表示とデータ保存を完結させる ★★★
     [iscript]
-    // 表示する証言を取得
-    var current_testimony = tf.testimonies[f.current_testimony_index];
-    var text_to_show = current_testimony.text;
-    var is_weakpoint_flag = current_testimony.is_weakpoint;
+    // 表示する証言のテキストだけを変数にセット
+    f.current_text = tf.testimonies[f.current_testimony_index].text;
+    [endscript]
 
-    // jQueryでptextエリアを特定し、内容を書き換える
-    // ptextはname属性を持たないようなので、classで指定する
-    // ただし、ptextが複数あると問題なので、ここでは専用のクラスを付与する
-    var ptext_area = $(".testimony_area_js"); // ← 専用クラスで探す
+    ; ★★★ overwrite="true" を使ってテキストを上書き ★★★
+    [ptext name="testimony_text" text="&f.current_text" overwrite="true"]
+    ; (overwriteを使う場合、x,y,layerなどの属性は不要な可能性もあるが、念のためつけておくと安全)
+    ; [ptext name="testimony_text" layer="0" x="50" y="300" text="&f.current_text" overwrite="true"]
 
-    if (ptext_area.length > 0) {
-        ptext_area.find(".inner_ptext").html(text_to_show);
-        ptext_area.data("is_weakpoint", is_weakpoint_flag);
-    } else {
-        console.warn("証言エリアのセレクタ '.testimony_area_js' が見つかりません。");
-    }
+    ; ★★★ 弱点フラグの保存 (ここだけiscriptが必要) ★★★
+    [iscript]
+    var is_weakpoint_flag = tf.testimonies[f.current_testimony_index].is_weakpoint;
+    // .tyrano_ptext[data-name='testimony_text'] のように、ptextが生成する要素の
+    // 正しいセレクタを開発者ツールで確認し、そこにデータを保存する
+    $(".tyrano_ptext[data-name='testimony_text']").data("is_weakpoint", is_weakpoint_flag);
     [endscript]
     [s] 
 
