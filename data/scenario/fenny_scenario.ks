@@ -285,25 +285,32 @@
     証言４：ほら！ちゃんとフェニーちゃんが[r]何してたかも分かります！[l]
     [resetfont]
 
-    # ; 名前をクリア
-    （主人公の心の声）「なるほど…。[r]この証言、どこかに矛盾があるはずだ…」[l]
+    # 
+「なるほど…。[r]この証言、どこかに矛盾があるはずだ…」[l]
 
-*main_interrogation_choice 
-    ; 体力表示を更新
-    [iscript] f.life_text = "体力：" + f.life; [endscript]
-    [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="&f.life_text"]
+; ★★★ ここからデバッグ用のシンプルなコードに置き換え ★★★
 
-    どうする？[l]
+*main_interrogation_choice
+    [cm]
+    デバッグ：選択肢表示テスト[l]
 
-    [glink color="orange" x="70" y="300" width="300" size="28" text="ゆさぶる" target="*shake_all_testimonies"]
-    [glink color="red" x="70" y="370" width="300" size="28" text="つきつける" target="*present_evidence_simple"]
-    [glink color="gray" x="70" y="440" width="300" size="28" text="もう少し考える" target="*main_interrogation_choice"] ; 何もせず選択肢に戻る
+    [glink text="テストボタン１" target="*test1"]
+    [glink text="テストボタン２" target="*test2"]
     [s]
+
+*test1
+    テスト１が選ばれました[l]
+    [jump target="*main_interrogation_choice"]
+
+*test2
+    テスト２が選ばれました[l]
+    [jump target="*main_interrogation_choice"]
+
 
 *shake_all_testimonies 
     ; [playse storage="matta_voice.ogg"]
-    # ; 名前クリア
-    （主人公の心の声）「待った！もう少し詳しく聞かせてもらおうか！」[l]
+    # 
+    「待った！もう少し詳しく聞かせてもらおうか！」[l]
 
     #ルリア
     ま、まだ証言を始めたばかりです！[r]ちゃんと話を聞いてください！[p]
