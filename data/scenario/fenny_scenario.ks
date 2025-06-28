@@ -387,7 +387,7 @@
     [glink text="戻る" x="70" y="&y_pos" width="300" size="24" color="gray" target="*start_cross_examination"]
     [s]
 
-*ruria_evidence_selected
+*ruria_evidence_selecte
     ; ★★★ iscript内で判定まで完結させる ★★★
     [iscript]
     var is_correct = false;
