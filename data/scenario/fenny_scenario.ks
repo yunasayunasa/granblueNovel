@@ -298,14 +298,15 @@
     [glink graphic="button/shake.png" x="250" y="500" target="*shake_testimony" name="shake_btn"]
     [glink graphic="button/present.png" x="350" y="500" target="*present_evidence" name="present_btn"]
 
-  ; ★★★ 操作説明 ([ptext] と [free] を使用) ★★★
+    ; ★★★ 操作説明 ([ptext] と [free] を使用) ★★★
     [ptext name="instruction_text" layer="fix" x="25" y="600" width="400" size="18" color="white" text="証言を移動し、揺さぶって情報を引き出すか、証拠品を突きつけて矛盾を指摘しよう。"]
 
-    [wait time="3000"] ; 3秒間表示
+    [wait time="3000"]
 
-    [free name="instruction_text"] ; name属性で指定したptextを消去
+    ; ★★★ [free] タグに layer="fix" を追加 ★★★
+    [free name="instruction_text" layer="fix"]
 
-    ; [wait time="100"] ; 消えるのを待つ (任意)
+    ; [wait time="100"] ; 念のため
 
     ; 最初の証言を表示して開始
     [jump target="*display_current_testimony"]
