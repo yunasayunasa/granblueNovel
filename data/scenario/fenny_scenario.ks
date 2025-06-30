@@ -139,10 +139,140 @@
     私じゃありません！話を聞いて下さい！[p]
 #
     どうやら証言を聞く必要があるようだ。[p]
-    君はルリアの証言を聞くことにした。[l]
+    君はルリアの証言を聞くことにした。[p]
 
     ; ★★★ ノンストップ議論パートへジャンプ ★★★
-    [jump storage="nonstop_debate_test.ks" target="*start_debate"]
+    [jump  target="**start_nonstop_debate"]
+
+    *start_nonstop_debate
+    [clearfix]
+    ; [playbgm storage="nonstop_debate_bgm.ogg"] 
+    [chara_show name="ruria" x="150" y="100"]
+
+    ; ★★★ 議論パートの初期設定 ★★★
+    [iscript]
+    // プレイヤーが選択したキーワードとコトダマを記録する変数
+    f.selected_keyword = "";
+    f.selected_kotodama = "";
+
+    // 制限時間（秒）
+    f.time_limit = 180; 
+
+    // タイマー表示用のptext
+    f.time_text = "残り時間：" + f.time_limit;
+    [endscript]
+
+    ; --- UIの配置 ---
+    ; 制限時間タイマー
+    [ptext name="timer_display" layer="fix" x="300" y="20" size="24" color="white" text="&f.time_text"]
+
+    ; 現在選択中のコトダマ表示エリア
+    [ptext name="current_kotodama" layer="fix" x="20" y="700" size="20" color="yellow" text="選択中のコトダマ：なし"]
+
+    ; ★★★ 証言（キーワード）をボタンとして配置 ★★★
+    ; 見た目の演出として、位置や角度を少しずつ変えるとそれっぽくなる
+    [glink text="フェニーちゃんのチョコはここにあります！" x="50" y="200" width="350" size="22" color="cyan" name="keyword1" target="*select_keyword" exp="f.selected_keyword = 1"]
+    [glink text="サンダルフォンさんが用意したこの銀の器材の中です！" x="50" y="270" width="350" size="22" color="orange" name="keyword2" target="*select_keyword" exp="f.selected_keyword = 2"] 
+    [glink text="ヘラもちゃんと用意してくれました！" x="50" y="340" width="350" size="22" color="cyan" name="keyword3" target="*select_keyword" exp="f.selected_keyword = 3"]
+    [glink text="ハウヘトさんから何か受け取ってましたけど、それが何だっていうんですか！" x="50" y="410" width="350" size="22" color="cyan" name="keyword4" target="*select_keyword" exp="f.selected_keyword = 4"]
+
+    ; ★★★ コトダマ（証拠品）を選択するボタン ★★★
+    [ptext layer="fix" x="20" y="600" text="コトダマを選択："]
+    [glink text="サンダルフォンのヘラ" x="20" y="630" width="200" size="20" color="green" name="kotodama1" target="*select_kotodama" exp="f.selected_kotodama = 'hera'"]
+    [glink text="ヒヒイロボウル" x="230" y="630" width="200" size="20" color="green" name="kotodama2" target="*select_kotodama" exp="f.selected_kotodama = 'hihiiro'"]
+
+    ; ★★★ 決定ボタン ★★★
+    [button name="sokoda_button" graphic="button/sokoda.png" x="150" y="750" target="*check_debate_result"]
+
+    ; ★★★ タイマーループを開始 ★★★
+    [jump target="*timer_loop"]
+    [s]
+
+*timer_loop
+    [iscript]
+    f.time_limit--;
+    f.time_text = "残り時間：" + f.time_limit;
+    [endscript]
+    [ptext name="timer_display" text="&f.time_text" overwrite="true"]
+    [if exp="f.time_limit <= 0"]
+        [jump target="*debate_timeout_badend"]
+    [endif]
+    [wait time="1000"] ; 1秒待つ
+    [jump target="*timer_loop"]
+
+*select_keyword
+    ; [playse storage="select_se.wav"]
+    ; 選択されたキーワードを視覚的に示す（例：ボタンの色を変える）
+    ; [anim name="keyword&f.selected_keyword" color="yellow" time="100"] ; これは動作しないかも
+    ; iscriptでjQueryを使ってスタイル変更するのが確実
+    [iscript]
+    // まずすべてのキーワードボタンのスタイルを元に戻す
+    $(".glink[name^='keyword']").css("background-color", "cyan"); // keywordで始まるname属性を持つ要素
+    // 選択されたボタンの色を変える
+    $(".glink[name='keyword" + f.selected_keyword + "']").css("background-color", "yellow");
+    [endscript]
+    [s] ; 待機
+
+*select_kotodama
+    ; [playse storage="select_se.wav"]
+    [iscript]
+    // 選択中のコトダマに応じて表示テキストを変える
+    var kotodama_name = "";
+    if (f.selected_kotodama == 'hera') {
+        kotodama_name = "サンダルフォンのヘラ";
+    } else if (f.selected_kotodama == 'hihiiro') {
+        kotodama_name = "ヒヒイロボウル";
+    }
+    f.current_kotodama_text = "選択中のコトダマ：" + kotodama_name;
+    [endscript]
+    [ptext name="current_kotodama" text="&f.current_kotodama_text" overwrite="true"]
+    [s] ; 待機
+
+*check_debate_result
+    ; ★★★ 正誤判定 ★★★
+    [if exp="f.selected_keyword == 2 && f.selected_kotodama == 'hihiiro'"]
+        ; 正解！
+        ; タイマーを止める
+        [stop_timer]
+        [jump target="*debate_clear_success"]
+    [else]
+        ; 不正解
+        ; タイムペナルティ
+        [eval exp="f.time_limit -= 30"]
+        [ptext name="timer_display" text="&f.time_text" overwrite="true"]
+        ; 不正解メッセージ
+        #ルリア
+        はわわ〜、よく分かりませんでしたぁ。[r]もう一回最初から言いますね？[l]
+        ; 何もせず、議論を続ける (選択状態はリセットしても良い)
+        [s]
+    [endif]
+
+*debate_clear_success
+    ; タイマーを止めるための処理
+    [iscript]
+    var timers = TYRANO.kag.tmp.timeout_timers;
+    for (var i = 0; i < timers.length; i++) {
+        clearTimeout(timers[i]);
+    }
+    [endscript]
+    ; ★★★ 成功演出 ★★★
+    ; [playse storage="ronpa_voice.ogg"]
+    ; ... (台本の成功ルートのテキストとエンディングへ) ...
+    ～フェニー、ハウヘト、サブリナエンド～[l]
+    [jump storage="first.ks" target="*start"]
+
+*debate_timeout_badend
+    ; タイマーを止める処理（同上）
+    [iscript]
+    var timers = TYRANO.kag.tmp.timeout_timers;
+    for (var i = 0; i < timers.length; i++) {
+        clearTimeout(timers[i]);
+    }
+    [endscript]
+    ; ★★★ タイムアップBAD END ★★★
+    ; ... (台本のタイムアップBAD ENDのテキストを記述) ...
+    ～バッドエンド～[l]
+    [jump storage="first.ks" target="*start"]
 
 
 ; ----- 器材ルート -----
@@ -326,10 +456,10 @@
 *select_testimony_for_present
     #
     （どの発言に証拠品をつきつけようか…）[l]
-    [glink text="証言１"  color="cyan" target="*present_to_wrong_testimony"] 
-    [glink text="証言２"  color="cyan" target="*present_to_wrong_testimony"] 
-    [glink text="証言３"  color="cyan" target="*present_to_testimony_3_correct"] 
-    [glink text="証言４"  color="cyan" target="*present_to_wrong_testimony"] 
+    [glink text="証言１"   target="*present_to_wrong_testimony"] 
+    [glink text="証言２"   target="*present_to_wrong_testimony"] 
+    [glink text="証言３"  target="*present_to_testimony_3_correct"] 
+    [glink text="証言４"   target="*present_to_wrong_testimony"] 
     [glink text="やめる"  color="gray" target="*main_interrogation_choice"]
     [s]
 
@@ -387,7 +517,7 @@
     #サンダルフォン
     間違いないな。[r]
     俺も奥でコーヒーの配合をしてたが、[r]
-    あれは間違いなくフェニーだった。[l]
+    あれは間違いなくフェニーだった。[p]
     [chara_hide name="sandalphon" time="200" wait="true"]
 
     [chara_show name="ruria" x="150" y="100" time="500" wait="true"]

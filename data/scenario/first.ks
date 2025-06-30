@@ -103,7 +103,7 @@ console.log("Resize event dispatched.");
 [chara_hide name="roger" time="500" wait="true"]
 
 ; ガチャ演出 (今は省略、SEや簡単なアニメーションを入れることも可能)
-[clearname]
+
 #
 1人の仲間が目の前に現れる。[p]
 
