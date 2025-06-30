@@ -265,16 +265,16 @@
     [jump target="*show_all_testimonies"]
 
 
-*show_all_testimonies ; 証言全体を表示する
+*show_all_testimonies
     #ルリア
     そ、そうです！聞いてください！[r]
-    これが私のアリバイです！[l]
+    これが私のアリバイです！[p]
 
     [font color="yellow"]
     証言１：わ、私じゃありません！[p]
     証言２：私はあなたと一緒にフェニーちゃんを見守ってたじゃないですか！[p]
     証言３：フェニーちゃんは黙々とチョコを作ってたのを私も見てます！[p]
-    証言４：ほら！ちゃんとフェニーちゃんが何してたかも分かります！[l]
+    証言４：ほら！ちゃんとフェニーちゃんが何してたかも分かります！[p]
     [resetfont]
 
     [jump target="*main_interrogation_choice"]
@@ -287,9 +287,9 @@
     #
     どうする？[l]
 
-    [glink text="ゆさぶる" x="70" y="400" width="310" size="28" color="orange" target="*select_testimony_for_shake"]
-    [glink text="つきつける" x="70" y="470" width="310" size="28" color="red" target="*select_testimony_for_present"]
-    [glink text="もう一度聞く" x="70" y="540" width="310" size="28" color="gray" target="*show_all_testimonies"]
+    [glink text="ゆさぶる"  target="*select_testimony_for_shake"]
+    [glink text="つきつける"  target="*select_testimony_for_present"]
+    [glink text="もう一度聞く"  target="*show_all_testimonies"]
     [s]
 
 
@@ -297,28 +297,28 @@
 *select_testimony_for_shake
     #
     （どの発言をゆさぶろうか…）[l]
-    [glink text="証言１" x="70" y="250" width="310" size="24" color="cyan" target="*shake_testimony_1"]
-    [glink text="証言２" x="70" y="320" width="310" size="24" color="cyan" target="*shake_testimony_2"]
-    [glink text="証言３" x="70" y="390" width="310" size="24" color="cyan" target="*shake_testimony_3"]
-    [glink text="証言４" x="70" y="460" width="310" size="24" color="cyan" target="*shake_testimony_4"]
-    [glink text="やめる" x="70" y="550" width="310" size="24" color="gray" target="*main_interrogation_choice"]
+    [glink text="証言１"  target="*shake_testimony_1"]
+    [glink text="証言２"  target="*shake_testimony_2"]
+    [glink text="証言３"  target="*shake_testimony_3"]
+    [glink text="証言４"  target="*shake_testimony_4"]
+    [glink text="やめる"  color="gray" target="*main_interrogation_choice"]
     [s]
 
 *shake_testimony_1
     #ルリア
-    ま、まだ証言を始めたばかりです！ちゃんと話を聞いてください！[l]
+    ま、まだ証言を始めたばかりです！ちゃんと話を聞いてください！[p]
     [jump target="*main_interrogation_choice"]
 *shake_testimony_2
     #ルリア
-    フェニーちゃんが何をしてたかって？それはもちろん...！[l]
+    フェニーちゃんが何をしてたかって？それはもちろん...！[p]
     [jump target="*main_interrogation_choice"]
 *shake_testimony_3
     #ルリア
-    黙々と黙ってたかって...？ええ！そうです！真剣な顔で作ってましたよ！鼻歌一つ歌ってません！[l]
+    黙々と黙ってたかって...？ええ！そうです！真剣な顔で作ってましたよ！鼻歌一つ歌ってません！[p]
     [jump target="*main_interrogation_choice"]
 *shake_testimony_4
     #ルリア
-    だから、私は犯人じゃないんです！信じて下さい！[l]
+    だから、私は犯人じゃないんです！信じて下さい！[p]
     [jump target="*main_interrogation_choice"]
 
 
@@ -326,11 +326,11 @@
 *select_testimony_for_present
     #
     （どの発言に証拠品をつきつけようか…）[l]
-    [glink text="証言１" x="70" y="250" width="310" size="24" color="cyan" target="*present_to_wrong_testimony"] 
-    [glink text="証言２" x="70" y="320" width="310" size="24" color="cyan" target="*present_to_wrong_testimony"] 
-    [glink text="証言３" x="70" y="390" width="310" size="24" color="cyan" target="*present_to_testimony_3_correct"] 
-    [glink text="証言４" x="70" y="460" width="310" size="24" color="cyan" target="*present_to_wrong_testimony"] 
-    [glink text="やめる" x="70" y="550" width="310" size="24" color="gray" target="*main_interrogation_choice"]
+    [glink text="証言１"  color="cyan" target="*present_to_wrong_testimony"] 
+    [glink text="証言２"  color="cyan" target="*present_to_wrong_testimony"] 
+    [glink text="証言３"  color="cyan" target="*present_to_testimony_3_correct"] 
+    [glink text="証言４"  color="cyan" target="*present_to_wrong_testimony"] 
+    [glink text="やめる"  color="gray" target="*main_interrogation_choice"]
     [s]
 
 *present_to_wrong_testimony 
@@ -344,19 +344,19 @@
 *show_evidence_selection_correct
     #
     （どの証拠品を使おうか…）[l]
-    [glink text="フェニーの鼻歌" x="70" y="250" width="300" size="24" color="green" target="*ruria_breakdown_success"] 
-    [glink text="口元のチョコ"   x="70" y="320" width="300" size="24" color="green" target="*present_fail"]
-    [glink text="ヒヒイロボウル" x="70" y="390" width="300" size="24" color="green" target="*present_fail"]
-    [glink text="やめる" x="70" y="480" width="300" size="24" color="gray" target="*main_interrogation_choice"]
+    [glink text="フェニーの鼻歌" color="green" target="*ruria_breakdown_success"] 
+    [glink text="口元のチョコ"    color="green" target="*present_fail"]
+    [glink text="ヒヒイロボウル"  color="green" target="*present_fail"]
+    [glink text="やめる" x="70"  color="gray" target="*main_interrogation_choice"]
     [s]
 
 *show_evidence_selection_fail 
     #
     （どの証拠品を使おうか…）[l]
-    [glink text="フェニーの鼻歌" x="70" y="250" width="300" size="24" color="green" target="*present_fail"]
-    [glink text="口元のチョコ"   x="70" y="320" width="300" size="24" color="green" target="*present_fail"]
-    [glink text="ヒヒイロボウル" x="70" y="390" width="300" size="24" color="green" target="*present_fail"]
-    [glink text="やめる" x="70" y="480" width="300" size="24" color="gray" target="*main_interrogation_choice"]
+    [glink text="フェニーの鼻歌"  color="green" target="*present_fail"]
+    [glink text="口元のチョコ"   color="green" target="*present_fail"]
+    [glink text="ヒヒイロボウル"  color="green" target="*present_fail"]
+    [glink text="やめる"  color="gray" target="*main_interrogation_choice"]
     [s]
 
 *present_fail
