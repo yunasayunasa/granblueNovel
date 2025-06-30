@@ -253,136 +253,121 @@
 
 *start_cross_examination
     [cm]
-    ; [playbgm storage="cross_examination_bgm.ogg"] 
+    [clearfix]
+    ; [playbgm storage="cross_examination_bgm.ogg"]
 
-    ; ★★★ 論破パートの初期設定 ★★★
-    [iscript]
-    // 証言リスト (tf変数なのでセーブデータをまたいでも残る)
-    tf.testimonies = [
-        { id: 1, text: "わ、私じゃありません！" },
-        { id: 2, text: "私はあなたと一緒にフェニーちゃんを見守ってたじゃないですか！" },
-        { id: 3, text: "フェニーちゃんは黙々とチョコを作ってたのを私も見てます！" }, // これが弱点
-        { id: 4, text: "ほら！ちゃんとフェニーちゃんが何してたかも分かります！" }
-    ];
-    // 揺さぶった時のセリフ
-    tf.shake_responses = {
-        1: "ま、まだ証言を始めたばかりです！ちゃんと話を聞いてください！",
-        2: "フェニーちゃんが何をしてたかって？それはもちろん...！",
-        3: "黙々と黙ってたかって...？ええ！そうです！真剣な顔で作ってましたよ！鼻歌一つ歌ってません！",
-        4: "だから、私は犯人じゃないんです！信じて下さい！"
-    };
-    // 証拠品リスト
-    f.evidence_list = [
-        { id: "singing", name:"フェニーの鼻歌"},
-        { id: "choco_mouth", name:"口元のチョコ"},
-        { id: "hihiiro_bowl", name:"ヒヒイロボウル"}
-    ];
-    f.life = 5; // 体力
-    [endscript]
+    ; ★★★ 初期設定は体力のみ ★★★
+    [eval exp="f.life = 5"]
 
-    ; --- UIの配置 ---
     [chara_show name="ruria" x="150" y="100"]
 
-    ; 体力表示用のテキストエリア
-    [iscript] f.life_text = "体力：" + f.life; [endscript]
-    [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="&f.life_text"]
+    ; --- 最初の証言表示 ---
+    [jump target="*show_all_testimonies"]
 
+
+*show_all_testimonies ; 証言全体を表示する
     #ルリア
     そ、そうです！聞いてください！[r]
     これが私のアリバイです！[l]
 
-    ; 証言をまとめて表示
     [font color="yellow"]
-    証言１：[emb exp="tf.testimonies[0].text"][r]
-    証言２：[emb exp="tf.testimonies[1].text"][r]
-    証言３：[emb exp="tf.testimonies[2].text"][r]
-    証言４：[emb exp="tf.testimonies[3].text"][l]
+    証言１：わ、私じゃありません！[p]
+    証言２：私はあなたと一緒にフェニーちゃんを見守ってたじゃないですか！[p]
+    証言３：フェニーちゃんは黙々とチョコを作ってたのを私も見てます！[p]
+    証言４：ほら！ちゃんとフェニーちゃんが何してたかも分かります！[l]
     [resetfont]
 
-    # 
-    （主人公の心の声）「なるほど…。[r]この証言、どこかに矛盾があるはずだ…」[l]
     [jump target="*main_interrogation_choice"]
 
 
 *main_interrogation_choice
-    ; 体力表示を更新
-    [iscript] f.life_text = "体力：" + f.life; [endscript]
-    [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="&f.life_text"]
+    ; 体力表示
+    [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="体力：&f.life"]
 
+    #
     どうする？[l]
 
-    [glink color="orange" x="70" y="400" width="310" size="28" text="ゆさぶる" target="*select_testimony_for_shake"]
-    [glink color="red" x="70" y="470" width="310" size="28" text="つきつける" target="*select_testimony_for_present"]
+    [glink text="ゆさぶる" x="70" y="400" width="310" size="28" color="orange" target="*select_testimony_for_shake"]
+    [glink text="つきつける" x="70" y="470" width="310" size="28" color="red" target="*select_testimony_for_present"]
+    [glink text="もう一度聞く" x="70" y="540" width="310" size="28" color="gray" target="*show_all_testimonies"]
     [s]
 
-; ----- どの証言を「ゆさぶる」か選択 -----
+
+; ----- 「ゆさぶる」の証言選択 -----
 *select_testimony_for_shake
     #
-    （主人公の心の声）「どの発言をゆさぶろうか…」[l]
-    ; 証言をglinkボタンとして表示
-    [glink text="&tf.testimonies[0].text" x="70" y="250" width="310" size="22" color="cyan" target="*shake_testimony_1"]
-    [glink text="&tf.testimonies[1].text" x="70" y="320" width="310" size="22" color="cyan" target="*shake_testimony_2"]
-    [glink text="&tf.testimonies[2].text" x="70" y="390" width="310" size="22" color="cyan" target="*shake_testimony_3"]
-    [glink text="&tf.testimonies[3].text" x="70" y="460" width="310" size="22" color="cyan" target="*shake_testimony_4"]
-    [glink text="やめる" x="70" y="550" width="310" size="22" color="gray" target="*main_interrogation_choice"]
+    （どの発言をゆさぶろうか…）[l]
+    [glink text="証言１" x="70" y="250" width="310" size="24" color="cyan" target="*shake_testimony_1"]
+    [glink text="証言２" x="70" y="320" width="310" size="24" color="cyan" target="*shake_testimony_2"]
+    [glink text="証言３" x="70" y="390" width="310" size="24" color="cyan" target="*shake_testimony_3"]
+    [glink text="証言４" x="70" y="460" width="310" size="24" color="cyan" target="*shake_testimony_4"]
+    [glink text="やめる" x="70" y="550" width="310" size="24" color="gray" target="*main_interrogation_choice"]
     [s]
 
 *shake_testimony_1
-    [eval exp="f.shake_response_text = tf.shake_responses[1]"]
-    [jump target="*show_shake_response"]
-*shake_testimony_2
-    [eval exp="f.shake_response_text = tf.shake_responses[2]"]
-    [jump target="*show_shake_response"]
-*shake_testimony_3
-    [eval exp="f.shake_response_text = tf.shake_responses[3]"]
-    [jump target="*show_shake_response"]
-*shake_testimony_4
-    [eval exp="f.shake_response_text = tf.shake_responses[4]"]
-    [jump target="*show_shake_response"]
-
-*show_shake_response 
-    ; [playse storage="matta_voice.ogg"]
     #ルリア
-    [emb exp="f.shake_response_text"][l]
+    ま、まだ証言を始めたばかりです！ちゃんと話を聞いてください！[l]
+    [jump target="*main_interrogation_choice"]
+*shake_testimony_2
+    #ルリア
+    フェニーちゃんが何をしてたかって？それはもちろん...！[l]
+    [jump target="*main_interrogation_choice"]
+*shake_testimony_3
+    #ルリア
+    黙々と黙ってたかって...？ええ！そうです！真剣な顔で作ってましたよ！鼻歌一つ歌ってません！[l]
+    [jump target="*main_interrogation_choice"]
+*shake_testimony_4
+    #ルリア
+    だから、私は犯人じゃないんです！信じて下さい！[l]
     [jump target="*main_interrogation_choice"]
 
 
-; ----- どの証言に「つきつける」か選択 -----
+; ----- 「つきつける」の証言選択 -----
 *select_testimony_for_present
-    # ; 名前クリア
-    （主人公の心の声）「どの発言に証拠品をつきつけようか…」[l]
-    [glink text="&tf.testimonies[0].text" x="70" y="250" width="310" size="22" color="cyan" exp="f.target_testimony_id = 1" target="*show_evidence_selection_for_ruria"]
-    [glink text="&tf.testimonies[1].text" x="70" y="320" width="310" size="22" color="cyan" exp="f.target_testimony_id = 2" target="*show_evidence_selection_for_ruria"]
-    [glink text="&tf.testimonies[2].text" x="70" y="390" width="310" size="22" color="cyan" exp="f.target_testimony_id = 3" target="*show_evidence_selection_for_ruria"]
-    [glink text="&tf.testimonies[3].text" x="70" y="460" width="310" size="22" color="cyan" exp="f.target_testimony_id = 4" target="*show_evidence_selection_for_ruria"]
-    [glink text="やめる" x="70" y="550" width="310" size="22" color="gray" target="*main_interrogation_choice"]
+    #
+    （どの発言に証拠品をつきつけようか…）[l]
+    [glink text="証言１" x="70" y="250" width="310" size="24" color="cyan" target="*present_to_wrong_testimony"] 
+    [glink text="証言２" x="70" y="320" width="310" size="24" color="cyan" target="*present_to_wrong_testimony"] 
+    [glink text="証言３" x="70" y="390" width="310" size="24" color="cyan" target="*present_to_testimony_3_correct"] 
+    [glink text="証言４" x="70" y="460" width="310" size="24" color="cyan" target="*present_to_wrong_testimony"] 
+    [glink text="やめる" x="70" y="550" width="310" size="24" color="gray" target="*main_interrogation_choice"]
     [s]
 
-*show_evidence_selection_for_ruria
-    # ; 名前クリア
-    （主人公の心の声）「どの証拠品を使おうか…」[l]
-    ; [playse storage="igiari_voice.ogg"]
-    ; 証拠品選択肢をglinkで表示
-    [glink text="&f.evidence_list[0].name" x="70" y="250" width="300" size="24" color="green" exp="f.selected_evidence_id = f.evidence_list[0].id" target="*check_evidence_result"]
-    [glink text="&f.evidence_list[1].name" x="70" y="320" width="300" size="24" color="green" exp="f.selected_evidence_id = f.evidence_list[1].id" target="*check_evidence_result"]
-    [glink text="&f.evidence_list[2].name" x="70" y="390" width="300" size="24" color="green" exp="f.selected_evidence_id = f.evidence_list[2].id" target="*check_evidence_result"]
+*present_to_wrong_testimony 
+    [jump target="*show_evidence_selection_fail"]
+
+*present_to_testimony_3_correct
+    [jump target="*show_evidence_selection_correct"] 
+
+
+; ----- 証拠品選択 -----
+*show_evidence_selection_correct
+    #
+    （どの証拠品を使おうか…）[l]
+    [glink text="フェニーの鼻歌" x="70" y="250" width="300" size="24" color="green" target="*ruria_breakdown_success"] 
+    [glink text="口元のチョコ"   x="70" y="320" width="300" size="24" color="green" target="*present_fail"]
+    [glink text="ヒヒイロボウル" x="70" y="390" width="300" size="24" color="green" target="*present_fail"]
     [glink text="やめる" x="70" y="480" width="300" size="24" color="gray" target="*main_interrogation_choice"]
     [s]
 
-*check_evidence_result
-    [if exp="f.target_testimony_id == 3 && f.selected_evidence_id == 'singing'"]
-        ; 正解！
-        [jump target="*ruria_breakdown_success"]
+*show_evidence_selection_fail 
+    #
+    （どの証拠品を使おうか…）[l]
+    [glink text="フェニーの鼻歌" x="70" y="250" width="300" size="24" color="green" target="*present_fail"]
+    [glink text="口元のチョコ"   x="70" y="320" width="300" size="24" color="green" target="*present_fail"]
+    [glink text="ヒヒイロボウル" x="70" y="390" width="300" size="24" color="green" target="*present_fail"]
+    [glink text="やめる" x="70" y="480" width="300" size="24" color="gray" target="*main_interrogation_choice"]
+    [s]
+
+*present_fail
+    [eval exp="f.life--"]
+    [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="体力：&f.life"]
+    [if exp="f.life <= 0"]
+        [jump target="*ruria_investigation_badend"]
     [else]
-        ; 不正解
-        [eval exp="f.life--"]
-        [if exp="f.life <= 0"]
-            [jump target="*ruria_investigation_badend"]
-        [else]
-            #ルリア
-            そ、そんなの証拠になりません！[l]
-            [jump target="*main_interrogation_choice"]
-        [endif]
+        #ルリア
+        そ、そんなの証拠になりません！[l]
+        [jump target="*main_interrogation_choice"]
     [endif]
     [s]
 
