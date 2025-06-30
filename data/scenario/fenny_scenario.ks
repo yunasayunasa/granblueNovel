@@ -319,7 +319,7 @@
     ; 揺さぶった後は、再度選択肢に戻る
     [jump target="*main_interrogation_choice"]
 
-*present_evidence_simple ; 「つきつける」を選んだ
+*present_evidence_simple
     ; ... (前のテキスト) ...
     （主人公の心の声）「どの証拠品を突きつけようか…」[l]
 
