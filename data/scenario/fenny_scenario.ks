@@ -142,137 +142,132 @@
     君はルリアの証言を聞くことにした。[p]
 
     ; ★★★ ノンストップ議論パートへジャンプ ★★★
-    [jump  target="**start_nonstop_debate"]
+    [jump  target="**start_debate"]
 
-    *start_nonstop_debate
+    *start_debate
+    [cm]
     [clearfix]
-    ; [playbgm storage="nonstop_debate_bgm.ogg"] 
+    [bg storage="courtroom_bg.jpg" time="500"]
+    @layopt layer=message0 visible=false
     [chara_show name="ruria" x="150" y="100"]
 
-    ; ★★★ 議論パートの初期設定 ★★★
+    ; ★★★ 議論用の変数を初期化 ★★★
     [iscript]
-    // プレイヤーが選択したキーワードとコトダマを記録する変数
-    f.selected_keyword = "";
-    f.selected_kotodama = "";
-
-    // 制限時間（秒）
-    f.time_limit = 180; 
-
-    // タイマー表示用のptext
-    f.time_text = "残り時間：" + f.time_limit;
+    tf.debate_statements = [
+        { id: 1, text: "フェニーちゃんのチョコはここにあります！", is_weakpoint: false },
+        { id: 2, text: "サンダルフォンさんが用意したこの銀の器材の中です！", is_weakpoint: true },
+        { id: 3, text: "ヘラもちゃんと用意してくれました！", is_weakpoint: false },
+        { id: 4, text: "ハウヘトさんから何か受け取ってましたけど、それが何だっていうんですか！", is_weakpoint: false }
+    ];
+    tf.kotodama_list = [
+        { id: "hera", name: "サンダルフォンのヘラ" },
+        { id: "hihiiro", name: "ヒヒイロボウル" } // 正解
+    ];
+    f.selected_kotodama = ""; // 選択中のコトダマID
+    tf.debate_index = 0;
+    tf.debate_loop_timer = null;
+    tf.is_debate_active = false;
     [endscript]
 
     ; --- UIの配置 ---
-    ; 制限時間タイマー
-    [ptext name="timer_display" layer="fix" x="300" y="20" size="24" color="white" text="&f.time_text"]
+    ; ★★★ 証言表示エリアをJavaScriptで追加する準備 ★★★
+    ; [ptext]ではなく、後でiscriptからdivを追加する
 
-    ; 現在選択中のコトダマ表示エリア
-    [ptext name="current_kotodama" layer="fix" x="20" y="700" size="20" color="yellow" text="選択中のコトダマ：なし"]
+    ; ★★★ コトダマ選択ボタンを配置 ★★★
+    [glink text="&tf.kotodama_list[0].name" x="20" y="630" width="200" size="20" color="green" target="*select_kotodama" exp="f.selected_kotodama = tf.kotodama_list[0].id"]
+    [glink text="&tf.kotodama_list[1].name" x="230" y="630" width="200" size="20" color="green" target="*select_kotodama" exp="f.selected_kotodama = tf.kotodama_list[1].id"]
+    [ptext name="current_kotodama_display" layer="fix" x="20" y="700" size="20" color="yellow" text="コトダマ選択：なし"]
 
-    ; ★★★ 証言（キーワード）をボタンとして配置 ★★★
-    ; 見た目の演出として、位置や角度を少しずつ変えるとそれっぽくなる
-    [glink text="フェニーちゃんのチョコはここにあります！" x="50" y="200" width="350" size="22" color="cyan" name="keyword1" target="*select_keyword" exp="f.selected_keyword = 1"]
-    [glink text="サンダルフォンさんが用意したこの銀の器材の中です！" x="50" y="270" width="350" size="22" color="orange" name="keyword2" target="*select_keyword" exp="f.selected_keyword = 2"] 
-    [glink text="ヘラもちゃんと用意してくれました！" x="50" y="340" width="350" size="22" color="cyan" name="keyword3" target="*select_keyword" exp="f.selected_keyword = 3"]
-    [glink text="ハウヘトさんから何か受け取ってましたけど、それが何だっていうんですか！" x="50" y="410" width="350" size="22" color="cyan" name="keyword4" target="*select_keyword" exp="f.selected_keyword = 4"]
+    ; ★★★ 「そこだ！」ボタンを配置 ★★★
+    [button name="sokoda_button" graphic="button/sokoda.png" x="150" y="750" target="*shoot_action"]
 
-    ; ★★★ コトダマ（証拠品）を選択するボタン ★★★
-    [ptext layer="fix" x="20" y="600" text="コトダマを選択："]
-    [glink text="サンダルフォンのヘラ" x="20" y="630" width="200" size="20" color="green" name="kotodama1" target="*select_kotodama" exp="f.selected_kotodama = 'hera'"]
-    [glink text="ヒヒイロボウル" x="230" y="630" width="200" size="20" color="green" name="kotodama2" target="*select_kotodama" exp="f.selected_kotodama = 'hihiiro'"]
-
-    ; ★★★ 決定ボタン ★★★
-    [button name="sokoda_button" graphic="button/sokoda.png" x="150" y="750" target="*check_debate_result"]
-
-    ; ★★★ タイマーループを開始 ★★★
-    [jump target="*timer_loop"]
+    ; 議論開始の合図
+    [eval exp="tf.is_debate_active = true"]
+    [jump target="*debate_loop"]
     [s]
-
-*timer_loop
-    [iscript]
-    f.time_limit--;
-    f.time_text = "残り時間：" + f.time_limit;
-    [endscript]
-    [ptext name="timer_display" text="&f.time_text" overwrite="true"]
-    [if exp="f.time_limit <= 0"]
-        [jump target="*debate_timeout_badend"]
-    [endif]
-    [wait time="1000"] ; 1秒待つ
-    [jump target="*timer_loop"]
-
-*select_keyword
-    ; [playse storage="select_se.wav"]
-    ; 選択されたキーワードを視覚的に示す（例：ボタンの色を変える）
-    ; [anim name="keyword&f.selected_keyword" color="yellow" time="100"] ; これは動作しないかも
-    ; iscriptでjQueryを使ってスタイル変更するのが確実
-    [iscript]
-    // まずすべてのキーワードボタンのスタイルを元に戻す
-    $(".glink[name^='keyword']").css("background-color", "cyan"); // keywordで始まるname属性を持つ要素
-    // 選択されたボタンの色を変える
-    $(".glink[name='keyword" + f.selected_keyword + "']").css("background-color", "yellow");
-    [endscript]
-    [s] ; 待機
 
 *select_kotodama
     ; [playse storage="select_se.wav"]
     [iscript]
-    // 選択中のコトダマに応じて表示テキストを変える
-    var kotodama_name = "";
-    if (f.selected_kotodama == 'hera') {
-        kotodama_name = "サンダルフォンのヘラ";
-    } else if (f.selected_kotodama == 'hihiiro') {
-        kotodama_name = "ヒヒイロボウル";
-    }
-    f.current_kotodama_text = "選択中のコトダマ：" + kotodama_name;
+    var selected_name = "";
+    if (f.selected_kotodama == 'hera') selected_name = tf.kotodama_list[0].name;
+    if (f.selected_kotodama == 'hihiiro') selected_name = tf.kotodama_list[1].name;
+    f.current_kotodama_text = "コトダマ選択：" + selected_name;
     [endscript]
-    [ptext name="current_kotodama" text="&f.current_kotodama_text" overwrite="true"]
-    [s] ; 待機
+    [ptext name="current_kotodama_display" text="&f.current_kotodama_text" overwrite="true"]
+    [s] ; 選択後、待機
 
-*check_debate_result
-    ; ★★★ 正誤判定 ★★★
-    [if exp="f.selected_keyword == 2 && f.selected_kotodama == 'hihiiro'"]
-        ; 正解！
-        ; タイマーを止める
-        [stop_timer]
-        [jump target="*debate_clear_success"]
-    [else]
-        ; 不正解
-        ; タイムペナルティ
-        [eval exp="f.time_limit -= 30"]
-        [ptext name="timer_display" text="&f.time_text" overwrite="true"]
-        ; 不正解メッセージ
-        #ルリア
-        はわわ〜、よく分かりませんでしたぁ。[r]もう一回最初から言いますね？[l]
-        ; 何もせず、議論を続ける (選択状態はリセットしても良い)
-        [s]
-    [endif]
-
-*debate_clear_success
-    ; タイマーを止めるための処理
+*debate_loop
     [iscript]
-    var timers = TYRANO.kag.tmp.timeout_timers;
-    for (var i = 0; i < timers.length; i++) {
-        clearTimeout(timers[i]);
+    if (tf.is_debate_active === true) {
+        if (tf.debate_loop_timer) clearTimeout(tf.debate_loop_timer);
+
+        var current_statement = tf.debate_statements[tf.debate_index];
+        var text_to_show = current_statement.text;
+        var is_weakpoint_flag = current_statement.is_weakpoint;
+
+        // ★★★ 証言表示エリアを iscript で管理 ★★★
+        var debate_area = $("#debate_text_area"); // IDで要素を探す
+        // もし要素がなければ、新しく作る
+        if (debate_area.length === 0) {
+            debate_area = $("<p id='debate_text_area'></p>");
+            debate_area.css({
+                "position": "absolute", "top": "300px", "left": "50px", "width": "350px", "height": "100px",
+                "font-size": "28px", "color": "white", "text-align": "center", "z-index": "9999",
+                "border": "2px solid red" // デバッグ用に枠線
+            });
+            // 前景レイヤー0に追加
+            var fore_layer_0 = $(".layer_fore[data-layer='0']");
+            if (fore_layer_0.length > 0) {
+                fore_layer_0.append(debate_area);
+            } else {
+                console.error("前景レイヤー0が見つかりません");
+            }
+        }
+        
+        // テキストをセットし、弱点情報を保存
+        debate_area.html(text_to_show).data("is_weakpoint", is_weakpoint_flag);
+
+        tf.debate_index = (tf.debate_index + 1) % tf.debate_statements.length;
+
+        tf.debate_loop_timer = setTimeout(function(){
+            TYRANO.kag.ftag.startTag("jump", {target: "*debate_loop"});
+        }, 2000); // 2秒ごとに更新
     }
     [endscript]
-    ; ★★★ 成功演出 ★★★
-    ; [playse storage="ronpa_voice.ogg"]
-    ; ... (台本の成功ルートのテキストとエンディングへ) ...
-    ～フェニー、ハウヘト、サブリナエンド～[l]
+    [s]
+
+*shoot_action
+    [iscript]
+    if (tf.is_debate_active === true) {
+        tf.is_debate_active = false;
+        clearTimeout(tf.debate_loop_timer);
+
+        // ★★★ 発言エリアが弱点を表示していたかチェック ★★★
+        var was_weakpoint = $("#debate_text_area").data("is_weakpoint");
+
+        // ★★★ 正しいコトダマが選択されていたかチェック ★★★
+        var is_correct_kotodama = (f.selected_kotodama === 'hihiiro');
+
+        if (was_weakpoint === true && is_correct_kotodama === true) {
+            TYRANO.kag.ftag.startTag("jump", {target: "*debate_success"});
+        } else {
+            // ペナルティ処理など (今回は失敗ジャンプのみ)
+            TYRANO.kag.ftag.startTag("jump", {target: "*debate_fail"});
+        }
+    }
+    [endscript]
+    [s]
+
+*debate_success
+     ... (論破！の演出) ...
+    [iscript] $("#debate_text_area").remove(); [endscript]
+     ...
     [jump storage="first.ks" target="*start"]
 
-*debate_timeout_badend
-    ; タイマーを止める処理（同上）
-    [iscript]
-    var timers = TYRANO.kag.tmp.timeout_timers;
-    for (var i = 0; i < timers.length; i++) {
-        clearTimeout(timers[i]);
-    }
-    [endscript]
-    ; ★★★ タイムアップBAD END ★★★
-    ; ... (台本のタイムアップBAD ENDのテキストを記述) ...
-    ～バッドエンド～[l]
-    [jump storage="first.ks" target="*start"]
+*debate_fail
+     ... (不正解メッセージ) ...
+    [jump target="*start_debate"] 
 
 
 ; ----- 器材ルート -----
