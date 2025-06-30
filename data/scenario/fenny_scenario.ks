@@ -347,7 +347,7 @@
     [glink text="フェニーの鼻歌" color="green" target="*ruria_breakdown_success"] 
     [glink text="口元のチョコ"    color="green" target="*present_fail"]
     [glink text="ヒヒイロボウル"  color="green" target="*present_fail"]
-    [glink text="やめる" x="70"  color="gray" target="*main_interrogation_choice"]
+    [glink text="やめる"   color="gray" target="*main_interrogation_choice"]
     [s]
 
 *show_evidence_selection_fail 
