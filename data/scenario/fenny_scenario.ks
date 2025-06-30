@@ -261,7 +261,8 @@
 
 *debate_success
      ... (論破！の演出) ...
-    [iscript] $("#debate_text_area").remove(); [endscript]
+    [iscript] $("#debate_text_area").remove(); 
+    [endscript]
      ...
     [jump storage="first.ks" target="*start"]
 
