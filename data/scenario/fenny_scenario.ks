@@ -11,7 +11,7 @@
 [chara_new name="sabrina" storage="sabrina_normal.png" jname="サブリナ"]
 [chara_new name="ruria" storage="ruria_normal.png" jname="ルリア"]
 [chara_new name="sandalphon" storage="sandalphon_normal.png" jname="サンダルフォン"]
-
+ [chara_face name="fenny" face="smile" storage="fenny_smile.png"] 
     #フェニー
     サブリナにチョコを渡したくて、[r]
     その為の器材や材料が買いたいんだよ！[p]
@@ -408,10 +408,10 @@
 
 *main_interrogation_choice
     ; 体力表示
-    [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="体力：&f.life"]
+    [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="体力："&f.life]
 
     #
-    どうする？[l]
+    どうする？[p]
 
     [glink text="ゆさぶる"  target="*select_testimony_for_shake"]
     [glink text="つきつける"  target="*select_testimony_for_present"]
@@ -436,7 +436,7 @@
     [jump target="*main_interrogation_choice"]
 *shake_testimony_2
     #ルリア
-    フェニーちゃんが何をしてたかって？それはもちろん...！[p]
+    フェニーちゃんが何をしてたかって？それはもちろんチョコ作りです！[p]
     [jump target="*main_interrogation_choice"]
 *shake_testimony_3
     #ルリア
@@ -487,12 +487,12 @@
 
 *present_fail
     [eval exp="f.life--"]
-    [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="体力：&f.life"]
+    [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="体力："&f.life]
     [if exp="f.life <= 0"]
         [jump target="*ruria_investigation_badend"]
     [else]
         #ルリア
-        そ、そんなの証拠になりません！[l]
+        そ、そんなの証拠になりません！[p]
         [jump target="*main_interrogation_choice"]
     [endif]
     [s]
@@ -506,7 +506,7 @@
     #ルリア
     え...！？フェニーちゃんは[r]
     鼻歌を歌っていた...？[p]
-    う、嘘ですよね？[l]
+    う、嘘ですよね？[p]
 
     [chara_hide name="ruria" time="200" wait="true"]
     [chara_show name="sandalphon" x="150" y="150" time="500" wait="true"]
@@ -521,7 +521,7 @@
     そ、そんな...[r]
     ご、ごめんなさい〜！[p]
     美味しそうでつい、[r]
-    魔が刺しちゃって...[l]
+    魔が刺しちゃって...[p]
 
     [chara_hide name="ruria" time="200" wait="true"]
     [chara_show name="fenny" x="150" y="150"]
@@ -529,16 +529,17 @@
     大丈夫なんだよ！[r]
     こんなこともあろうかと、[r]
     いーーっぱい！チョコは買ってきてあるんだよ！[p]
-    さ！気を取り直して一緒に作るんだよ！！[l]
+    さ！気を取り直して一緒に作るんだよ！！[p]
     [chara_hide name="fenny"]
 
     #
     君は矛盾を指摘できた。[p]
     チョコをもらったサブリナの笑顔、[r]
     チョコをあげたフェニーの笑顔、[r]
-    共にかけがえのない宝を守ることができた君は━[l]
+    共にかけがえのない宝を守ることができた君は━[p]
 
-    [chara_show name="fenny" x="150" y="150"]
+    [chara_show name="fenny" face="smile" x="150" y="150"]
+   
     #フェニー
     はい！団長さんにも！[r]
     ハッピーバレンタインなんだよ！[p]
@@ -552,7 +553,7 @@
 *ruria_investigation_badend
     [cm]
     [clearfix]
-    [chara_hide name="ruria"]
+   
     ; [playbgm storage="bad_end_bgm.ogg"]
 
     #ルリア
