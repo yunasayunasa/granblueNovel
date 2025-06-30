@@ -251,16 +251,27 @@
     ; ★★★ 逆転裁判パートへジャンプ ★★★
     
 
-
-; ... (*equipment_decline ラベルの「君はルリアの証言を聞くことにした。[l]」まで) ...
-
-*start_cross_examination_simple 
+*start_cross_examination
     [cm]
-    ; [playbgm storage="cross_examination_bgm.ogg"]
+    ; [playbgm storage="cross_examination_bgm.ogg"] 
 
     ; ★★★ 論破パートの初期設定 ★★★
     [iscript]
-    // 証拠品リスト (このパートで必要なもの)
+    // 証言リスト (tf変数なのでセーブデータをまたいでも残る)
+    tf.testimonies = [
+        { id: 1, text: "わ、私じゃありません！" },
+        { id: 2, text: "私はあなたと一緒にフェニーちゃんを見守ってたじゃないですか！" },
+        { id: 3, text: "フェニーちゃんは黙々とチョコを作ってたのを私も見てます！" }, // これが弱点
+        { id: 4, text: "ほら！ちゃんとフェニーちゃんが何してたかも分かります！" }
+    ];
+    // 揺さぶった時のセリフ
+    tf.shake_responses = {
+        1: "ま、まだ証言を始めたばかりです！ちゃんと話を聞いてください！",
+        2: "フェニーちゃんが何をしてたかって？それはもちろん...！",
+        3: "黙々と黙ってたかって...？ええ！そうです！真剣な顔で作ってましたよ！鼻歌一つ歌ってません！",
+        4: "だから、私は犯人じゃないんです！信じて下さい！"
+    };
+    // 証拠品リスト
     f.evidence_list = [
         { id: "singing", name:"フェニーの鼻歌"},
         { id: "choco_mouth", name:"口元のチョコ"},
@@ -269,126 +280,123 @@
     f.life = 5; // 体力
     [endscript]
 
-    ; --- UIと証言の提示 ---
+    ; --- UIの配置 ---
     [chara_show name="ruria" x="150" y="100"]
-    [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="体力：&f.life"]
+
+    ; 体力表示用のテキストエリア
+    [iscript] f.life_text = "体力：" + f.life; [endscript]
+    [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="&f.life_text"]
 
     #ルリア
-    そ、そうです！聞いてください！[p]
+    そ、そうです！聞いてください！[r]
     これが私のアリバイです！[l]
 
-    ; 証言を順番に表示
-    [font color="yellow"] ; 証言テキストの色を変えるなど
-    証言１：わ、私じゃありません！[p]
-    証言２：私はあなたと一緒に[r]フェニーちゃんを見守ってたじゃないですか！[p]
-    証言３：フェニーちゃんは黙々とチョコを作ってたのを[r]私も見てます！[p]
-    証言４：ほら！ちゃんとフェニーちゃんが[r]何してたかも分かります！[l]
+    ; 証言をまとめて表示
+    [font color="yellow"]
+    証言１：[emb exp="tf.testimonies[0].text"][r]
+    証言２：[emb exp="tf.testimonies[1].text"][r]
+    証言３：[emb exp="tf.testimonies[2].text"][r]
+    証言４：[emb exp="tf.testimonies[3].text"][l]
     [resetfont]
 
     # 
-「なるほど…。[r]この証言、どこかに矛盾があるはずだ…」[l]
+    （主人公の心の声）「なるほど…。[r]この証言、どこかに矛盾があるはずだ…」[l]
+    [jump target="*main_interrogation_choice"]
 
-; ★★★ ここからデバッグ用のシンプルなコードに置き換え ★★★
 
 *main_interrogation_choice
+    ; 体力表示を更新
+    [iscript] f.life_text = "体力：" + f.life; [endscript]
+    [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="&f.life_text"]
+
     どうする？[l]
-    [glink text="ゆさぶる" target="*shake_all_testimonies"]
-    [glink text="突き付ける" target="*present_evidence_simple"]
+
+    [glink color="orange" x="70" y="400" width="310" size="28" text="ゆさぶる" target="*select_testimony_for_shake"]
+    [glink color="red" x="70" y="470" width="310" size="28" text="つきつける" target="*select_testimony_for_present"]
     [s]
 
-*test1
-    テスト１が選ばれました[l]
-    [jump target="*main_interrogation_choice"]
+; ----- どの証言を「ゆさぶる」か選択 -----
+*select_testimony_for_shake
+    #
+    （主人公の心の声）「どの発言をゆさぶろうか…」[l]
+    ; 証言をglinkボタンとして表示
+    [glink text="&tf.testimonies[0].text" x="70" y="250" width="310" size="22" color="cyan" target="*shake_testimony_1"]
+    [glink text="&tf.testimonies[1].text" x="70" y="320" width="310" size="22" color="cyan" target="*shake_testimony_2"]
+    [glink text="&tf.testimonies[2].text" x="70" y="390" width="310" size="22" color="cyan" target="*shake_testimony_3"]
+    [glink text="&tf.testimonies[3].text" x="70" y="460" width="310" size="22" color="cyan" target="*shake_testimony_4"]
+    [glink text="やめる" x="70" y="550" width="310" size="22" color="gray" target="*main_interrogation_choice"]
+    [s]
 
-*test2
-    テスト２が選ばれました[l]
-    [jump target="*main_interrogation_choice"]
+*shake_testimony_1
+    [eval exp="f.shake_response_text = tf.shake_responses[1]"]
+    [jump target="*show_shake_response"]
+*shake_testimony_2
+    [eval exp="f.shake_response_text = tf.shake_responses[2]"]
+    [jump target="*show_shake_response"]
+*shake_testimony_3
+    [eval exp="f.shake_response_text = tf.shake_responses[3]"]
+    [jump target="*show_shake_response"]
+*shake_testimony_4
+    [eval exp="f.shake_response_text = tf.shake_responses[4]"]
+    [jump target="*show_shake_response"]
 
-
-*shake_all_testimonies 
+*show_shake_response 
     ; [playse storage="matta_voice.ogg"]
-    # 
-    「待った！もう少し詳しく聞かせてもらおうか！」[l]
-
     #ルリア
-    ま、まだ証言を始めたばかりです！[r]ちゃんと話を聞いてください！[p]
-    フェニーちゃんが何をしてたかって？[r]それはもちろん...！[p]
-    黙々と黙ってたかって...？[r]ええ！そうです！[r]真剣な顔で作ってましたよ！[r]鼻歌一つ歌ってません！[p]
-    だから、私は犯人じゃないんです！[r]信じて下さい！[l]
-
-    ; 揺さぶった後は、再度選択肢に戻る
+    [emb exp="f.shake_response_text"][l]
     [jump target="*main_interrogation_choice"]
 
-*present_evidence_simple
-    ; ... (前のテキスト) ...
-    （主人公の心の声）「どの証拠品を突きつけようか…」[l]
 
-    ; ★★★ 選択肢は、それぞれ別の中継ラベルにジャンプするだけ ★★★
-    [glink text="&f.evidence_list[0].name" x="70" y="250" width="300" size="24" color="green" target="*selected_evidence_0"]
-    [glink text="&f.evidence_list[1].name" x="70" y="320" width="300" size="24" color="green" target="*selected_evidence_1"]
-    [glink text="&f.evidence_list[2].name" x="70" y="390" width="300" size="24" color="green" target="*selected_evidence_2"]
-
-    ; 戻るボタン
-    [glink text="戻る" x="70" y="480" width="300" size="24" color="gray" target="*main_interrogation_choice"]
+; ----- どの証言に「つきつける」か選択 -----
+*select_testimony_for_present
+    # ; 名前クリア
+    （主人公の心の声）「どの発言に証拠品をつきつけようか…」[l]
+    [glink text="&tf.testimonies[0].text" x="70" y="250" width="310" size="22" color="cyan" exp="f.target_testimony_id = 1" target="*show_evidence_selection_for_ruria"]
+    [glink text="&tf.testimonies[1].text" x="70" y="320" width="310" size="22" color="cyan" exp="f.target_testimony_id = 2" target="*show_evidence_selection_for_ruria"]
+    [glink text="&tf.testimonies[2].text" x="70" y="390" width="310" size="22" color="cyan" exp="f.target_testimony_id = 3" target="*show_evidence_selection_for_ruria"]
+    [glink text="&tf.testimonies[3].text" x="70" y="460" width="310" size="22" color="cyan" exp="f.target_testimony_id = 4" target="*show_evidence_selection_for_ruria"]
+    [glink text="やめる" x="70" y="550" width="310" size="22" color="gray" target="*main_interrogation_choice"]
     [s]
 
-; ----- 証拠品ごとの中継ラベル -----
-*selected_evidence_0
-    [eval exp="f.selected_evidence_id = f.evidence_list[0].id"]
-    [jump target="*check_evidence_result"]
+*show_evidence_selection_for_ruria
+    # ; 名前クリア
+    （主人公の心の声）「どの証拠品を使おうか…」[l]
+    ; [playse storage="igiari_voice.ogg"]
+    ; 証拠品選択肢をglinkで表示
+    [glink text="&f.evidence_list[0].name" x="70" y="250" width="300" size="24" color="green" exp="f.selected_evidence_id = f.evidence_list[0].id" target="*check_evidence_result"]
+    [glink text="&f.evidence_list[1].name" x="70" y="320" width="300" size="24" color="green" exp="f.selected_evidence_id = f.evidence_list[1].id" target="*check_evidence_result"]
+    [glink text="&f.evidence_list[2].name" x="70" y="390" width="300" size="24" color="green" exp="f.selected_evidence_id = f.evidence_list[2].id" target="*check_evidence_result"]
+    [glink text="やめる" x="70" y="480" width="300" size="24" color="gray" target="*main_interrogation_choice"]
+    [s]
 
-*selected_evidence_1
-    [eval exp="f.selected_evidence_id = f.evidence_list[1].id"]
-    [jump target="*check_evidence_result"]
-
-*selected_evidence_2
-    [eval exp="f.selected_evidence_id = f.evidence_list[2].id"]
-    [jump target="*check_evidence_result"]
-
-
-*check_evidence_result 
-    ; [playse storage="select_se.wav"]
-
-    ; ★★★ iscript で安全に判定を行う ★★★
-    [iscript]
-    var is_correct = false;
-    // 正解条件: 証言3 (weakpoint) に対して、証拠品 'singing' (鼻歌) を選んだ
-    // f.current_testimony_index は「ゆさぶる」などで変化するため、
-    // ここではどの証言に対してでも「鼻歌」が正解、というシンプルな判定にする
-    if (f.selected_evidence_id == 'singing') {
-        is_correct = true;
-    }
-    f.is_correct_evidence = is_correct;
-    [endscript]
-
-    [if exp="f.is_correct_evidence == true"]
+*check_evidence_result
+    [if exp="f.target_testimony_id == 3 && f.selected_evidence_id == 'singing'"]
+        ; 正解！
         [jump target="*ruria_breakdown_success"]
     [else]
-        ; 不正解なら体力を減らす
-        [iscript]
-        f.life--;
-        f.life_text = "体力：" + f.life;
-        [endscript]
-        [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="&f.life_text"]
-
+        ; 不正解
+        [eval exp="f.life--"]
         [if exp="f.life <= 0"]
             [jump target="*ruria_investigation_badend"]
         [else]
             #ルリア
-            そ、そんなの証拠になりません！[p]
-            もう一回言いますよ！[l]
-            [jump target="*main_interrogation_choice"] 
+            そ、そんなの証拠になりません！[l]
+            [jump target="*main_interrogation_choice"]
+        [endif]
     [endif]
     [s]
 
-*ruria_breakdown_success_success
+*ruria_breakdown_success
     [cm]
+    [clearfix]
+    [chara_hide name="ruria"]
     ; [playbgm storage="success_bgm.ogg"]
+    [chara_show name="ruria" x="150" y="100"]
     #ルリア
-    え...！？フェニーちゃんは[r]鼻歌を歌っていた...？[p]
+    え...！？フェニーちゃんは[r]
+    鼻歌を歌っていた...？[p]
     う、嘘ですよね？[l]
 
-    ; サンダルフォン登場
     [chara_hide name="ruria" time="200" wait="true"]
     [chara_show name="sandalphon" x="150" y="150" time="500" wait="true"]
     #サンダルフォン
@@ -397,22 +405,60 @@
     あれは間違いなくフェニーだった。[l]
     [chara_hide name="sandalphon" time="200" wait="true"]
 
-    [chara_show name="ruria" x="150" y="150" time="500" wait="true"]
+    [chara_show name="ruria" x="150" y="100" time="500" wait="true"]
     #ルリア
     そ、そんな...[r]
     ご、ごめんなさい〜！[p]
     美味しそうでつい、[r]
     魔が刺しちゃって...[l]
 
-    ; ... (台本の成功ルートの残りのテキストとフェニーエンドへ続く) ...
-    ; ...
+    [chara_hide name="ruria" time="200" wait="true"]
+    [chara_show name="fenny" x="150" y="150"]
+    #フェニー
+    大丈夫なんだよ！[r]
+    こんなこともあろうかと、[r]
+    いーーっぱい！チョコは買ってきてあるんだよ！[p]
+    さ！気を取り直して一緒に作るんだよ！！[l]
+    [chara_hide name="fenny"]
+
+    #
+    君は矛盾を指摘できた。[p]
+    チョコをもらったサブリナの笑顔、[r]
+    チョコをあげたフェニーの笑顔、[r]
+    共にかけがえのない宝を守ることができた君は━[l]
+
+    [chara_show name="fenny" x="150" y="150"]
+    #フェニー
+    はい！団長さんにも！[r]
+    ハッピーバレンタインなんだよ！[p]
+    [chara_hide name="fenny"]
+
+    #
+    無事、チョコを手に入れることができた。[p]
     ～フェニーエンド～[l]
-    [chara_hide name="ruria"]
     [jump storage="first.ks" target="*start"]
 
-*ruria_investigation_badend ; 体力ゼロのBAD END
+*ruria_investigation_badend
     [cm]
+    [clearfix]
     [chara_hide name="ruria"]
-    ; ... (台本の「君は矛盾を指摘できなかった。」のテキストを記述) ...
+    ; [playbgm storage="bad_end_bgm.ogg"]
+
+    #ルリア
+    ほら！何度やっても同じです！[r]
+    ね？私は食べていないでしょう？[p]
+    チョコは無くなっちゃいましたが...[p]
+    美味しかったからしょうがないですよ！[l]
+
+    [chara_hide name="ruria" time="200" wait="true"]
+    [chara_show name="fenny" x="150" y="150"]
+    #フェニー
+    サブリナ...ごめんなんだよ...[l]
+    [chara_hide name="fenny"]
+
+    #
+    君は矛盾を指摘できなかった。[p]
+    チョコもフェニーの笑顔も守れなかった敗北者として、[r]
+    君の名は歴史に刻まれた。[p]
     ～バッドエンド～[l]
     [jump storage="first.ks" target="*start"]
