@@ -216,18 +216,30 @@
 
 *check_shot_action
     ; [playse storage="shoot_se.wav"]
+
     [if exp="f.is_weakpoint_now == true && f.shot_kotodama_id == 'hihiiro'"]
         ; 正解！
-        [eval exp="f.is_debate_active = false"]
-         ; ループ停止フラグを立てる
+        [eval exp="f.is_debate_active = false"] 
+        ; ループ停止フラグを立てる
         [jump target="*debate_success"]
+
     [else]
-        ; 不正解
-        ; ペナルティ処理など（タイマー減少など）
-        ; 今回は何もしない（ループは続く）
+        ; ★★★ 不正解の処理を明確にする ★★★
+        ; [playse storage="fail_se.wav"] ; 不正解の効果音
+
+        ; 一時的にメッセージウィンドウを表示して「違う！」と伝える
+        @layopt layer=message0 visible=true
+        #ルリア
+        はわわ〜、よく分かりませんでしたぁ。[r]もう一回最初から言いますね？[l]
+        @layopt layer=message0 visible=false
+
+        ; 議論ループに戻る (インデックスをリセットして最初から)
+        [eval exp="f.debate_index = 0"]
+        [jump target="*debate_loop"]
+
     [endif]
-    ; 不正解の場合は何もせず、元のループの[wait]に戻る
-    [s]
+    [s] 
+    ; if文の後には[s]が必要
 
 *debate_success
     [cm]
