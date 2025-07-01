@@ -12,7 +12,7 @@
 [chara_new name="ruria" storage="ruria_normal.png" jname="ルリア"]
 [chara_new name="sandalphon" storage="sandalphon_normal.png" jname="サンダルフォン"]
  [chara_face name="fenny" face="smile" storage="fenny_smile.png"] 
-  [call storage="macro.ks"] 
+  
     #フェニー
     サブリナにチョコを渡したくて、[r]
     その為の器材や材料が買いたいんだよ！[p]
@@ -147,7 +147,7 @@
 
   
 *start_debate
-    
+    [call storage="macro.ks"] 
 
     [cm]
     [clearfix]
@@ -173,7 +173,7 @@
     tf.debate_loop_timer = null;
     [endscript]
 
-     [draw_debate_ui] ; UIを描画
+     [draw_debate_ui]
     [update_testimony_display] 
     [jump target="*debate_loop"]
     [s]
