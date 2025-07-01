@@ -218,7 +218,8 @@
     ; [playse storage="shoot_se.wav"]
     [if exp="f.is_weakpoint_now == true && f.shot_kotodama_id == 'hihiiro'"]
         ; 正解！
-        [eval exp="f.is_debate_active = false"] ; ループ停止フラグを立てる
+        [eval exp="f.is_debate_active = false"]
+         ; ループ停止フラグを立てる
         [jump target="*debate_success"]
     [else]
         ; 不正解
@@ -244,102 +245,7 @@
     ; タイムアップなどで議論が終了した場合の処理
     ; 今回は成功時しか来ないが、念のため
     @endjump
-*start_debate
-    [call storage="macro.ks"] 
 
-    [cm]
-    [clearfix]
-    ; [bg storage="courtroom_bg.jpg" time="500"]
-    @layopt layer=message0 visible=false
-   
-    [chara_show name="ruria" x="150" y="100"]
-
-    ; ★★★ 変数初期化 ★★★
-    [iscript]
-    tf.debate_statements = [
-        { id: 1, text: "フェニーちゃんのチョコはここにあります！", is_weakpoint: false },
-        { id: 2, text: "サンダルフォンさんが用意したこの銀の器材の中です！", is_weakpoint: true },
-        { id: 3, text: "ヘラもちゃんと用意してくれました！", is_weakpoint: false },
-        { id: 4, text: "ハウヘトさんから何か受け取ってましたけど、それが何だっていうんですか！", is_weakpoint: false }
-    ];
-    tf.kotodama_list = [
-        { id: "hera", name: "サンダルフォンのヘラ" },
-        { id: "hihiiro", name: "ヒヒイロボウル" }
-    ];
-    tf.debate_index = 0;
-    tf.is_debate_active = true;
-    tf.debate_loop_timer = null;
-    [endscript]
-
-     [draw_debate_ui]
-    [update_testimony_display] 
-    [jump target="*debate_loop"]
-    [s]
-
-
-
-*debate_loop
-    [iscript]
-    if (tf.is_debate_active === false) {
-        if(tf.debate_loop_timer) clearTimeout(tf.debate_loop_timer);
-        [jump target="*debate_end_processing"]
-    }
-    tf.debate_index = (tf.debate_index + 1) % tf.debate_statements.length;
-    [endscript]
-    
-    ; ★★★ 証言更新もマクロで ★★★
-    [update_testimony_display]
-
-    [wait time="2000"]
-    [jump target="*debate_loop" cond="tf.is_debate_active == true"]
-    [s]
-
-
-; ----- コトダマボタンが押された時の中継ラベル -----
-*on_kotodama_0_click
-    [eval exp="f.shot_kotodama_id = tf.kotodama_list[0].id"]
-    [jump target="*check_shot_action"]
-*on_kotodama_1_click
-    [eval exp="f.shot_kotodama_id = tf.kotodama_list[1].id"]
-    [jump target="*check_shot_action"]
-
-*check_shot_action
-    ; [playse storage="shoot_se.wav"]
-    [if exp="f.is_weakpoint_now == true && f.shot_kotodama_id == 'hihiiro'"]
-        [eval exp="tf.is_debate_active = false"]
-        [jump target="*debate_success"]
-    [else]
-        [jump target="*debate_fail"]
-    [endif]
-    [s]
-
-*debate_success
-    [eval exp="tf.is_debate_active = false"]
-    [cm]
-    [clearfix]
-    
-    ; ★★★ 通常のメッセージウィンドウに戻すマクロを呼び出す ★★★
-    [setup_main_message_window]
-    
-    [quake time="300" count="3"]
-    [font size="50" color="red" bold="true"]論破！[p][resetfont]
-    ; ... (成功シナリオ) ...
-    [jump storage="first.ks" target="*start"]
-
-*debate_fail
-    ; 不正解メッセージをメッセージウィンドウに表示
-    ; ★★★ 通常のメッセージウィンドウに戻すマクロを呼び出す ★★★
-    [setup_main_message_window]
-    #ルリア
-    それは違う！[l]
-
-    ; ★★★ 再び議論UIに戻す ★★★
-    @layopt layer=message0 visible=false 
-    ; 通常メッセージウィンドウを非表示に
-    [draw_debate_ui]
-    [update_testimony_display]
-     ; 証言を再表示
-    [jump target="*debate_loop"]
 
 
 ; ----- 器材ルート -----
