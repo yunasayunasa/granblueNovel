@@ -182,23 +182,26 @@
 
 
 *debate_loop
+    ; ★★★ iscript の役割を、変数の準備だけにする ★★★
     [iscript]
     if (tf.is_debate_active === false) {
-        if(tf.debate_loop_timer) clearTimeout(tf.debate_loop_timer);
-        [jump target="*debate_end_processing"]
+        // もし議論が終了していたら、このiscriptは何もしない
+    } else {
+        var current_statement = tf.debate_statements[tf.debate_index];
+        f.current_text = current_statement.text;
+        f.is_weakpoint_now = current_statement.is_weakpoint;
+        tf.debate_index = (tf.debate_index + 1) % tf.debate_statements.length;
     }
-    var current_statement = tf.debate_statements[tf.debate_index];
-    f.current_text = current_statement.text;
-    f.is_weakpoint_now = current_statement.is_weakpoint;
-    tf.debate_index = (tf.debate_index + 1) % tf.debate_statements.length;
     [endscript]
 
-    ; ★★★ 必須パラメータを全て含めたptextのoverwrite ★★★
+    ; ★★★ iscriptの結果を使って、タグで画面を更新 ★★★
     [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="28" color="white" text="&f.current_text" overwrite="true"]
 
+    ; ★★★ setTimeoutの代わりに[wait]と[jump]でループ ★★★
     [wait time="2000"]
     [jump target="*debate_loop" cond="tf.is_debate_active == true"]
-    [s]
+    [s] 
+    ; この[s]は重要。jumpが評価されるまでスクリプトを止める
 
 ; ----- コトダマボタンが押された時の中継ラベル -----
 *on_kotodama_0_click
