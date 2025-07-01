@@ -12,6 +12,7 @@
 [chara_new name="ruria" storage="ruria_normal.png" jname="ルリア"]
 [chara_new name="sandalphon" storage="sandalphon_normal.png" jname="サンダルフォン"]
  [chara_face name="fenny" face="smile" storage="fenny_smile.png"] 
+  [call storage="macro.ks"] 
     #フェニー
     サブリナにチョコを渡したくて、[r]
     その為の器材や材料が買いたいんだよ！[p]
@@ -146,12 +147,7 @@
 
   
 *start_debate
-     [macro name="draw_debate_ui"]
-        [chara_show name="ruria" x="150" y="100"]
-        [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="28" color="white" class="testimony_area_js"]
-        [glink name="kotodama_0" text="&tf.kotodama_list[0].name" x="20" y="650" width="200" size="20" color="green" target="*on_kotodama_0_click"]
-        [glink name="kotodama_1" text="&tf.kotodama_list[1].name" x="230" y="650" width="200" size="20" color="green" target="*on_kotodama_1_click"]
-    [endmacro]
+    
 
     [cm]
     [clearfix]
@@ -177,36 +173,29 @@
     tf.debate_loop_timer = null;
     [endscript]
 
-    ; --- UIの配置 ---
-     ; --- UIの初回配置 ---
-    [draw_debate_ui]
-
-    ; 議論ループ開始
+     [draw_debate_ui] ; UIを描画
+    [update_testimony_display] 
     [jump target="*debate_loop"]
     [s]
 
 
+
 *debate_loop
-    ; ★★★ iscript の役割を、変数の準備だけにする ★★★
     [iscript]
     if (tf.is_debate_active === false) {
-        // もし議論が終了していたら、このiscriptは何もしない
-    } else {
-        var current_statement = tf.debate_statements[tf.debate_index];
-        f.current_text = current_statement.text;
-        f.is_weakpoint_now = current_statement.is_weakpoint;
-        tf.debate_index = (tf.debate_index + 1) % tf.debate_statements.length;
+        if(tf.debate_loop_timer) clearTimeout(tf.debate_loop_timer);
+        [jump target="*debate_end_processing"]
     }
+    tf.debate_index = (tf.debate_index + 1) % tf.debate_statements.length;
     [endscript]
+    
+    ; ★★★ 証言更新もマクロで ★★★
+    [update_testimony_display]
 
-    ; ★★★ iscriptの結果を使って、タグで画面を更新 ★★★
-    [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="28" color="white" text="&f.current_text" overwrite="true"]
-
-    ; ★★★ setTimeoutの代わりに[wait]と[jump]でループ ★★★
     [wait time="2000"]
     [jump target="*debate_loop" cond="tf.is_debate_active == true"]
-    [s] 
-    ; この[s]は重要。jumpが評価されるまでスクリプトを止める
+    [s]
+
 
 ; ----- コトダマボタンが押された時の中継ラベル -----
 *on_kotodama_0_click
@@ -230,30 +219,28 @@
     [eval exp="tf.is_debate_active = false"]
     [cm]
     [clearfix]
-    @layopt layer=message0 visible=true
+    
+    ; ★★★ 通常のメッセージウィンドウに戻すマクロを呼び出す ★★★
+    [setup_main_message_window]
+    
     [quake time="300" count="3"]
     [font size="50" color="red" bold="true"]論破！[p][resetfont]
     ; ... (成功シナリオ) ...
     [jump storage="first.ks" target="*start"]
 
 *debate_fail
-    ; ★★★ 不正解時の処理 ★★★
-    [cm] ; メッセージをクリア
-
-    ; ★★★ UIを再描画する ★★★
-    [draw_debate_ui]
-
-    ; ★★★ 証言表示も再実行 ★★★
-    ; iscriptは不要。直前の証言を再表示する
-    [ptext name="testimony_text" text="&f.current_text" overwrite="true"]
-    
     ; 不正解メッセージをメッセージウィンドウに表示
-    @layopt layer=message0 visible=true
+    ; ★★★ 通常のメッセージウィンドウに戻すマクロを呼び出す ★★★
+    [setup_main_message_window]
     #ルリア
     それは違う！[l]
-    @layopt layer=message0 visible=false
 
-    ; 再び議論ループへ
+    ; ★★★ 再び議論UIに戻す ★★★
+    @layopt layer=message0 visible=false 
+    ; 通常メッセージウィンドウを非表示に
+    [draw_debate_ui]
+    [update_testimony_display]
+     ; 証言を再表示
     [jump target="*debate_loop"]
 
 
