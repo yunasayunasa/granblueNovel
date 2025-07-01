@@ -145,7 +145,105 @@
     ; ★★★ ノンストップ議論パートへジャンプ ★★★
     [jump  target="*start_debate"]
 
-  
+  *start_debate
+    [cm]
+    [clearfix]
+    [bg storage="courtroom_bg.jpg" time="500"]
+    @layopt layer=message0 visible=false
+    
+    ; ★★★ 議論用の変数を最初に全て初期化 ★★★
+    [iscript]
+    f.debate_statements = [
+        { id: 1, text: "フェニーちゃんのチョコはここにあります！", is_weakpoint: false },
+        { id: 2, text: "サンダルフォンさんが用意したこの銀の器材の中です！", is_weakpoint: true },
+        { id: 3, text: "ヘラもちゃんと用意してくれました！", is_weakpoint: false },
+        { id: 4, text: "ハウヘトさんから何か受け取ってましたけど、それが何だっていうんですか！", is_weakpoint: false }
+    ];
+    f.kotodama_list = [
+        { id: "hera", name: "サンダルフォンのヘラ" },
+        { id: "hihiiro", name: "ヒヒイロボウル" } // 正解
+    ];
+    f.debate_index = 0;
+    f.is_debate_active = true;
+    [endscript]
+
+    ; --- UIの配置 ---
+    [chara_show name="ruria" x="150" y="100"]
+
+    ; ★★★ 証言表示エリアを最初に定義 ★★★
+    [ptext name="debate_text" layer="0" x="50" y="300" width="350" height="100" size="28" color="white" border="line" border_color="red" border_size="2"]
+
+    ; ★★★ コトダマボタンを配置 ★★★
+    ; targetをそれぞれ専用の中継ラベルに向ける (exp属性は使わない)
+    [glink name="kotodama_hera" text="&f.kotodama_list[0].name" x="20" y="650" width="200" size="20" color="green" target="*on_shot_hera"]
+    [glink name="kotodama_hihiiro" text="&f.kotodama_list[1].name" x="230" y="650" width="200" size="20" color="green" target="*on_shot_hihiiro"]
+    
+    ; 議論ループ開始
+    [jump target="*debate_loop"]
+    [s]
+
+*debate_loop
+    ; 議論が終了していたら、このループを抜ける
+    [if exp="f.is_debate_active == false"]
+        [jump target="*debate_end_processing"]
+    [endif]
+
+    ; ★★★ 表示する証言の情報を変数に格納 ★★★
+    [iscript]
+    // iscriptの中ではtf変数ではなく、f変数を使う方が安定する場合がある
+    var current_statement = f.debate_statements[f.debate_index];
+    f.current_text = current_statement.text;
+    f.is_weakpoint_now = current_statement.is_weakpoint;
+    
+    // 次のインデックスを準備
+    f.debate_index = (f.debate_index + 1) % f.debate_statements.length;
+    [endscript]
+    
+    ; ★★★ [ptext overwrite="true"] でテキストを更新 ★★★
+    [ptext name="debate_text" layer="0" x="50" y="300" text="&f.current_text" overwrite="true"]
+    
+    [wait time="2000"]
+    [jump target="*debate_loop"]
+    [s]
+
+; ----- コトダマボタンが押された時の中継ラベル -----
+*on_shot_hera
+    [eval exp="f.shot_kotodama_id = 'hera'"]
+    [jump target="*check_shot_action"]
+*on_shot_hihiiro
+    [eval exp="f.shot_kotodama_id = 'hihiiro'"]
+    [jump target="*check_shot_action"]
+
+*check_shot_action ; 共通の判定処理
+    ; [playse storage="shoot_se.wav"]
+    [if exp="f.is_weakpoint_now == true && f.shot_kotodama_id == 'hihiiro'"]
+        ; 正解！
+        [eval exp="f.is_debate_active = false"] ; ループ停止フラグを立てる
+        [jump target="*debate_success"]
+    [else]
+        ; 不正解
+        ; ペナルティ処理など（タイマー減少など）
+        ; 今回は何もしない（ループは続く）
+    [endif]
+    ; 不正解の場合は何もせず、元のループの[wait]に戻る
+    [s]
+
+*debate_success
+    [cm]
+    [clearfix]
+    [free name="debate_text" layer="0"]
+    [free name="kotodama_hera"]
+    [free name="kotodama_hihiiro"]
+    @layopt layer=message0 visible=true
+    [quake time="300" count="3"]
+    [font size="50" color="red" bold="true"]論破！[p][resetfont]
+    ; ... (成功シナリオ) ...
+    [jump storage="first.ks" target="*start"]
+
+*debate_end_processing
+    ; タイムアップなどで議論が終了した場合の処理
+    ; 今回は成功時しか来ないが、念のため
+    @endjump
 *start_debate
     [call storage="macro.ks"] 
 
