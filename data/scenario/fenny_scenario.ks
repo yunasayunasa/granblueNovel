@@ -148,7 +148,7 @@
   *start_debate
     [cm]
     [clearfix]
-    [bg storage="courtroom_bg.jpg" time="500"]
+    ;[bg storage="courtroom_bg.jpg" time="500"]
     @layopt layer=message0 visible=false
     
     ; ★★★ 議論用の変数を最初に全て初期化 ★★★
@@ -214,7 +214,7 @@
     [eval exp="f.shot_kotodama_id = 'hihiiro'"]
     [jump target="*check_shot_action"]
 
-*check_shot_action ; 共通の判定処理
+*check_shot_action
     ; [playse storage="shoot_se.wav"]
     [if exp="f.is_weakpoint_now == true && f.shot_kotodama_id == 'hihiiro'"]
         ; 正解！
@@ -233,8 +233,8 @@
     [cm]
     [clearfix]
     [free name="debate_text" layer="0"]
-    [free name="kotodama_hera"]
-    [free name="kotodama_hihiiro"]
+    [free name="kotodama_hera"layer="0"]
+    [free name="kotodama_hihiiro"layer="0"]
     @layopt layer=message0 visible=true
     [quake time="300" count="3"]
     [font size="50" color="red" bold="true"]論破！[p][resetfont]
