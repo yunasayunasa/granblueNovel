@@ -214,11 +214,11 @@
 *check_shot_action
     ; [playse storage="shoot_se.wav"]
     [if exp="f.is_weakpoint_now == true && f.shot_kotodama_id == 'hihiiro'"]
-        ; 正解！
+         正解！
         [eval exp="tf.is_debate_active = false"]
         [jump target="*debate_success"]
     [else]
-        ; 不正解 (ペナルティ処理など)
+         不正解 
         [jump target="*debate_fail"]
     [endif]
     [s]
