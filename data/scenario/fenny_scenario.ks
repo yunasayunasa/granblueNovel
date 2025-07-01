@@ -144,8 +144,7 @@
     ; ★★★ ノンストップ議論パートへジャンプ ★★★
     [jump  target="**start_debate"]
 
-   ; fenny_scenario.ks
-
+  
 *start_debate
     [cm]
     [clearfix]
@@ -153,7 +152,7 @@
     @layopt layer=message0 visible=false
     [chara_show name="ruria" x="150" y="100"]
 
-    ; ★★★ 議論用の変数を初期化 ★★★
+    ; ★★★ 変数初期化 ★★★
     [iscript]
     tf.debate_statements = [
         { id: 1, text: "フェニーちゃんのチョコはここにあります！", is_weakpoint: false },
@@ -163,7 +162,7 @@
     ];
     tf.kotodama_list = [
         { id: "hera", name: "サンダルフォンのヘラ" },
-        { id: "hihiiro", name: "ヒヒイロボウル" } // 正解
+        { id: "hihiiro", name: "ヒヒイロボウル" }
     ];
     tf.debate_index = 0;
     tf.is_debate_active = true;
@@ -171,85 +170,77 @@
     [endscript]
 
     ; --- UIの配置 ---
-    ; ★★★ 証言表示エリアを [ptext] で最初に定義 ★★★
-    [ptext name="debate_text" layer="0" x="50" y="300" width="350" height="100" size="28" color="white" border="line" border_color="red" border_size="2"]
+    [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="28" color="white" border="line" border_color="red" border_size="2"]
 
-    ; ★★★ コトダマを常にボタンとして表示 ★★★
-    ; targetを新設した判定用ラベルに向ける
-    [glink text="&tf.kotodama_list[0].name" x="20" y="650" width="200" size="20" color="green" target="*check_shot_action" exp="f.shot_kotodama_id = tf.kotodama_list[0].id"]
-    [glink text="&tf.kotodama_list[1].name" x="230" y="650" width="200" size="20" color="green" target="*check_shot_action" exp="f.shot_kotodama_id = tf.kotodama_list[1].id"]
-    
+    ; ★★★ コトダマボタンの target を、それぞれ専用の中継ラベルに向ける ★★★
+    [glink name="kotodama_0" text="&tf.kotodama_list[0].name" x="20" y="650" width="200" size="20" color="green" target="*on_kotodama_0_click"]
+    [glink name="kotodama_1" text="&tf.kotodama_list[1].name" x="230" y="650" width="200" size="20" color="green" target="*on_kotodama_1_click"]
+
     ; 議論ループ開始
     [jump target="*debate_loop"]
     [s]
 
+
 *debate_loop
     [iscript]
-    // 議論がアクティブでなければループを止める
     if (tf.is_debate_active === false) {
         if(tf.debate_loop_timer) clearTimeout(tf.debate_loop_timer);
-        [jump target="*debate_end_processing"] ; 議論終了処理へ
+        [jump target="*debate_end_processing"]
     }
-    
-    // 表示する証言と弱点情報を変数にセット
     var current_statement = tf.debate_statements[tf.debate_index];
     f.current_text = current_statement.text;
-    f.is_weakpoint_now = current_statement.is_weakpoint; // 現在弱点かどうか
-
-    // 次のインデックスを準備
+    f.is_weakpoint_now = current_statement.is_weakpoint;
     tf.debate_index = (tf.debate_index + 1) % tf.debate_statements.length;
     [endscript]
 
-    ; ★★★ [ptext] タグの overwrite 機能でテキストを更新 ★★★
-    [ptext name="debate_text" text="&f.current_text" overwrite="true"]
+    ; ★★★ 必須パラメータを全て含めたptextのoverwrite ★★★
+    [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="28" color="white" text="&f.current_text" overwrite="true"]
 
-    ; [iscript] 内の setTimeout は不安定さの原因になりやすいので、[wait]と[jump]に置き換える
     [wait time="2000"]
-    [jump target="*debate_loop" cond="tf.is_debate_active == true"] ; アクティブな間だけループ
-
-    ; この[s]は不要かもしれないが、念のため
+    [jump target="*debate_loop" cond="tf.is_debate_active == true"]
     [s]
 
-*check_shot_action ; コトダマボタンが押された時の処理
+; ----- コトダマボタンが押された時の中継ラベル -----
+*on_kotodama_0_click
+    [eval exp="f.shot_kotodama_id = tf.kotodama_list[0].id"]
+    [jump target="*check_shot_action"]
+*on_kotodama_1_click
+    [eval exp="f.shot_kotodama_id = tf.kotodama_list[1].id"]
+    [jump target="*check_shot_action"]
+
+*check_shot_action
     ; [playse storage="shoot_se.wav"]
-    
-    ; ★★★ 判定ロジック ★★★
-    ; f.is_weakpoint_now は直前の*debate_loopで設定された「現在の証言が弱点か」の情報
-    ; f.shot_kotodama_id はクリックされたglinkのexpで設定されたコトダマID
     [if exp="f.is_weakpoint_now == true && f.shot_kotodama_id == 'hihiiro'"]
         ; 正解！
-        [eval exp="tf.is_debate_active = false"] ; ループを止める
+        [eval exp="tf.is_debate_active = false"]
         [jump target="*debate_success"]
     [else]
-        ; 不正解
-        ; [playse storage="fail_se.wav"]
-        ; ここでペナルティ処理（タイマーを減らすなど）
-        ; 今回はシンプルに何もしない（議論はそのまま続く）
+        ; 不正解 (ペナルティ処理など)
+        [jump target="*debate_fail"]
     [endif]
-    ; 不正解の場合、処理は何もせず、進行中の*debate_loopの[wait]と[jump]に戻る
-    [s] ; この[s]が重要。何もしない場合でもスクリプトをここで一旦止める
+    [s]
 
 *debate_success
-    ; 議論終了処理
-    [eval exp="tf.is_debate_active = false"] ; 念のため再度ループ停止フラグ
-    ; ボタンやテキストエリアを消す
-    [free name="debate_text" layer="0"]
-    [free name="prev_btn"] ; (ボタンのname属性に合わせて修正)
-    [free name="next_btn"]
-    ; ... 他のUI要素も[free]で消す
-
-    ; 「論破！」演出
     [cm]
     [clearfix]
+    [free name="testimony_text" layer="0"] ; ptextを消す
+    [free name="kotodama_0"] ; ボタンを消す
+    [free name="kotodama_1"] ; ボタンを消す
     @layopt layer=message0 visible=true
     [quake time="300" count="3"]
     [font size="50" color="red" bold="true"]論破！[p][resetfont]
-    
-    ; ... (成功シナリオへ続く) ...
+    ; ... (成功シナリオ) ...
     [jump storage="first.ks" target="*start"]
 
-*debate_end_processing ; 議論が終了した後の処理用（タイムアップなど）
-    ; ここにタイムアップ時の処理などを記述
+*debate_fail
+    ; 不正解時の処理 (シンプルに議論を続ける)
+    ; 何かメッセージを出しても良い
+    ; #ルリア
+    ; それは違う！[l]
+    [jump target="*debate_loop"] ; そのまま議論ループに戻る
+
+*debate_end_processing
+    ; タイムアップなどで議論が終了した場合の処理
     @endjump
 
 
