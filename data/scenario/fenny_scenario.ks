@@ -144,7 +144,9 @@
     ; ★★★ ノンストップ議論パートへジャンプ ★★★
     [jump  target="**start_debate"]
 
-    *start_debate
+   ; fenny_scenario.ks
+
+*start_debate
     [cm]
     [clearfix]
     [bg storage="courtroom_bg.jpg" time="500"]
@@ -163,112 +165,92 @@
         { id: "hera", name: "サンダルフォンのヘラ" },
         { id: "hihiiro", name: "ヒヒイロボウル" } // 正解
     ];
-    f.selected_kotodama = ""; // 選択中のコトダマID
     tf.debate_index = 0;
+    tf.is_debate_active = true;
     tf.debate_loop_timer = null;
-    tf.is_debate_active = false;
     [endscript]
 
     ; --- UIの配置 ---
-    ; ★★★ 証言表示エリアをJavaScriptで追加する準備 ★★★
-    ; [ptext]ではなく、後でiscriptからdivを追加する
+    ; ★★★ 証言表示エリアを [ptext] で最初に定義 ★★★
+    [ptext name="debate_text" layer="0" x="50" y="300" width="350" height="100" size="28" color="white" border="line" border_color="red" border_size="2"]
 
-    ; ★★★ コトダマ選択ボタンを配置 ★★★
-    [glink text="&tf.kotodama_list[0].name" x="20" y="630" width="200" size="20" color="green" target="*select_kotodama" exp="f.selected_kotodama = tf.kotodama_list[0].id"]
-    [glink text="&tf.kotodama_list[1].name" x="230" y="630" width="200" size="20" color="green" target="*select_kotodama" exp="f.selected_kotodama = tf.kotodama_list[1].id"]
-    [ptext name="current_kotodama_display" layer="fix" x="20" y="700" size="20" color="yellow" text="コトダマ選択：なし"]
-
-    ; ★★★ 「そこだ！」ボタンを配置 ★★★
-    [button name="sokoda_button" graphic="button/sokoda.png" x="150" y="750" target="*shoot_action"]
-
-    ; 議論開始の合図
-    [eval exp="tf.is_debate_active = true"]
+    ; ★★★ コトダマを常にボタンとして表示 ★★★
+    ; targetを新設した判定用ラベルに向ける
+    [glink text="&tf.kotodama_list[0].name" x="20" y="650" width="200" size="20" color="green" target="*check_shot_action" exp="f.shot_kotodama_id = tf.kotodama_list[0].id"]
+    [glink text="&tf.kotodama_list[1].name" x="230" y="650" width="200" size="20" color="green" target="*check_shot_action" exp="f.shot_kotodama_id = tf.kotodama_list[1].id"]
+    
+    ; 議論ループ開始
     [jump target="*debate_loop"]
     [s]
 
-*select_kotodama
-    ; [playse storage="select_se.wav"]
-    [iscript]
-    var selected_name = "";
-    if (f.selected_kotodama == 'hera') selected_name = tf.kotodama_list[0].name;
-    if (f.selected_kotodama == 'hihiiro') selected_name = tf.kotodama_list[1].name;
-    f.current_kotodama_text = "コトダマ選択：" + selected_name;
-    [endscript]
-    [ptext name="current_kotodama_display" text="&f.current_kotodama_text" overwrite="true"]
-    [s] ; 選択後、待機
-
 *debate_loop
     [iscript]
-    if (tf.is_debate_active === true) {
-        if (tf.debate_loop_timer) clearTimeout(tf.debate_loop_timer);
-
-        var current_statement = tf.debate_statements[tf.debate_index];
-        var text_to_show = current_statement.text;
-        var is_weakpoint_flag = current_statement.is_weakpoint;
-
-        // ★★★ 証言表示エリアを iscript で管理 ★★★
-        var debate_area = $("#debate_text_area"); // IDで要素を探す
-        // もし要素がなければ、新しく作る
-        if (debate_area.length === 0) {
-            debate_area = $("<p id='debate_text_area'></p>");
-            debate_area.css({
-                "position": "absolute", "top": "300px", "left": "50px", "width": "350px", "height": "100px",
-                "font-size": "28px", "color": "white", "text-align": "center", "z-index": "9999",
-                "border": "2px solid red" // デバッグ用に枠線
-            });
-            // 前景レイヤー0に追加
-            var fore_layer_0 = $(".layer_fore[data-layer='0']");
-            if (fore_layer_0.length > 0) {
-                fore_layer_0.append(debate_area);
-            } else {
-                console.error("前景レイヤー0が見つかりません");
-            }
-        }
-        
-        // テキストをセットし、弱点情報を保存
-        debate_area.html(text_to_show).data("is_weakpoint", is_weakpoint_flag);
-
-        tf.debate_index = (tf.debate_index + 1) % tf.debate_statements.length;
-
-        tf.debate_loop_timer = setTimeout(function(){
-            TYRANO.kag.ftag.startTag("jump", {target: "*debate_loop"});
-        }, 2000); // 2秒ごとに更新
+    // 議論がアクティブでなければループを止める
+    if (tf.is_debate_active === false) {
+        if(tf.debate_loop_timer) clearTimeout(tf.debate_loop_timer);
+        [jump target="*debate_end_processing"] ; 議論終了処理へ
     }
+    
+    // 表示する証言と弱点情報を変数にセット
+    var current_statement = tf.debate_statements[tf.debate_index];
+    f.current_text = current_statement.text;
+    f.is_weakpoint_now = current_statement.is_weakpoint; // 現在弱点かどうか
+
+    // 次のインデックスを準備
+    tf.debate_index = (tf.debate_index + 1) % tf.debate_statements.length;
     [endscript]
+
+    ; ★★★ [ptext] タグの overwrite 機能でテキストを更新 ★★★
+    [ptext name="debate_text" text="&f.current_text" overwrite="true"]
+
+    ; [iscript] 内の setTimeout は不安定さの原因になりやすいので、[wait]と[jump]に置き換える
+    [wait time="2000"]
+    [jump target="*debate_loop" cond="tf.is_debate_active == true"] ; アクティブな間だけループ
+
+    ; この[s]は不要かもしれないが、念のため
     [s]
 
-*shoot_action
-    [iscript]
-    if (tf.is_debate_active === true) {
-        tf.is_debate_active = false;
-        clearTimeout(tf.debate_loop_timer);
-
-        // ★★★ 発言エリアが弱点を表示していたかチェック ★★★
-        var was_weakpoint = $("#debate_text_area").data("is_weakpoint");
-
-        // ★★★ 正しいコトダマが選択されていたかチェック ★★★
-        var is_correct_kotodama = (f.selected_kotodama === 'hihiiro');
-
-        if (was_weakpoint === true && is_correct_kotodama === true) {
-            TYRANO.kag.ftag.startTag("jump", {target: "*debate_success"});
-        } else {
-            // ペナルティ処理など (今回は失敗ジャンプのみ)
-            TYRANO.kag.ftag.startTag("jump", {target: "*debate_fail"});
-        }
-    }
-    [endscript]
-    [s]
+*check_shot_action ; コトダマボタンが押された時の処理
+    ; [playse storage="shoot_se.wav"]
+    
+    ; ★★★ 判定ロジック ★★★
+    ; f.is_weakpoint_now は直前の*debate_loopで設定された「現在の証言が弱点か」の情報
+    ; f.shot_kotodama_id はクリックされたglinkのexpで設定されたコトダマID
+    [if exp="f.is_weakpoint_now == true && f.shot_kotodama_id == 'hihiiro'"]
+        ; 正解！
+        [eval exp="tf.is_debate_active = false"] ; ループを止める
+        [jump target="*debate_success"]
+    [else]
+        ; 不正解
+        ; [playse storage="fail_se.wav"]
+        ; ここでペナルティ処理（タイマーを減らすなど）
+        ; 今回はシンプルに何もしない（議論はそのまま続く）
+    [endif]
+    ; 不正解の場合、処理は何もせず、進行中の*debate_loopの[wait]と[jump]に戻る
+    [s] ; この[s]が重要。何もしない場合でもスクリプトをここで一旦止める
 
 *debate_success
-     ... (論破！の演出) ...
-    [iscript] $("#debate_text_area").remove(); 
-    [endscript]
-     ...
+    ; 議論終了処理
+    [eval exp="tf.is_debate_active = false"] ; 念のため再度ループ停止フラグ
+    ; ボタンやテキストエリアを消す
+    [free name="debate_text" layer="0"]
+    [free name="prev_btn"] ; (ボタンのname属性に合わせて修正)
+    [free name="next_btn"]
+    ; ... 他のUI要素も[free]で消す
+
+    ; 「論破！」演出
+    [cm]
+    [clearfix]
+    @layopt layer=message0 visible=true
+    [quake time="300" count="3"]
+    [font size="50" color="red" bold="true"]論破！[p][resetfont]
+    
+    ; ... (成功シナリオへ続く) ...
     [jump storage="first.ks" target="*start"]
 
-*debate_fail
-     ... (不正解メッセージ) ...
-    [jump target="*start_debate"] 
+*debate_end_processing ; 議論が終了した後の処理用（タイムアップなど）
+    ; ここにタイムアップ時の処理などを記述
+    @endjump
 
 
 ; ----- 器材ルート -----
