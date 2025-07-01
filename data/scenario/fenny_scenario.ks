@@ -143,7 +143,7 @@
     君はルリアの証言を聞くことにした。[p]
 
     ; ★★★ ノンストップ議論パートへジャンプ ★★★
-    [jump  target="**start_debate"]
+    [jump  target="*start_debate"]
 
   
 *start_debate
