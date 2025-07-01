@@ -216,7 +216,7 @@
     [eval exp="f.shot_kotodama_id = tf.kotodama_list[1].id"]
     [jump target="*check_shot_action"]
 
-*check_shot_action ; 共通の判定処理
+*check_shot_action
     ; [playse storage="shoot_se.wav"]
     [if exp="f.is_weakpoint_now == true && f.shot_kotodama_id == 'hihiiro'"]
         [eval exp="tf.is_debate_active = false"]
