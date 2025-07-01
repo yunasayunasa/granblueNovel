@@ -41,3 +41,24 @@
     [ptext name="chara_name_area" layer="message0" color="white" size="20" bold="true" x="40" y="575"]
     [chara_config ptext="chara_name_area"]
 [endmacro]
+
+[macro name="draw_debate_ui"]
+
+    ; ★★★ 議論中のUI要素をまとめて描画するマクロ ★★★
+
+    ; 議論相手（ルリア）を表示
+    [chara_show name="ruria" x="150" y="100"]
+
+    ; 証言表示用のテキストエリアを定義 (class属性も忘れずに)
+    [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="28" color="white" class="testimony_area_js" border="line" border_color="red" border_size="2"]
+
+    ; コトダマボタンを配置
+    [glink name="kotodama_0" text="&tf.kotodama_list[0].name" x="20" y="650" width="200" size="20" color="green" target="*on_kotodama_0_click"]
+    [glink name="kotodama_1" text="&tf.kotodama_list[1].name" x="230" y="650" width="200" size="20" color="green" target="*on_kotodama_1_click"]
+
+    ; 体力表示用のテキストエリアを定義 (議論開始時のみで良いが、再描画用にここにあっても良い)
+     [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="&f.life_text"]
+
+[endmacro]
+
+; (前回提案した他のマクロ [update_testimony_display] や [setup_main_message_window] もここに記述)
