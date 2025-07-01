@@ -146,10 +146,18 @@
 
   
 *start_debate
+     [macro name="draw_debate_ui"]
+        [chara_show name="ruria" x="150" y="100"]
+        [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="28" color="white" class="testimony_area_js"]
+        [glink name="kotodama_0" text="&tf.kotodama_list[0].name" x="20" y="650" width="200" size="20" color="green" target="*on_kotodama_0_click"]
+        [glink name="kotodama_1" text="&tf.kotodama_list[1].name" x="230" y="650" width="200" size="20" color="green" target="*on_kotodama_1_click"]
+    [endmacro]
+
     [cm]
     [clearfix]
-    [bg storage="courtroom_bg.jpg" time="500"]
+    ; [bg storage="courtroom_bg.jpg" time="500"]
     @layopt layer=message0 visible=false
+   
     [chara_show name="ruria" x="150" y="100"]
 
     ; ★★★ 変数初期化 ★★★
@@ -170,11 +178,8 @@
     [endscript]
 
     ; --- UIの配置 ---
-    [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="28" color="white" border="line" border_color="red" border_size="2"]
-
-    ; ★★★ コトダマボタンの target を、それぞれ専用の中継ラベルに向ける ★★★
-    [glink name="kotodama_0" text="&tf.kotodama_list[0].name" x="20" y="650" width="200" size="20" color="green" target="*on_kotodama_0_click"]
-    [glink name="kotodama_1" text="&tf.kotodama_list[1].name" x="230" y="650" width="200" size="20" color="green" target="*on_kotodama_1_click"]
+     ; --- UIの初回配置 ---
+    [draw_debate_ui]
 
     ; 議論ループ開始
     [jump target="*debate_loop"]
@@ -211,24 +216,20 @@
     [eval exp="f.shot_kotodama_id = tf.kotodama_list[1].id"]
     [jump target="*check_shot_action"]
 
-*check_shot_action
+*check_shot_action ; 共通の判定処理
     ; [playse storage="shoot_se.wav"]
     [if exp="f.is_weakpoint_now == true && f.shot_kotodama_id == 'hihiiro'"]
-         正解！
         [eval exp="tf.is_debate_active = false"]
         [jump target="*debate_success"]
     [else]
-         不正解 
         [jump target="*debate_fail"]
     [endif]
     [s]
 
 *debate_success
+    [eval exp="tf.is_debate_active = false"]
     [cm]
     [clearfix]
-    [free name="testimony_text" layer="0"] ; ptextを消す
-    [free name="kotodama_0"] ; ボタンを消す
-    [free name="kotodama_1"] ; ボタンを消す
     @layopt layer=message0 visible=true
     [quake time="300" count="3"]
     [font size="50" color="red" bold="true"]論破！[p][resetfont]
@@ -236,15 +237,24 @@
     [jump storage="first.ks" target="*start"]
 
 *debate_fail
-    ; 不正解時の処理 (シンプルに議論を続ける)
-    ; 何かメッセージを出しても良い
-    ; #ルリア
-    ; それは違う！[l]
-    [jump target="*debate_loop"] ; そのまま議論ループに戻る
+    ; ★★★ 不正解時の処理 ★★★
+    [cm] ; メッセージをクリア
 
-*debate_end_processing
-    ; タイムアップなどで議論が終了した場合の処理
-    @endjump
+    ; ★★★ UIを再描画する ★★★
+    [draw_debate_ui]
+
+    ; ★★★ 証言表示も再実行 ★★★
+    ; iscriptは不要。直前の証言を再表示する
+    [ptext name="testimony_text" text="&f.current_text" overwrite="true"]
+    
+    ; 不正解メッセージをメッセージウィンドウに表示
+    @layopt layer=message0 visible=true
+    #ルリア
+    それは違う！[l]
+    @layopt layer=message0 visible=false
+
+    ; 再び議論ループへ
+    [jump target="*debate_loop"]
 
 
 ; ----- 器材ルート -----
