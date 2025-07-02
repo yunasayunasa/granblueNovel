@@ -197,7 +197,7 @@
     f.current_text = current_statement.text;
     f.is_weakpoint_now = current_statement.is_weakpoint;
     f.debate_index = (f.debate_index + 1) % f.debate_statements.length;
-    [endscript]
+   
    // 3. ★★★ アニメーション用のランダム値を生成 ★★★
     // 画面サイズ (450x800) を基準とする
     // X座標 (50-100の間)
