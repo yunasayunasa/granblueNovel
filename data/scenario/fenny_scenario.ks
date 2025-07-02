@@ -214,7 +214,7 @@
     [endif]
 
     [wait time="2000"]
-    [jump target="*debate_loop" cond="f.is_debate_finished == false"] ; 条件を少し変更
+    [jump target="*debate_loop" cond="f.is_debate_finished == false"] 
     [s]
 
 ; ----- コトダマボタンが押された時の中継ラベル -----
