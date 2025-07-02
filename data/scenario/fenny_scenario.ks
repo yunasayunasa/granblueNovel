@@ -165,6 +165,8 @@
     ];
     f.debate_index = 0;
     f.is_debate_active = true;
+    f.time_limit = 180; 
+    f.is_time_up = false; 
     [endscript]
 
    ; ★★★ 最初のUI配置 ★★★
@@ -172,9 +174,10 @@
     [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="28" color="white" border="line" border_color="red" border_size="2"]
     [glink name="kotodama_hera" text="&f.kotodama_list[0].name" x="20" y="650" width="200" size="20" color="green" target="*on_shot_hera"]
     [glink name="kotodama_hihiiro" text="&f.kotodama_list[1].name" x="230" y="650" width="200" size="20" color="green" target="*on_shot_hihiiro"]
-    
+      [ptext name="timer_display" layer="fix" x="350" y="60" size="24" color="orange" text="TIME: &f.time_limit"]
     ; 議論ループ開始
     [jump target="*debate_loop"]
+    [jump target="*timer_loop"]
     [s]
 *debate_loop
     ; 議論が終了していたら、このループを抜ける
@@ -199,8 +202,35 @@
     [ptext name="testimony_text" text="&f.current_text" overwrite="true"layer="0" x="50" y="300" width="350" height="150" size="28" color="white" border="line" border_color="red" border_size="2"]
     
     [wait time="2000"]
-    [jump target="*debate_loop"]
+   [jump target="*debate_loop" cond="tf.is_debate_active == true && f.is_time_up == false"] 
+   ; 議論がアクティブかつタイムアップしてない間ループ
     [s]
+
+    ; ===== タイマーループ =====
+*timer_loop
+    ; 1秒待つ
+    [wait time="1000"]
+
+    ; ★★★ タイマーを1秒減らす ★★★
+    [eval exp="f.time_limit--"]
+
+    ; ★★★ タイムアップ判定 ★★★
+    [if exp="f.time_limit <= 0"]
+        [eval exp="f.time_limit = 0"] 
+        [eval exp="f.is_time_up = true"] 
+        ; 体力表示を更新
+        [ptext name="timer_display" layer="fix" x="350" y="60" size="24" color="orange" text="TIME: &f.time_limit" overwrite="true"]
+        [jump target="*time_up_bad_end"]
+        
+    [endif]
+
+    ; ★★★ タイマー表示を更新 ★★★
+    [ptext name="timer_display" layer="fix" x="350" y="60" size="24" color="orange" text="TIME: &f.time_limit" overwrite="true"]
+
+    ; 議論が続いている間、タイマーループを継続
+    [jump target="*timer_loop" cond="tf.is_debate_active == true"]
+    [s]
+
 
 ; ----- コトダマボタンが押された時の中継ラベル -----
 *on_shot_hera
@@ -213,25 +243,31 @@
 *check_shot_action
     ; [playse storage="shoot_se.wav"]
 
-    [if exp="f.is_weakpoint_now == true && f.shot_kotodama_id == 'hihiiro'"]
+     [if exp="f.is_weakpoint_now == true && f.shot_kotodama_id == 'hihiiro'"]
         ; 正解！
-        [eval exp="f.is_debate_active = false"] 
-        ; ループ停止フラグを立てる
+        [eval exp="tf.is_debate_active = false"] 
+        ; ★★★ ループ停止フラグ ★★★
         [jump target="*debate_success"]
 
     [else]
-        ; ★★★ 不正解 ★★★
+        ; 不正解
+        ; ★★★ ペナルティ：時間を30秒減らす ★★★
+        [eval exp="f.time_limit -= 30"]
+        ; 画面上のタイマー表示もすぐに更新
+        [ptext name="timer_display" layer="fix" x="350" y="60" size="24" color="orange" text="TIME: &f.time_limit" overwrite="true"]
+
         @layopt layer=message0 visible=true
         #ルリア
-        はわわ〜、よく分かりませんでしたぁ。[r]もう一回最初から言いますね？[l][p]
+        はわわ〜、よく分かりませんでしたぁ。[r]もう一回最初から言いますね？[l]
         @layopt layer=message0 visible=false
-        
-        [eval exp="f.debate_index = 0"] 
-        [jump target="*debate_loop"] 
+        [eval exp="f.debate_index = 0"]
+        [jump target="*debate_loop"]
     [endif]
     [s]
 
 *debate_success
+ [eval exp="tf.is_debate_active = false"]
+  ; 念のためループ停止
     [cm]
     [clearfix]
     [free name="debate_text" layer="0"]
@@ -247,6 +283,26 @@
     ; タイムアップなどで議論が終了した場合の処理
     ; 今回は成功時しか来ないが、念のため
     @endjump
+
+*time_up_bad_end
+    [eval exp="tf.is_debate_active = false"] 
+    ; ループを確実に止める
+    [cm]
+    [clearfix]
+    [free name="debate_text" layer="0"]
+    [free name="kotodama_hera"]
+    [free name="kotodama_hihiiro"]
+    [free name="life_gauge" layer="fix"]
+    [free name="timer_display" layer="fix"]
+    @layopt layer=message0 visible=true
+    
+    ; ... (台本のタイムアップBAD ENDのテキストを記述) ...
+    #フェニー
+    団長さん、もういいんだよ...[l]
+    ; ...
+    #
+    ～バッドエンド～[l]
+    [jump storage="first.ks" target="*start"]
 
 
 
