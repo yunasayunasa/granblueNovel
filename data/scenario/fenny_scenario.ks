@@ -198,8 +198,32 @@
     f.is_weakpoint_now = current_statement.is_weakpoint;
     f.debate_index = (f.debate_index + 1) % f.debate_statements.length;
     [endscript]
-  
+   // 3. ★★★ アニメーション用のランダム値を生成 ★★★
+    // 画面サイズ (450x800) を基準とする
+    // X座標 (50-100の間)
+    f.anim_x = Math.floor(Math.random() * 50) + 50;
+    // Y座標 (200-400の間)
+    f.anim_y = Math.floor(Math.random() * 200) + 200;
+    // スケール (0.9倍から1.3倍の間)
+    f.anim_scale = Math.random() * 0.4 + 0.9;
+    // 角度 (-15度から15度の間)
+    f.anim_rotate = Math.floor(Math.random() * 30) - 15;
+    [endscript]
+    
+    
+    ; ★★★ ptextの更新とアニメーションを連続実行 ★★★
+    ; 最初にテキスト内容を更新
     [ptext name="testimony_text" text="&f.current_text" overwrite="true"layer="0" x="50" y="300" width="350" height="150" size="28" color="white" border="line" border_color="red" border_size="2"]
+    
+    ; そのptext要素に対してアニメーションを適用
+    [anim name="testimony_text"
+          left="&f.anim_x"
+          top="&f.anim_y"
+          scale="&f.anim_scale"
+          rotate="&f.anim_rotate"
+          time="300"
+          effect="easeInCubic"
+    ]
     
     [wait time="2000"]
     [jump target="*debate_loop"]
