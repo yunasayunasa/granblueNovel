@@ -166,31 +166,30 @@
     f.debate_index = 0;
     f.is_debate_active = true;
       f.is_debate_finished = false;
-    f.time_limit = 180; // 制限時間
+     f.life = 5; // ★ 体力
     [endscript]
 
    ; ★★★ 最初のUI配置 ★★★
     [chara_show name="ruria" x="150" y="100"]
     [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="28" color="white" border="line" border_color="red" border_size="2"]
-    [glink name="kotodama_hera" text="&f.kotodama_list[0].name" x="20" y="650" width="200" size="20" color="green" target="*on_shot_hera"]
-    [glink name="kotodama_hihiiro" text="&f.kotodama_list[1].name" x="230" y="650" width="200" size="20" color="green" target="*on_shot_hihiiro"]
-     [ptext name="timer_display" layer="fix" x="300" y="20" width="130" height="50" size="24" color="orange"]
-    ; 議論ループ開始
+    [glink name="kotodama_hera" text="&f.kotodama_list[0].name" x="20" y="650" width="100" size="20" color="green" target="*on_shot_hera"]
+    [glink name="kotodama_hihiiro" text="&f.kotodama_list[1].name" x="230" y="650" width="100" size="20" color="green" target="*on_shot_hihiiro"]
+      ; ★★★ 体力表示エリア ★★★
+    [iscript] f.life_text = "体力：" + f.life; 
+    [endscript]
+    [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" exp="f.life_text"]
+
     [jump target="*debate_loop"]
     [s]
+  ; 議論ループ開始
+    [jump target="*debate_loop"]
+    [s]
+
 *debate_loop
-    ; 議論が終了していたら、このループを抜ける
-    [if exp="f.is_debate_active == false"]
+    [if exp="f.is_debate_finished == true"]
         [jump target="*debate_end_processing"]
     [endif]
 
-    ; ★★★ 毎回UIを再描画する（念のため）★★★
-    [chara_show name="ruria" x="150" y="100" time="0"] 
-    [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="28" color="white"]
-    [glink name="kotodama_hera" text="&f.kotodama_list[0].name" x="20" y="650" width="200" size="20" color="green" target="*on_shot_hera"]
-    [glink name="kotodama_hihiiro" text="&f.kotodama_list[1].name" x="230" y="650" width="200" size="20" color="green" target="*on_shot_hihiiro"]
-
-    ; ★★★ 表示する証言の情報を変数に格納 ★★★
     [iscript]
     var current_statement = f.debate_statements[f.debate_index];
     f.current_text = current_statement.text;
@@ -198,11 +197,18 @@
     f.debate_index = (f.debate_index + 1) % f.debate_statements.length;
     [endscript]
     
-    [ptext name="testimony_text" text="&f.current_text" overwrite="true"layer="0" x="50" y="300" width="350" height="150" size="28" color="white" border="line" border_color="red" border_size="2"]
+    ; ★★★ ptextのoverwriteは使わず、iscriptで直接DOM操作する確実な方法に戻します ★★★
+    [iscript]
+    // 証言テキストエリアの内容を更新
+    $(".tyrano_ptext[data-name='testimony_text']").find(".inner_ptext").html(f.current_text);
+    // 弱点フラグを保存
+    $(".tyrano_ptext[data-name='testimony_text']").data("is_weakpoint", f.is_weakpoint_now);
+    [endscript]
     
     [wait time="2000"]
     [jump target="*debate_loop"]
     [s]
+
 
 ; ----- コトダマボタンが押された時の中継ラベル -----
 *on_shot_hera
@@ -213,25 +219,42 @@
     [jump target="*check_shot_action"]
 
 *check_shot_action
-    ; [playse storage="shoot_se.wav"]
+    [iscript]
+    // ★★★ 弱点フラグの取得方法を、iscript内で完結する形に修正 ★★★
+    var was_weakpoint = $(".tyrano_ptext[data-name='testimony_text']").data("is_weakpoint");
+    f.is_correct_shot = (was_weakpoint === true && f.shot_kotodama_id == 'hihiiro');
+    [endscript]
 
-    [if exp="f.is_weakpoint_now == true && f.shot_kotodama_id == 'hihiiro'"]
+    [if exp="f.is_correct_shot == true"]
         ; 正解！
-        [eval exp="f.is_debate_active = false"] 
-        ; ループ停止フラグを立てる
+        [eval exp="f.is_debate_finished = true"]
         [jump target="*debate_success"]
-
     [else]
-        ; ★★★ 不正解 ★★★
-        @layopt layer=message0 visible=true
-        #ルリア
-        はわわ〜、よく分かりませんでしたぁ。[r]もう一回最初から言いますね？[l][p]
-        @layopt layer=message0 visible=false
-        
-        [eval exp="f.debate_index = 0"] 
-        [jump target="*debate_loop"] 
+        ; 不正解
+        [jump target="*debate_fail"]
     [endif]
     [s]
+
+*debate_fail
+    ; ★★★ 不正解処理（体力制） ★★★
+    [iscript] f.life--; [endscript] 
+
+    [if exp="f.life <= 0"]
+        [jump target="*debate_time_up_badend"] 
+    [else]
+        ; 体力表示を更新
+        [iscript] f.life_text = "体力：" + f.life; [endscript]
+        [ptext name="life_gauge" exp="f.life_text" overwrite="true"]  
+
+        @layopt layer=message0 visible=true
+        #ルリア
+        はわわ〜、よく分かりませんでしたぁ。[r]もう一回最初から言いますね？[l]
+        @layopt layer=message0 visible=false
+        [eval exp="f.debate_index = 0"]
+        [jump target="*debate_loop"]
+    [endif]
+    [s]
+
 
 *debate_success
     [cm]
@@ -245,10 +268,14 @@
     ; ... (成功シナリオ) ...
     [jump storage="first.ks" target="*start"]
 
-*debate_end_processing
-    ; タイムアップなどで議論が終了した場合の処理
-    ; 今回は成功時しか来ないが、念のため
-    @endjump
+*debate_time_up_badend 
+    [eval exp="f.is_debate_finished = true"]
+    [cm]
+    [clearfix]
+    ; ... (UIを消去) ...
+    @layopt layer=message0 visible=true
+    ; ... (台本のタイムアップBAD ENDのテキストを記述) ...
+    [jump storage="first.ks" target="*start"]
 
 
 
