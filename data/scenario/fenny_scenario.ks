@@ -168,8 +168,8 @@
     f.time_limit = 180; 
     f.is_time_up = false; 
 
-    f.life_display_text = "体力：" + f.life;
-f.timer_display_text = "TIME: " + f.time_limit;
+  
+ f.timer_display_text = "TIME: " + f.time_limit;
     [endscript]
 
    ; ★★★ 最初のUI配置 ★★★
@@ -209,28 +209,26 @@ f.timer_display_text = "TIME: " + f.time_limit;
    ; 議論がアクティブかつタイムアップしてない間ループ
     [s]
 
-    ; ===== タイマーループ =====
+   ; ===== タイマーループ =====
 *timer_loop
-    ; 1秒待つ
     [wait time="1000"]
+    [iscript]
+    f.time_limit--; 
+    f.timer_display_text = "TIME: " + f.time_limit; 
+    
+    [endscript]
 
-    ; ★★★ タイマーを1秒減らす ★★★
-    [eval exp="f.time_limit--"]
+    ; ★★★ タイマー表示を更新 (overwriteとexpを使用) ★★★
+    [ptext name="timer_display" overwrite="true" exp="f.timer_display_text"]
+    ; (必須パラメータ不足エラーを防ぐため、x,y,layerなども含めた方が安全)
+    ; [ptext name="timer_display" layer="fix" x="350" y="60" size="24" color="orange" exp="f.timer_display_text" overwrite="true"]
 
-    ; ★★★ タイムアップ判定 ★★★
+    ; タイムアップ判定
     [if exp="f.time_limit <= 0"]
-        [eval exp="f.time_limit = 0"] 
-        [eval exp="f.is_time_up = true"] 
-        ; 体力表示を更新
-       [ptext name="timer_display" layer="fix" x="350" y="60" size="24" color="orange" exp="f.timer_display_text"]
+        [eval exp="f.is_time_up = true"]
         [jump target="*time_up_bad_end"]
-        
     [endif]
 
-    ; ★★★ タイマー表示を更新 ★★★
-   [ptext name="timer_display" layer="fix" x="350" y="60" size="24" color="orange" exp="f.timer_display_text"]
-
-    ; 議論が続いている間、タイマーループを継続
     [jump target="*timer_loop" cond="tf.is_debate_active == true"]
     [s]
 
@@ -248,16 +246,21 @@ f.timer_display_text = "TIME: " + f.time_limit;
 
      [if exp="f.is_weakpoint_now == true && f.shot_kotodama_id == 'hihiiro'"]
         ; 正解！
-        [eval exp="tf.is_debate_active = false"] 
-        ; ★★★ ループ停止フラグ ★★★
-        [jump target="*debate_success"]
-
     [else]
-        ; 不正解
-        ; ★★★ ペナルティ：時間を30秒減らす ★★★
-        [eval exp="f.time_limit -= 30"]
-        ; 画面上のタイマー表示もすぐに更新
-       [ptext name="timer_display" layer="fix" x="350" y="60" size="24" color="orange" exp="f.timer_display_text"]
+        ; ★★★ 不正解 (ペナルティ処理) ★★★
+        ; [eval]の代わりに[iscript]でタイマーを減らす
+        [iscript]
+        f.time_limit -= 30; // 30秒減らす
+        // 0秒未満にならないように調整
+        if (f.time_limit < 0) {
+            f.time_limit = 0;
+        }
+        f.timer_display_text = "TIME: " + f.time_limit; // 表示用テキストも更新
+        console.log("ペナルティ！残り時間: " + f.time_limit); // デバッグ用
+        [endscript]
+
+        ; タイマー表示を即座に更新
+        [ptext name="timer_display" layer="fix" x="350" y="60" size="24" color="orange" exp="f.timer_display_text" overwrite="true"]
 
         @layopt layer=message0 visible=true
         #ルリア
@@ -422,6 +425,9 @@ f.timer_display_text = "TIME: " + f.time_limit;
 
     ; ★★★ 初期設定は体力のみ ★★★
     [eval exp="f.life = 5"]
+ [iscript]
+  f.life_display_text = "体力：" + f.life;
+    [endscript]
 
     [chara_show name="ruria" x="150" y="100"]
 
