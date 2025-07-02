@@ -166,7 +166,7 @@
     f.debate_index = 0;
     f.is_debate_active = true;
       f.is_debate_finished = false;
-     f.life = 5; // ★ 体力
+  
     [endscript] 
      [eval exp="f.life = 5"]
 
@@ -226,13 +226,15 @@
         ; ループ停止フラグを立てる
         [jump target="*debate_success"]
 
+    
     [eval exp="f.life--"]
     [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="体力："&f.life]
     [if exp="f.life <= 0"]
         [jump target="*ruria_investigation_badend"]
-        [else]
-            [jump target="*debate_fail_message"]
-        [endif]
+    [else]
+        #ルリア
+        そ、そんなの証拠になりません！[p]
+        [jump target="*debate_loop"]
     [endif]
     [s]
     *debate_fail_message
@@ -399,7 +401,7 @@
 
 *main_interrogation_choice
     ; 体力表示
-    [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="体力："&f.life]
+    [ptext name="life_gauge" layer="0" x="350" y="20" size="24" color="white" text="体力："&f.life]
 
     #
     どうする？[p]
