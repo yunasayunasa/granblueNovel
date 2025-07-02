@@ -69,7 +69,7 @@
 #
 
 君は、見たこともない空間にいる。[r]幻想的な一面の花畑、[r]とても現実とは思えない。[p]
-
+   [chara_new name="roger" storage="roger_normal.png" jname="ロジャー"]
 [chara_show name="roger" x="200" y="150"]
 ; ★★★ ロジャーの名前を表示するために ptext を再設定 ★★★
 [ptext name="chara_name_area" layer="message0" color="white" size="20" bold="true" x="40" y="605" text="&sf._system_config_chara_ptext_first_name || ''" visible="true"]
