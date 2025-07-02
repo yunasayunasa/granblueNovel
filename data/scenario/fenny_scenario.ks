@@ -232,7 +232,7 @@
         [jump target="*debate_success"]
     [else]
         ; 不正解
-        [iscript] f.time_limit -= 30; [endscript] ; ペナルティ
+        [iscript] f.time_limit -= 30; [endscript] 
         ; 不正解メッセージを表示するために、ループを一旦中断してジャンプ
         [jump target="*debate_fail_message"]
     [endif]
