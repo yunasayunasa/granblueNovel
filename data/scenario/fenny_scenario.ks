@@ -175,7 +175,8 @@
     [glink name="kotodama_hera" text="&f.kotodama_list[0].name" x="20" y="650" width="100" size="20" color="green" target="*on_shot_hera"]
     [glink name="kotodama_hihiiro" text="&f.kotodama_list[1].name" x="230" y="650" width="100" size="20" color="green" target="*on_shot_hihiiro"]
       ; ★★★ 体力表示エリア ★★★
-    [iscript] f.life_text = "体力：" + f.life; [endscript]
+    [iscript] f.life_text = "体力：" + f.life; 
+    [endscript]
     [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" exp="f.life_text"]
 
     [jump target="*debate_loop"]
