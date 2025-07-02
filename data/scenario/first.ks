@@ -54,9 +54,18 @@
     @layopt layer=message0 visible=true 
     ; メッセージウィンドウを表示
     
-    ; iscriptでの画面リフレッシュ (エンディングから戻ってきた時のアップ問題対策)
-    [bg storage="calc_space.jpg" time="0"]
+       ; ★★★ iscriptでのアップ問題対策をここに再度記述 ★★★
+    [iscript]
+    var tyrano_base_element = document.getElementById('tyrano_base');
+    if (tyrano_base_element) {
+        tyrano_base_element.style.setProperty('transform', 'scale(1)', 'important');
+        tyrano_base_element.style.setProperty('transform-origin', '0px 0px', 'important');
+        console.log("プロローグ開始時に #tyrano_base の transform を scale(1) に設定");
+    }
+    [endscript]
 
+    ; 画面リフレッシュ
+    [bg storage="calc_space.jpg" time="0"]
     ; プロローグの開始 (BGM再生、背景表示、メッセージウィンドウ設定など)
    ; [playbgm storage="prologue_bgm.ogg" loop="true"]
     [bg storage="calc_space.jpg" time="1000"]
