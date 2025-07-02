@@ -34,10 +34,10 @@
 
    
     ; 「はじめから」ボタン
-    [glink name="start_button" text="はじめから"  x="110" y="500" width="200" size="28" color="blue" target="*prologue_start"]
+    [glink name="start_button" text="はじめから"  x="80" y="500" width="200" size="28" color="blue" target="*prologue_start"]
 
     ; 「つづきから」ボタン
-    [glink name="load_button" text="つづきから" x="110" y="570" width="200" size="28" color="green" target="*show_load_screen"]
+    [glink name="load_button" text="つづきから" x="80" y="570" width="200" size="28" color="green" target="*show_load_screen"]
 
     [s] 
     ; ボタン入力を待つ
