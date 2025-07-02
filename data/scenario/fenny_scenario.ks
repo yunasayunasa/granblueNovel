@@ -174,35 +174,41 @@
     [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="28" color="white" border="line" border_color="red" border_size="2"]
     [glink name="kotodama_hera" text="&f.kotodama_list[0].name" x="20" y="650" width="200" size="20" color="green" target="*on_shot_hera"]
     [glink name="kotodama_hihiiro" text="&f.kotodama_list[1].name" x="230" y="650" width="200" size="20" color="green" target="*on_shot_hihiiro"]
-     [ptext name="timer_display" layer="fix" x="300" y="20" width="130" height="50" size="24" color="orange"]
+     [ptext name="timer_display" layer="0" x="300" y="20" width="130" height="50" size="24" color="orange"]
     ; 議論ループ開始
     [jump target="*debate_loop"]
     [s]
 *debate_loop
-    ; 議論が終了していたら、このループを抜ける
-    [if exp="f.is_debate_active == false"]
-        [jump target="*debate_end_processing"]
-    [endif]
-
-    ; ★★★ 毎回UIを再描画する（念のため）★★★
-    [chara_show name="ruria" x="150" y="100" time="0"] 
-    [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="28" color="white"]
-    [glink name="kotodama_hera" text="&f.kotodama_list[0].name" x="20" y="650" width="200" size="20" color="green" target="*on_shot_hera"]
-    [glink name="kotodama_hihiiro" text="&f.kotodama_list[1].name" x="230" y="650" width="200" size="20" color="green" target="*on_shot_hihiiro"]
-
-    ; ★★★ 表示する証言の情報を変数に格納 ★★★
+    ; ★★★ ループの最初に全ての状態を更新 ★★★
     [iscript]
+    // 1. タイマーを2秒減らす (wait時間に合わせて)
+    f.time_limit -= 2;
+    if (f.time_limit < 0) f.time_limit = 0;
+    f.timer_display_text = "TIME: " + f.time_limit;
+
+    // 2. 次に表示する証言を準備
     var current_statement = f.debate_statements[f.debate_index];
     f.current_text = current_statement.text;
     f.is_weakpoint_now = current_statement.is_weakpoint;
+    
+    // 3. 次のインデックスを準備
     f.debate_index = (f.debate_index + 1) % f.debate_statements.length;
     [endscript]
     
-    [ptext name="testimony_text" text="&f.current_text" overwrite="true"layer="0" x="50" y="300" width="350" height="150" size="28" color="white" border="line" border_color="red" border_size="2"]
+    ; ★★★ 画面の再描画 ★★★
+    [ptext name="timer_display"    exp="f.timer_display_text" overwrite="true"]
+    [ptext name="testimony_text"   text="&f.current_text"        overwrite="true"]
     
+    ; ★★★ タイムアップ判定 ★★★
+    [if exp="f.time_limit <= 0"]
+        [eval exp="f.is_debate_finished = true"] 
+        [jump target="*time_up_bad_end"]
+    [endif]
+
     [wait time="2000"]
-    [jump target="*debate_loop"]
+    [jump target="*debate_loop" cond="f.is_debate_finished == false"]
     [s]
+
 
 ; ----- コトダマボタンが押された時の中継ラベル -----
 *on_shot_hera
@@ -245,10 +251,7 @@
     ; ... (成功シナリオ) ...
     [jump storage="first.ks" target="*start"]
 
-*debate_end_processing
-    ; タイムアップなどで議論が終了した場合の処理
-    ; 今回は成功時しか来ないが、念のため
-    @endjump
+
 
 
 
