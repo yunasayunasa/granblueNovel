@@ -32,15 +32,12 @@
     ; 背景表示
     [bg storage="title_bg.jpg" time="1000"]
 
-    ; タイトルテキストを表示 (ptextで作成し、animで演出)
-    [ptext name="game_title_text" layer="fix" x="50" y="150" size="40" color="white" text="演算世界とチヨコレイト"]
-    [anim name="game_title_text" effect="fadeIn" time="1500"]
-
+   
     ; 「はじめから」ボタン
-    [glink name="start_button" text="はじめから"  y="500" width="200" size="28" color="blue" target="*prologue_start"]
+    [glink name="start_button" text="はじめから"  x="110" y="500" width="200" size="28" color="blue" target="*prologue_start"]
 
     ; 「つづきから」ボタン
-    [glink name="load_button" text="つづきから"  y="570" width="200" size="28" color="green" target="*show_load_screen"]
+    [glink name="load_button" text="つづきから" x="110" y="570" width="200" size="28" color="green" target="*show_load_screen"]
 
     [s] 
     ; ボタン入力を待つ
@@ -61,7 +58,7 @@
     [bg storage="calc_space.jpg" time="0"]
 
     ; プロローグの開始 (BGM再生、背景表示、メッセージウィンドウ設定など)
-    [playbgm storage="prologue_bgm.ogg" loop="true"]
+   ; [playbgm storage="prologue_bgm.ogg" loop="true"]
     [bg storage="calc_space.jpg" time="1000"]
     [position layer="message0" left="25" top="600" width="400" height="180" page=fore visible=true]
     [position layer="message0" page=fore margint="25" marginl="25" marginr="25" marginb="25"]
