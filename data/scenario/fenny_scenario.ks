@@ -225,18 +225,7 @@
     [eval exp="f.shot_kotodama_id = 'hihiiro'"]
     [jump target="*check_shot_action"]
 
-*check_shot_action
-    [if exp="f.is_weakpoint_now == true && f.shot_kotodama_id == 'hihiiro'"]
-        ; 正解！
-        [eval exp="f.is_debate_finished = true"]
-        [jump target="*debate_success"]
-    [else]
-        ; 不正解
-        [iscript] f.time_limit -= 30; [endscript] 
-        ; 不正解メッセージを表示するために、ループを一旦中断してジャンプ
-        [jump target="*debate_fail_message"]
-    [endif]
-    [s]
+
 
 *check_shot_action
     [if exp="f.is_weakpoint_now == true && f.shot_kotodama_id == 'hihiiro'"]
