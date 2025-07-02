@@ -226,15 +226,14 @@
         ; ループ停止フラグを立てる
         [jump target="*debate_success"]
 
-    
-    [eval exp="f.life--"]
+     [eval exp="f.life--"]
     [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="体力："&f.life]
     [if exp="f.life <= 0"]
         [jump target="*ruria_investigation_badend"]
-    [else]
-        #ルリア
-        そ、そんなの証拠になりません！[p]
-        [jump target="*debate_loop"]
+   
+        [else]
+            [jump target="*debate_fail_message"]
+        [endif]
     [endif]
     [s]
     *debate_fail_message
