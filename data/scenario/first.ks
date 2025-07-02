@@ -37,10 +37,10 @@
     [anim name="game_title_text" effect="fadeIn" time="1500"]
 
     ; 「はじめから」ボタン
-    [glink name="start_button" text="はじめから" x="125" y="450" width="200" size="28" color="blue" target="*prologue_start"]
+    [glink name="start_button" text="はじめから" x=100" y="450" width="200" size="28" color="blue" target="*prologue_start"]
 
     ; 「つづきから」ボタン
-    [glink name="load_button" text="つづきから" x="125" y="520" width="200" size="28" color="green" target="*show_load_screen"]
+    [glink name="load_button" text="つづきから" x="100" y="520" width="200" size="28" color="green" target="*show_load_screen"]
 
     [s] 
     ; ボタン入力を待つ
