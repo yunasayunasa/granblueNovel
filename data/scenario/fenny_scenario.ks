@@ -542,8 +542,12 @@
     [jump storage="first.ks" target="*start"]
 
 *ruria_investigation_badend
-    [cm]
+     [cm]
     [clearfix]
+    [free name="debate_text" layer="0"]
+    [free name="kotodama_hera"layer="0"]
+    [free name="kotodama_hihiiro"layer="0"]
+    @layopt layer=message0 visible=true
    
     ; [playbgm storage="bad_end_bgm.ogg"]
 
@@ -551,12 +555,12 @@
     ほら！何度やっても同じです！[r]
     ね？私は食べていないでしょう？[p]
     チョコは無くなっちゃいましたが...[p]
-    美味しかったからしょうがないですよ！[l]
+    美味しかったからしょうがないですよ！[l][p]
 
     [chara_hide name="ruria" time="200" wait="true"]
     [chara_show name="fenny" x="150" y="150"]
     #フェニー
-    サブリナ...ごめんなんだよ...[l]
+    サブリナ...ごめんなんだよ...[l][p]
     [chara_hide name="fenny"]
 
     #
