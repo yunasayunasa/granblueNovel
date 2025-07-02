@@ -196,8 +196,8 @@
     [endscript]
     
     ; ★★★ 画面の再描画 ★★★
-    [ptext name="timer_display"    exp="f.timer_display_text" overwrite="true"]
-    [ptext name="testimony_text"   text="&f.current_text"        overwrite="true"]
+    [ptext name="timer_display"  layer="0", x="300", y="20", width="130", height="50", size="24", color="orange"  exp="f.timer_display_text" overwrite="true"]
+    [ptext name="testimony_text"  layer="0", x="50", y="300", width="350", height="150", size="28", color="white" text="&f.current_text"        overwrite="true"]
     
     ; ★★★ タイムアップ判定 ★★★
     [if exp="f.time_limit <= 0"]
