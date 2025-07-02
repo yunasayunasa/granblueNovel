@@ -228,7 +228,7 @@
 *check_shot_action
     [if exp="f.is_weakpoint_now == true && f.shot_kotodama_id == 'hihiiro'"]
         ; 正解！
-        [eval exp="f.is_debate_finished = true"] ; ループ停止フラグを立てる
+        [eval exp="f.is_debate_finished = true"]
         [jump target="*debate_success"]
     [else]
         ; 不正解
@@ -238,16 +238,46 @@
     [endif]
     [s]
 
-*debate_fail_message
-    ; 不正解メッセージ表示
-    [iscript] f.timer_display_text = "TIME: " + f.time_limit; [endscript]
-    [ptext name="timer_display" exp="f.timer_display_text" overwrite="true"]
+*check_shot_action
+    [if exp="f.is_weakpoint_now == true && f.shot_kotodama_id == 'hihiiro'"]
+        ; 正解！
+        [eval exp="f.is_debate_finished = true"]
+        [jump target="*debate_success"]
+    [else]
+        ; 不正解
+        ; ★★★ iscriptで体力を減らし、次のジャンプ先を決定するだけ ★★★
+        [iscript]
+        f.life--;
+        f.timer_display_text = "TIME: " + f.time_limit; // ペナルティタイマーは次回から
+        [endscript]
+        [jump target="*debate_fail_penalty"]
+    [endif]
+    [s]
+
+*debate_fail_penalty
+    ; ★★★ ここでペナルティを適用し、表示を更新 ★★★
+    [iscript]
+    f.time_limit -= 30; // 30秒減らす
+    if (f.time_limit < 0) f.time_limit = 0;
+    f.timer_display_text = "TIME: " + f.time_limit;
+    [endscript]
+    
+    ; ★★★ タイマー表示を更新 (必須パラメータを全て記述) ★★★
+    [ptext name="timer_display" layer="fix" x="300" y="20" width="130" height="50" size="24" color="orange" exp="f.timer_display_text" overwrite="true"]
+    
+    ; ★★★ 体力も0以下になったかここで判定 ★★★
+    [if exp="f.life <= 0"]
+        [jump target="*ruria_investigation_badend"] 
+    [endif]
+
     @layopt layer=message0 visible=true
     #ルリア
     はわわ〜、よく分かりませんでしたぁ。[r]もう一回最初から言いますね？[l]
     @layopt layer=message0 visible=false
-    [eval exp="f.debate_index = 0"] ; 証言を最初から
-    [jump target="*debate_loop"] ; 議論ループに戻る
+
+    [eval exp="f.debate_index = 0"] 
+    [jump target="*debate_loop"] 
+
 
 *debate_success
  [eval exp="tf.is_debate_active = false"]
