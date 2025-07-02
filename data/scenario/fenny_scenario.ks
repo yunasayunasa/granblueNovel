@@ -181,15 +181,19 @@
 
     [jump target="*debate_loop"]
     [s]
-  ; 議論ループ開始
-    [jump target="*debate_loop"]
-    [s]
-
 *debate_loop
-    [if exp="f.is_debate_finished == true"]
+    ; 議論が終了していたら、このループを抜ける
+    [if exp="f.is_debate_active == false"]
         [jump target="*debate_end_processing"]
     [endif]
 
+    ; ★★★ 毎回UIを再描画する（念のため）★★★
+    [chara_show name="ruria" x="150" y="100" time="0"] 
+    [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="28" color="white"]
+    [glink name="kotodama_hera" text="&f.kotodama_list[0].name" x="20" y="650" width="100" size="20" color="green" target="*on_shot_hera"]
+    [glink name="kotodama_hihiiro" text="&f.kotodama_list[1].name" x=230" y="650" width="100" size="20" color="green" target="*on_shot_hihiiro"]
+
+    ; ★★★ 表示する証言の情報を変数に格納 ★★
     [iscript]
     var current_statement = f.debate_statements[f.debate_index];
     f.current_text = current_statement.text;
@@ -197,18 +201,11 @@
     f.debate_index = (f.debate_index + 1) % f.debate_statements.length;
     [endscript]
     
-    ; ★★★ ptextのoverwriteは使わず、iscriptで直接DOM操作する確実な方法に戻します ★★★
-    [iscript]
-    // 証言テキストエリアの内容を更新
-    $(".tyrano_ptext[data-name='testimony_text']").find(".inner_ptext").html(f.current_text);
-    // 弱点フラグを保存
-    $(".tyrano_ptext[data-name='testimony_text']").data("is_weakpoint", f.is_weakpoint_now);
-    [endscript]
+    [ptext name="testimony_text" text="&f.current_text" overwrite="true"layer="0" x="50" y="300" width="350" height="150" size="28" color="white" border="line" border_color="red" border_size="2"]
     
     [wait time="2000"]
     [jump target="*debate_loop"]
     [s]
-
 
 ; ----- コトダマボタンが押された時の中継ラベル -----
 *on_shot_hera
@@ -237,16 +234,14 @@
 
 *debate_fail
     ; ★★★ 不正解処理（体力制） ★★★
-    [iscript] f.life--; 
-    [endscript] 
+    [iscript] f.life--; [endscript] 
 
     [if exp="f.life <= 0"]
         [jump target="*debate_time_up_badend"] 
     [else]
         ; 体力表示を更新
-        [iscript] f.life_text = "体力：" + f.life; 
-        [endscript]
-        [ptext name="life_gauge" exp="f.life_text" overwrite="true"]  
+        [iscript] f.life_text = "体力：" + f.life; [endscript]
+        [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white"exp="f.life_text" overwrite="true"]  
 
         @layopt layer=message0 visible=true
         #ルリア
@@ -270,14 +265,10 @@
     ; ... (成功シナリオ) ...
     [jump storage="first.ks" target="*start"]
 
-*debate_time_up_badend 
-    [eval exp="f.is_debate_finished = true"]
-    [cm]
-    [clearfix]
-    ; ... (UIを消去) ...
-    @layopt layer=message0 visible=true
-    ; ... (台本のタイムアップBAD ENDのテキストを記述) ...
-    [jump storage="first.ks" target="*start"]
+*debate_end_processing
+    ; タイムアップなどで議論が終了した場合の処理
+    ; 今回は成功時しか来ないが、念のため
+    @endjump
 
 
 
