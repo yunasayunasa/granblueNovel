@@ -162,6 +162,14 @@
     団長さんとお出かけ楽しみなんだよ！[p]
     [jump storage="fenny_scenario.ks" target="*port_breeze_arrival"] 
 
+*show_load_screen
+    ; [playse storage="select_se.wav"]
+    [showload] ; ロード画面を表示
+    ; ロード後、タイトルに戻るか、ゲーム再開かは showload の挙動次第
+    [jump target="*show_title_screen"] 
+    ; タイトル画面に再ジャンプするのが無難
+[s]
+
 
 ; ----- 説明表示用ラベル (任意) -----
 *show_narumia_desc
