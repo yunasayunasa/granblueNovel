@@ -1,76 +1,72 @@
-; first.ks (タイトル風シーンを組み込む例)
-*start
-  ; ★★★ 最初にメッセージウィンドウを非表示にする ★★★
+; first.ks
+*start 
+    ; iscriptでのスケール調整やレスポンシブ対応初期化はここで行う
+    [iscript]
+    var tyrano_base_element = document.getElementById('tyrano_base');
+    if (tyrano_base_element) {
+        tyrano_base_element.style.setProperty('transform', 'scale(1)', 'important');
+        tyrano_base_element.style.setProperty('transform-origin', '0px 0px', 'important');
+    }
+    [endscript]
+     [call storage="resizecall.ks"] 
+     ; もしレスポンシブ対応を入れるなら
+
+    ; タイトル画面表示用のラベルへジャンプ
+    [jump target="*show_title_screen"]
+
+*show_title_screen
+    [cm] 
+    
+    [clearfix]
+     ; 前景レイヤ（キャラクターなど）クリア
     @layopt layer=message0 visible=false
-; iscriptでのtransformスケール調整は引き続き行う
-[iscript]
-var tyrano_base_element = document.getElementById('tyrano_base');
-if (tyrano_base_element) {
-    console.log("ジャンプ後の #tyrano_base transform (iscript前):", window.getComputedStyle(tyrano_base_element).transform);
-    tyrano_base_element.style.setProperty('transform', 'scale(1)', 'important');
-    tyrano_base_element.style.setProperty('transform-origin', '0px 0px', 'important');
-    setTimeout(function(){ // 少し遅れて確認
-        console.log("ジャンプ後の #tyrano_base transform (iscript後):", window.getComputedStyle(tyrano_base_element).transform);
-    }, 100);
-} else {
-    console.error("#tyrano_base が見つかりません");
-}
-[endscript]
- 
+     ; メッセージウィンドウを非表示
+    [stopbgm] 
+    ; 他のシーンから戻ってきた時のためにBGMを停止
 
-; ★★★ 画面クリアと主要要素の再設定 ★★★
-[cm]
-[clearfix]
-[stopbgm]
-[stopse]
+    ; ★★★ タイトル画面の表示 ★★★
 
-; ★★★ 意図的な画面更新処理 ★★★
-; 方法1: TyranoScriptの内部的な画面リフレッシュを試みる (もしあれば)
-; [refresh_screen] ; ← このようなタグがあれば (架空のタグです)
+    ; BGM再生
+    [playbgm storage="title_theme.ogg" loop="true"]
 
-; 方法2: 短いウェイトの後に、何らかの描画関連のダミータグを実行
-[wait time="100"] 
-[bg storage="calc_space.jpg" time="0" ] 
-; または、前景レイヤーの表示/非表示などでも良いかもしれません
-; [layopt layer="0" visible=false]
-; [layopt layer="0" visible=true]
+    ; 背景表示
+    [bg storage="title_bg.jpg" time="1000"]
 
-; 方法3: JavaScriptでリサイズイベントを疑似的に発火 (ブラウザやTyranoScriptが反応するかは不明)
-[iscript]
-// TyranoScriptのエンジンがリサイズイベントをリッスンしていることを期待
-window.dispatchEvent(new Event('resize'));
-console.log("Resize event dispatched.");
-// さらに TyranoScript 内部のリサイズ関数を直接呼び出すことを試みる (非常に高度で危険)
-// if (TYRANO && TYRANO.kag && TYRANO.kag.event && TYRANO.kag.event.resizeEvent) {
-//     TYRANO.kag.event.resizeEvent();
-//     console.log("TYRANO.kag.event.resizeEvent() called.");
-// }
-[endscript]
-[wait time="100"] 
- @layopt layer=message0 visible=true
-; ★★★ プロローグの初期要素を再描画 ★★★
-[playbgm storage="prologue_bgm.ogg" loop="true"]
-[bg storage="calc_space.jpg" time="1000"] 
+    ; タイトルテキストを表示 (ptextで作成し、animで演出)
+    [ptext name="game_title_text" layer="fix" x="50" y="150" size="40" color="white" text="演算世界とチヨコレイト"]
+    [anim name="game_title_text" effect="fadeIn" time="1500"]
 
-; メッセージウィンドウの位置とサイズを再設定
-[position layer="message0" left="25" top="600" width="400" height="180" page=fore visible=true]
-[position layer="message0" page=fore margint="25" marginl="25" marginr="25" marginb="25"]
+    ; 「はじめから」ボタン
+    [glink name="start_button" text="はじめから" x="125" y="450" width="200" size="28" color="blue" target="*prologue_start"]
 
-; キャラクター名表示エリアをクリアして再設定
-[ptext name="chara_name_area" layer="message0" x="40" y="605" text="" visible="false"]
-[chara_config ptext="chara_name_area"]
+    ; 「つづきから」ボタン
+    [glink name="load_button" text="つづきから" x="125" y="520" width="200" size="28" color="green" target="*show_load_screen"]
 
-; キャラクター定義
-[chara_new name="roger" storage="roger_normal.png" jname="ロジャー"]
+    [s] 
+    ; ボタン入力を待つ
 
-; ★★★ レスポンシブ対応初期化 ★★★
-[call storage="resizecall.ks"] 
-[set_resizecall storage="resizecall.ks"] 
-[call storage="macro.ks"]
-[popopo type=sine frequency=A octave=0]
+*prologue_start
+    ; ★★★ ゲーム本編の開始処理 ★★★
+    [stopbgm] 
+    ; タイトルBGMを止める
+    [cm]
+    [clearfix] 
+    ; タイトルロゴやボタンを消す
+    ; または [free name="game_title_text"] [free name="start_button"] [free name="load_button"] で個別に消す
 
-[title name="演算世界とチヨコレイト"]
-[bg storage="calc_space.jpg" time="1000"]
+    @layopt layer=message0 visible=true 
+    ; メッセージウィンドウを表示
+    
+    ; iscriptでの画面リフレッシュ (エンディングから戻ってきた時のアップ問題対策)
+    [bg storage="calc_space.jpg" time="0"]
+
+    ; プロローグの開始 (BGM再生、背景表示、メッセージウィンドウ設定など)
+    [playbgm storage="prologue_bgm.ogg" loop="true"]
+    [bg storage="calc_space.jpg" time="1000"]
+    [position layer="message0" left="25" top="600" width="400" height="180" page=fore visible=true]
+    [position layer="message0" page=fore margint="25" marginl="25" marginr="25" marginb="25"]
+    [ptext name="chara_name_area" layer="message0" color="white" size="20" bold="true" x="40" y="575" visible="false"]
+    [chara_config ptext="chara_name_area"]
 
  
 #
