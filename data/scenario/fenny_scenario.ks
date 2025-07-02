@@ -200,9 +200,13 @@
     f.debate_index = (f.debate_index + 1) % f.debate_statements.length;
     [endscript]
     
-    ; ★★★ 画面更新 ★★★
-    [ptext name="timer_display" exp="f.timer_display_text" overwrite="true"]
-    [ptext name="testimony_text" text="&f.current_text" overwrite="true"]
+     ; ★★★ 画面更新 (必須パラメータを全て追加) ★★★
+
+    ; タイマー表示の更新
+    [ptext name="timer_display" layer="fix" x="300" y="20" width="130" height="50" size="24" color="orange" exp="f.timer_display_text" overwrite="true"]
+
+    ; 証言テキストの更新
+    [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="28" color="white" text="&f.current_text" overwrite="true"]
     
     ; ★★★ タイムアップ判定 ★★★
     [if exp="f.time_limit <= 0"]
@@ -210,7 +214,7 @@
     [endif]
 
     [wait time="2000"]
-    [jump target="*debate_loop"]
+    [jump target="*debate_loop" cond="f.is_debate_finished == false"] ; 条件を少し変更
     [s]
 
 ; ----- コトダマボタンが押された時の中継ラベル -----
