@@ -151,7 +151,7 @@
     ;[bg storage="courtroom_bg.jpg" time="500"]
     @layopt layer=message0 visible=false
     
-    ; ★★★ 議論用の変数を最初に全て初期化 ★★★
+    ; ★★★ 議論用の変数を初期化 ★★★
     [iscript]
     f.debate_statements = [
         { id: 1, text: "フェニーちゃんのチョコはここにあります！", is_weakpoint: false },
@@ -164,74 +164,54 @@
         { id: "hihiiro", name: "ヒヒイロボウル" } // 正解
     ];
     f.debate_index = 0;
-    f.is_debate_active = true;
-    f.time_limit = 180; 
-    f.is_time_up = false; 
-
-  
- f.timer_display_text = "TIME: " + f.time_limit;
+    f.time_limit = 180; // 制限時間
+    f.is_debate_finished = false; // 議論が終了したかどうかのフラグ
     [endscript]
 
-   ; ★★★ 最初のUI配置 ★★★
+    ; --- UIの配置 ---
     [chara_show name="ruria" x="150" y="100"]
     [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="28" color="white" border="line" border_color="red" border_size="2"]
+    [ptext name="timer_display" layer="fix" x="300" y="20" width="130" height="50" size="24" color="orange"]
     [glink name="kotodama_hera" text="&f.kotodama_list[0].name" x="20" y="650" width="200" size="20" color="green" target="*on_shot_hera"]
     [glink name="kotodama_hihiiro" text="&f.kotodama_list[1].name" x="230" y="650" width="200" size="20" color="green" target="*on_shot_hihiiro"]
-      [ptext name="timer_display" layer="fix" x="350" y="60" size="24" color="orange" exp="f.timer_display_text"]
+    
     ; 議論ループ開始
     [jump target="*debate_loop"]
-    [jump target="*timer_loop"]
     [s]
+
 *debate_loop
     ; 議論が終了していたら、このループを抜ける
-    [if exp="f.is_debate_active == false"]
+    [if exp="f.is_debate_finished == true"]
         [jump target="*debate_end_processing"]
     [endif]
 
-    ; ★★★ 毎回UIを再描画する（念のため）★★★
-    [chara_show name="ruria" x="150" y="100" time="0"] 
-    [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="28" color="white"]
-    [glink name="kotodama_hera" text="&f.kotodama_list[0].name" x="20" y="650" width="200" size="20" color="green" target="*on_shot_hera"]
-    [glink name="kotodama_hihiiro" text="&f.kotodama_list[1].name" x="230" y="650" width="200" size="20" color="green" target="*on_shot_hihiiro"]
-
-    ; ★★★ 表示する証言の情報を変数に格納 ★★★
+    ; ★★★ タイマーと証言を同時に更新 ★★★
     [iscript]
-    var current_statement = f.debate_statements[f.debate_index];
-    f.current_text = current_statement.text;
-    f.is_weakpoint_now = current_statement.is_weakpoint;
+    // 1秒ごとにタイマーを減らす (実際にはループ1周ごと。wait時間で調整)
+    f.time_limit -= 2; // [wait time="2000"]なので、2秒減らす
+    if(f.time_limit < 0) f.time_limit = 0;
+
+    // 表示用テキストを生成
+    f.timer_display_text = "TIME: " + f.time_limit;
+    f.current_text = f.debate_statements[f.debate_index].text;
+    f.is_weakpoint_now = f.debate_statements[f.debate_index].is_weakpoint;
+
+    // 次のインデックスを準備
     f.debate_index = (f.debate_index + 1) % f.debate_statements.length;
     [endscript]
     
-    [ptext name="testimony_text" text="&f.current_text" overwrite="true"layer="0" x="50" y="300" width="350" height="150" size="28" color="white" border="line" border_color="red" border_size="2"]
+    ; ★★★ 画面更新 ★★★
+    [ptext name="timer_display" exp="f.timer_display_text" overwrite="true"]
+    [ptext name="testimony_text" text="&f.current_text" overwrite="true"]
     
-    [wait time="2000"]
-   [jump target="*debate_loop" cond="tf.is_debate_active == true && f.is_time_up == false"] 
-   ; 議論がアクティブかつタイムアップしてない間ループ
-    [s]
-
-   ; ===== タイマーループ =====
-*timer_loop
-    [wait time="1000"]
-    [iscript]
-    f.time_limit--; 
-    f.timer_display_text = "TIME: " + f.time_limit; 
-    
-    [endscript]
-
-    ; ★★★ タイマー表示を更新 (overwriteとexpを使用) ★★★
-   
-    ; (必須パラメータ不足エラーを防ぐため、x,y,layerなども含めた方が安全)
-    [ptext name="timer_display" layer="fix" x="350" y="60" size="24" color="orange" exp="f.timer_display_text" overwrite="true"]
-
-    ; タイムアップ判定
+    ; ★★★ タイムアップ判定 ★★★
     [if exp="f.time_limit <= 0"]
-        [eval exp="f.is_time_up = true"]
         [jump target="*time_up_bad_end"]
     [endif]
 
-    [jump target="*timer_loop" cond="tf.is_debate_active == true"]
+    [wait time="2000"]
+    [jump target="*debate_loop"]
     [s]
-
 
 ; ----- コトダマボタンが押された時の中継ラベル -----
 *on_shot_hera
@@ -242,34 +222,28 @@
     [jump target="*check_shot_action"]
 
 *check_shot_action
-    ; [playse storage="shoot_se.wav"]
-
-     [if exp="f.is_weakpoint_now == true && f.shot_kotodama_id == 'hihiiro'"]
+    [if exp="f.is_weakpoint_now == true && f.shot_kotodama_id == 'hihiiro'"]
         ; 正解！
+        [eval exp="f.is_debate_finished = true"] ; ループ停止フラグを立てる
+        [jump target="*debate_success"]
     [else]
-        ; ★★★ 不正解 (ペナルティ処理) ★★★
-        ; [eval]の代わりに[iscript]でタイマーを減らす
-        [iscript]
-        f.time_limit -= 30; // 30秒減らす
-        // 0秒未満にならないように調整
-        if (f.time_limit < 0) {
-            f.time_limit = 0;
-        }
-        f.timer_display_text = "TIME: " + f.time_limit; // 表示用テキストも更新
-        console.log("ペナルティ！残り時間: " + f.time_limit); // デバッグ用
-        [endscript]
-
-        ; タイマー表示を即座に更新
-        [ptext name="timer_display" layer="fix" x="350" y="60" size="24" color="orange" exp="f.timer_display_text" overwrite="true"]
-
-        @layopt layer=message0 visible=true
-        #ルリア
-        はわわ〜、よく分かりませんでしたぁ。[r]もう一回最初から言いますね？[l]
-        @layopt layer=message0 visible=false
-        [eval exp="f.debate_index = 0"]
-        [jump target="*debate_loop"]
+        ; 不正解
+        [iscript] f.time_limit -= 30; [endscript] ; ペナルティ
+        ; 不正解メッセージを表示するために、ループを一旦中断してジャンプ
+        [jump target="*debate_fail_message"]
     [endif]
     [s]
+
+*debate_fail_message
+    ; 不正解メッセージ表示
+    [iscript] f.timer_display_text = "TIME: " + f.time_limit; [endscript]
+    [ptext name="timer_display" exp="f.timer_display_text" overwrite="true"]
+    @layopt layer=message0 visible=true
+    #ルリア
+    はわわ〜、よく分かりませんでしたぁ。[r]もう一回最初から言いますね？[l]
+    @layopt layer=message0 visible=false
+    [eval exp="f.debate_index = 0"] ; 証言を最初から
+    [jump target="*debate_loop"] ; 議論ループに戻る
 
 *debate_success
  [eval exp="tf.is_debate_active = false"]
