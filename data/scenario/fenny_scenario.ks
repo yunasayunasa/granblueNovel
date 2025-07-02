@@ -167,40 +167,36 @@
     f.is_debate_active = true;
     [endscript]
 
-    ; --- UIの配置 ---
+   ; ★★★ 最初のUI配置 ★★★
     [chara_show name="ruria" x="150" y="100"]
-
-    ; ★★★ 証言表示エリアを最初に定義 ★★★
-    [ptext name="debate_text" layer="0" x="50" y="300" width="350" height="100" size="28" color="white" border="line" border_color="red" border_size="2"]
-
-    ; ★★★ コトダマボタンを配置 ★★★
-    ; targetをそれぞれ専用の中継ラベルに向ける (exp属性は使わない)
+    [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="28" color="white" border="line" border_color="red" border_size="2"]
     [glink name="kotodama_hera" text="&f.kotodama_list[0].name" x="20" y="650" width="200" size="20" color="green" target="*on_shot_hera"]
     [glink name="kotodama_hihiiro" text="&f.kotodama_list[1].name" x="230" y="650" width="200" size="20" color="green" target="*on_shot_hihiiro"]
     
     ; 議論ループ開始
     [jump target="*debate_loop"]
     [s]
-
 *debate_loop
     ; 議論が終了していたら、このループを抜ける
     [if exp="f.is_debate_active == false"]
         [jump target="*debate_end_processing"]
     [endif]
 
+    ; ★★★ 毎回UIを再描画する（念のため）★★★
+    [chara_show name="ruria" x="150" y="100" time="0"] 
+    [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="28" color="white"]
+    [glink name="kotodama_hera" text="&f.kotodama_list[0].name" x="20" y="650" width="200" size="20" color="green" target="*on_shot_hera"]
+    [glink name="kotodama_hihiiro" text="&f.kotodama_list[1].name" x="230" y="650" width="200" size="20" color="green" target="*on_shot_hihiiro"]
+
     ; ★★★ 表示する証言の情報を変数に格納 ★★★
     [iscript]
-    // iscriptの中ではtf変数ではなく、f変数を使う方が安定する場合がある
     var current_statement = f.debate_statements[f.debate_index];
     f.current_text = current_statement.text;
     f.is_weakpoint_now = current_statement.is_weakpoint;
-    
-    // 次のインデックスを準備
     f.debate_index = (f.debate_index + 1) % f.debate_statements.length;
     [endscript]
     
-    ; ★★★ [ptext overwrite="true"] でテキストを更新 ★★★
-    [ptext name="debate_text" layer="0" x="50" y="300" text="&f.current_text" overwrite="true"]
+    [ptext name="testimony_text" text="&f.current_text" overwrite="true"layer="0" x="50" y="300" width="350" height="150" size="28" color="white" border="line" border_color="red" border_size="2"]
     
     [wait time="2000"]
     [jump target="*debate_loop"]
@@ -224,22 +220,16 @@
         [jump target="*debate_success"]
 
     [else]
-        ; ★★★ 不正解の処理を明確にする ★★★
-        ; [playse storage="fail_se.wav"] ; 不正解の効果音
-
-        ; 一時的にメッセージウィンドウを表示して「違う！」と伝える
+        ; ★★★ 不正解 ★★★
         @layopt layer=message0 visible=true
         #ルリア
-        はわわ〜、よく分かりませんでしたぁ。[r]もう一回最初から言いますね？[l]
+        はわわ〜、よく分かりませんでしたぁ。[r]もう一回最初から言いますね？[l][p]
         @layopt layer=message0 visible=false
-
-        ; 議論ループに戻る (インデックスをリセットして最初から)
-        [eval exp="f.debate_index = 0"]
-        [jump target="*debate_loop"]
-
+        
+        [eval exp="f.debate_index = 0"] 
+        [jump target="*debate_loop"] 
     [endif]
-    [s] 
-    ; if文の後には[s]が必要
+    [s]
 
 *debate_success
     [cm]

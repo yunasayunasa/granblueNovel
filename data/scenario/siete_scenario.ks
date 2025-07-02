@@ -234,7 +234,7 @@
 
 
 *soiya_with_them 
-    ; [playse storage="select_se.wav"] ; 選択音
+    ; [playse storage="select_se.wav"] 
 
     ; 3人組は表示されたまま（またはここで再度表示位置などを調整）
     ; 必要であれば、シエテを再表示して困惑させるセリフを追加しても面白い
@@ -265,7 +265,7 @@
     えぇ...？何...これ...？[p]
     え？コレで終わり！？[r]
     嘘でしょ！？[p]
-
+#
     ━ソイヤの魅力には誰も抗えない。[p]
     ～ソイヤッ！END～[l]
 
@@ -429,7 +429,7 @@
     そして、特異点たる存在への、[r]
     せめてもの慈悲であった。[p]
     ～ルオーEND～[l]
-     [chara_show name="luoh" x="150" y="150"] ; 最後にルオーを表示していたなら消す
+     [chara_show name="luoh" x="150" y="150"] 
      [chara_hide name="luoh"]
     [jump storage="first.ks" target="*start"]
 

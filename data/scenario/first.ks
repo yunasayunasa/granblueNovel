@@ -71,7 +71,7 @@ console.log("Resize event dispatched.");
 [bg storage="calc_space.jpg" time="1000"]
 
  
-
+#
 
 君は、見たこともない空間にいる。[r]幻想的な一面の花畑、[r]とても現実とは思えない。[p]
 
