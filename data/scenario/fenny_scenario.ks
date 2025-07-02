@@ -165,6 +165,8 @@
     ];
     f.debate_index = 0;
     f.is_debate_active = true;
+      f.is_debate_finished = false;
+    f.time_limit = 180; // 制限時間
     [endscript]
 
    ; ★★★ 最初のUI配置 ★★★
@@ -172,7 +174,7 @@
     [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="28" color="white" border="line" border_color="red" border_size="2"]
     [glink name="kotodama_hera" text="&f.kotodama_list[0].name" x="20" y="650" width="200" size="20" color="green" target="*on_shot_hera"]
     [glink name="kotodama_hihiiro" text="&f.kotodama_list[1].name" x="230" y="650" width="200" size="20" color="green" target="*on_shot_hihiiro"]
-    
+     [ptext name="timer_display" layer="fix" x="300" y="20" width="130" height="50" size="24" color="orange"]
     ; 議論ループ開始
     [jump target="*debate_loop"]
     [s]
