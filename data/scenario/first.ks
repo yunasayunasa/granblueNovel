@@ -62,7 +62,7 @@
     [bg storage="calc_space.jpg" time="1000"]
     [position layer="message0" left="25" top="600" width="400" height="180" page=fore visible=true]
     [position layer="message0" page=fore margint="25" marginl="25" marginr="25" marginb="25"]
-    [ptext name="chara_name_area" layer="message0" color="white" size="20" bold="true" x="40" y="575" visible="false"]
+    [ptext name="chara_name_area" layer="message0" color="white" size="20" bold="true" x="40" y="605" visible="false"]
     [chara_config ptext="chara_name_area"]
 
  
