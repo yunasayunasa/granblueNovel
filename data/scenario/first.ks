@@ -1,5 +1,7 @@
 ; first.ks (タイトル風シーンを組み込む例)
 *start
+  ; ★★★ 最初にメッセージウィンドウを非表示にする ★★★
+    @layopt layer=message0 visible=false
 ; iscriptでのtransformスケール調整は引き続き行う
 [iscript]
 var tyrano_base_element = document.getElementById('tyrano_base');
@@ -45,7 +47,7 @@ console.log("Resize event dispatched.");
 // }
 [endscript]
 [wait time="100"] 
-
+ @layopt layer=message0 visible=true
 ; ★★★ プロローグの初期要素を再描画 ★★★
 [playbgm storage="prologue_bgm.ogg" loop="true"]
 [bg storage="calc_space.jpg" time="1000"] 
