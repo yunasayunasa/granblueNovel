@@ -46,18 +46,21 @@
 
     @layopt layer=message0 visible=true 
     ; メッセージウィンドウを表示
-    
+    [wait time=10] 
 
     ; 画面リフレッシュ
     [bg storage="calc_space.jpg" time="0"]
+    [wait time=10] 
     ; プロローグの開始 (BGM再生、背景表示、メッセージウィンドウ設定など)
    ; [playbgm storage="prologue_bgm.ogg" loop="true"]
     [bg storage="calc_space.jpg" time="1000"]
+    [wait time=10] 
     [position layer="message0" left="25" top="600" width="400" height="180" page=fore visible=true]
     [position layer="message0" page=fore margint="25" marginl="25" marginr="25" marginb="25"]
+    [wait time=10] 
     [ptext name="chara_name_area" layer="message0" color="white" size="20" bold="true" x="40" y="605" visible="false"]
     [chara_config ptext="chara_name_area"]
-
+[wait time=10] 
  
 #
 
