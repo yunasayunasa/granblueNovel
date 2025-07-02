@@ -150,7 +150,8 @@
     [clearfix]
     ;[bg storage="courtroom_bg.jpg" time="500"]
     @layopt layer=message0 visible=false
-    
+      [eval exp="f.life = 5"]
+
     ; ★★★ 議論用の変数を最初に全て初期化 ★★★
     [iscript]
     f.debate_statements = [
@@ -168,16 +169,14 @@
       f.is_debate_finished = false;
   
     [endscript] 
-     [eval exp="f.life = 5"]
-
+   
 
    ; ★★★ 最初のUI配置 ★★★
     [chara_show name="ruria" x="150" y="100"]
     [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="28" color="white" border="line" border_color="red" border_size="2"]
     [glink name="kotodama_hera" text="&f.kotodama_list[0].name" x="20" y="650" width="100" size="20" color="green" target="*on_shot_hera"]
     [glink name="kotodama_hihiiro" text="&f.kotodama_list[1].name" x="230" y="650" width="100" size="20" color="green" target="*on_shot_hihiiro"]
-      ; ★★★ 体力表示エリア ★★★
-    [ptext name="life_gauge" layer="0" x="350" y="20" width="100" height="50" class="life_gauge_js"]
+     
     [jump target="*debate_loop"]
     [s]
 *debate_loop
@@ -199,10 +198,7 @@
     f.is_weakpoint_now = current_statement.is_weakpoint;
     f.debate_index = (f.debate_index + 1) % f.debate_statements.length;
     [endscript]
-     [iscript]
-    // 体力表示
-    $(".life_gauge_js .inner_ptext").html("体力：" + f.life);
-    [endscript]
+  
     [ptext name="testimony_text" text="&f.current_text" overwrite="true"layer="0" x="50" y="300" width="350" height="150" size="28" color="white" border="line" border_color="red" border_size="2"]
     
     [wait time="2000"]
@@ -226,20 +222,23 @@
         ; ループ停止フラグを立てる
         [jump target="*debate_success"]
 
-     [eval exp="f.life--"]
+    
     [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="体力："&f.life]
-    [if exp="f.life <= 0"]
-        [jump target="*ruria_investigation_badend"]
    
-        [else]
+   
+       
             [jump target="*debate_fail_message"]
-        [endif]
+        
     [endif]
     [s]
     *debate_fail_message
+     [eval exp="f.life--"]
     @layopt layer=message0 visible=true
     #ルリア
     はわわ〜、よく分かりませんでしたぁ。[l]
+ [if exp="f.life <= 0"]
+        [jump target="*ruria_investigation_badend"]
+[endif]
     @layopt layer=message0 visible=false
     [eval exp="f.debate_index = 0"]
     [jump target="*debate_loop"]
