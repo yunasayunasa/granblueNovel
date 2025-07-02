@@ -1,13 +1,6 @@
 ; first.ks
 *start 
-    ; iscriptでのスケール調整やレスポンシブ対応初期化はここで行う
-    [iscript]
-    var tyrano_base_element = document.getElementById('tyrano_base');
-    if (tyrano_base_element) {
-        tyrano_base_element.style.setProperty('transform', 'scale(1)', 'important');
-        tyrano_base_element.style.setProperty('transform-origin', '0px 0px', 'important');
-    }
-    [endscript]
+ 
      [call storage="resizecall.ks"] 
      ; もしレスポンシブ対応を入れるなら
 
@@ -54,15 +47,6 @@
     @layopt layer=message0 visible=true 
     ; メッセージウィンドウを表示
     
-       ; ★★★ iscriptでのアップ問題対策をここに再度記述 ★★★
-    [iscript]
-    var tyrano_base_element = document.getElementById('tyrano_base');
-    if (tyrano_base_element) {
-        tyrano_base_element.style.setProperty('transform', 'scale(1)', 'important');
-        tyrano_base_element.style.setProperty('transform-origin', '0px 0px', 'important');
-        console.log("プロローグ開始時に #tyrano_base の transform を scale(1) に設定");
-    }
-    [endscript]
 
     ; 画面リフレッシュ
     [bg storage="calc_space.jpg" time="0"]
