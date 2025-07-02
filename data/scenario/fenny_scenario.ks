@@ -263,11 +263,6 @@
     ; ... (成功シナリオ) ...
     [jump storage="first.ks" target="*start"]
 
-*debate_end_processing
-    ; タイムアップなどで議論が終了した場合の処理
-    ; 今回は成功時しか来ないが、念のため
-    @endjump
-
 *time_up_bad_end
     [eval exp="tf.is_debate_active = false"] 
     ; ループを確実に止める
