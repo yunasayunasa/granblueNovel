@@ -175,8 +175,7 @@
     [glink name="kotodama_hera" text="&f.kotodama_list[0].name" x="20" y="650" width="100" size="20" color="green" target="*on_shot_hera"]
     [glink name="kotodama_hihiiro" text="&f.kotodama_list[1].name" x="230" y="650" width="100" size="20" color="green" target="*on_shot_hihiiro"]
       ; ★★★ 体力表示エリア ★★★
-    [iscript] f.life_text = "体力：" + f.life; 
-    [endscript]
+    [iscript] f.life_text = "体力：" + f.life; [endscript]
     [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" exp="f.life_text"]
 
     [jump target="*debate_loop"]
@@ -191,9 +190,9 @@
     [chara_show name="ruria" x="150" y="100" time="0"] 
     [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="28" color="white"]
     [glink name="kotodama_hera" text="&f.kotodama_list[0].name" x="20" y="650" width="100" size="20" color="green" target="*on_shot_hera"]
-    [glink name="kotodama_hihiiro" text="&f.kotodama_list[1].name" x=230" y="650" width="100" size="20" color="green" target="*on_shot_hihiiro"]
+    [glink name="kotodama_hihiiro" text="&f.kotodama_list[1].name" x="230" y="650" width="100" size="20" color="green" target="*on_shot_hihiiro"]
 
-    ; ★★★ 表示する証言の情報を変数に格納 ★★
+    ; ★★★ 表示する証言の情報を変数に格納 ★★★
     [iscript]
     var current_statement = f.debate_statements[f.debate_index];
     f.current_text = current_statement.text;
@@ -216,42 +215,25 @@
     [jump target="*check_shot_action"]
 
 *check_shot_action
-    [iscript]
-    // ★★★ 弱点フラグの取得方法を、iscript内で完結する形に修正 ★★★
-    var was_weakpoint = $(".tyrano_ptext[data-name='testimony_text']").data("is_weakpoint");
-    f.is_correct_shot = (was_weakpoint === true && f.shot_kotodama_id == 'hihiiro');
-    [endscript]
+    ; [playse storage="shoot_se.wav"]
 
-    [if exp="f.is_correct_shot == true"]
+    [if exp="f.is_weakpoint_now == true && f.shot_kotodama_id == 'hihiiro'"]
         ; 正解！
-        [eval exp="f.is_debate_finished = true"]
+        [eval exp="f.is_debate_active = false"] 
+        ; ループ停止フラグを立てる
         [jump target="*debate_success"]
+
     [else]
-        ; 不正解
-        [jump target="*debate_fail"]
-    [endif]
-    [s]
-
-*debate_fail
-    ; ★★★ 不正解処理（体力制） ★★★
-    [iscript] f.life--; [endscript] 
-
-    [if exp="f.life <= 0"]
-        [jump target="*debate_time_up_badend"] 
-    [else]
-        ; 体力表示を更新
-        [iscript] f.life_text = "体力：" + f.life; [endscript]
-        [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white"exp="f.life_text" overwrite="true"]  
-
+        ; ★★★ 不正解 ★★★
         @layopt layer=message0 visible=true
         #ルリア
-        はわわ〜、よく分かりませんでしたぁ。[r]もう一回最初から言いますね？[l]
+        はわわ〜、よく分かりませんでしたぁ。[r]もう一回最初から言いますね？[l][p]
         @layopt layer=message0 visible=false
-        [eval exp="f.debate_index = 0"]
-        [jump target="*debate_loop"]
+        
+        [eval exp="f.debate_index = 0"] 
+        [jump target="*debate_loop"] 
     [endif]
     [s]
-
 
 *debate_success
     [cm]
