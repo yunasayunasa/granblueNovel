@@ -219,9 +219,9 @@
     [endscript]
 
     ; ★★★ タイマー表示を更新 (overwriteとexpを使用) ★★★
-    [ptext name="timer_display" overwrite="true" exp="f.timer_display_text"]
+   
     ; (必須パラメータ不足エラーを防ぐため、x,y,layerなども含めた方が安全)
-    ; [ptext name="timer_display" layer="fix" x="350" y="60" size="24" color="orange" exp="f.timer_display_text" overwrite="true"]
+    [ptext name="timer_display" layer="fix" x="350" y="60" size="24" color="orange" exp="f.timer_display_text" overwrite="true"]
 
     ; タイムアップ判定
     [if exp="f.time_limit <= 0"]
