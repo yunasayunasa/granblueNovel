@@ -167,6 +167,9 @@
     f.is_debate_active = true;
     f.time_limit = 180; 
     f.is_time_up = false; 
+
+    f.life_display_text = "体力：" + f.life;
+f.timer_display_text = "TIME: " + f.time_limit;
     [endscript]
 
    ; ★★★ 最初のUI配置 ★★★
@@ -174,7 +177,7 @@
     [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="28" color="white" border="line" border_color="red" border_size="2"]
     [glink name="kotodama_hera" text="&f.kotodama_list[0].name" x="20" y="650" width="200" size="20" color="green" target="*on_shot_hera"]
     [glink name="kotodama_hihiiro" text="&f.kotodama_list[1].name" x="230" y="650" width="200" size="20" color="green" target="*on_shot_hihiiro"]
-      [ptext name="timer_display" layer="fix" x="350" y="60" size="24" color="orange" text="TIME: &f.time_limit"]
+      [ptext name="timer_display" layer="fix" x="350" y="60" size="24" color="orange" exp="f.timer_display_text"]
     ; 議論ループ開始
     [jump target="*debate_loop"]
     [jump target="*timer_loop"]
@@ -219,13 +222,13 @@
         [eval exp="f.time_limit = 0"] 
         [eval exp="f.is_time_up = true"] 
         ; 体力表示を更新
-        [ptext name="timer_display" layer="fix" x="350" y="60" size="24" color="orange" text="TIME: &f.time_limit" overwrite="true"]
+       [ptext name="timer_display" layer="fix" x="350" y="60" size="24" color="orange" exp="f.timer_display_text"]
         [jump target="*time_up_bad_end"]
         
     [endif]
 
     ; ★★★ タイマー表示を更新 ★★★
-    [ptext name="timer_display" layer="fix" x="350" y="60" size="24" color="orange" text="TIME: &f.time_limit" overwrite="true"]
+   [ptext name="timer_display" layer="fix" x="350" y="60" size="24" color="orange" exp="f.timer_display_text"]
 
     ; 議論が続いている間、タイマーループを継続
     [jump target="*timer_loop" cond="tf.is_debate_active == true"]
@@ -254,7 +257,7 @@
         ; ★★★ ペナルティ：時間を30秒減らす ★★★
         [eval exp="f.time_limit -= 30"]
         ; 画面上のタイマー表示もすぐに更新
-        [ptext name="timer_display" layer="fix" x="350" y="60" size="24" color="orange" text="TIME: &f.time_limit" overwrite="true"]
+       [ptext name="timer_display" layer="fix" x="350" y="60" size="24" color="orange" exp="f.timer_display_text"]
 
         @layopt layer=message0 visible=true
         #ルリア
@@ -443,7 +446,7 @@
 
 *main_interrogation_choice
     ; 体力表示
-    [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="体力："&f.life]
+   [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" exp="f.life_display_text"]
 
     #
     どうする？[p]
@@ -522,7 +525,7 @@
 
 *present_fail
     [eval exp="f.life--"]
-    [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="体力："&f.life]
+   [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" exp="f.life_display_text"]
     [if exp="f.life <= 0"]
         [jump target="*ruria_investigation_badend"]
     [else]

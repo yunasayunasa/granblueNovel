@@ -57,7 +57,7 @@
     [glink name="kotodama_1" text="&tf.kotodama_list[1].name" x="230" y="650" width="200" size="20" color="green" target="*on_kotodama_1_click"]
 
     ; 体力表示用のテキストエリアを定義 (議論開始時のみで良いが、再描画用にここにあっても良い)
-     [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="&f.life_text"]
+    [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" exp="f.life_display_text"]
 
 [endmacro]
 
