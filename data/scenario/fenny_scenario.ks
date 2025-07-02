@@ -167,7 +167,9 @@
     f.is_debate_active = true;
       f.is_debate_finished = false;
      f.life = 5; // ★ 体力
-    [endscript]
+    [endscript] 
+     [eval exp="f.life = 5"]
+
 
    ; ★★★ 最初のUI配置 ★★★
     [chara_show name="ruria" x="150" y="100"]
@@ -224,10 +226,10 @@
         ; ループ停止フラグを立てる
         [jump target="*debate_success"]
 
-     [iscript] f.life--; 
-     [endscript]
-        [if exp="f.life <= 0"]
-            [jump target="*ruria_investigation_badend"]
+    [eval exp="f.life--"]
+    [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="体力："&f.life]
+    [if exp="f.life <= 0"]
+        [jump target="*ruria_investigation_badend"]
         [else]
             [jump target="*debate_fail_message"]
         [endif]
