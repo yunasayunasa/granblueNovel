@@ -151,7 +151,7 @@
     ;[bg storage="courtroom_bg.jpg" time="500"]
     @layopt layer=message0 visible=false
     
-    ; ★★★ 議論用の変数を初期化 ★★★
+    ; ★★★ 議論用の変数を最初に全て初期化 ★★★
     [iscript]
     f.debate_statements = [
         { id: 1, text: "フェニーちゃんのチョコはここにあります！", is_weakpoint: false },
@@ -164,57 +164,42 @@
         { id: "hihiiro", name: "ヒヒイロボウル" } // 正解
     ];
     f.debate_index = 0;
-    f.time_limit = 180; // 制限時間
-    f.is_debate_finished = false; // 議論が終了したかどうかのフラグ
+    f.is_debate_active = true;
     [endscript]
 
-    ; --- UIの配置 ---
+   ; ★★★ 最初のUI配置 ★★★
     [chara_show name="ruria" x="150" y="100"]
     [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="28" color="white" border="line" border_color="red" border_size="2"]
-    [ptext name="timer_display" layer="fix" x="300" y="20" width="130" height="50" size="24" color="orange"]
     [glink name="kotodama_hera" text="&f.kotodama_list[0].name" x="20" y="650" width="200" size="20" color="green" target="*on_shot_hera"]
     [glink name="kotodama_hihiiro" text="&f.kotodama_list[1].name" x="230" y="650" width="200" size="20" color="green" target="*on_shot_hihiiro"]
     
     ; 議論ループ開始
     [jump target="*debate_loop"]
     [s]
-
 *debate_loop
     ; 議論が終了していたら、このループを抜ける
-    [if exp="f.is_debate_finished == true"]
+    [if exp="f.is_debate_active == false"]
         [jump target="*debate_end_processing"]
     [endif]
 
-    ; ★★★ タイマーと証言を同時に更新 ★★★
+    ; ★★★ 毎回UIを再描画する（念のため）★★★
+    [chara_show name="ruria" x="150" y="100" time="0"] 
+    [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="28" color="white"]
+    [glink name="kotodama_hera" text="&f.kotodama_list[0].name" x="20" y="650" width="200" size="20" color="green" target="*on_shot_hera"]
+    [glink name="kotodama_hihiiro" text="&f.kotodama_list[1].name" x="230" y="650" width="200" size="20" color="green" target="*on_shot_hihiiro"]
+
+    ; ★★★ 表示する証言の情報を変数に格納 ★★★
     [iscript]
-    // 1秒ごとにタイマーを減らす (実際にはループ1周ごと。wait時間で調整)
-    f.time_limit -= 2; // [wait time="2000"]なので、2秒減らす
-    if(f.time_limit < 0) f.time_limit = 0;
-
-    // 表示用テキストを生成
-    f.timer_display_text = "TIME: " + f.time_limit;
-    f.current_text = f.debate_statements[f.debate_index].text;
-    f.is_weakpoint_now = f.debate_statements[f.debate_index].is_weakpoint;
-
-    // 次のインデックスを準備
+    var current_statement = f.debate_statements[f.debate_index];
+    f.current_text = current_statement.text;
+    f.is_weakpoint_now = current_statement.is_weakpoint;
     f.debate_index = (f.debate_index + 1) % f.debate_statements.length;
     [endscript]
     
-     ; ★★★ 画面更新 (必須パラメータを全て追加) ★★★
-
-    ; タイマー表示の更新
-    [ptext name="timer_display" layer="fix" x="300" y="20" width="130" height="50" size="24" color="orange" exp="f.timer_display_text" overwrite="true"]
-
-    ; 証言テキストの更新
-    [ptext name="testimony_text" layer="0" x="50" y="300" width="350" height="150" size="28" color="white" text="&f.current_text" overwrite="true"]
+    [ptext name="testimony_text" text="&f.current_text" overwrite="true"layer="0" x="50" y="300" width="350" height="150" size="28" color="white" border="line" border_color="red" border_size="2"]
     
-    ; ★★★ タイムアップ判定 ★★★
-    [if exp="f.time_limit <= 0"]
-        [jump target="*time_up_bad_end"]
-    [endif]
-
     [wait time="2000"]
-    [jump target="*debate_loop" cond="f.is_debate_finished == false"] 
+    [jump target="*debate_loop"]
     [s]
 
 ; ----- コトダマボタンが押された時の中継ラベル -----
@@ -225,52 +210,28 @@
     [eval exp="f.shot_kotodama_id = 'hihiiro'"]
     [jump target="*check_shot_action"]
 
-
-
 *check_shot_action
+    ; [playse storage="shoot_se.wav"]
+
     [if exp="f.is_weakpoint_now == true && f.shot_kotodama_id == 'hihiiro'"]
         ; 正解！
-        [eval exp="f.is_debate_finished = true"]
+        [eval exp="f.is_debate_active = false"] 
+        ; ループ停止フラグを立てる
         [jump target="*debate_success"]
+
     [else]
-        ; 不正解
-        ; ★★★ iscriptで体力を減らし、次のジャンプ先を決定するだけ ★★★
-        [iscript]
-        f.life--;
-        f.timer_display_text = "TIME: " + f.time_limit; // ペナルティタイマーは次回から
-        [endscript]
-        [jump target="*debate_fail_penalty"]
+        ; ★★★ 不正解 ★★★
+        @layopt layer=message0 visible=true
+        #ルリア
+        はわわ〜、よく分かりませんでしたぁ。[r]もう一回最初から言いますね？[l][p]
+        @layopt layer=message0 visible=false
+        
+        [eval exp="f.debate_index = 0"] 
+        [jump target="*debate_loop"] 
     [endif]
     [s]
 
-*debate_fail_penalty
-    ; ★★★ ここでペナルティを適用し、表示を更新 ★★★
-    [iscript]
-    f.time_limit -= 30; // 30秒減らす
-    if (f.time_limit < 0) f.time_limit = 0;
-    f.timer_display_text = "TIME: " + f.time_limit;
-    [endscript]
-    
-    ; ★★★ タイマー表示を更新 (必須パラメータを全て記述) ★★★
-    [ptext name="timer_display" layer="fix" x="300" y="20" width="130" height="50" size="24" color="orange" exp="f.timer_display_text" overwrite="true"]
-    
-    ; ★★★ 体力も0以下になったかここで判定 ★★★
-    [if exp="f.life <= 0"]
-        [jump target="*ruria_investigation_badend"] 
-    [endif]
-
-    @layopt layer=message0 visible=true
-    #ルリア
-    はわわ〜、よく分かりませんでしたぁ。[r]もう一回最初から言いますね？[l]
-    @layopt layer=message0 visible=false
-
-    [eval exp="f.debate_index = 0"] 
-    [jump target="*debate_loop"] 
-
-
 *debate_success
- [eval exp="tf.is_debate_active = false"]
-  ; 念のためループ停止
     [cm]
     [clearfix]
     [free name="debate_text" layer="0"]
@@ -282,25 +243,10 @@
     ; ... (成功シナリオ) ...
     [jump storage="first.ks" target="*start"]
 
-*time_up_bad_end
-    [eval exp="tf.is_debate_active = false"] 
-    ; ループを確実に止める
-    [cm]
-    [clearfix]
-    [free name="debate_text" layer="0"]
-    [free name="kotodama_hera"]
-    [free name="kotodama_hihiiro"]
-    [free name="life_gauge" layer="fix"]
-    [free name="timer_display" layer="fix"]
-    @layopt layer=message0 visible=true
-    
-    ; ... (台本のタイムアップBAD ENDのテキストを記述) ...
-    #フェニー
-    団長さん、もういいんだよ...[l]
-    ; ...
-    #
-    ～バッドエンド～[l]
-    [jump storage="first.ks" target="*start"]
+*debate_end_processing
+    ; タイムアップなどで議論が終了した場合の処理
+    ; 今回は成功時しか来ないが、念のため
+    @endjump
 
 
 
@@ -417,9 +363,6 @@
 
     ; ★★★ 初期設定は体力のみ ★★★
     [eval exp="f.life = 5"]
- [iscript]
-  f.life_display_text = "体力：" + f.life;
-    [endscript]
 
     [chara_show name="ruria" x="150" y="100"]
 
@@ -444,7 +387,7 @@
 
 *main_interrogation_choice
     ; 体力表示
-   [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" exp="f.life_display_text"]
+    [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="体力："&f.life]
 
     #
     どうする？[p]
@@ -523,7 +466,7 @@
 
 *present_fail
     [eval exp="f.life--"]
-   [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" exp="f.life_display_text"]
+    [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="体力："&f.life]
     [if exp="f.life <= 0"]
         [jump target="*ruria_investigation_badend"]
     [else]
