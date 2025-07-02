@@ -251,7 +251,7 @@
 *debate_success
     [cm]
     [clearfix]
-    [free name="debate_text" layer="0"]
+    [free name="testimony_text" layer="0"]
     [free name="kotodama_hera"layer="0"]
     [free name="kotodama_hihiiro"layer="0"]
     @layopt layer=message0 visible=true
@@ -549,7 +549,7 @@
 *ruria_investigation_badend
      [cm]
     [clearfix]
-    [free name="debate_text" layer="0"]
+    [free name="testimony_text" layer="0"]
     [free name="kotodama_hera"layer="0"]
     [free name="kotodama_hihiiro"layer="0"]
     @layopt layer=message0 visible=true
