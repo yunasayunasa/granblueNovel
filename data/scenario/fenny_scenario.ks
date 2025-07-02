@@ -237,13 +237,15 @@
 
 *debate_fail
     ; ★★★ 不正解処理（体力制） ★★★
-    [iscript] f.life--; [endscript] 
+    [iscript] f.life--; 
+    [endscript] 
 
     [if exp="f.life <= 0"]
         [jump target="*debate_time_up_badend"] 
     [else]
         ; 体力表示を更新
-        [iscript] f.life_text = "体力：" + f.life; [endscript]
+        [iscript] f.life_text = "体力：" + f.life; 
+        [endscript]
         [ptext name="life_gauge" exp="f.life_text" overwrite="true"]  
 
         @layopt layer=message0 visible=true
