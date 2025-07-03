@@ -36,6 +36,8 @@
     ; ボタン入力を待つ
 
 *prologue_start
+  ; ★★★ クリック入力を一時的に無効化 ★★★
+    [wait_cancel]
     ; ★★★ ゲーム本編の開始処理 ★★★
     [stopbgm] 
     ; タイトルBGMを止める
@@ -61,6 +63,8 @@
     [ptext name="chara_name_area" layer="message0" color="white" size="20" bold="true" x="40" y="605" visible="false"]
     [chara_config ptext="chara_name_area"]
 [wait time=10] 
+  ; ★★★ 演出完了後、クリック入力を再度有効化 ★★★
+    [ready_all]
  
 #
 
