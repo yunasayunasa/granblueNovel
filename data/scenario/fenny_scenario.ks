@@ -268,9 +268,9 @@
     [stopbgm time="500"] 
     ;[playse storage="ronpa_se.ogg" stop="true"] 
     [quake time="500" count="5" hmax="20" vmax="20" wait="false"] 
-    [image storage="ronpa_cutin.png" layer="fix" x="50" y="200" time="100" wait="false"]
+    [image storage="ronpa_cutin.png" layer="1" x="50" y="200" time="100" wait="false"　zindex="99999"]
     [wait time="1500"] 
-    [freeimage layer="fix" time="300"]
+    [freeimage layer="1" time="300"]
     ; ★★★ 演出ここまで ★★★
 
     ; [playbgm storage="success_bgm.ogg"] ; 逆転BGMを開始
