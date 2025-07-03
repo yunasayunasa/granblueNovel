@@ -64,10 +64,9 @@
     [chara_config ptext="chara_name_area"]
 [wait time=10] 
   ; ★★★ 演出完了後、クリック入力を再度有効化 ★★★
-    [ready_all]
+    
  
 #
-
 君は、見たこともない空間にいる。[r]幻想的な一面の花畑、[r]とても現実とは思えない。[p]
    [chara_new name="roger" storage="roger_normal.png" jname="ロジャー"]
 [chara_show name="roger" x="200" y="150"]
