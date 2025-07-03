@@ -265,7 +265,7 @@
 ハウヘトが用意してくれた最高級品なんだよ！！[p]
  [chara_hide name="fenny" time="200" wait="true"]
 
-   
+    [chara_show name="hauhet" x="150" y="150"]
 #ハウヘト
 ふふ...すごいのよ、アレ。[p]
 
@@ -274,7 +274,8 @@
 そ、そんな...[p]
 ご、ごめんなさい〜！！[r]
 つい、魔が刺してしまって...[p]
-
+ [chara_hide name="ruria" time="200" wait="true"]
+  [chara_show name="sabrina" x="150" y="150"]
 #サブリナ
 お？今度はキッチンで何してるんだい？[p]
 [chara_hide name="sabrina" time="200" wait="true"]
@@ -283,22 +284,23 @@
 サブリナ！まだこっち来ちゃダメなんだよ！[p]
  [chara_hide name="fenny" time="200" wait="true"]
 
-
+ [chara_show name="sabrina" x="150" y="150"]
 #サブリナ
 さっきもなんかゴチャゴチャいって誤魔化されたけど、一体何してんのさ...[r]
 この香りはチョコ？[p]
 [chara_hide name="sabrina" time="200" wait="true"]
+ [chara_show name="hauhet" x="150" y="150"]
 #ハウヘト
 もういいんじゃないかしら？[r]
 みんなで作った方がきっと楽しいわよ？[p]
-
+[chara_hide name="hauhet" time="200" wait="true"]
 [chara_show name="fenny" x="150" y="150"]
 #フェニー
 あうぅ...、サブリナ、実はね？[p]
  [chara_hide name="fenny" time="200" wait="true"]
 #
 全ての話を聞いたサブリナは豪快に笑い飛ばした。[p]
-
+ [chara_show name="sabrina" x="150" y="150"]
 #サブリナ
 あっはっは！そんな可愛いことを考えてたの？[p]
 ...考えることは同じだね。[r]
@@ -309,14 +311,15 @@
 #フェニー
 みんなで作るんだよ！[p]
  [chara_hide name="fenny" time="200" wait="true"]
-
+ [chara_show name="hauhet" x="150" y="150"]
 #ハウヘト
 こんな事もあろうかと、シェロカルテさんから最高級の金剛晶カカオを買い付けてるわ、[r]何がすごいってこのカカオは油分がお肌に抜群にいいのそれに...
-
+[chara_hide name="hauhet" time="200" wait="true"]
  [chara_show name="ruria" x="150" y="150"]
 #ルリア
 わぁっ...！すごいです〜！[r]
 あなたも一緒に作りましょう！[p]
+ [chara_hide name="ruria" time="200" wait="true"]
 #
 君は、みんなと共にチョコを作り始めた。[r]
 誰かを想い、誰かに想われたチョコはそこにしかない格別な味がした。[p]
