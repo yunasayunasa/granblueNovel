@@ -12,7 +12,9 @@
 [chara_new name="ruria" storage="ruria_normal.png" jname="ルリア"]
 [chara_new name="sandalphon" storage="sandalphon_normal.png" jname="サンダルフォン"]
  [chara_face name="fenny" face="smile" storage="fenny_smile.png"] 
-  
+  [chara_new name="ronpa" storage="ronpa_cutin.png" jname="論破"]
+  [chara_new name="matta" storage="matta_cutin.png" jname="待った"]
+  [chara_new name="igiari" storage="igiari_cutin.png" jname="異議あり"]
     #フェニー
     サブリナにチョコを渡したくて、[r]
     その為の器材や材料が買いたいんだよ！[p]
@@ -268,9 +270,11 @@
     [stopbgm time="500"] 
     ;[playse storage="ronpa_se.ogg" stop="true"] 
     [quake time="500" count="5" hmax="20" vmax="20" wait="false"] 
+    [chara_show name="ronpa" x="150" y="150" time="10"]
     [image storage="ronpa_cutin.png" layer="1" x="50" y="200" time="100" wait="false"　zindex="99999"]
     [wait time="1500"] 
     [freeimage layer="1" time="300"]
+     [chara_hide name="ronpa" time="0" wait="true"]
     ; ★★★ 演出ここまで ★★★
 
     ; [playbgm storage="success_bgm.ogg"] ; 逆転BGMを開始
@@ -328,7 +332,7 @@
  [chara_show name="fenny" face="smile" x="150" y="150"]
 #フェニー
 みんなで作るんだよ！[p]
- [chara_hide name="fenny" time="200" wait="true"]
+ [chara_hide name="fenny" face="smile"time="200" wait="true"]
  [chara_show name="hauhet" x="150" y="150"]
 #ハウヘト
 こんな事もあろうかと、シェロカルテさんから最高級の金剛晶カカオを買い付けてるわ、[r]何がすごいってこのカカオは油分がお肌に抜群にいいのそれに...[p]
