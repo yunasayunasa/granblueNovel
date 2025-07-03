@@ -264,6 +264,16 @@
     [free name="testimony_text" layer="0"]
     [free name="kotodama_hera"layer="0"]
     [free name="kotodama_hihiiro"layer="0"]
+     ; ★★★ 「論破！」演出 ★★★
+    [stopbgm time="500"] 
+    [playse storage="ronpa_se.ogg" stop="true"] 
+    [quake time="500" count="5" hmax="20" vmax="20" wait="false"] 
+    [image storage="ronpa_cutin.png" layer="1" x="50" y="200" time="100" wait="false"]
+    [wait time="1500"] 
+    [freeimage layer="1" time="300"]
+    ; ★★★ 演出ここまで ★★★
+
+    ; [playbgm storage="success_bgm.ogg"] ; 逆転BGMを開始
     @layopt layer=message0 visible=true
     [chara_hide name="ruria" time="200" wait="true"]
    [chara_show name="fenny" x="150" y="150"]
@@ -513,18 +523,39 @@
     [s]
 
 *shake_testimony_1
+ ; ★★★ 「待った！」演出 ★★★
+    [playse storage="matta_voice.ogg" stop="true"] 
+    [image storage="matta_cutin.png" layer="1" x="50" y="200" time="100" wait="false"] 
+    [wait time="800"] 
+    [freeimage layer="1" time="200"] 
+    ; ★★★ 演出ここまで ★★★
     #ルリア
     ま、まだ証言を始めたばかりです！ちゃんと話を聞いてください！[p]
     [jump target="*main_interrogation_choice"]
 *shake_testimony_2
+; ★★★ 「待った！」演出 ★★★
+    [playse storage="matta_voice.ogg" stop="true"] 
+    [image storage="matta_cutin.png" layer="1" x="50" y="200" time="100" wait="false"] 
+    [wait time="800"] 
+    [freeimage layer="1" time="200"] 
     #ルリア
     フェニーちゃんが何をしてたかって？それはもちろんチョコ作りです！[p]
     [jump target="*main_interrogation_choice"]
 *shake_testimony_3
+; ★★★ 「待った！」演出 ★★★
+    [playse storage="matta_voice.ogg" stop="true"] 
+    [image storage="matta_cutin.png" layer="1" x="50" y="200" time="100" wait="false"] 
+    [wait time="800"] 
+    [freeimage layer="1" time="200"] 
     #ルリア
     黙々と黙ってたかって...？ええ！そうです！真剣な顔で作ってましたよ！鼻歌一つ歌ってません！[p]
     [jump target="*main_interrogation_choice"]
 *shake_testimony_4
+; ★★★ 「待った！」演出 ★★★
+    [playse storage="matta_voice.ogg" stop="true"] 
+    [image storage="matta_cutin.png" layer="1" x="50" y="200" time="100" wait="false"] 
+    [wait time="800"] 
+    [freeimage layer="1" time="200"] 
     #ルリア
     だから、私は犯人じゃないんです！信じて下さい！[p]
     [jump target="*main_interrogation_choice"]
@@ -568,6 +599,14 @@
     [s]
 
 *present_fail
+ ; ★★★ 「異議あり！」演出 ★★★
+    [playse storage="igiari_voice.ogg" stop="true"]
+    [image storage="igiari_cutin.png" layer="1" x="50" y="200" time="100" wait="false"]
+    [wait time="800"]
+    [freeimage layer="1" time="200"]
+    ; ★★★ 演出ここまで ★★★
+     #
+ 異議あり！その証言、[r]この証拠品と矛盾する！[l]
     [eval exp="f.life--"]
     [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="体力："&f.life]
     [if exp="f.life <= 0"]
@@ -580,6 +619,13 @@
     [s]
 
 *ruria_breakdown_success
+[stopbgm]
+ ; ★★★ 「異議あり！」演出 ★★★
+    [playse storage="igiari_voice.ogg" stop="true"]
+    [image storage="igiari_cutin.png" layer="1" x="50" y="200" time="100" wait="false"]
+    [wait time="800"]
+    [freeimage layer="1" time="200"]
+    ; ★★★ 演出ここまで ★★★
     [cm]
     [clearfix]
     [chara_hide name="ruria"]
