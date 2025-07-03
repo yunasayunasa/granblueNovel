@@ -266,7 +266,7 @@
     [free name="kotodama_hihiiro"layer="0"]
      ; ★★★ 「論破！」演出 ★★★
     [stopbgm time="500"] 
-    [playse storage="ronpa_se.ogg" stop="true"] 
+    ;[playse storage="ronpa_se.ogg" stop="true"] 
     [quake time="500" count="5" hmax="20" vmax="20" wait="false"] 
     [image storage="ronpa_cutin.png" layer="0" x="50" y="200" time="100" wait="false"]
     [wait time="1500"] 
@@ -524,7 +524,7 @@
 
 *shake_testimony_1
  ; ★★★ 「待った！」演出 ★★★
-    [playse storage="matta_voice.ogg" stop="true"] 
+   ; [playse storage="matta_voice.ogg" stop="true"] 
     [image storage="matta_cutin.png" layer="0" x="50" y="200" time="100" wait="false"] 
     [wait time="800"] 
     [freeimage layer="0" time="200"] 
@@ -534,7 +534,7 @@
     [jump target="*main_interrogation_choice"]
 *shake_testimony_2
 ; ★★★ 「待った！」演出 ★★★
-    [playse storage="matta_voice.ogg" stop="true"] 
+   ; [playse storage="matta_voice.ogg" stop="true"] 
     [image storage="matta_cutin.png" layer="0" x="50" y="200" time="100" wait="false"] 
     [wait time="800"] 
     [freeimage layer="0" time="200"] 
@@ -543,7 +543,7 @@
     [jump target="*main_interrogation_choice"]
 *shake_testimony_3
 ; ★★★ 「待った！」演出 ★★★
-    [playse storage="matta_voice.ogg" stop="true"] 
+   ; [playse storage="matta_voice.ogg" stop="true"] 
     [image storage="matta_cutin.png" layer="0" x="50" y="200" time="100" wait="false"] 
     [wait time="800"] 
     [freeimage layer="0" time="200"] 
@@ -552,7 +552,7 @@
     [jump target="*main_interrogation_choice"]
 *shake_testimony_4
 ; ★★★ 「待った！」演出 ★★★
-    [playse storage="matta_voice.ogg" stop="true"] 
+   ; [playse storage="matta_voice.ogg" stop="true"] 
     [image storage="matta_cutin.png" layer="0" x="50" y="200" time="100" wait="false"] 
     [wait time="800"] 
     [freeimage layer="0" time="200"] 
@@ -600,7 +600,7 @@
 
 *present_fail
  ; ★★★ 「異議あり！」演出 ★★★
-    [playse storage="igiari_voice.ogg" stop="true"]
+    ;[playse storage="igiari_voice.ogg" stop="true"]
     [image storage="igiari_cutin.png" layer="0" x="50" y="200" time="100" wait="false"]
     [wait time="800"]
     [freeimage layer="0" time="200"]
@@ -621,7 +621,7 @@
 *ruria_breakdown_success
 [stopbgm]
  ; ★★★ 「異議あり！」演出 ★★★
-    [playse storage="igiari_voice.ogg" stop="true"]
+   ; [playse storage="igiari_voice.ogg" stop="true"]
     [image storage="igiari_cutin.png" layer="0" x="50" y="200" time="100" wait="false"]
     [wait time="800"]
     [freeimage layer="0" time="200"]
