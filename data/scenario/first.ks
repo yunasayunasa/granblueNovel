@@ -51,8 +51,8 @@
     [wait time=10] 
 
     ; 画面リフレッシュ
-    [bg storage="calc_space.jpg" time="0"]
-    [wait time=10] 
+   ; [bg storage="calc_space.jpg" time="0"]
+   ; [wait time=10] 
     ; プロローグの開始 (BGM再生、背景表示、メッセージウィンドウ設定など)
    ; [playbgm storage="prologue_bgm.ogg" loop="true"]
     [bg storage="calc_space.jpg" time="1000"]
