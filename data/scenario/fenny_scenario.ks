@@ -530,8 +530,10 @@
  ; ★★★ 「待った！」演出 ★★★
    ; [playse storage="matta_voice.ogg" stop="true"] 
     [image storage="matta_cutin.png" layer="0" x="50" y="200" time="100" wait="false"] 
+    [chara_show name="matta" x="150" y="150" time="10"]
     [wait time="800"] 
     [freeimage layer="0" time="200"] 
+     [chara_hide name="matta" time="0" wait="true"]
     ; ★★★ 演出ここまで ★★★
     #ルリア
     ま、まだ証言を始めたばかりです！ちゃんと話を聞いてください！[p]
@@ -540,8 +542,10 @@
 ; ★★★ 「待った！」演出 ★★★
    ; [playse storage="matta_voice.ogg" stop="true"] 
     [image storage="matta_cutin.png" layer="0" x="50" y="200" time="100" wait="false"] 
+     [chara_show name="matta" x="150" y="150" time="10"]
     [wait time="800"] 
     [freeimage layer="0" time="200"] 
+     [chara_hide name="matta" time="0" wait="true"]
     #ルリア
     フェニーちゃんが何をしてたかって？それはもちろんチョコ作りです！[p]
     [jump target="*main_interrogation_choice"]
@@ -549,8 +553,10 @@
 ; ★★★ 「待った！」演出 ★★★
    ; [playse storage="matta_voice.ogg" stop="true"] 
     [image storage="matta_cutin.png" layer="0" x="50" y="200" time="100" wait="false"] 
+     [chara_show name="matta" x="150" y="150" time="10"]
     [wait time="800"] 
     [freeimage layer="0" time="200"] 
+     [chara_hide name="matta" time="0" wait="true"]
     #ルリア
     黙々と黙ってたかって...？ええ！そうです！真剣な顔で作ってましたよ！鼻歌一つ歌ってません！[p]
     [jump target="*main_interrogation_choice"]
@@ -558,8 +564,10 @@
 ; ★★★ 「待った！」演出 ★★★
    ; [playse storage="matta_voice.ogg" stop="true"] 
     [image storage="matta_cutin.png" layer="0" x="50" y="200" time="100" wait="false"] 
+     [chara_show name="matta" x="150" y="150" time="10"]
     [wait time="800"] 
     [freeimage layer="0" time="200"] 
+     [chara_hide name="matta" time="0" wait="true"]
     #ルリア
     だから、私は犯人じゃないんです！信じて下さい！[p]
     [jump target="*main_interrogation_choice"]
@@ -606,8 +614,10 @@
  ; ★★★ 「異議あり！」演出 ★★★
     ;[playse storage="igiari_voice.ogg" stop="true"]
     [image storage="igiari_cutin.png" layer="0" x="50" y="200" time="100" wait="false"]
-    [wait time="800"]
-    [freeimage layer="0" time="200"]
+     [chara_show name="igiari" x="150" y="150" time="10"]
+    [wait time="800"] 
+    [freeimage layer="0" time="200"] 
+     [chara_hide name="igiari" time="0" wait="true"]
     ; ★★★ 演出ここまで ★★★
      #
  異議あり！その証言、[r]この証拠品と矛盾する！[l]
@@ -627,7 +637,11 @@
  ; ★★★ 「異議あり！」演出 ★★★
    ; [playse storage="igiari_voice.ogg" stop="true"]
     [image storage="igiari_cutin.png" layer="0" x="50" y="200" time="100" wait="false"]
-    [wait time="800"]
+     [chara_show name="igiari" x="150" y="150" time="10"]
+    [wait time="800"] 
+    [quake time="300" count="3"]
+    [freeimage layer="0" time="200"] 
+     [chara_hide name="igiari" time="0" wait="true"]
     [freeimage layer="0" time="200"]
     ; ★★★ 演出ここまで ★★★
     [cm]
