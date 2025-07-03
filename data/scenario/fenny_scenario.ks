@@ -240,7 +240,8 @@
      [eval exp="f.life--"]
     @layopt layer=message0 visible=true
     #ルリア
-    はわわ〜、よく分かりませんでしたぁ。[l]
+    はわわ〜、よく分かりませんでしたぁ。[l]もう一回最初から言いますね？[p]
+
  [if exp="f.life <= 0"]
         [jump target="*ruria_investigation_badend"]
 [endif]
@@ -257,7 +258,71 @@
     @layopt layer=message0 visible=true
     [quake time="300" count="3"]
     [font size="50" color="red" bold="true"]論破！[p][resetfont]
-    ; ... (成功シナリオ) ...
+   [chara_show name="fenny" x="150" y="150"]
+   # フェニー
+それは違うんだよ！！[p]
+フェニーが使ってたのはヒヒイロボウル！[r]
+ハウヘトが用意してくれた最高級品なんだよ！！[p]
+ [chara_hide name="fenny" time="200" wait="true"]
+
+   
+#ハウヘト
+ふふ...すごいのよ、アレ。[p]
+
+ [chara_show name="ruria" x="150" y="150"]
+#ルリア
+そ、そんな...[p]
+ご、ごめんなさい〜！！[r]
+つい、魔が刺してしまって...[p]
+
+#サブリナ
+お？今度はキッチンで何してるんだい？[p]
+[chara_hide name="sabrina" time="200" wait="true"]
+[chara_show name="fenny" x="150" y="150"]
+#フェニー
+サブリナ！まだこっち来ちゃダメなんだよ！[p]
+ [chara_hide name="fenny" time="200" wait="true"]
+
+
+#サブリナ
+さっきもなんかゴチャゴチャいって誤魔化されたけど、一体何してんのさ...[r]
+この香りはチョコ？[p]
+[chara_hide name="sabrina" time="200" wait="true"]
+#ハウヘト
+もういいんじゃないかしら？[r]
+みんなで作った方がきっと楽しいわよ？[p]
+
+[chara_show name="fenny" x="150" y="150"]
+#フェニー
+あうぅ...、サブリナ、実はね？[p]
+ [chara_hide name="fenny" time="200" wait="true"]
+#
+全ての話を聞いたサブリナは豪快に笑い飛ばした。[p]
+
+#サブリナ
+あっはっは！そんな可愛いことを考えてたの？[p]
+...考えることは同じだね。[r]
+みんなで一緒に作ろっか？[p]
+ルリアも！そんな隅っこで何してんのさ！こっち来なよ![p]
+[chara_hide name="sabrina" time="200" wait="true"]
+[chara_show name="fenny" x="150" y="150"]
+#フェニー
+みんなで作るんだよ！[p]
+ [chara_hide name="fenny" time="200" wait="true"]
+
+#ハウヘト
+こんな事もあろうかと、シェロカルテさんから最高級の金剛晶カカオを買い付けてるわ、[r]何がすごいってこのカカオは油分がお肌に抜群にいいのそれに...
+
+ [chara_show name="ruria" x="150" y="150"]
+#ルリア
+わぁっ...！すごいです〜！[r]
+あなたも一緒に作りましょう！[p]
+#
+君は、みんなと共にチョコを作り始めた。[r]
+誰かを想い、誰かに想われたチョコはそこにしかない格別な味がした。[p]
+
+〜フェニー、ハウヘト、サブリナエンド〜
+
     [jump storage="first.ks" target="*start"]
 
 *debate_end_processing
