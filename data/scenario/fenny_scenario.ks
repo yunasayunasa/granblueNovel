@@ -532,7 +532,7 @@
  ; ★★★ 「待った！」演出 ★★★
    ; [playse storage="matta_voice.ogg" stop="true"] 
     [image storage="matta_cutin.png" layer="0" x="50" y="200" time="100" wait="false"] 
-    [chara_show name="matta" x="150" y="150" time="10"]
+ ;   [chara_show name="matta" x="150" y="150" time="10"]
     [wait time="800"] 
     [freeimage layer="0" time="200"] 
      [chara_hide name="matta" time="0" wait="true"]
@@ -544,7 +544,7 @@
 ; ★★★ 「待った！」演出 ★★★
    ; [playse storage="matta_voice.ogg" stop="true"] 
     [image storage="matta_cutin.png" layer="0" x="50" y="200" time="100" wait="false"] 
-     [chara_show name="matta" x="150" y="150" time="10"]
+    ; [chara_show name="matta" x="150" y="150" time="10"]
     [wait time="800"] 
     [freeimage layer="0" time="200"] 
      [chara_hide name="matta" time="0" wait="true"]
@@ -555,7 +555,7 @@
 ; ★★★ 「待った！」演出 ★★★
    ; [playse storage="matta_voice.ogg" stop="true"] 
     [image storage="matta_cutin.png" layer="0" x="50" y="200" time="100" wait="false"] 
-     [chara_show name="matta" x="150" y="150" time="10"]
+   ;  [chara_show name="matta" x="150" y="150" time="10"]
     [wait time="800"] 
     [freeimage layer="0" time="200"] 
      [chara_hide name="matta" time="0" wait="true"]
@@ -566,7 +566,7 @@
 ; ★★★ 「待った！」演出 ★★★
    ; [playse storage="matta_voice.ogg" stop="true"] 
     [image storage="matta_cutin.png" layer="0" x="50" y="200" time="100" wait="false"] 
-     [chara_show name="matta" x="150" y="150" time="10"]
+   ;  [chara_show name="matta" x="150" y="150" time="10"]
     [wait time="800"] 
     [freeimage layer="0" time="200"] 
      [chara_hide name="matta" time="0" wait="true"]
