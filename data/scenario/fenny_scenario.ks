@@ -203,7 +203,7 @@
     
     ; ★★★ ptextの更新とアニメーションを連続実行 ★★★
     ; 最初にテキスト内容を更新
-    [ptext name="testimony_text" text="&f.current_text" overwrite="true"layer="0" x="50" y="300" width="350" height="150" size="28" color="yellow" bold="true" border="line" border_color="red" border_size="2"]
+    [ptext name="testimony_text" text="&f.current_text" overwrite="true"layer="0" x="50" y="300" width="350" height="150" size="30" color="yellow" bold="true" border="line" border_color="red" border_size="2"]
     
    
     [wait time="2000"]
@@ -256,8 +256,7 @@
     [free name="kotodama_hera"layer="0"]
     [free name="kotodama_hihiiro"layer="0"]
     @layopt layer=message0 visible=true
-    [quake time="300" count="3"]
-    [font size="50" color="red" bold="true"]論破！[p][resetfont]
+   
    [chara_show name="fenny" x="150" y="150"]
    # フェニー
 それは違うんだよ！！[p]
@@ -567,6 +566,14 @@
     [chara_hide name="ruria"]
     ; [playbgm storage="success_bgm.ogg"]
     [chara_show name="ruria" x="150" y="100"]
+    #
+    異議あり！[r]
+    その時フェニーは楽しそうに鼻歌を歌っていた！[p]
+    この証言は…！[p]
+     [quake time="300" count="3"]
+    [font size="50" color="red" bold="true"]
+    矛盾している！
+    [resetfont]
     #ルリア
     え...！？フェニーちゃんは[r]
     鼻歌を歌っていた...？[p]
