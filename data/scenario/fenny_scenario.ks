@@ -261,6 +261,8 @@
     [jump target="*debate_loop"]
 
 *debate_success
+[stopbgm]
+ [image storage="ronpa_cutin.png" layer="0" x="50" y="200" time="100" wait="false"]
     [cm]
     [clearfix]
     [free name="testimony_text" layer="0"]
@@ -655,7 +657,7 @@
     この証言は…！[p]
      [quake time="300" count="3"]
     [font size="50" color="red" bold="true"]
-    矛盾している！
+    矛盾している！[p]
     [resetfont]
     #ルリア
     え...！？フェニーちゃんは[r]
