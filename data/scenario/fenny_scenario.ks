@@ -306,13 +306,13 @@
 みんなで一緒に作ろっか？[p]
 ルリアも！そんな隅っこで何してんのさ！こっち来なよ![p]
 [chara_hide name="sabrina" time="200" wait="true"]
-[chara_show name="fenny" x="150" y="150"]
+ [chara_show name="fenny" face="smile" x="150" y="150"]
 #フェニー
 みんなで作るんだよ！[p]
  [chara_hide name="fenny" time="200" wait="true"]
  [chara_show name="hauhet" x="150" y="150"]
 #ハウヘト
-こんな事もあろうかと、シェロカルテさんから最高級の金剛晶カカオを買い付けてるわ、[r]何がすごいってこのカカオは油分がお肌に抜群にいいのそれに...
+こんな事もあろうかと、シェロカルテさんから最高級の金剛晶カカオを買い付けてるわ、[r]何がすごいってこのカカオは油分がお肌に抜群にいいのそれに...[p]
 [chara_hide name="hauhet" time="200" wait="true"]
  [chara_show name="ruria" x="150" y="150"]
 #ルリア
