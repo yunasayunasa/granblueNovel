@@ -144,7 +144,7 @@
     どうやら証言を聞く必要があるようだ。[p]
     君はルリアの証言を聞くことにした。[p]
 [font color="yellow"]
-        [playbgm storage="ronpa_bgm_mp3" loop="true"] 
+        [playbgm storage="ronpa_bgm.mp3" loop="true"] 
     これよりアンストッパブル議論が始まります。[p]
     リアルタイムで切り替わるルリアの証言には矛盾が含まれています。[p]
     これまでのシナリオは覚えていますね？[p]
@@ -270,7 +270,7 @@
     [free name="kotodama_hihiiro"layer="0"]
      ; ★★★ 「論破！」演出 ★★★
     [stopbgm time="500"] 
-    [playse storage="ronpa_mp3" stop="true"] 
+    [playse storage="ronpa.mp3" stop="true"] 
     [quake time="500" count="5" hmax="20" vmax="20" wait="false"] 
     [chara_show name="ronpa" x="150" y="150" time="10"]
     [image storage="ronpa_cutin.png" layer="1" x="50" y="200" time="100" wait="false"　zindex="99999"]
