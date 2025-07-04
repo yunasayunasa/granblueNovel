@@ -537,6 +537,7 @@
  ;   [chara_show name="matta" x="150" y="150" time="10"]
     [wait time="800"] 
     [freeimage layer="0" time="200"] 
+[chara_show name="ruria"time="0" x="150" y="150"]
      [chara_hide name="matta" time="0" wait="true"]
     ; ★★★ 演出ここまで ★★★
     #ルリア
@@ -549,6 +550,7 @@
     ; [chara_show name="matta" x="150" y="150" time="10"]
     [wait time="800"] 
     [freeimage layer="0" time="200"] 
+[chara_show name="ruria"time="0" x="150" y="150"]
      [chara_hide name="matta" time="0" wait="true"]
     #ルリア
     フェニーちゃんが何をしてたかって？それはもちろんチョコ作りです！[p]
@@ -560,6 +562,7 @@
    ;  [chara_show name="matta" x="150" y="150" time="10"]
     [wait time="800"] 
     [freeimage layer="0" time="200"] 
+[chara_show name="ruria"time="0" x="150" y="150"]
      [chara_hide name="matta" time="0" wait="true"]
     #ルリア
     黙々と黙ってたかって...？ええ！そうです！真剣な顔で作ってましたよ！鼻歌一つ歌ってません！[p]
@@ -571,6 +574,7 @@
    ;  [chara_show name="matta" x="150" y="150" time="10"]
     [wait time="800"] 
     [freeimage layer="0" time="200"] 
+[chara_show name="ruria"time="0" x="150" y="150"]
      [chara_hide name="matta" time="0" wait="true"]
     #ルリア
     だから、私は犯人じゃないんです！信じて下さい！[p]
@@ -621,10 +625,11 @@
    [playse storage="igiari.mp3" stop="false"] 
     [wait time="800"] 
     [freeimage layer="0" time="200"] 
+[chara_show name="ruria"time="0" x="150" y="150"]
      [chara_hide name="igiari" time="0" wait="true"]
     ; ★★★ 演出ここまで ★★★
      #
- 異議あり！その証言、[r]この証拠品と矛盾する！[l]
+ 異議あり！その証言、[r]この証拠品と矛盾する！[l][p]
     [eval exp="f.life--"]
     [ptext name="life_gauge" layer="fix" x="350" y="20" size="24" color="white" text="体力："&f.life]
     [if exp="f.life <= 0"]
@@ -645,6 +650,7 @@
     [wait time="800"] 
     [quake time="300" count="3"]
     [freeimage layer="0" time="200"] 
+[chara_show name="ruria"time="0" x="150" y="150"]
      [chara_hide name="igiari" time="0" wait="true"]
     [freeimage layer="0" time="200"]
     ; ★★★ 演出ここまで ★★★
