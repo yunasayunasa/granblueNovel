@@ -264,7 +264,7 @@
 *debate_success
 [stopbgm]
 [playse storage="ronpa.mp3" stop="true"] 
- [image storage="ronpa_cutin.png" layer="0" x="10" y="100" time="10" wait="false"]
+ [image storage="ronpa_cutin.png" layer="0" x="0" y="100" time="10" wait="false"]
     [cm]
     [clearfix]
     [free name="testimony_text" layer="0"]
@@ -618,7 +618,7 @@
  ; ★★★ 「異議あり！」演出 ★★★
      [playse storage="igiari.mp3" stop="true"]
     [image storage="igiari_cutin.png" layer="0" x="10" y="100" time="10" wait="false"]
-     
+     [image storage="ronpa_cutin.png" layer="0" x="0" y="100" time="10" wait="false"]
     [wait time="800"] 
     [freeimage layer="0" time="200"] 
      [chara_hide name="igiari" time="0" wait="true"]
