@@ -262,7 +262,8 @@
 
 *debate_success
 [stopbgm]
- [image storage="ronpa_cutin.png" layer="0" x="50" y="200" time="100" wait="false"]
+[playse storage="ronpa.mp3" stop="true"] 
+ [image storage="ronpa_cutin.png" layer="0" x="10" y="100" time="10" wait="false"]
     [cm]
     [clearfix]
     [free name="testimony_text" layer="0"]
@@ -270,16 +271,16 @@
     [free name="kotodama_hihiiro"layer="0"]
      ; ★★★ 「論破！」演出 ★★★
     [stopbgm time="500"] 
-    [playse storage="ronpa.mp3" stop="true"] 
+    
     [quake time="500" count="5" hmax="20" vmax="20" wait="false"] 
-    [chara_show name="ronpa" x="150" y="150" time="10"]
-    [image storage="ronpa_cutin.png" layer="1" x="50" y="200" time="100" wait="false"　zindex="99999"]
+    
+   
     [wait time="1500"] 
-    [freeimage layer="1" time="300"]
+    [freeimage layer="0" time="300"]
      [chara_hide name="ronpa" time="0" wait="true"]
     ; ★★★ 演出ここまで ★★★
 
-    ; [playbgm storage="success_bgm.ogg"] ; 逆転BGMを開始
+    ; [playbgm storage="success_bgm.ogg"] 
     @layopt layer=message0 visible=true
     [chara_hide name="ruria" time="200" wait="true"]
    [chara_show name="fenny" x="150" y="150"]
@@ -638,8 +639,8 @@
 [stopbgm]
  ; ★★★ 「異議あり！」演出 ★★★
    ; [playse storage="igiari_voice.ogg" stop="true"]
-    [image storage="igiari_cutin.png" layer="0" x="50" y="200" time="100" wait="false"]
-     [chara_show name="igiari" x="150" y="150" time="10"]
+    [image storage="igiari_cutin.png" layer="0" x="10" y="100" time="10" wait="false"]
+    
     [wait time="800"] 
     [quake time="300" count="3"]
     [freeimage layer="0" time="200"] 
