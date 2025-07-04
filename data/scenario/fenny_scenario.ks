@@ -532,7 +532,7 @@
 
 *shake_testimony_1
  ; ★★★ 「待った！」演出 ★★★
-    [playse storage="matta.mp3" stop="true"]
+    [playse storage="matta.mp3" stop="false"]
     [image storage="matta_cutin.png" layer="0" x="10" y="200" time="100" wait="false"] 
  ;   [chara_show name="matta" x="150" y="150" time="10"]
     [wait time="800"] 
@@ -545,7 +545,7 @@
     [jump target="*main_interrogation_choice"]
 *shake_testimony_2
 ; ★★★ 「待った！」演出 ★★★
-    [playse storage="matta.mp3" stop="true"]
+    [playse storage="matta.mp3" stop="false"]
     [image storage="matta_cutin.png" layer="0" x="10" y="200" time="100" wait="false"] 
     ; [chara_show name="matta" x="150" y="150" time="10"]
     [wait time="800"] 
@@ -557,7 +557,7 @@
     [jump target="*main_interrogation_choice"]
 *shake_testimony_3
 ; ★★★ 「待った！」演出 ★★★
-   [playse storage="matta.mp3" stop="true"]
+   [playse storage="matta.mp3" stop="false"]
     [image storage="matta_cutin.png" layer="0" x="10" y="200" time="100" wait="false"] 
    ;  [chara_show name="matta" x="150" y="150" time="10"]
     [wait time="800"] 
@@ -569,7 +569,7 @@
     [jump target="*main_interrogation_choice"]
 *shake_testimony_4
 ; ★★★ 「待った！」演出 ★★★
-    [playse storage="matta.mp3" stop="true"]
+    [playse storage="matta.mp3" stop="false"]
     [image storage="matta_cutin.png" layer="0" x="10" y="200" time="100" wait="false"] 
    ;  [chara_show name="matta" x="150" y="150" time="10"]
     [wait time="800"] 
@@ -644,7 +644,7 @@
 *ruria_breakdown_success
 [stopbgm]
  ; ★★★ 「異議あり！」演出 ★★★
-    [playse storage="igiari.mp3" stop="true"]
+    [playse storage="igiari.mp3" stop="false"]
     [image storage="igiari_cutin.png" layer="0" x="10" y="100" time="10" wait="false"]
     
     [wait time="800"] 
