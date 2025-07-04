@@ -39,7 +39,7 @@
 ; 表示位置やセリフで区別するか、あるいは thug1, thug2 のように別IDで定義しても良い
 ; 背景をアウギュステの街に変更 (例: data/bgimage/auguste_town.jpg を用意)
 [bg storage="auguste_town.jpg" time="1000"]
-
+[playbgm storage="cafe.mp3" loop="true"]
 ; このルートでは基本的に主人公一人の視点なので、特定のキャラクターを表示し続ける必要はない
 #
 君はアウギュステに降り立った。[p]
@@ -169,7 +169,7 @@
     [jump storage="first.ks" target="*start"]
 
 *sea_creatures_appear_hard 
-    ; [playse storage="select_se.wav"]
+    [playbgm storage="battle.mp3" loop="true"]
     ; 背景は海のまま
     ; ここではまだキャラクターは表示しない（地の文で進行）
 
@@ -266,7 +266,7 @@
 *pseudo_prologue_start
     [cm]
     [clearfix]
-    [playbgm storage="prologue_bgm.ogg" loop="true"] 
+    [playbgm storage="enzan.mp3" loop="true"] 
     [bg storage="calc_space.jpg" time="1000"]
 
     ; メッセージウィンドウ等も first.ks と同様に設定
@@ -360,6 +360,7 @@
 ; ----- 本当のエンディングルートの戦闘開始 -----
 *true_route_sea_battle_start
    [bg storage="auguste_town.jpg" time="1000"]
+   [playbgm storage="battle.mp3" loop="true"]
     ; ナルメアとシエテは表示されたまま
 #
     海に着いた君たちの前に現れたのは、[r]

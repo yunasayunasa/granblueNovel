@@ -54,7 +54,7 @@
    ; [bg storage="calc_space.jpg" time="0"]
    ; [wait time=10] 
     ; プロローグの開始 (BGM再生、背景表示、メッセージウィンドウ設定など)
-   ; [playbgm storage="prologue_bgm.ogg" loop="true"]
+   [playbgm storage="enzan.mp3" loop="true"]
     [bg storage="calc_space.jpg" time="1000"]
     [wait time=10] 
     [position layer="message0" left="25" top="600" width="400" height="180" page=fore visible=true]

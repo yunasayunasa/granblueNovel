@@ -4,7 +4,7 @@
 
 ; 背景をカフェに変更
 [bg storage="cafe_bg.jpg" time="1000"]
-
+[playbgm storage="cafe.mp3" loop="true"]
 ; ナルメアを表示 (前のシナリオから引き継いでいるか、ここで表示)
 [chara_show name="narumia" x="150" y="150"] 
 

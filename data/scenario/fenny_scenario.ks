@@ -3,6 +3,7 @@
 *port_breeze_arrival
     ; フェニーは表示されている状態
     [bg storage="port_breeze_bg.jpg" time="1000"] 
+    [playbgm storage="cafe.mp3" loop="true"]
     君は、フェニーと共にとりま突発で[r]
     ポートブリーズに向かうことにした。[p]
 
@@ -46,7 +47,7 @@
     #サブリナ
     なーにをこそこそと相談してるんだい？[r]
     聞かせなさい！[p]
-
+#
     このままでは計画がバレてしまう...[l]
     君は...[l]
 
@@ -531,8 +532,8 @@
 
 *shake_testimony_1
  ; ★★★ 「待った！」演出 ★★★
-   ; [playse storage="matta_voice.ogg" stop="true"] 
-    [image storage="matta_cutin.png" layer="0" x="50" y="200" time="100" wait="false"] 
+    [playse storage="matta.mp3" stop="true"]
+    [image storage="matta_cutin.png" layer="0" x="10" y="200" time="100" wait="false"] 
  ;   [chara_show name="matta" x="150" y="150" time="10"]
     [wait time="800"] 
     [freeimage layer="0" time="200"] 
@@ -543,8 +544,8 @@
     [jump target="*main_interrogation_choice"]
 *shake_testimony_2
 ; ★★★ 「待った！」演出 ★★★
-   ; [playse storage="matta_voice.ogg" stop="true"] 
-    [image storage="matta_cutin.png" layer="0" x="50" y="200" time="100" wait="false"] 
+    [playse storage="matta.mp3" stop="true"]
+    [image storage="matta_cutin.png" layer="0" x="10" y="200" time="100" wait="false"] 
     ; [chara_show name="matta" x="150" y="150" time="10"]
     [wait time="800"] 
     [freeimage layer="0" time="200"] 
@@ -554,8 +555,8 @@
     [jump target="*main_interrogation_choice"]
 *shake_testimony_3
 ; ★★★ 「待った！」演出 ★★★
-   ; [playse storage="matta_voice.ogg" stop="true"] 
-    [image storage="matta_cutin.png" layer="0" x="50" y="200" time="100" wait="false"] 
+   [playse storage="matta.mp3" stop="true"]
+    [image storage="matta_cutin.png" layer="0" x="10" y="200" time="100" wait="false"] 
    ;  [chara_show name="matta" x="150" y="150" time="10"]
     [wait time="800"] 
     [freeimage layer="0" time="200"] 
@@ -565,8 +566,8 @@
     [jump target="*main_interrogation_choice"]
 *shake_testimony_4
 ; ★★★ 「待った！」演出 ★★★
-   ; [playse storage="matta_voice.ogg" stop="true"] 
-    [image storage="matta_cutin.png" layer="0" x="50" y="200" time="100" wait="false"] 
+    [playse storage="matta.mp3" stop="true"]
+    [image storage="matta_cutin.png" layer="0" x="10" y="200" time="100" wait="false"] 
    ;  [chara_show name="matta" x="150" y="150" time="10"]
     [wait time="800"] 
     [freeimage layer="0" time="200"] 
@@ -615,9 +616,9 @@
 
 *present_fail
  ; ★★★ 「異議あり！」演出 ★★★
-    ;[playse storage="igiari_voice.ogg" stop="true"]
-    [image storage="igiari_cutin.png" layer="0" x="50" y="200" time="100" wait="false"]
-     [chara_show name="igiari" x="150" y="150" time="10"]
+     [playse storage="igiari.mp3" stop="true"]
+    [image storage="igiari_cutin.png" layer="0" x="10" y="100" time="10" wait="false"]
+     
     [wait time="800"] 
     [freeimage layer="0" time="200"] 
      [chara_hide name="igiari" time="0" wait="true"]
@@ -638,7 +639,7 @@
 *ruria_breakdown_success
 [stopbgm]
  ; ★★★ 「異議あり！」演出 ★★★
-   ; [playse storage="igiari_voice.ogg" stop="true"]
+    [playse storage="igiari.mp3" stop="true"]
     [image storage="igiari_cutin.png" layer="0" x="10" y="100" time="10" wait="false"]
     
     [wait time="800"] 
