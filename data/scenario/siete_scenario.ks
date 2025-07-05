@@ -61,7 +61,7 @@
     ; wait: 揺れが終わるまで待つか (true/false)
 #三羽烏
     ; ★★★ 「ソイヤアアアアアアアアアッッッッ！！！！！」の文字を太く大きく 
-    [playse storage="smash.mp3" stop="false"] ★★★
+    [playse storage="smash.mp3" stop="false"]
 
     [font size="40" bold="true" color="red"]
     「「「ソイヤアアアアアアアアアッッッッ！！！！！」」」[p]
@@ -433,7 +433,7 @@
     そして、特異点たる存在への、[r]
     せめてもの慈悲であった。[p]
     ～ルオーEND～[l]
-     [chara_show name="luoh" x="150" y="150"] 
+     
      [chara_hide name="luoh"]
     [jump storage="first.ks" target="*start"]
 
