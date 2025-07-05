@@ -66,7 +66,7 @@
   ; ★★★ 演出完了後、クリック入力を再度有効化 ★★★
     [jump target="*start2"]
  *start2
- [popopo type="triangle"]
+ [popopo type="triangle" volume="70"]
 #
 君は、見たこともない空間にいる。[r]幻想的な一面の花畑、[r]とても現実とは思えない。[p]
    [chara_new name="roger" storage="roger_normal.png" jname="ロジャー"]
