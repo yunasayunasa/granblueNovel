@@ -60,7 +60,9 @@
     ; vmax: 縦揺れの最大幅 (ピクセル)
     ; wait: 揺れが終わるまで待つか (true/false)
 #三羽烏
-    ; ★★★ 「ソイヤアアアアアアアアアッッッッ！！！！！」の文字を太く大きく ★★★
+    ; ★★★ 「ソイヤアアアアアアアアアッッッッ！！！！！」の文字を太く大きく 
+    [playse storage="smash.mp3" stop="false"] ★★★
+
     [font size="40" bold="true" color="red"]
     「「「ソイヤアアアアアアアアアッッッッ！！！！！」」」[p]
     [resetfont] 
@@ -102,6 +104,7 @@
     [s]
 
 *spar_block_sword_badend 
+ [stopbgm] 
     ; [playse storage="select_se.wav"]
     [chara_hide name="siete" time="200" wait="true"] 
     君は、暗闇から目を覚ました。[r]
@@ -185,7 +188,7 @@
 ; --- 発動 ---
 #シエテ
 「グラン•シャリオ」[p]
-
+ [playse storage="smash.mp3" stop="false"]
 ; [playse storage="granchariot_slash_se.wav"]
 [quake time="800" count="10" hmax="30" vmax="30" wait="false"]
 
@@ -209,7 +212,7 @@
     #シエテ
     グランシャリ...[p]
   [chara_mod name="siete" face="normal" time="300"] 
-    
+    [playbgm storage="ending_bgm.mp3" loop="true"]
     え？俺に？[r]
     くれるのかい？ありがとう、団長ちゃん！[p]
     とても嬉しいよ！[p]
@@ -373,7 +376,7 @@
     ; ウィルナスから受け取った (ウィルナスEND)
      [chara_show name="wilnas" x="150" y="150"] 
     君はウィルナスから受け取った[p]
-
+[playbgm storage="ending_bgm.mp3" loop="true"]
     #ウィルナス
     喝采！喝采！[r]
     さぁくらいやがるといい！[p]
@@ -406,7 +409,7 @@
     ; ルオーから受け取った (ルオーEND)
      [chara_show name="luoh" x="150" y="150"] 
     君はルオーから受け取った。[p]
-
+[playbgm storage="ending_bgm.mp3" loop="true"]
     #ルオー
     先に言っておくがね、[r]
     空の民の味覚は六竜である私にはわからない。[p]
@@ -437,6 +440,7 @@
 
 *receive_from_wamdus_end
     ; ワムデュスから受け取った (ワムデュスEND)
+    [playbgm storage="ending_bgm.mp3" loop="true"]
      [chara_show name="wamdus" x="150" y="150"] 
     君はワムデュスから受け取った。[p]
     同時にワムデュスの腹部から[r]
@@ -473,7 +477,9 @@
 
 
 *receive_from_galleon_end
-    ; ガレヲンから受け取った (ガレヲンEND)
+    ; ガレヲンから受け取った (ガレヲン
+    [playbgm storage="ending_bgm.mp3" loop="true"]
+
      [chara_show name="galleon" x="150" y="150"] 
     君はガレヲンから受け取った。[p]
 

@@ -53,7 +53,7 @@
 [s]
 
 *order_hot_chocolate
- 
+ [playbgm storage="ending_bgm.mp3" loop="true"]
     君はホットチョコレートを注文した。[p]
 
     #ナルメア
@@ -129,7 +129,7 @@
    
 
 *answer_delicious
-  
+  [playbgm storage="ending_bgm.mp3" loop="true"]
     君は美味しいと答えた。[p]
 
     #サンダルフォン
@@ -205,7 +205,7 @@
 *receive_diantha_or_anthuria 
     [chara_hide name="nier" time="100" wait="true"] 
     君はチョコを受け取った。[p]
-
+ [stopbgm] 
     ; ニーアのセリフ (ヤンデレ顔で再登場)
     [chara_show name="nier" face="give_choco" x="150" y="150" time="500" wait="true"]
     #ニーア
@@ -270,7 +270,7 @@
 
 *receive_nier_good_end 
     ; ニーアは give_choco の表情で表示されているはず
-   
+   [playbgm storage="ending_bgm.mp3" loop="true"]
     君はニーアからチョコを受け取った。[p]
 
     #ニーア

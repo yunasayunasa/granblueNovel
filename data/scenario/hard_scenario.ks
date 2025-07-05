@@ -194,6 +194,7 @@
     [s]
 
 *failed_battle_badend 
+ [stopbgm] 
     ; [playse storage="select_se.wav"]
     ; 背景は海のままか、自室の背景に変更するか
     [bg storage="my_room_bg.jpg" time="500"] 
@@ -219,7 +220,8 @@
     ; [playse storage="select_se.wav"]
     ; 背景は海のまま
 [chara_show name="kaki" x="150" y="150" time="500" wait="true"]
- [quake time="500" count="3" hmax="15" vmax="15" wait="false"]
+ [quake time="500" count="3" hmax="15" vmax="15" wait="false"] 
+  [playse storage="smash.mp3" stop="false"]
     カキフライ「━━━━！？」[p] 
     [chara_hide name="kaki" time="300" wait="true"]
     まずは1つ、次は━[p]
@@ -256,7 +258,7 @@
     更に増えるトンチキ生物達。[p]
     無理だ。1人では━[p]
     君は押し迫る海の生物達の中に消えていった...。[p]
-
+ [stopbgm] 
     ; ★★★ ここで「再演算する」か「タイトルに戻る」の選択肢 ★★★
     ; 台本ではリンクになっているが、ゲームの選択肢として実装
     [glink  text="再演算する" target="*pseudo_prologue_start"] 
@@ -308,7 +310,7 @@
 [chara_hide name="roger" time="500" wait="true"]
 
 ; ガチャ演出 (今は省略、SEや簡単なアニメーションを入れることも可能)
-[clearname]
+
 #
 1人の仲間が目の前に現れる。[p]
 
@@ -392,6 +394,7 @@
     ; [playse storage="select_se.wav"]
   [chara_show name="kaki" x="150" y="150" time="500" wait="true"]
      [quake time="500" count="3" hmax="15" vmax="15" wait="false"]
+      [playse storage="smash.mp3" stop="false"]
     カキフライ「━━━━！？」[p]
 [chara_hide name="kaki" time="300" wait="true"]
 [chara_show name="siete" x="250" y="150" time="500" wait="true"]
@@ -472,6 +475,7 @@ if (tf.cutin_index < tf.cutin_characters.length) {
 ; ループ終了後、ルリア表示
 [chara_show name="ruria" x="150" y="150" time="200" wait="true"]
 [wait time="800"]
+ [playse storage="smash.mp3" stop="false"]
     「1人じゃない！」[p]
 [chara_hide name="ruria" time="200" wait="true"]
     ; ここで仲間たちの攻撃演出 (SEや短いエフェクトなど)
@@ -495,6 +499,7 @@ if (tf.cutin_index < tf.cutin_characters.length) {
     [chara_show name="sandalphon" x="50" y="150" time="500" wait="true"]
     #サンダルフォン
     「アイン•ソフ•オウル！」[p]
+     [playse storage="smash.mp3" stop="false"]
      [chara_hide name="sandalphon" time="200" wait="true"]
 #
     殆どの海の生物達が彼らの前に倒れた。[p]
@@ -539,7 +544,7 @@ if (tf.cutin_index < tf.cutin_characters.length) {
     ; [playse storage="select_se.wav"]
     [cm]
     [clearfix]
-    ; [playbgm storage="happy_ending_bgm.ogg"] 
+    [playbgm storage="ending_bgm.mp3" loop="true"]
 
     ; ルリア登場
     [chara_show name="ruria" x="150" y="150" time="1000" wait="true"]

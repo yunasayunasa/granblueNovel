@@ -77,7 +77,7 @@
     サブリナ！[r]
     実はその...団長さんとデート中なんだよ！[p]
     [chara_hide name="fenny" time="200" wait="true"]
-
+ [stopbgm] 
     [chara_show name="sabrina" x="150" y="150"]
     #サブリナ
     は！？[p]
@@ -286,6 +286,7 @@
     [chara_hide name="ruria" time="200" wait="true"]
    [chara_show name="fenny" x="150" y="150"]
    # フェニー
+    [playse storage="smash.mp3" stop="false"]
 それは違うんだよ！！[p]
 フェニーが使ってたのはヒヒイロボウル！[r]
 ハウヘトが用意してくれた最高級品なんだよ！！[p]
@@ -302,6 +303,7 @@
 つい、魔が刺してしまって...[p]
  [chara_hide name="ruria" time="200" wait="true"]
   [chara_show name="sabrina" x="150" y="150"]
+  [playbgm storage="ending_bgm.mp3" loop="true"]
 #サブリナ
 お？今度はキッチンで何してるんだい？[p]
 [chara_hide name="sabrina" time="200" wait="true"]
@@ -350,7 +352,7 @@
 君は、みんなと共にチョコを作り始めた。[r]
 誰かを想い、誰かに想われたチョコはそこにしかない格別な味がした。[p]
 
-〜フェニー、ハウヘト、サブリナエンド〜[l]
+〜ジュウダンロンパエンド〜[l]
 
     [jump storage="first.ks" target="*start"]
 
@@ -464,7 +466,7 @@
     このままでは埒が開かない。[p]
     君はルリアの証言を聞くことにした。[l][p]
 [font color="yellow"]
-     
+        [playbgm storage="gyakuten_bgm.mp3" loop="true"]
     これより逆転追及裁判が始まります。[p]
     ルリアの証言には矛盾が含まれています。[p]
     まずはルリアの証言を"ゆさぶり"ましょう。[p]
@@ -646,7 +648,7 @@
  ; ★★★ 「異議あり！」演出 ★★★
     [playse storage="igiari.mp3" stop="false"]
     [image storage="igiari_cutin.png" layer="0" x="10" y="100" time="10" wait="false"]
-    
+     [stopbgm] 
     [wait time="800"] 
     [quake time="300" count="3"]
     [freeimage layer="0" time="200"] 
@@ -660,9 +662,11 @@
     ; [playbgm storage="success_bgm.ogg"]
     [chara_show name="ruria" x="150" y="100"]
     #
+    [playse storage="smash.mp3" stop="false"]
     異議あり！[r]
     その時フェニーは楽しそうに鼻歌を歌っていた！[p]
     この証言は…！[p]
+     [playse storage="smash.mp3" stop="false"]
      [quake time="300" count="3"]
     [font size="50" color="red" bold="true"]
     矛盾している！[p]
@@ -689,6 +693,7 @@
 
     [chara_hide name="ruria" time="200" wait="true"]
     [chara_show name="fenny" x="150" y="150"]
+       [playbgm storage="ending_bgm.mp3" loop="true"]
     #フェニー
     大丈夫なんだよ！[r]
     こんなこともあろうかと、[r]
@@ -711,7 +716,7 @@
 
     #
     無事、チョコを手に入れることができた。[p]
-    ～フェニーエンド～[l]
+    ～逆転追求裁判エンド～[l]
     [jump storage="first.ks" target="*start"]
 
 *ruria_investigation_badend
@@ -723,7 +728,7 @@
     @layopt layer=message0 visible=true
    
     ; [playbgm storage="bad_end_bgm.ogg"]
-
+ [stopbgm] 
     #ルリア
     ほら！何度やっても同じです！[r]
     ね？私は食べていないでしょう？[p]
