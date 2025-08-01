@@ -15,25 +15,7 @@
     @layopt layer=message0 visible=false
      ; メッセージウィンドウを非表示
     [stopbgm] 
-    ; 他のシーンから戻ってきた時のためにBGMを停止
 
-    ; ★★★ タイトル画面の表示 ★★★
-
-    ; BGM再生
-   ; [playbgm storage="title_theme.ogg" loop="true"]
-
-    ; 背景表示
-    [bg storage="title_bg.jpg" time="1000"]
-
-   
-    ; 「はじめから」ボタン
-    [glink name="start_button" text="はじめから"  x="60" y="500" width="200" size="28" color="blue" target="*prologue_start"]
-
-    ; 「つづきから」ボタン
-    [glink name="load_button" text="つづきから" x="60" y="570" width="200" size="28" color="green" target="*show_load_screen"]
-
-    [s] 
-    ; ボタン入力を待つ
 
 *prologue_start
   ; ★★★ クリック入力を一時的に無効化 ★★★
